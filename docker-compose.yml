@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: marketplace_mcp
+      POSTGRES_USER: mcp
+      POSTGRES_PASSWORD: mcp_dev_password
+    ports: ["5432:5432"]
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./migrations:/docker-entrypoint-initdb.d
+  mcp:
+    build: .
+    command: ["node", "dist/index.js", "--http"]
+    environment:
+      DATABASE_URL: postgres://mcp:mcp_dev_password@postgres:5432/marketplace_mcp
+      MASTER_KEY: ${MASTER_KEY:?run 'openssl rand -hex 32' and put into .env}
+      MCP_AUTH_TOKEN: ${MCP_AUTH_TOKEN:?run 'openssl rand -hex 32' and put into .env}
+      MCP_ALLOWED_ORIGINS: ${MCP_ALLOWED_ORIGINS:-}
+      PORT: "3000"
+    # Port is published on loopback only: expose it via a TLS reverse proxy.
+    ports: ["127.0.0.1:3000:3000"]
+    depends_on: [postgres]
+volumes:
+  pgdata:
