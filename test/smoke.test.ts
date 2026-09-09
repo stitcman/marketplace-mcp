@@ -39,6 +39,20 @@ for (const expected of ["ozon_products_list", "ozon_stocks_get", "ozon_prices_ge
                         "ym_campaigns_list", "ym_products_list", "ym_stocks_get", "ym_prices_get", "ym_orders_list"]) {
   assert(names.includes(expected), `tool ${expected} present`);
 }
+for (const prefix of ["ozon", "wb", "ym"]) for (const suffix of ["read_search", "read_describe", "read_capabilities", "read_execute", "read_file"]) {
+  assert(names.includes(`${prefix}_${suffix}`), `tool ${prefix}_${suffix} present`);
+}
+assert(names.length === 32, `compact catalog has 32 tools (17 existing + 15 extended), got ${names.length}`);
+
+const searchResult: any = await client.callTool({ name: "ozon_read_search", arguments: { query: "seller", limit: 3 } });
+const searchPayload = JSON.parse(searchResult.content[0].text);
+assert(searchPayload.success && searchPayload.data.items.length > 0 && searchPayload.data.items.length <= 3, "ozon_read_search returns compact approved metadata");
+const describedId = searchPayload.data.items[0].method_id;
+const describeResult: any = await client.callTool({ name: "ozon_read_describe", arguments: { method_id: describedId } });
+assert(JSON.parse(describeResult.content[0].text).data.input_schema, "ozon_read_describe returns input schema");
+const unknownResult: any = await client.callTool({ name: "ozon_read_execute", arguments: { connection_id: "00000000-0000-4000-8000-000000000011", method_id: "ProductAPI_ImportProductsV3", params: {} } });
+const unknownPayload = JSON.parse(unknownResult.content[0].text);
+assert(unknownPayload.error?.code === "LOCAL_DENY", "write/unknown method is locally denied");
 
 // 1c. every data tool declares an outputSchema, so the SDK validates responses itself.
 // ym_campaigns_list is excluded: it returns account identifiers, not a normalized entity.

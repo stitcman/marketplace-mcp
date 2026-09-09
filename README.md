@@ -1,5 +1,13 @@
 # marketplace-mcp
 
+## Extended read-only discovery and execution
+
+Version 0.4 keeps the promoted marketplace tools and adds five compact tools per marketplace: `*_read_search`, `*_read_describe`, `*_read_capabilities`, `*_read_execute`, and `*_read_file`. The complete operation inventory is stored under `inventory/`; only reviewed `READ` and `SEMANTIC_READ_JOB` entries are copied into the version-controlled manifests under `policies/`.
+
+Every generic execution resolves the exact connection and marketplace, requires an internal `.read` permission, finds the method in the explicit allowlist, validates request shape and size, applies an account/endpoint-group rate limit, and only then calls a pinned official host. Unknown and classified write/destructive methods fail locally without an HTTP request. Sensitive responses are redacted by default. On-demand files are cached for at most 72 hours with MIME, size, quota, SHA-256, and free-disk checks; binary/base64 content is never returned to MCP clients.
+
+Policy regeneration uses separately pinned reference checkouts via `MARKETPLACE_MCP_REFERENCE_ROOT`. New upstream methods never enter an existing allowlist automatically. Compare generated inventories with `npm run policies:diff -- <old-inventory-dir> <new-inventory-dir>` and manually review every `+`, `~`, and especially `!` safety change before changing the allowlist. Initial creation requires the explicit `--approve-reviewed` flag after semantic review.
+
 An MCP server that lets AI agents work with **Wildberries / Ozon / Yandex Market** seller accounts: typed read tools, multi-account support, data normalization, rate limiting, auditing and encrypted credentials. Not a generic proxy — tools are namespaced per marketplace (`wb_*`, `ozon_*`, `ym_*`), each checks connection permissions and returns one normalized shape.
 
 > **Status: v0.3 — READ surface across all three marketplaces.** Core, the WB / Ozon / Yandex Market adapters, 17 tools. Not implemented yet: WRITE with preview/confirmation, history collectors, advertising and finance. See the roadmap.

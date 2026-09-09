@@ -1,6 +1,7 @@
 /** Unified error model (spec §31). Every error the AI sees goes through MpError. */
 
 export type ErrorCode =
+  | "LOCAL_DENY"
   | "AUTH_FAILED"
   | "PERMISSION_DENIED"
   | "MARKETPLACE_PERMISSION_DENIED"

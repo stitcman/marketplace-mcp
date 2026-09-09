@@ -1,6 +1,6 @@
 {
   "name": "marketplace-mcp",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "MCP server for Wildberries / Ozon / Yandex Market seller cabinets (read-only, multi-account)",
   "type": "module",
   "main": "dist/index.js",
@@ -9,7 +9,10 @@
     "dev": "tsx src/index.ts",
     "start": "node dist/index.js",
     "start:http": "node dist/index.js --http",
-    "test": "tsx test/smoke.test.ts"
+    "test": "tsx test/read-policy.test.ts && tsx test/smoke.test.ts",
+    "policies:generate": "node scripts/generate-read-policies.mjs",
+    "policies:check": "tsx test/policy-inventory.test.ts",
+    "policies:diff": "node scripts/check-policy-updates.mjs"
   },
   "engines": {
     "node": ">=20"
@@ -23,7 +26,8 @@
     "@types/node": "^22.0.0",
     "@types/pg": "^8.11.0",
     "tsx": "^4.19.0",
-    "typescript": "^5.6.0"
+    "typescript": "^5.6.0",
+    "yaml": "^2.8.3"
   },
   "license": "MIT"
 }
