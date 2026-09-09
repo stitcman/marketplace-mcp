@@ -17,18 +17,7 @@
     "description": "Метод для получения информации и ролях и методах, привязанных к API-ключу.",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -52,18 +41,7 @@
     "description": "",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -87,18 +65,7 @@
     "description": "",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -123,12 +90,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "language": {
           "type": "string",
           "enum": [
@@ -140,10 +101,6 @@
           ]
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -168,12 +125,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "description_category_id": {
           "type": "integer"
         },
@@ -192,8 +143,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "description_category_id",
         "type_id"
       ],
@@ -221,12 +170,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "attribute_id": {
           "type": "integer"
         },
@@ -254,8 +197,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "attribute_id",
         "description_category_id",
         "limit",
@@ -285,12 +226,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "attribute_id": {
           "type": "integer"
         },
@@ -308,8 +243,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "attribute_id",
         "description_category_id",
         "limit",
@@ -374,12 +307,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "items": {
           "type": "array",
           "items": {
@@ -537,10 +464,6 @@
           }
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -564,19 +487,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "task_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "task_id"
       ],
       "additionalProperties": false
@@ -602,12 +517,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "items": {
           "type": "array",
           "maxItems": 1000,
@@ -642,10 +551,6 @@
           }
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -669,12 +574,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "items": {
           "maxItems": 100,
           "items": {
@@ -706,10 +605,6 @@
           }
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -733,12 +628,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "color_image": {
           "type": "string"
         },
@@ -752,8 +641,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "product_id"
       ],
       "additionalProperties": false
@@ -780,12 +667,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "filter": {
           "type": "object",
           "properties": {
@@ -851,10 +732,6 @@
           "type": "integer"
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -879,12 +756,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "skus": {
           "items": {
             "type": "string"
@@ -892,8 +763,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "skus"
       ],
       "additionalProperties": false
@@ -920,12 +789,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "offer_id": {
           "type": "array",
           "items": {
@@ -945,10 +808,6 @@
           }
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -973,12 +832,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "filter": {
           "type": "object",
           "properties": {
@@ -1047,10 +900,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -1075,12 +924,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "offer_id": {
           "type": "string"
         },
@@ -1088,10 +931,6 @@
           "type": "integer"
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -1114,18 +953,7 @@
     "description": "Метод для получения информации о лимитах:\n- На ассортимент — сколько всего товаров можно создать в вашем личном кабинете.\n- На создание товаров — сколько товаров можно создать в сутки.\n- На обновление товаров — сколько товаров можно отредактировать в сутки.\n- На работу с товарами — сколько товаров можно создать в минуту.\n- На разархивацию — сколько товаров можно восстановить из архива за сутки.\n\nЕсли у вас есть лимит на ассортимент и вы израсходуете его, вы не сможете создавать новые товары.\n\n[Подробнее о лимитах в Базе знаний продавца](https://seller-edu.ozon.ru/libra/work-with-goods/zagruzka-tovarov/creating-goods/limit)",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -1149,12 +977,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "update_offer_id": {
           "minItems": 1,
           "maxItems": 25,
@@ -1178,8 +1000,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "update_offer_id"
       ],
       "additionalProperties": false
@@ -1205,12 +1025,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "product_id": {
           "type": "array",
           "items": {
@@ -1219,8 +1033,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "product_id"
       ],
       "additionalProperties": false
@@ -1246,12 +1058,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "product_id": {
           "type": "array",
           "items": {
@@ -1260,8 +1066,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "product_id"
       ],
       "additionalProperties": false
@@ -1287,12 +1091,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "products": {
           "type": "array",
           "items": {
@@ -1309,8 +1107,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "products"
       ],
       "additionalProperties": false
@@ -1370,12 +1166,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "sku": {
           "items": {
             "type": "string"
@@ -1383,8 +1173,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "sku"
       ],
       "additionalProperties": false
@@ -1411,12 +1199,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "product_id": {
           "maxItems": 1000,
           "items": {
@@ -1425,8 +1207,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "product_id"
       ],
       "additionalProperties": false
@@ -1453,12 +1233,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cursor": {
           "type": "string"
         },
@@ -1469,8 +1243,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit"
       ],
       "additionalProperties": false
@@ -1576,12 +1348,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "stocks": {
           "type": "array",
           "items": {
@@ -1610,8 +1376,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "stocks"
       ],
       "additionalProperties": false
@@ -1638,12 +1402,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cursor": {
           "type": "string"
         },
@@ -1713,8 +1471,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit",
         "filter"
       ],
@@ -1782,12 +1538,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "sku": {
           "items": {
             "type": "string"
@@ -1799,10 +1549,6 @@
           }
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -1827,12 +1573,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cursor": {
           "type": "string"
         },
@@ -1856,8 +1596,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit"
       ],
       "additionalProperties": false
@@ -1883,12 +1621,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "prices": {
           "type": "array",
           "maxItems": 1000,
@@ -1956,10 +1688,6 @@
           }
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -1983,12 +1711,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "product_ids": {
           "type": "array",
           "maxItems": 1000,
@@ -1997,10 +1719,6 @@
           }
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -2025,12 +1743,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "product_ids": {
           "maximum": 1000,
           "items": {
@@ -2038,10 +1750,6 @@
           }
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -2066,12 +1774,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cursor": {
           "type": "string"
         },
@@ -2129,8 +1831,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit",
         "filter"
       ],
@@ -2158,12 +1858,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "discounted_skus": {
           "items": {
             "type": "string"
@@ -2171,8 +1865,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "discounted_skus"
       ],
       "additionalProperties": false
@@ -2198,12 +1890,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "discount": {
           "type": "integer"
         },
@@ -2212,8 +1898,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "discount",
         "product_id"
       ],
@@ -2698,19 +2382,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "strategy_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "strategy_id"
       ],
       "additionalProperties": false
@@ -2827,12 +2503,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "product_id": {
           "type": "array",
           "items": {
@@ -2841,8 +2511,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "product_id"
       ],
       "additionalProperties": false
@@ -2869,19 +2537,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "strategy_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "strategy_id"
       ],
       "additionalProperties": false
@@ -2908,19 +2568,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "product_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "product_id"
       ],
       "additionalProperties": false
@@ -2946,12 +2598,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "product_id": {
           "type": "array",
           "items": {
@@ -2960,8 +2606,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "product_id"
       ],
       "additionalProperties": false
@@ -3020,19 +2664,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "strategy_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "strategy_id"
       ],
       "additionalProperties": false
@@ -3444,12 +3080,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "page": {
           "type": "integer"
         },
@@ -3458,8 +3088,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "page",
         "page_size"
       ],
@@ -3485,18 +3113,7 @@
     "description": "",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -3519,18 +3136,7 @@
     "description": "",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -3554,18 +3160,7 @@
     "description": "",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -3590,12 +3185,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "page": {
           "type": "integer"
         },
@@ -3606,8 +3195,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "page",
         "page_size"
       ],
@@ -3635,12 +3222,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "page": {
           "type": "integer"
         },
@@ -3648,10 +3229,6 @@
           "type": "integer"
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -3674,18 +3251,7 @@
     "description": "<aside class=\"warning\">\n31 августа 2026 года отключим метод. Переключитесь на методы <a href=\"#operation/ProductCertificateOptions\">/v2/product/certification/options</a>, <a href=\"#operation/ProductCertificateParams\">/v2/product/certification/params</a> и <a href=\"#operation/ProductCertificateCreate\">/v2/product/certificate/create</a>.\n</aside>",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -3709,12 +3275,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "certificate_id": {
           "type": "integer"
         },
@@ -3733,8 +3293,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "certificate_id"
       ],
       "additionalProperties": false
@@ -3791,19 +3349,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "certificate_number": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "certificate_number"
       ],
       "additionalProperties": false
@@ -3830,12 +3380,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "offer_id": {
           "type": "string"
         },
@@ -3853,8 +3397,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "page",
         "page_size"
       ],
@@ -3881,18 +3423,7 @@
     "description": "Метод для получения списка возможных статусов товаров при их привязке к сертификату.",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -3917,12 +3448,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "certificate_id": {
           "type": "integer"
         },
@@ -3947,8 +3472,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "certificate_id"
       ],
       "additionalProperties": false
@@ -3974,12 +3497,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "certificate_id": {
           "type": "integer"
         },
@@ -3998,8 +3515,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "certificate_id"
       ],
       "additionalProperties": false
@@ -4024,18 +3539,7 @@
     "description": "",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -4059,18 +3563,7 @@
     "description": "",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -4095,12 +3588,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "limit": {
           "type": "integer",
           "maximum": 200
@@ -4118,8 +3605,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit"
       ],
       "additionalProperties": false
@@ -4146,12 +3631,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "filter": {
           "type": "object",
           "properties": {
@@ -4174,8 +3653,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit"
       ],
       "additionalProperties": false
@@ -4202,12 +3679,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cursor": {
           "type": "string"
         },
@@ -4265,8 +3736,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit"
       ],
       "additionalProperties": false
@@ -4293,19 +3762,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "delivery_method_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "delivery_method_id"
       ],
       "additionalProperties": false
@@ -4332,12 +3793,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "limit": {
           "type": "integer",
           "maximum": 200,
@@ -4355,8 +3810,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit"
       ],
       "additionalProperties": false
@@ -4383,19 +3836,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "operation_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "operation_id"
       ],
       "additionalProperties": false
@@ -4421,12 +3866,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "reason": {
           "type": "string",
           "maxLength": 200
@@ -4439,8 +3878,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "reason",
         "warehouse_id"
       ],
@@ -4467,12 +3904,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "return_point_id": {
           "type": "integer"
         },
@@ -4481,8 +3912,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "warehouse_id"
       ],
       "additionalProperties": false
@@ -4509,12 +3938,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "last_id": {
           "type": "integer"
         },
@@ -4523,8 +3946,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "warehouse_id"
       ],
       "additionalProperties": false
@@ -4550,18 +3971,7 @@
     "description": "Возвращает идентификаторы складов, на которых находятся товары с ограничениями. Такие товары недоступны для доставки со склада.",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -4586,12 +3996,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "warehouse_types": {
           "type": "array",
           "items": {
@@ -4613,10 +4017,6 @@
           }
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -4640,19 +4040,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "coordinates": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "coordinates"
       ],
       "additionalProperties": false
@@ -4678,12 +4070,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "delivery_method_id": {
           "type": "integer"
         },
@@ -4722,8 +4108,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "delivery_method_id",
         "polygons",
         "warehouse_location"
@@ -4751,12 +4135,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "dir": {
           "type": "string"
         },
@@ -4803,8 +4181,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit",
         "filter"
       ],
@@ -4831,12 +4207,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cursor": {
           "type": "string"
         },
@@ -4901,10 +4271,6 @@
           }
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -4928,12 +4294,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "type": "string"
         },
@@ -4956,8 +4316,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number"
       ],
       "additionalProperties": false
@@ -4982,18 +4340,7 @@
     "description": "Возвращает список причин отмены для всех FBO-отправлений.",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -5017,18 +4364,7 @@
     "description": "Возвращает количество заявок в конкретном статусе.",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -5271,19 +4607,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "supply_order_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "supply_order_id"
       ],
       "additionalProperties": false
@@ -5309,19 +4637,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "order_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "order_id"
       ],
       "additionalProperties": false
@@ -5347,12 +4667,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "supply_order_id": {
           "type": "integer"
         },
@@ -5373,8 +4687,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "supply_order_id",
         "timeslot"
       ],
@@ -5401,19 +4713,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "operation_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "operation_id"
       ],
       "additionalProperties": false
@@ -5439,12 +4743,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "supply_order_id": {
           "type": "integer"
         },
@@ -5473,8 +4771,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "supply_order_id",
         "vehicle"
       ],
@@ -5502,19 +4798,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "operation_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "operation_id"
       ],
       "additionalProperties": false
@@ -5540,19 +4828,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "order_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "order_id"
       ],
       "additionalProperties": false
@@ -5578,18 +4858,7 @@
     "description": "Метод возвращает список активных складов Ozon с информацией об их средней загруженности на ближайшее время.",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -5654,18 +4923,7 @@
     "description": "",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -5732,12 +4990,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cluster_info": {
           "type": "object",
           "properties": {
@@ -5818,8 +5070,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "cluster_info",
         "deletion_sku_mode",
         "delivery_info"
@@ -5847,12 +5097,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cluster_info": {
           "type": "object",
           "properties": {
@@ -5893,8 +5137,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "cluster_info",
         "deletion_sku_mode"
       ],
@@ -5921,12 +5163,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "clusters_info": {
           "type": "array",
           "maxItems": 20,
@@ -6011,8 +5247,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "clusters_info",
         "deletion_sku_mode",
         "delivery_info"
@@ -6040,19 +5274,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "draft_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "draft_id"
       ],
       "additionalProperties": false
@@ -6079,12 +5305,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "date_from": {
           "type": "string"
         },
@@ -6119,8 +5339,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "date_from",
         "date_to",
         "draft_id",
@@ -6150,12 +5368,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cargoes": {
           "type": "array",
           "items": {
@@ -6211,8 +5423,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "cargoes",
         "supply_id"
       ],
@@ -6240,19 +5450,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "operation_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "operation_id"
       ],
       "additionalProperties": false
@@ -6279,12 +5481,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "supply_ids": {
           "type": "array",
           "maxItems": 100,
@@ -6294,8 +5490,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "supply_ids"
       ],
       "additionalProperties": false
@@ -6422,12 +5616,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cargoes": {
           "type": "array",
           "items": {
@@ -6444,8 +5632,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "supply_id"
       ],
       "additionalProperties": false
@@ -6472,19 +5658,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "operation_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "operation_id"
       ],
       "additionalProperties": false
@@ -6511,12 +5689,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "file_guid": {
           "type": "string",
           "minLength": 1,
@@ -6524,8 +5696,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "file_guid"
       ],
       "additionalProperties": false
@@ -6551,19 +5721,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "order_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "order_id"
       ],
       "additionalProperties": false
@@ -6589,19 +5751,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "operation_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "operation_id"
       ],
       "additionalProperties": false
@@ -6750,12 +5904,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "draft_id": {
           "type": "integer"
         },
@@ -6798,8 +5946,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "draft_id",
         "selected_cluster_warehouses",
         "supply_type"
@@ -6827,12 +5973,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "body": {
           "properties": {
             "draft_id": {
@@ -6844,10 +5984,6 @@
           ]
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -6871,18 +6007,7 @@
     "description": "",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -6906,12 +6031,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "packages": {
           "items": {
             "type": "object",
@@ -6953,8 +6072,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "packages",
         "posting_number"
       ],
@@ -6981,12 +6098,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "type": "string"
         },
@@ -7016,8 +6127,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number"
       ],
       "additionalProperties": false
@@ -7043,12 +6152,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "multi_box_qty": {
           "type": "integer"
         },
@@ -7105,8 +6208,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number",
         "products"
       ],
@@ -7133,19 +6234,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number"
       ],
       "additionalProperties": false
@@ -7171,19 +6264,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number"
       ],
       "additionalProperties": false
@@ -7209,12 +6294,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "type": "string"
         },
@@ -7256,8 +6335,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number",
         "products"
       ],
@@ -7284,19 +6361,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number"
       ],
       "additionalProperties": false
@@ -7322,12 +6391,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "all_blr_traceable": {
           "type": "boolean"
         },
@@ -7338,10 +6401,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -7365,12 +6424,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "carriage_id": {
           "type": "integer",
           "required": true
@@ -7380,8 +6433,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "carriage_id"
       ],
       "additionalProperties": false
@@ -7407,12 +6458,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "carriage_id": {
           "type": "integer"
         },
@@ -7424,8 +6469,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "carriage_id",
         "posting_numbers"
       ],
@@ -7452,19 +6495,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "carriage_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "carriage_id"
       ],
       "additionalProperties": false
@@ -7491,12 +6526,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "delivery_method_id": {
           "type": "integer"
         },
@@ -7504,10 +6533,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -7532,12 +6557,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cursor": {
           "type": "string"
         },
@@ -7558,8 +6577,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit"
       ],
       "additionalProperties": false
@@ -7585,12 +6602,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "containers_count": {
           "type": "integer"
         },
@@ -7602,8 +6613,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "delivery_method_id"
       ],
       "additionalProperties": false
@@ -7630,12 +6639,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "delivery_method_id": {
           "type": "integer"
         },
@@ -7644,8 +6647,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "delivery_method_id"
       ],
       "additionalProperties": false
@@ -7702,12 +6703,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "carriage_id": {
           "type": "integer"
         },
@@ -7725,8 +6720,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "carriage_id",
         "phone"
       ],
@@ -7754,19 +6747,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "carriage_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "carriage_id"
       ],
       "additionalProperties": false
@@ -7815,19 +6800,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "id": {
           "type": "int"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "id"
       ],
       "additionalProperties": false
@@ -7854,19 +6831,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "id"
       ],
       "additionalProperties": false
@@ -7892,19 +6861,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "id"
       ],
       "additionalProperties": false
@@ -7930,19 +6891,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "id"
       ],
       "additionalProperties": false
@@ -7969,19 +6922,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "id"
       ],
       "additionalProperties": false
@@ -8008,19 +6953,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "id"
       ],
       "additionalProperties": false
@@ -8047,19 +6984,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "carriage_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "carriage_id"
       ],
       "additionalProperties": false
@@ -8086,12 +7015,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "filter": {
           "type": "object",
           "properties": {
@@ -8122,8 +7045,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit"
       ],
       "additionalProperties": false
@@ -8150,20 +7071,12 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "id": {
           "type": "integer"
         },
         "doc_type": {}
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "id"
       ],
       "additionalProperties": false
@@ -8190,19 +7103,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "id"
       ],
       "additionalProperties": false
@@ -8228,19 +7133,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number"
       ],
       "additionalProperties": false
@@ -8267,19 +7164,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number"
       ],
       "additionalProperties": false
@@ -8306,19 +7195,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "carriage_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "carriage_id"
       ],
       "additionalProperties": false
@@ -8344,12 +7225,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cursor": {
           "type": "string"
         },
@@ -8379,8 +7254,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "filter",
         "limit"
       ],
@@ -8408,12 +7281,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cursor": {
           "type": "string"
         },
@@ -8443,8 +7310,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit",
         "filter"
       ],
@@ -8471,12 +7336,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cursor": {
           "type": "string"
         },
@@ -8512,8 +7371,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit",
         "filter",
         "sort_dir"
@@ -8541,12 +7398,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "filter": {
           "type": "object",
           "properties": {
@@ -8582,8 +7433,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit",
         "filter"
       ],
@@ -8610,12 +7459,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "tracking_numbers": {
           "type": "array",
           "items": {
@@ -8636,8 +7479,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "tracking_numbers"
       ],
       "additionalProperties": false
@@ -8663,12 +7504,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "type": "array",
           "items": {
@@ -8677,8 +7512,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number"
       ],
       "additionalProperties": false
@@ -8704,12 +7537,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "type": "array",
           "items": {
@@ -8718,8 +7545,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number"
       ],
       "additionalProperties": false
@@ -8745,12 +7570,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "type": "array",
           "items": {
@@ -8759,8 +7578,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number"
       ],
       "additionalProperties": false
@@ -8786,19 +7603,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number"
       ],
       "additionalProperties": false
@@ -8824,12 +7633,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "new_timeslot": {
           "type": "object",
           "properties": {
@@ -8850,8 +7653,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "new_timeslot",
         "posting_number"
       ],
@@ -8878,12 +7679,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "new_cutoff_date": {
           "type": "string"
         },
@@ -8892,8 +7687,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "new_cutoff_date",
         "posting_number"
       ],
@@ -8920,12 +7713,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "dir": {
           "type": "string"
         },
@@ -9013,8 +7800,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "filter",
         "limit",
         "offset"
@@ -9042,12 +7827,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cursor": {
           "type": "string"
         },
@@ -9139,10 +7918,6 @@
           }
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -9166,12 +7941,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "dir": {
           "type": "string"
         },
@@ -9265,8 +8034,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "filter",
         "limit",
         "offset"
@@ -9294,12 +8061,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cursor": {
           "type": "string"
         },
@@ -9409,8 +8170,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "filter",
         "limit"
       ],
@@ -9437,12 +8196,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "type": "string"
         },
@@ -9474,8 +8227,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number"
       ],
       "additionalProperties": false
@@ -9501,19 +8252,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "barcode": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "barcode"
       ],
       "additionalProperties": false
@@ -9539,12 +8282,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "type": "string"
         },
@@ -9553,8 +8290,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number",
         "multi_box_qty"
       ],
@@ -9648,19 +8383,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number"
       ],
       "additionalProperties": false
@@ -9686,12 +8413,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "type": "array",
           "items": {
@@ -9700,8 +8421,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number"
       ],
       "additionalProperties": false
@@ -9727,12 +8446,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "items": {
             "type": "string"
@@ -9740,8 +8453,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number"
       ],
       "additionalProperties": false
@@ -9767,12 +8478,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "items": {
             "type": "string"
@@ -9780,8 +8485,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number"
       ],
       "additionalProperties": false
@@ -9808,19 +8511,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "task_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "task_id"
       ],
       "additionalProperties": false
@@ -9846,12 +8541,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "related_posting_numbers": {
           "type": "array",
           "items": {
@@ -9860,8 +8549,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "related_posting_numbers"
       ],
       "additionalProperties": false
@@ -9886,18 +8573,7 @@
     "description": "Возвращает список причин отмены для всех отправлений.",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -9921,12 +8597,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cancel_reason_id": {
           "type": "integer"
         },
@@ -9956,8 +8626,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "cancel_reason_id",
         "cancel_reason_message",
         "items",
@@ -9986,12 +8654,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cancel_reason_id": {
           "type": "integer"
         },
@@ -10003,8 +8665,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "cancel_reason_id",
         "posting_number"
       ],
@@ -10031,12 +8691,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "type": "array",
           "items": {
@@ -10045,8 +8699,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number"
       ],
       "additionalProperties": false
@@ -10072,12 +8724,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "type": "array",
           "items": {
@@ -10086,8 +8732,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number"
       ],
       "additionalProperties": false
@@ -10148,12 +8792,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "date": {
           "type": "object",
           "properties": {
@@ -10171,8 +8809,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "date"
       ],
       "additionalProperties": false
@@ -10199,12 +8835,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cursor": {
           "type": "string"
         },
@@ -10215,8 +8845,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit"
       ],
       "additionalProperties": false
@@ -10293,12 +8921,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "filter": {
           "type": "object",
           "properties": {
@@ -10335,8 +8957,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit"
       ],
       "additionalProperties": false
@@ -10363,19 +8983,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "return_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "return_id"
       ],
       "additionalProperties": false
@@ -10670,12 +9282,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "filter": {
           "type": "object",
           "properties": {
@@ -10700,8 +9306,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "pagination"
       ],
       "additionalProperties": false
@@ -10726,18 +9330,7 @@
     "description": "",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -10761,18 +9354,7 @@
     "description": "",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -10796,12 +9378,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "utilization_price": {
           "type": "object",
           "properties": {
@@ -10832,8 +9408,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "utilization_price",
         "utilization_price_defects"
       ],
@@ -10860,18 +9434,7 @@
     "description": "Если у вас есть доступ, в параметре `enabled` будет указано значение `true`.",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -10896,12 +9459,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "last_id": {
           "type": "integer"
         },
@@ -10910,8 +9467,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit"
       ],
       "additionalProperties": false
@@ -10938,19 +9493,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "giveout_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "giveout_id"
       ],
       "additionalProperties": false
@@ -10975,18 +9522,7 @@
     "description": "Используйте этот метод, чтобы получить штрихкод из ответа методов [/v1/return/giveout/get-png](#operation/ReturnAPI_GiveoutGetPNG) и [/v1/return/giveout/get-pdf](#operation/ReturnAPI_GiveoutGetPDF) в текстовом виде.",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -11010,18 +9546,7 @@
     "description": "Возвращает PDF-файл со штрихкодом. Метод работает только для схемы FBS.",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -11045,18 +9570,7 @@
     "description": "Возвращает PNG-файл со штрихкодом.",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -11079,18 +9593,7 @@
     "description": "Используйте метод, если ваш штрихкод попал в посторонние руки.\n\nМетод возвращает PNG-файл с новым штрихкодом. После использования метода вы не сможете получить возвратную отгрузку по старым штрихкодам.\nЧтобы получить новый штрихкод в PDF-формате, запросите его методом [/v1/return/giveout/get-pdf](#operation/ReturnAPI_GiveoutGetPDF).",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -11114,12 +9617,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "base64_content": {
           "type": "string"
         },
@@ -11131,8 +9628,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "chat_id",
         "base64_content",
         "name"
@@ -11161,12 +9656,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "filter": {
           "type": "object",
           "properties": {
@@ -11191,8 +9680,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit"
       ],
       "additionalProperties": false
@@ -11219,12 +9706,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "chat_id": {
           "type": "string"
         },
@@ -11250,8 +9731,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "chat_id"
       ],
       "additionalProperties": false
@@ -11434,19 +9913,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "code": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "code"
       ],
       "additionalProperties": false
@@ -11473,12 +9944,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "page": {
           "type": "integer"
         },
@@ -11491,8 +9956,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "page",
         "page_size"
       ],
@@ -11520,12 +9983,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "language": {
           "type": "string",
           "enum": null
@@ -11561,10 +10018,6 @@
           ]
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -11589,12 +10042,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "filter": {
           "type": "object",
           "properties": {
@@ -11664,8 +10111,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "filter"
       ],
       "additionalProperties": false
@@ -11692,12 +10137,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "filter": {
           "type": "object",
           "properties": {
@@ -11787,8 +10226,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "filter"
       ],
       "additionalProperties": false
@@ -11815,12 +10252,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "date": {
           "type": "object",
           "properties": {
@@ -11847,8 +10278,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "page",
         "page_size",
         "date"
@@ -11876,18 +10305,7 @@
     "description": "Запускает генерацию отчёта по уценённым товарам на складе Ozon.\nOzon может сам уценить товар, например, при повреждении.\n\nВ результате запроса будет не сам отчёт, а его уникальный идентификатор. \nЧтобы получить отчёт, отправьте идентификатор в запросе метода [/v1/report/info](#operation/ReportAPI_ReportInfo).\n\nС одного аккаунта продавца можно отправить 1 запрос в минуту.\nСоответствует разделу **Аналитика → Отчёты → Продажи со склада Ozon → Товары, уценённые Ozon** в личном кабинете.",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -11912,12 +10330,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "language": {
           "type": "string",
           "enum": null
@@ -11931,8 +10343,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "warehouseId"
       ],
       "additionalProperties": false
@@ -11958,12 +10368,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "date_from": {
           "type": "string"
         },
@@ -11972,8 +10376,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "date_from",
         "date_to"
       ],
@@ -12000,12 +10402,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "date_from": {
           "type": "string"
         },
@@ -12014,8 +10410,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "date_from",
         "date_to"
       ],
@@ -12042,12 +10436,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "date": {
           "type": "object",
           "properties": {
@@ -12064,10 +10452,6 @@
           ]
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -12092,12 +10476,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "limit": {
           "type": "integer"
         },
@@ -12114,8 +10492,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit"
       ],
       "additionalProperties": false
@@ -12142,12 +10518,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "limit": {
           "type": "integer",
           "minimum": 1,
@@ -12163,10 +10533,6 @@
           }
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -12191,12 +10557,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cluster_ids": {
           "type": "array",
           "items": {
@@ -12281,8 +10641,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "skus"
       ],
       "additionalProperties": false
@@ -12309,12 +10667,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "month": {
           "type": "integer"
         },
@@ -12323,8 +10675,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "month",
         "year"
       ],
@@ -12352,12 +10702,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "month": {
           "type": "integer"
         },
@@ -12366,8 +10710,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "month",
         "year"
       ],
@@ -12395,12 +10737,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "filter": {
           "type": "object",
           "properties": {
@@ -12438,8 +10774,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "page",
         "page_size"
       ],
@@ -12466,12 +10800,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "date": {
           "type": "object",
           "properties": {
@@ -12490,10 +10818,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -12584,12 +10908,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "date": {
           "type": "string"
         },
@@ -12599,8 +10917,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "date"
       ],
       "additionalProperties": false
@@ -12732,19 +11048,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "receipt_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "receipt_id"
       ],
       "additionalProperties": false
@@ -12771,12 +11079,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "page": {
           "type": "integer"
         },
@@ -12791,10 +11093,6 @@
           }
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -12817,18 +11115,7 @@
     "description": "<aside class=\"warning\">\n Метод доступен продавцам, которые заключили договор с ТОО «ОЗОН Маркетплейс Казахстан».\n</aside>",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -12920,18 +11207,7 @@
     "description": "",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -12955,12 +11231,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cursor": {
           "type": "string"
         },
@@ -12992,8 +11262,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "filter",
         "limit"
       ],
@@ -13256,12 +11524,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "comment_id": {
           "type": "string"
         },
@@ -13270,8 +11532,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "comment_id",
         "sku"
       ],
@@ -13393,12 +11653,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "review_ids": {
           "type": "array",
           "minItems": 1,
@@ -13416,10 +11670,6 @@
           ]
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -13467,18 +11717,7 @@
     "description": "Доступно для продавцов с подпиской [Управление отзывами](https://seller-edu.ozon.ru/libra/seller-rating/podpiska-upravlenie-otzyvami) или [Premium Pro](https://seller-edu.ozon.ru/seller-rating/about-rating/podpiska-premium-pro).",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -13534,19 +11773,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "review_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "review_id"
       ],
       "additionalProperties": false
@@ -13613,12 +11844,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "filters": {
           "type": "object",
           "properties": {
@@ -13671,8 +11896,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit"
       ],
       "additionalProperties": false
@@ -13698,12 +11921,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "question_id": {
           "type": "string"
         },
@@ -13715,8 +11932,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "question_id",
         "sku",
         "text"
@@ -13744,12 +11959,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "answer_id": {
           "type": "string"
         },
@@ -13758,8 +11967,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "answer_id",
         "sku"
       ],
@@ -13786,12 +11993,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "last_id": {
           "type": null
         },
@@ -13803,8 +12004,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "question_id",
         "sku"
       ],
@@ -13831,12 +12030,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "question_ids": {
           "items": {
             "type": "string"
@@ -13847,8 +12040,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "question_ids",
         "status"
       ],
@@ -13875,18 +12066,7 @@
     "description": "Доступно для продавцов с подпиской [Premium Plus](https://seller-edu.ozon.ru/seller-rating/about-rating/subscription-premium-plus).",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -13911,19 +12091,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "question_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "question_id"
       ],
       "additionalProperties": false
@@ -13950,12 +12122,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "filter": {
           "type": "object",
           "properties": {
@@ -13985,10 +12151,6 @@
           ]
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -14012,12 +12174,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "limit": {
           "type": "integer",
           "minimum": 1,
@@ -14025,8 +12181,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit"
       ],
       "additionalProperties": false
@@ -14053,12 +12207,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "filter": {
           "type": "object",
           "properties": {
@@ -14099,10 +12247,6 @@
           "required": true
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -14126,12 +12270,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "date_from": {
           "type": "string"
         },
@@ -14148,8 +12286,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "date_from",
         "date_to",
         "limit"
@@ -14178,12 +12314,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "date_from": {
           "type": "string"
         },
@@ -14200,8 +12330,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "date_from",
         "date_to",
         "limit"
@@ -14229,12 +12357,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "stairways": {
           "type": "array",
           "items": {
@@ -14283,8 +12405,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "stairways"
       ],
       "additionalProperties": false
@@ -14311,12 +12431,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "skus": {
           "type": "array",
           "maxItems": 5000,
@@ -14326,8 +12440,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "skus"
       ],
       "additionalProperties": false
@@ -14389,12 +12501,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "last_id": {
           "type": "integer"
         },
@@ -14420,10 +12526,6 @@
           ]
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -14498,12 +12600,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cursor": {
           "type": "string"
         },
@@ -14559,10 +12655,6 @@
           }
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -14586,12 +12678,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_numbers": {
           "type": "array",
           "minItems": 1,
@@ -14602,8 +12688,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_numbers"
       ],
       "additionalProperties": false
@@ -14629,18 +12713,7 @@
     "description": "Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2008-Novye-beta-metody-dlia-polucheniia-nachislenii/) в сообществе разработчиков Ozon for dev.",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -14665,12 +12738,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "date": {
           "type": "string"
         },
@@ -14679,8 +12746,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "date",
         "last_id"
       ],
@@ -14708,12 +12773,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "skus": {
           "type": "array",
           "minItems": 1,
@@ -14723,10 +12782,6 @@
           }
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -14780,12 +12835,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "month": {
           "type": "integer"
         },
@@ -14794,8 +12843,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "month",
         "year"
       ],
@@ -14821,18 +12868,7 @@
     "description": "Используйте информацию о параметрах в запросе метода [/v2/product/certification/params](#operation/ProductCertificateParams).\n\nВы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2278-Novye-beta-metody-dlia-dobavleniia-sertifikatov-kachestva/) в сообществе разработчиков Ozon for dev.",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -14856,12 +12892,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "params": {
           "type": "object",
           "properties": {
@@ -14977,10 +13007,6 @@
           }
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -15004,12 +13030,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "params": {
           "type": "object",
           "properties": {
@@ -15125,10 +13145,6 @@
           }
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -15153,19 +13169,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "order_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "order_id"
       ],
       "additionalProperties": false
@@ -15192,19 +13200,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "supply_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "supply_id"
       ],
       "additionalProperties": false
@@ -15230,19 +13230,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "act_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "act_id"
       ],
       "additionalProperties": false
@@ -15269,19 +13261,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "operation_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "operation_id"
       ],
       "additionalProperties": false
@@ -15427,19 +13411,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "drop_off_point_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "drop_off_point_id"
       ],
       "additionalProperties": false
@@ -15465,12 +13441,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "drop_off_point_id": {
           "type": "integer"
         },
@@ -15479,8 +13449,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "drop_off_point_id",
         "warehouse_id"
       ],
@@ -15507,12 +13475,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "address_coordinates": {
           "type": "object",
           "properties": {
@@ -15533,8 +13495,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "is_kgt",
         "address_coordinates"
       ],
@@ -15561,19 +13521,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "warehouse_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "warehouse_id"
       ],
       "additionalProperties": false
@@ -15712,12 +13664,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "address_coordinates": {
           "type": "object",
           "properties": {
@@ -15782,8 +13728,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "warehouse_id",
         "address_coordinates"
       ],
@@ -15810,12 +13754,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cut_in_time": {
           "type": "integer"
         },
@@ -15840,8 +13778,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "first_mile_type",
         "warehouse_id",
         "timeslot_id",
@@ -15870,12 +13806,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "coordinates": {
           "type": "object",
           "properties": {
@@ -15926,8 +13856,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "country_code",
         "coordinates",
         "limit"
@@ -15955,12 +13883,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "current_dropoff_point_id": {
           "type": "integer"
         },
@@ -16000,8 +13922,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "warehouse_id",
         "limit"
       ],
@@ -16029,12 +13949,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "warehouse_ids": {
           "type": "array",
           "minimum": 1,
@@ -16045,8 +13959,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "warehouse_ids"
       ],
       "additionalProperties": false
@@ -16073,12 +13985,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "country_code": {
           "type": "string"
         },
@@ -16097,8 +14003,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "country_code",
         "first_mile_type",
         "is_kgt"
@@ -16126,19 +14030,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "warehouse_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "warehouse_id"
       ],
       "additionalProperties": false
@@ -16164,19 +14060,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "warehouse_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "warehouse_id"
       ],
       "additionalProperties": false
@@ -16203,12 +14091,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cursor": {
           "type": "string"
         },
@@ -16236,8 +14118,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit"
       ],
       "additionalProperties": false
@@ -16263,18 +14143,7 @@
     "description": "Чтобы создать отгрузку, используйте метод [/v1/warehouse/fbs/pickup/courier/create](#operation/WarehouseFbsPickUpCourierCreate). \n\n[Подробнее об отгрузках курьеру на FBS в Базе знаний](https://seller-edu.ozon.ru/fbs/ozon-logistika/otgruzka-kyruery)",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -16298,12 +14167,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "address_coordinates": {
           "type": "object",
           "properties": {
@@ -16495,8 +14358,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "address_coordinates",
         "delivery_method",
         "name",
@@ -16526,12 +14387,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "is_auto_assembly": {
           "type": "boolean"
         },
@@ -16602,8 +14457,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "warehouse_id"
       ],
       "additionalProperties": false
@@ -16629,12 +14482,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "courier_comment": {
           "type": "string",
           "maxLength": 3000
@@ -16725,8 +14572,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "warehouse_id",
         "delivery_method_id"
       ],
@@ -16753,12 +14598,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "address_coordinates": {
           "type": "object",
           "properties": {
@@ -16940,8 +14779,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "address_coordinates",
         "delivery_method",
         "name",
@@ -16971,12 +14808,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "courier_cutoff": {
           "type": "integer",
           "enum": [
@@ -17044,8 +14875,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "courier_cutoff",
         "cut_in",
         "delivery_method_id",
@@ -17076,20 +14905,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "warehouse_id": {
           "type": "integer"
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -17113,20 +14932,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "warehouse_id": {
           "type": "integer"
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -17150,12 +14959,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "delivery_method_id": {
           "type": "integer"
         },
@@ -17179,8 +14982,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "delivery_method_id",
         "polygon_id",
         "time",
@@ -17209,12 +15010,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "delivery_method_id": {
           "type": "integer"
         },
@@ -17226,8 +15021,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "delivery_method_id",
         "polygon_id",
         "warehouse_id"
@@ -17256,12 +15049,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "delivery_method_id": {
           "type": "integer"
         },
@@ -17270,8 +15057,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "delivery_method_id",
         "warehouse_id"
       ],
@@ -17298,12 +15083,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "coordinates": {
           "type": "string"
         },
@@ -17318,8 +15097,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "coordinates",
         "delivery_method_id",
         "polygon_id",
@@ -17348,12 +15125,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "current_time": {
           "type": "integer",
           "enum": [
@@ -17389,8 +15160,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "current_time",
         "delivery_method_id",
         "new_time",
@@ -17421,12 +15190,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cursor": {
           "type": "string"
         },
@@ -17463,8 +15226,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit"
       ],
       "additionalProperties": false
@@ -17491,12 +15252,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "quant_code": {
           "minItems": 1,
           "maxItems": 1000,
@@ -17506,8 +15261,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "quant_code"
       ],
       "additionalProperties": false
@@ -17533,12 +15286,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "date_end": {
           "type": "string"
         },
@@ -17555,8 +15302,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "date_end",
         "date_start",
         "min_action_percent",
@@ -17585,12 +15330,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "date_end": {
           "type": "string"
         },
@@ -17617,8 +15356,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "date_end",
         "date_start",
         "discount_type",
@@ -17649,12 +15386,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "date_start": {
           "type": "string"
         },
@@ -17665,8 +15396,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "date_start",
         "title"
       ],
@@ -17693,12 +15422,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "date_end": {
           "type": "string"
         },
@@ -17742,8 +15465,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "date_end",
         "date_start",
         "discount_levels",
@@ -17773,12 +15494,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "budget": {
           "type": "integer"
         },
@@ -17836,8 +15551,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "budget",
         "date_end",
         "date_start",
@@ -17869,12 +15582,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "action_id": {
           "type": "integer"
         },
@@ -17900,10 +15607,6 @@
           ]
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -17927,12 +15630,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "action_id": {
           "type": "integer"
         },
@@ -17966,10 +15663,6 @@
           ]
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -17993,12 +15686,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "action_id": {
           "type": "integer"
         },
@@ -18020,10 +15707,6 @@
           ]
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -18047,12 +15730,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "action_id": {
           "type": "integer"
         },
@@ -18102,10 +15779,6 @@
           ]
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -18129,12 +15802,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "action_id": {
           "type": "integer"
         },
@@ -18175,10 +15842,6 @@
           ]
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -18202,12 +15865,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "action_id": {
           "type": "integer"
         },
@@ -18242,8 +15899,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "action_id",
         "products"
       ],
@@ -18271,12 +15926,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "action_id": {
           "type": "integer"
         },
@@ -18290,8 +15939,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "action_id",
         "limit"
       ],
@@ -18318,12 +15965,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "action_id": {
           "type": "integer"
         },
@@ -18336,8 +15977,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "action_id",
         "skus"
       ],
@@ -18365,12 +16004,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "action_id": {
           "type": "integer"
         },
@@ -18384,8 +16017,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "action_id",
         "limit"
       ],
@@ -18412,19 +16043,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "action_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "action_id"
       ],
       "additionalProperties": false
@@ -18450,12 +16073,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "action_id": {
           "type": "integer"
         },
@@ -18464,8 +16081,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "action_id",
         "is_turn_on"
       ],
@@ -18493,12 +16108,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "action_ids": {
           "type": "array",
           "maxItems": 100,
@@ -18547,8 +16156,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit"
       ],
       "additionalProperties": false
@@ -18575,19 +16182,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "action_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "action_id"
       ],
       "additionalProperties": false
@@ -18613,12 +16212,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "action_id": {
           "type": "integer"
         },
@@ -18635,8 +16228,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "action_id",
         "auto_add_date",
         "limit"
@@ -18664,12 +16255,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "action_id": {
           "type": "integer"
         },
@@ -18686,8 +16271,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "action_id",
         "auto_add_date",
         "limit"
@@ -18715,12 +16298,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "action_id": {
           "type": "integer"
         },
@@ -18736,10 +16313,6 @@
           }
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -18763,12 +16336,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "action_id": {
           "type": "integer"
         },
@@ -18796,10 +16363,6 @@
           }
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -18823,12 +16386,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "types": {
           "type": "array",
           "items": {
@@ -18863,8 +16420,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "url",
         "types"
       ],
@@ -18891,12 +16446,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "id": {
           "type": "integer"
         },
@@ -18934,8 +16483,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "id"
       ],
       "additionalProperties": false
@@ -18961,19 +16508,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "id"
       ],
       "additionalProperties": false
@@ -19000,19 +16539,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "url": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "url"
       ],
       "additionalProperties": false
@@ -19038,12 +16569,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "enabled": {
           "type": "boolean"
         },
@@ -19052,8 +16577,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "id",
         "enabled"
       ],
@@ -19080,18 +16603,7 @@
     "description": "Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/1978-Novye-beta-metody-dlia-upravleniia-podkliucheniiami-PUSH-uvedomlenii/) в сообществе разработчиков Ozon for dev.",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -19115,18 +16627,7 @@
     "description": "Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/1978-Novye-beta-metody-dlia-upravleniia-podkliucheniiami-PUSH-uvedomlenii/) в сообществе разработчиков Ozon for dev.",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -19151,12 +16652,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "supplies": {
           "type": "array",
           "maxItems": 100,
@@ -19181,8 +16676,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "supplies"
       ],
       "additionalProperties": false
@@ -19208,12 +16701,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cargo_ids": {
           "type": "array",
           "maximum": 1500,
@@ -19240,8 +16727,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "transport_cargo_deletion_type",
         "supply_id"
       ],
@@ -19268,19 +16753,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "operation_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "operation_id"
       ],
       "additionalProperties": false
@@ -19306,12 +16783,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "is_transport": {
           "type": "boolean"
         },
@@ -19320,8 +16791,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "is_transport",
         "supply_id"
       ],
@@ -19349,19 +16818,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "operation_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "operation_id"
       ],
       "additionalProperties": false
@@ -19387,12 +16848,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "supply_id": {
           "type": "integer"
         },
@@ -19420,8 +16875,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "supply_id",
         "transport_cargoes"
       ],
@@ -19448,20 +16901,10 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "operation_id": {
           "type": "string"
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -19485,12 +16928,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cargoes_unbind_transport_cargoes": {
           "type": "array",
           "items": {
@@ -19523,8 +16960,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "supply_id"
       ],
       "additionalProperties": false
@@ -19551,19 +16986,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "operation_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "operation_id"
       ],
       "additionalProperties": false
@@ -19589,12 +17016,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "supply_ids": {
           "type": "array",
           "maxItems": 50,
@@ -19604,8 +17025,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "supply_ids"
       ],
       "additionalProperties": false
@@ -19631,19 +17050,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "order_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "order_id"
       ],
       "additionalProperties": false
@@ -19669,19 +17080,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "operation_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "operation_id"
       ],
       "additionalProperties": false
@@ -19707,12 +17110,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "supply_id": {
           "type": "integer"
         },
@@ -19725,8 +17122,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "supply_id"
       ],
       "additionalProperties": false
@@ -19753,19 +17148,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "operation_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "operation_idd"
       ],
       "additionalProperties": false
@@ -19979,12 +17366,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "bundle_id": {
           "type": "string"
         },
@@ -20007,8 +17388,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "bundle_id",
         "delivery_details",
         "package_units_count",
@@ -20037,19 +17416,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "supply_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "supply_id"
       ],
       "additionalProperties": false
@@ -20076,12 +17447,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "skus": {
           "type": "array",
           "items": {
@@ -20105,8 +17470,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "skus",
         "warehouse_id"
       ],
@@ -20133,12 +17496,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "row_version": {
           "type": "integer"
         },
@@ -20147,8 +17504,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "row_version",
         "supply_id"
       ],
@@ -20175,12 +17530,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "bundle_id": {
           "type": "string"
         },
@@ -20211,8 +17560,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "bundle_id",
         "delivery_details",
         "package_units_count",
@@ -20241,19 +17588,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "supply_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "supply_id"
       ],
       "additionalProperties": false
@@ -20279,12 +17618,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "drop_off_date": {
           "type": "string"
         },
@@ -20302,8 +17635,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "drop_off_date",
         "drop_off_point_id",
         "drop_off_province_uuid",
@@ -20333,12 +17664,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "row_version": {
           "type": "integer"
         },
@@ -20347,8 +17672,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "row_version",
         "supply_id"
       ],
@@ -20376,19 +17699,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "warehouse_id": {
           "type": "integer"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "warehouse_id"
       ],
       "additionalProperties": false
@@ -20415,12 +17730,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "next_page_number": {
           "type": "integer"
         },
@@ -20435,8 +17744,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "page_size",
         "province_uuid",
         "warehouse_id"
@@ -20465,12 +17772,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "drop_off_point_id": {
           "type": "integer"
         },
@@ -20482,8 +17783,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "drop_off_point_id",
         "province_uuid",
         "warehouse_id"
@@ -20511,12 +17810,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "skus": {
           "type": "array",
           "items": {
@@ -20540,8 +17833,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "skus",
         "warehouse_id"
       ],
@@ -21181,18 +18472,7 @@
     "description": "Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/1700-FBP-metody/) в сообществе разработчиков Ozon for dev.",
     "input_schema": {
       "type": "object",
-      "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -21216,12 +18496,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "row_version": {
           "type": "integer"
         },
@@ -21230,8 +18504,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "row_version",
         "supply_id"
       ],
@@ -21421,19 +18693,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "supply_id": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "supply_id"
       ],
       "additionalProperties": false
@@ -21459,12 +18723,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "drop_off_date": {
           "type": "string"
         },
@@ -21476,8 +18734,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "drop_off_date",
         "row_version",
         "supply_id"
@@ -21506,12 +18762,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "drop_off_point_id": {
           "type": "integer"
         },
@@ -21523,8 +18773,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "drop_off_point_id",
         "province_uuid",
         "warehouse_id"
@@ -21615,12 +18863,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cursor": {
           "type": "string"
         },
@@ -21669,10 +18911,6 @@
           ]
         }
       },
-      "required": [
-        "Client-Id",
-        "Api-Key"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -21776,12 +19014,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "cargo_type": {
           "type": "string"
         },
@@ -21798,8 +19030,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "cargo_type",
         "containers_count",
         "sort_type",
@@ -21828,12 +19058,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "container_id": {
           "type": "integer"
         },
@@ -21846,8 +19070,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "container_id",
         "posting_numbers"
       ],
@@ -21874,12 +19096,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "container_ids": {
           "type": "array",
           "items": {
@@ -21888,8 +19104,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "container_ids"
       ],
       "additionalProperties": false
@@ -21915,12 +19129,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "child_container_ids": {
           "type": "array",
           "items": {
@@ -21932,8 +19140,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "child_container_ids",
         "parent_container_id"
       ],
@@ -21960,12 +19166,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "container_id": {
           "type": "integer"
         },
@@ -21977,8 +19177,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "container_id",
         "posting_numbers"
       ],
@@ -22005,12 +19203,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "child_container_ids": {
           "type": "array",
           "items": {
@@ -22022,8 +19214,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "child_container_ids",
         "parent_container_id"
       ],
@@ -22050,12 +19240,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "container_ids": {
           "type": "array",
           "maximum": 100,
@@ -22065,8 +19249,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "container_ids"
       ],
       "additionalProperties": false
@@ -22325,12 +19507,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "chat_id": {
           "type": "string"
         },
@@ -22339,8 +19515,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "chat_id",
         "text"
       ],
@@ -22367,19 +19541,11 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "posting_number": {
           "type": "string"
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "posting_number"
       ],
       "additionalProperties": false
@@ -22405,12 +19571,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "chat_id": {
           "type": "string"
         },
@@ -22419,8 +19579,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "chat_id"
       ],
       "additionalProperties": false
@@ -22447,12 +19605,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "date_from": {
           "type": "string"
         },
@@ -22527,8 +19679,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "date_from",
         "date_to",
         "dimension",
@@ -22559,12 +19709,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "date_from": {
           "type": "string"
         },
@@ -22604,8 +19748,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "page_size",
         "date_from",
         "skus"
@@ -22634,12 +19776,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "date_from": {
           "type": "string"
         },
@@ -22680,8 +19816,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "page_size",
         "date_from",
         "skus",
@@ -22711,12 +19845,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "day": {
           "type": "integer"
         },
@@ -22728,8 +19856,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "day",
         "month",
         "year"
@@ -22758,12 +19884,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "limit": {
           "type": "string",
           "maximum": 50
@@ -22793,8 +19913,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit",
         "offset",
         "text"
@@ -22823,12 +19941,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "limit": {
           "type": "string",
           "maximum": 50
@@ -22839,8 +19951,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "limit",
         "offset"
       ],
@@ -22868,12 +19978,6 @@
     "input_schema": {
       "type": "object",
       "properties": {
-        "Client-Id": {
-          "type": "string"
-        },
-        "Api-Key": {
-          "type": "string"
-        },
         "skus": {
           "type": "array",
           "minItems": 1,
@@ -22884,8 +19988,6 @@
         }
       },
       "required": [
-        "Client-Id",
-        "Api-Key",
         "skus"
       ],
       "additionalProperties": false

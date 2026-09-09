@@ -106,6 +106,7 @@ function inputSchemaFromOperation(op = {}, apiPath, resolveRef) {
   for (const raw of op.parameters ?? []) {
     const parameter = raw?.$ref && resolveRef ? resolveRef(raw.$ref) : raw;
     if (!parameter?.name) continue;
+    if (parameter.in === "header" || /^(client-id|api-key|authorization)$/i.test(parameter.name)) continue;
     root.properties[parameter.name] = simplifySchema(parameter.schema ?? {}, resolveRef, 0);
     if (parameter.required) root.required.push(parameter.name);
   }

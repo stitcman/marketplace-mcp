@@ -13,5 +13,6 @@ for (const marketplace of ["ozon", "wb", "ym"] as const) {
     assert(!allowlist.some((m: any) => m.method_id === operation.method_id), `${marketplace}: forbidden ${operation.method_id} absent from allowlist`);
   }
   assert(allowlist.every((m: any) => m.input_schema?.type === "object"), `${marketplace}: every allowed method has a request schema`);
+  assert(allowlist.every((m: any) => !Object.keys(m.input_schema?.properties ?? {}).some((key) => /^(client-id|api-key|authorization|token)$/i.test(key))), `${marketplace}: credentials are absent from MCP input schemas`);
   console.log(`${marketplace}: inventory=${inventory.length}, allowed=${allowlist.length}, unclassified=0`);
 }
