@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
 import { MemoryStore } from "../src/core/store.js";
 import { executeApprovedRead, type ReadMethod, type ReadTransport } from "../src/core/readPolicy.js";
 
@@ -75,3 +76,23 @@ const store = new MemoryStore();
 }
 
 console.log("read policy boundary: PASS");
+
+const ozonInventory = JSON.parse(fs.readFileSync(new URL("../inventory/ozon-operations.json", import.meta.url), "utf8"));
+for (const methodId of [
+  "ProductAPI_ImportProductsPrices",
+  "ProductAPI_ProductsStocksV2",
+  "ProductAPI_ImportProductsV3",
+  "ProductAPI_ProductArchive",
+  "PostingAPI_PostingCancel",
+  "carriagePassCreate",
+  "PromosProductsActivate",
+  "ChatAPI_ChatSendFile",
+  "ReviewAPI_CommentCreate",
+]) {
+  const forbidden = ozonInventory.find((item: any) => item.method_id === methodId);
+  assert(forbidden, `${methodId}: present in inventory`);
+  assert(["WRITE", "DESTRUCTIVE"].includes(forbidden.classification), `${methodId}: classified forbidden`);
+  const transport = new SpyTransport();
+  await denied(methodId, () => executeApprovedRead({ store, marketplace: "ozon", connectionId: OZON, method: forbidden as any, params: {}, transport }), transport);
+}
+console.log("Ozon write-negative spy transport: PASS (9/9 HTTP_REQUESTS_SENT=0)");
