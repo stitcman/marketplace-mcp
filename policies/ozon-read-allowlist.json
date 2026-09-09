@@ -248,6 +248,71 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
+    "method_id": "ProductAPI_GetProductPlacementZoneInfo",
+    "domain": "categoryapi",
+    "path": "/v1/product/placement-zone/info",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "catalog.read",
+    "endpoint_group": "categoryapi",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить зоны размещения товаров по SKU перед поставкой",
+    "description": "Вы можете отправить не больше 10 запросов в секунду.\n\n[Подробнее о зонах размещения в Базе знаний продавца](https://seller-edu.ozon.ru/libra/fbo/gruzomesta-i-podgotovka-k-otgruzke/k-kakoi-zone-otnositsya-tovar)",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "skus": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 150,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "skus"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "ProductAPI_GetImportProductsInfo",
+    "domain": "productapi",
+    "path": "/v1/product/import/info",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "catalog.read",
+    "endpoint_group": "productapi",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Узнать статус добавления или обновления товара",
+    "description": "Позволяет получить статус создания или обновления карточки товара.\n\nЕсли вы обновили изображение или видео по ссылке, но ссылка не изменилась, для изображения или видео в параметре `result.items.status` вернётся `skipped`.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "task_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "task_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
     "method_id": "ProductAPI_GetProductList",
     "domain": "productapi",
     "path": "/v3/product/list",
@@ -1458,6 +1523,29 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
+    "method_id": "CertificateAccordanceTypes",
+    "domain": "certificationapi",
+    "path": "/v2/product/certificate/accordance-types/list",
+    "http_method": "GET",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "catalog.read",
+    "endpoint_group": "certificationapi",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Список типов соответствия требованиям (версия 2)",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
     "method_id": "ProductAPI_ProductCertificateTypes",
     "domain": "certificationapi",
     "path": "/v1/product/certificate/types",
@@ -1686,6 +1774,29 @@
       "required": [
         "certificate_id"
       ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "RejectionReasonsList",
+    "domain": "certificationapi",
+    "path": "/v1/product/certificate/rejection_reasons/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "catalog.read",
+    "endpoint_group": "certificationapi",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Возможные причины отклонения сертификата",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -2088,6 +2199,235 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
+    "method_id": "PostingAPI_GetFboPostingList",
+    "domain": "fbo",
+    "path": "/v2/posting/fbo/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "orders.read",
+    "endpoint_group": "fbo",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Список отправлений",
+    "description": "<aside class=\"warning\">\nС 31 августа 2026 года метод будет отключён. Переключитесь на <a href=\"#operation/PostingFboList\">/v3/posting/fbo/list</a>.\n</aside>\n\nВозвращает список отправлений за указанный период времени.\nЕсли период больше года, вернётся ошибка `PERIOD_IS_TOO_LONG`.\n\nДополнительно можно отфильтровать отправления по их статусу.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "dir": {
+          "type": "string"
+        },
+        "filter": {
+          "type": "object",
+          "properties": {
+            "since": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "to": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "since",
+            "to"
+          ]
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "translit": {
+          "type": "boolean"
+        },
+        "with": {
+          "type": "object",
+          "properties": {
+            "analytics_data": {
+              "type": "boolean"
+            },
+            "financial_data": {
+              "type": "boolean"
+            },
+            "legal_info": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "required": [
+        "limit",
+        "filter"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "PostingFboList",
+    "domain": "fbo",
+    "path": "/v3/posting/fbo/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "orders.read",
+    "endpoint_group": "fbo",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список отправлений",
+    "description": "Возвращает список отправлений за указанный период времени.\nЕсли период больше года, вернётся ошибка `PERIOD_IS_TOO_LONG`.\n\nДополнительно можно отфильтровать отправления по их статусу.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "type": "string"
+        },
+        "filter": {
+          "type": "object",
+          "properties": {
+            "order_numbers": {
+              "type": "array",
+              "maxItems": 1000,
+              "items": {
+                "type": "string"
+              }
+            },
+            "posting_numbers": {
+              "type": "array",
+              "maxItems": 1000,
+              "items": {
+                "type": "string"
+              }
+            },
+            "since": {
+              "type": "string"
+            },
+            "statuses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "to": {
+              "type": "string"
+            }
+          }
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "sort_dir": {
+          "type": "string",
+          "enum": [
+            "ASC",
+            "DESC"
+          ]
+        },
+        "translit": {
+          "type": "boolean"
+        },
+        "with": {
+          "type": "object",
+          "properties": {
+            "analytics_data": {
+              "type": "boolean"
+            },
+            "financial_data": {
+              "type": "boolean"
+            },
+            "legal_info": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "PostingAPI_GetFboPosting",
+    "domain": "fbo",
+    "path": "/v2/posting/fbo/get",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "orders.read",
+    "endpoint_group": "fbo",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Информация об отправлении",
+    "description": "Возвращает информацию об отправлении по его идентификатору.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "posting_number": {
+          "type": "string"
+        },
+        "translit": {
+          "type": "boolean"
+        },
+        "with": {
+          "type": "object",
+          "properties": {
+            "analytics_data": {
+              "type": "boolean"
+            },
+            "financial_data": {
+              "type": "boolean"
+            },
+            "legal_info": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "required": [
+        "posting_number"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "PostingAPI_GetPostingFboCancelReasonList",
+    "domain": "fbo",
+    "path": "/v1/posting/fbo/cancel-reason/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "orders.read",
+    "endpoint_group": "fbo",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Причины отмены отправлений по схеме FBO",
+    "description": "Возвращает список причин отмены для всех FBO-отправлений.",
+    "input_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
     "method_id": "SupplyOrderAPI_SupplyOrderStatusCounter",
     "domain": "fbo",
     "path": "/v1/supply-order/status/counter",
@@ -2105,6 +2445,238 @@
     "input_schema": {
       "type": "object",
       "properties": {},
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "SupplyOrderList",
+    "domain": "fbo",
+    "path": "/v3/supply-order/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "fbo",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Список заявок на поставку на склад Ozon",
+    "description": "Учитываются заявки с поставкой на конкретный склад и через [виртуальный распределительный центр (вРЦ)](https://seller-edu.ozon.ru/fbo/scheme-of-work/about#чем-отличаются-процессы-при-заявках-через-врц-и-напрямую-на-склад).",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "object",
+          "properties": {
+            "dropoff_warehouse_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "order_number_search": {
+              "type": "string",
+              "minLength": 3
+            },
+            "states": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "DATA_FILLING",
+                  "READY_TO_SUPPLY",
+                  "ACCEPTED_AT_SUPPLY_WAREHOUSE",
+                  "IN_TRANSIT",
+                  "ACCEPTANCE_AT_STORAGE_WAREHOUSE",
+                  "REPORTS_CONFIRMATION_AWAITING",
+                  "REPORT_REJECTED",
+                  "COMPLETED",
+                  "REJECTED_AT_SUPPLY_WAREHOUSE",
+                  "CANCELLED",
+                  "OVERDUE"
+                ]
+              }
+            },
+            "timeslot_from_range": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "string"
+                },
+                "timeslot_filter_type": {
+                  "type": "string",
+                  "enum": [
+                    "BY_LOCAL_TIME",
+                    "BY_UTC_TIME"
+                  ]
+                },
+                "to": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": [
+            "states"
+          ]
+        },
+        "last_id": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "sort_by": {
+          "type": "string",
+          "enum": [
+            "ORDER_CREATION",
+            "ORDER_STATE_UPDATED_AT",
+            "TIMESLOT_FROM_UTC",
+            "TIMESLOT_FROM_LOCAL"
+          ]
+        },
+        "sort_dir": {
+          "type": "string",
+          "enum": [
+            "ASC",
+            "DESC"
+          ]
+        }
+      },
+      "required": [
+        "filter",
+        "limit",
+        "sort_by"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "SupplyOrderGet",
+    "domain": "fbo",
+    "path": "/v3/supply-order/get",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "fbo",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Информация о заявке на поставку",
+    "description": "Учитываются заявки с поставкой на конкретный склад и через [виртуальный распределительный центр (вРЦ)](https://seller-edu.ozon.ru/fbo/scheme-of-work/about#чем-отличаются-процессы-при-заявках-через-врц-и-напрямую-на-склад).",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "order_ids": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "order_ids"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "SupplyOrderAPI_GetSupplyOrderTimeslots",
+    "domain": "fbo",
+    "path": "/v1/supply-order/timeslot/get",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "fbo",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Интервалы поставки",
+    "description": "<aside class=\"warning\"> Метод устаревает и будет отключён 19 августа 2026 года. Переключитесь на <a href=\"#operation/SupplyOrderTimeslotList\">/v2/supply-order/timeslot/list</a>. </aside>",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "supply_order_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "supply_order_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "SupplyOrderTimeslotList",
+    "domain": "fbo",
+    "path": "/v2/supply-order/timeslot/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "fbo",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список доступных интервалов поставки",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "order_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "order_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "SupplyOrderAPI_GetSupplyOrderTimeslotStatus",
+    "domain": "fbo",
+    "path": "/v1/supply-order/timeslot/status",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "fbo",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Статус интервала поставки",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "operation_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "operation_id"
+      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -2134,6 +2706,36 @@
       },
       "required": [
         "operation_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "SupplyOrderAPI_SupplyOrderDetails",
+    "domain": "fbo",
+    "path": "/v1/supply-order/details",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "fbo",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить подробную информацию о заявке на поставку",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "order_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "order_id"
       ],
       "additionalProperties": false
     },
@@ -2221,6 +2823,79 @@
     "input_schema": {
       "type": "object",
       "properties": {},
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "SupplyDraftAPI_DraftGetWarehouseFboList",
+    "domain": "fbosupplyrequest",
+    "path": "/v1/warehouse/fbo/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "fbosupplyrequest",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Поиск точек для отгрузки поставки",
+    "description": "Используйте метод, чтобы найти точки отгрузки для кросс-докинга и прямых поставок.\n\nВы можете посмотреть адреса всех точек на карте и в виде таблицы в [Базе знаний](https://seller-edu.ozon.ru/fbo/warehouses/adresa-skladov-fbo).",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "filter_by_supply_type": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "CREATE_TYPE_CROSSDOCK",
+              "CREATE_TYPE_DIRECT"
+            ]
+          }
+        },
+        "search": {
+          "type": "string",
+          "minLength": 4,
+          "required": true
+        }
+      },
+      "required": [
+        "filter_by_supply_type",
+        "search"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "DraftCreateInfo",
+    "domain": "fbosupplyrequest",
+    "path": "/v2/draft/create/info",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "fbosupplyrequest",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить информацию о черновике заявки на поставку",
+    "description": "Вы можете создавать черновики заявки на поставку 2 раза в минуту и 50 раз в час.\n\nЕсли превысите лимит, вернётся ошибка 429.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "draft_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "draft_id"
+      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -2354,6 +3029,36 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
+    "method_id": "CargoesAPI_CargoesDeleteStatus",
+    "domain": "fbosupplyrequest",
+    "path": "/v1/cargoes/delete/status",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "fbosupplyrequest",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Информация о статусе удаления грузоместа",
+    "description": "Метод для получения статуса удаления грузомест в заявке на поставку.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "operation_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "operation_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
     "method_id": "CargoesAPI_CargoesRulesGet",
     "domain": "fbosupplyrequest",
     "path": "/v1/cargoes/rules/get",
@@ -2449,6 +3154,36 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
+    "method_id": "SupplyOrderAPI_SupplyOrderCancelStatus",
+    "domain": "fbosupplyrequest",
+    "path": "/v1/supply-order/cancel/status",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "fbosupplyrequest",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить статус отмены заявки на поставку",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "operation_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "operation_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
     "method_id": "SupplyOrderAPI_SupplyOrderContentUpdateStatus",
     "domain": "fbosupplyrequest",
     "path": "/v1/supply-order/content/update/status",
@@ -2513,6 +3248,40 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
+    "method_id": "DraftSupplyCreateStatus",
+    "domain": "fbosupplyrequest",
+    "path": "/v2/draft/supply/create/status",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "fbosupplyrequest",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить информацию о создании заявки на поставку",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "properties": {
+            "draft_id": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "draft_id"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
     "method_id": "WarehouseFboSellerList",
     "domain": "fbosupplyrequest",
     "path": "/v1/warehouse/fbo/seller/list",
@@ -2530,6 +3299,66 @@
     "input_schema": {
       "type": "object",
       "properties": {},
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "PostingAPI_FbsPostingProductExemplarCreateOrGetV6",
+    "domain": "fbs_rfbsmarks",
+    "path": "/v6/fbs/posting/product/exemplar/create-or-get",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "orders.read",
+    "endpoint_group": "fbs_rfbsmarks",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить данные созданных экземпляров",
+    "description": "Метод для получения информации по экземплярам товаров из отправления, переданных в методе [/v6/fbs/posting/product/exemplar/set](#operation/PostingAPI_FbsPostingProductExemplarSetV6).\n\nИспользуйте метод для получения `exemplar_id`.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "posting_number": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "posting_number"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "PostingAPI_FbsPostingProductExemplarStatusV5",
+    "domain": "fbs_rfbsmarks",
+    "path": "/v5/fbs/posting/product/exemplar/status",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "orders.read",
+    "endpoint_group": "fbs_rfbsmarks",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить статус добавления экземпляров",
+    "description": "Метод для получения статусов добавления экземпляров, переданных в методе [/v6/fbs/posting/product/exemplar/set](#operation/PostingAPI_FbsPostingProductExemplarSetV6). Также возвращает данные по этим экземплярам.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "posting_number": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "posting_number"
+      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -2697,6 +3526,36 @@
       },
       "required": [
         "carriage_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "PostingAPI_ActPostingList",
+    "domain": "deliveryfbs",
+    "path": "/v2/posting/fbs/act/get-postings",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "deliveryfbs",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Список отправлений в акте",
+    "description": "Возвращает список отправлений в акте по его идентификатору.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "int"
+        }
+      },
+      "required": [
+        "id"
       ],
       "additionalProperties": false
     },
@@ -3000,6 +3859,61 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
+    "method_id": "AssemblyCarriagePostingList",
+    "domain": "deliveryfbs",
+    "path": "/v1/assembly/carriage/posting/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "deliveryfbs",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список отправлений в отгрузке",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "type": "string"
+        },
+        "filter": {
+          "type": "object",
+          "properties": {
+            "carriage_id": {
+              "type": "integer"
+            },
+            "cutoff_from": {
+              "type": "string"
+            },
+            "cutoff_to": {
+              "type": "string"
+            },
+            "delivery_method_id": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "carriage_id"
+          ]
+        },
+        "limit": {
+          "type": "integer",
+          "maximum": 100
+        }
+      },
+      "required": [
+        "filter",
+        "limit"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
     "method_id": "AssemblyCarriageProductList",
     "domain": "deliveryfbs",
     "path": "/v1/assembly/carriage/product/list",
@@ -3048,6 +3962,668 @@
       "required": [
         "limit",
         "filter"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "AssemblyFbsPostingList",
+    "domain": "deliveryfbs",
+    "path": "/v1/assembly/fbs/posting/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "deliveryfbs",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список отправлений",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "type": "string"
+        },
+        "filter": {
+          "type": "object",
+          "properties": {
+            "cutoff_from": {
+              "type": "string"
+            },
+            "cutoff_to": {
+              "type": "string"
+            },
+            "delivery_method_id": {
+              "type": "integer",
+              "maximum": 1000
+            }
+          },
+          "required": [
+            "cutoff_from",
+            "cutoff_to"
+          ]
+        },
+        "limit": {
+          "type": "integer",
+          "maximum": 1000
+        },
+        "sort_dir": {
+          "type": "string",
+          "enum": [
+            "ASC",
+            "DESC"
+          ]
+        }
+      },
+      "required": [
+        "limit",
+        "filter",
+        "sort_dir"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "AssemblyFbsProductList",
+    "domain": "deliveryfbs",
+    "path": "/v1/assembly/fbs/product/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "deliveryfbs",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список товаров в отправлениях",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "object",
+          "properties": {
+            "cutoff_from": {
+              "type": "string"
+            },
+            "cutoff_to": {
+              "type": "string"
+            },
+            "delivery_method_id": {
+              "type": "integer",
+              "maximum": 1000
+            }
+          },
+          "required": [
+            "cutoff_from",
+            "cutoff_to"
+          ]
+        },
+        "limit": {
+          "type": "integer",
+          "maximum": 1000
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "sort_dir": {
+          "type": "string",
+          "enum": [
+            "ASC",
+            "DESC"
+          ]
+        }
+      },
+      "required": [
+        "limit",
+        "filter"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "PostingAPI_GetFbsPostingUnfulfilledList",
+    "domain": "fbs",
+    "path": "/v3/posting/fbs/unfulfilled/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "orders.read",
+    "endpoint_group": "fbs",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Список необработанных отправлений",
+    "description": "<aside class=\"warning\">\nС 31 августа 2026 года метод будет отключён. Переключитесь на <a href=\"#operation/PostingFbsUnfulfilledList\">/v4/posting/fbs/unfulfilled/list</a>.\n</aside>\nВозвращает список необработанных отправлений за указанный период времени — он должен быть не больше одного года.\n\nВозможные статусы отправлений:\n- `awaiting_registration` — ожидает регистрации,\n- `acceptance_in_progress` — идёт приёмка,\n- `awaiting_approve` — ожидает подтверждения,\n- `awaiting_packaging` — ожидает упаковки,\n- `awaiting_deliver` — ожидает отгрузки,\n- `arbitration` — арбитраж,\n- `client_arbitration` — клиентский арбитраж доставки,\n- `delivering` — доставляется,\n- `driver_pickup` — у водителя,\n- `cancelled` — отменено,\n- `not_accepted` — не принят на сортировочном центре.\n\nЧтобы получать актуальную дату отгрузки, регулярно обновляйте информацию об отправлениях или подключите [пуш-уведомления](#tag/push_start).",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "dir": {
+          "type": "string"
+        },
+        "filter": {
+          "type": "object",
+          "properties": {
+            "cutoff_from": {
+              "type": "string"
+            },
+            "cutoff_to": {
+              "type": "string"
+            },
+            "delivering_date_from": {
+              "type": "string"
+            },
+            "delivering_date_to": {
+              "type": "string"
+            },
+            "delivery_method_id": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "is_quantum": {
+              "type": "boolean"
+            },
+            "last_changed_status_date": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "string"
+                },
+                "to": {
+                  "type": "string"
+                }
+              }
+            },
+            "provider_id": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "status": {
+              "type": "string"
+            },
+            "warehouse_id": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          "required": [
+            "cutoff_from",
+            "cutoff_to"
+          ]
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "with": {
+          "type": "object",
+          "properties": {
+            "analytics_data": {
+              "type": "boolean"
+            },
+            "barcodes": {
+              "type": "boolean"
+            },
+            "financial_data": {
+              "type": "boolean"
+            },
+            "legal_info": {
+              "type": "boolean"
+            },
+            "translit": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "required": [
+        "filter",
+        "limit",
+        "offset"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "PostingFbsUnfulfilledList",
+    "domain": "fbs",
+    "path": "/v4/posting/fbs/unfulfilled/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "orders.read",
+    "endpoint_group": "fbs",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список необработанных отправлений",
+    "description": "Возвращает список необработанных отправлений за указанный период времени — он должен быть не больше одного года.\n\nВозможные статусы отправлений:\n- `awaiting_registration` — ожидает регистрации;\n- `acceptance_in_progress` — идёт приёмка;\n- `awaiting_approve` — ожидает подтверждения;\n- `awaiting_packaging` — ожидает упаковки;\n- `awaiting_deliver` — ожидает отгрузки;\n- `arbitration` — арбитраж;\n- `client_arbitration` — клиентский арбитраж доставки;\n- `delivering` — доставляется;\n- `driver_pickup` — у водителя;\n- `cancelled` — отменено;\n- `not_accepted` — не принято на сортировочном центре.\n\nЧтобы получать актуальную дату отгрузки, регулярно обновляйте информацию об отправлениях или подключите [пуш-уведомления](#tag/push_start).",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "type": "string"
+        },
+        "filter": {
+          "type": "object",
+          "properties": {
+            "cutoff_from": {
+              "type": "string"
+            },
+            "cutoff_to": {
+              "type": "string"
+            },
+            "delivering_date_from": {
+              "type": "string"
+            },
+            "delivering_date_to": {
+              "type": "string"
+            },
+            "delivery_method_ids": {
+              "type": "array",
+              "maxItems": 1000,
+              "items": {
+                "type": "string"
+              }
+            },
+            "last_changed_status_date": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "string"
+                },
+                "to": {
+                  "type": "string"
+                }
+              }
+            },
+            "provider_ids": {
+              "type": "array",
+              "maxItems": 1000,
+              "items": {
+                "type": "string"
+              }
+            },
+            "statuses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "warehouse_ids": {
+              "type": "array",
+              "maxItems": 1000,
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "sort_dir": {
+          "type": "string",
+          "enum": [
+            "ASC",
+            "DESC"
+          ]
+        },
+        "translit": {
+          "type": "boolean"
+        },
+        "with": {
+          "type": "object",
+          "properties": {
+            "analytics_data": {
+              "type": "boolean"
+            },
+            "barcodes": {
+              "type": "boolean"
+            },
+            "financial_data": {
+              "type": "boolean"
+            },
+            "legal_info": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "PostingAPI_GetFbsPostingListV3",
+    "domain": "fbs",
+    "path": "/v3/posting/fbs/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "orders.read",
+    "endpoint_group": "fbs",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Список отправлений",
+    "description": "<aside class=\"warning\">\nС 31 августа 2026 года метод будет отключён. Переключитесь на <a href=\"#operation/PostingFbsList\">/v4/posting/fbs/list</a>.\n</aside>\n\nВозвращает список отправлений за указанный период времени — он должен быть не больше одного года.\n\n`has_next = true` в ответе может значить, что вернули не весь массив отправлений. Чтобы получить информацию об остальных отправлениях, сделайте новый запрос с другим значением `offset`.\n\n Чтобы получать актуальную дату отгрузки, регулярно обновляйте информацию об отправлениях или подключите [пуш-уведомления](#tag/push_start).",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "dir": {
+          "type": "string"
+        },
+        "filter": {
+          "type": "object",
+          "properties": {
+            "delivery_method_id": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "integration_type_flow": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "is_blr_traceable": {
+              "type": "boolean"
+            },
+            "is_quantum": {
+              "type": "boolean"
+            },
+            "order_id": {
+              "type": "integer"
+            },
+            "provider_id": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "since": {
+              "type": "string"
+            },
+            "to": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "warehouse_id": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "last_changed_status_date": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "string"
+                },
+                "to": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": [
+            "since",
+            "to"
+          ]
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "with": {
+          "type": "object",
+          "properties": {
+            "analytics_data": {
+              "type": "boolean"
+            },
+            "barcodes": {
+              "type": "boolean"
+            },
+            "financial_data": {
+              "type": "boolean"
+            },
+            "legal_info": {
+              "type": "boolean"
+            },
+            "translit": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "required": [
+        "filter",
+        "limit",
+        "offset"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "PostingFbsList",
+    "domain": "fbs",
+    "path": "/v4/posting/fbs/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "orders.read",
+    "endpoint_group": "fbs",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список отправлений",
+    "description": "Возвращает список отправлений за указанный период времени — он должен быть не больше одного года.\n\n Чтобы получать актуальную дату отгрузки, регулярно обновляйте информацию об отправлениях или подключите [пуш-уведомления](#tag/push_start).",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "type": "string"
+        },
+        "filter": {
+          "type": "object",
+          "properties": {
+            "delivery_method_ids": {
+              "type": "array",
+              "maxItems": 1000,
+              "items": {
+                "type": "string"
+              }
+            },
+            "integration_type_flow": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "is_blr_traceable": {
+              "type": "boolean"
+            },
+            "last_changed_status_date": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "string"
+                },
+                "to": {
+                  "type": "string"
+                }
+              }
+            },
+            "order_id": {
+              "type": "integer"
+            },
+            "order_numbers": {
+              "type": "array",
+              "maxItems": 100,
+              "items": {
+                "type": "string"
+              }
+            },
+            "provider_ids": {
+              "type": "array",
+              "maxItems": 1000,
+              "items": {
+                "type": "string"
+              }
+            },
+            "since": {
+              "type": "string"
+            },
+            "statuses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "to": {
+              "type": "string"
+            },
+            "warehouse_ids": {
+              "type": "array",
+              "maxItems": 1000,
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "since",
+            "to"
+          ]
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "sort_dir": {
+          "type": "string",
+          "enum": [
+            "ASC",
+            "DESC"
+          ]
+        },
+        "translit": {
+          "type": "boolean"
+        },
+        "with": {
+          "type": "object",
+          "properties": {
+            "analytics_data": {
+              "type": "boolean"
+            },
+            "barcodes": {
+              "type": "boolean"
+            },
+            "financial_data": {
+              "type": "boolean"
+            },
+            "legal_info": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "required": [
+        "filter",
+        "limit"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "PostingAPI_GetFbsPostingV3",
+    "domain": "fbs",
+    "path": "/v3/posting/fbs/get",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "orders.read",
+    "endpoint_group": "fbs",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить информацию об отправлении по идентификатору",
+    "description": "Чтобы получать актуальную дату отгрузки, регулярно обновляйте информацию об отправлениях или подключите [пуш-уведомления](#tag/push_start).",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "posting_number": {
+          "type": "string"
+        },
+        "with": {
+          "type": "object",
+          "properties": {
+            "analytics_data": {
+              "type": "boolean"
+            },
+            "barcodes": {
+              "type": "boolean"
+            },
+            "financial_data": {
+              "type": "boolean"
+            },
+            "legal_info": {
+              "type": "boolean"
+            },
+            "product_exemplars": {
+              "type": "boolean"
+            },
+            "related_postings": {
+              "type": "boolean"
+            },
+            "translit": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "required": [
+        "posting_number"
       ],
       "additionalProperties": false
     },
@@ -3136,6 +4712,29 @@
       "required": [
         "task_id"
       ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "PostingAPI_GetPostingFbsCancelReasonList",
+    "domain": "fbs",
+    "path": "/v2/posting/fbs/cancel-reason/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "orders.read",
+    "endpoint_group": "fbs",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Причины отмены отправлений",
+    "description": "Возвращает список причин отмены для всех отправлений.",
+    "input_schema": {
+      "type": "object",
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -3351,6 +4950,81 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
+    "method_id": "CancellationAPI_GetConditionalCancellationListV2",
+    "domain": "cancellationapi",
+    "path": "/v2/conditional-cancellation/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "catalog.read",
+    "endpoint_group": "cancellationapi",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список заявок на отмену rFBS",
+    "description": "Метод для получения списка заявок на отмену rFBS-заказов.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "filters": {
+          "type": "object",
+          "properties": {
+            "cancellation_initiator": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "OZON",
+                  "SELLER",
+                  "CLIENT",
+                  "SYSTEM",
+                  "DELIVERY"
+                ]
+              }
+            },
+            "posting_number": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "state": {
+              "type": "string",
+              "enum": [
+                "ALL",
+                "ON_APPROVAL",
+                "APPROVED",
+                "REJECTED"
+              ]
+            }
+          }
+        },
+        "last_id": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer",
+          "maximum": 500
+        },
+        "with": {
+          "type": "object",
+          "properties": {
+            "counter": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "required": [
+        "limit"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
     "method_id": "returnsList",
     "domain": "returnsapi",
     "path": "/v1/returns/list",
@@ -3495,6 +5169,29 @@
       "required": [
         "pagination"
       ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "UtilizationHistory",
+    "domain": "returnsapi",
+    "path": "/v1/returns/settings/utilization/history",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "returns.read",
+    "endpoint_group": "returnsapi",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить историю изменений автоутилизации",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {},
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -3790,12 +5487,12 @@
     "path": "/v1/report/info",
     "http_method": "POST",
     "safety": "read",
-    "reason": "Explicitly classified report/file generation with no seller-state mutation",
+    "reason": "Explicitly classified data retrieval",
     "permission": "reports.read",
     "endpoint_group": "reportapi",
     "pagination": "none",
     "file_download": false,
-    "report_job": true,
+    "report_job": false,
     "sensitive_data": false,
     "summary": "Информация об отчёте",
     "description": "Возвращает информацию о созданном ранее отчёте по его идентификатору.",
@@ -3820,12 +5517,12 @@
     "path": "/v1/report/list",
     "http_method": "POST",
     "safety": "read",
-    "reason": "Explicitly classified report/file generation with no seller-state mutation",
+    "reason": "Explicitly classified data retrieval",
     "permission": "reports.read",
     "endpoint_group": "reportapi",
     "pagination": "none",
     "file_download": false,
-    "report_job": true,
+    "report_job": false,
     "sensitive_data": false,
     "summary": "Список отчётов",
     "description": "Возвращает список отчётов, которые были сформированы раньше.",
@@ -4908,6 +6605,131 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
+    "method_id": "RatingAPI_ListFBSRatingIndexPostingsV1",
+    "domain": "sellerrating",
+    "path": "/v1/rating/index/fbs/posting/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "quality.read",
+    "endpoint_group": "sellerrating",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Список отправлений, которые повлияли на индекс ошибок FBS и rFBS",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "type": "string"
+        },
+        "filter": {
+          "type": "object",
+          "properties": {
+            "date_from": {
+              "type": "string"
+            },
+            "date_to": {
+              "type": "string"
+            },
+            "posting_numbers": {
+              "type": "array",
+              "maximum": 1000,
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "date_from",
+            "date_to"
+          ]
+        },
+        "limit": {
+          "type": "integer",
+          "maximum": 1000
+        }
+      },
+      "required": [
+        "filter",
+        "limit"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "ListPostingCodes",
+    "domain": "digital",
+    "path": "/v1/posting/digital/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "orders.read",
+    "endpoint_group": "digital",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список отправлений",
+    "description": "<aside class=\"warning\">\nС 31 августа 2026 года метод будет отключён. Переключитесь на <a href=\"#operation/PostingDigitalList\">/v2/posting/digital/list</a>.\n</aside>\nВозвращает список отправлений, по которым нужно загрузить коды цифровых товаров. Метод доступен только продавцам, работающим с цифровыми товарами. \n\nЧтобы получить список отправлений в любом статусе, воспользуйтесь методом [/v2/posting/fbo/list](#operation/PostingAPI_GetFboPostingList).",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "dir": {
+          "type": "string",
+          "enum": [
+            "ASC",
+            "DESC"
+          ]
+        },
+        "filter": {
+          "type": "object",
+          "properties": {
+            "posting_number": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "since": {
+              "type": "string"
+            },
+            "to": {
+              "type": "string"
+            }
+          }
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "with": {
+          "type": "object",
+          "properties": {
+            "analytics_data": {
+              "type": "boolean"
+            },
+            "financial_data": {
+              "type": "boolean"
+            },
+            "legal_info": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
     "method_id": "ReviewAPI_CommentList",
     "domain": "reviewapi",
     "path": "/v1/review/comment/list",
@@ -5355,6 +7177,49 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
+    "method_id": "GetSupplyReturnsSummaryReport",
+    "domain": "betamethod",
+    "path": "/v1/removal/from-supply/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "betamethod",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Отчёт по вывозу и утилизации с поставки FBO",
+    "description": "Метод соответствует разделу [**FBO → Вывоз и утилизация**](https://seller.ozon.ru/app/fbo-operations/returns) в личном кабинете.\n\nВы можете оставить обратную связь по этому методу в комментариях к [обсуждению](https://dev.ozon.ru/community/1608-Novye-metody-po-vyvozu-i-utilizatsii) в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "date_from": {
+          "type": "string"
+        },
+        "date_to": {
+          "type": "string"
+        },
+        "last_id": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        }
+      },
+      "required": [
+        "date_from",
+        "date_to",
+        "limit"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
     "method_id": "GetSupplierReturnsSummaryReport",
     "domain": "betamethod",
     "path": "/v1/removal/from-stock/list",
@@ -5514,6 +7379,84 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
+    "method_id": "PostingDigitalList",
+    "domain": "betamethod",
+    "path": "/v2/posting/digital/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "orders.read",
+    "endpoint_group": "betamethod",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список отправлений",
+    "description": "Возвращает список отправлений, по которым нужно загрузить коды цифровых товаров. Метод доступен только продавцам, которые работают с цифровыми товарами. \n\nЧтобы получить список отправлений в любом статусе, используйте метод [/v3/posting/fbo/list](#operation/PostingFboList).\n\nВы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2050-Novyi-beta-metod-dlia-postingov-s-zagruzkoi-kodov-tsifrovykh-tovarov-v-Seller-API/) в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "type": "string"
+        },
+        "filter": {
+          "type": "object",
+          "properties": {
+            "order_numbers": {
+              "type": "array",
+              "maxItems": 1000,
+              "items": {
+                "type": "string"
+              }
+            },
+            "posting_numbers": {
+              "type": "array",
+              "maxItems": 1000,
+              "items": {
+                "type": "string"
+              }
+            },
+            "since": {
+              "type": "string"
+            },
+            "to": {
+              "type": "string"
+            }
+          }
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "sort_dir": {
+          "type": "string",
+          "enum": [
+            "ASC",
+            "DESC"
+          ]
+        },
+        "with": {
+          "type": "object",
+          "properties": {
+            "analytics_data": {
+              "type": "boolean"
+            },
+            "financial_data": {
+              "type": "boolean"
+            },
+            "legal_info": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
     "method_id": "GetFinanceAccrualTypes",
     "domain": "betamethod",
     "path": "/v1/finance/accrual/types",
@@ -5603,6 +7546,36 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
+    "method_id": "GetFbpPosting",
+    "domain": "betamethod",
+    "path": "/v1/posting/fbp/get",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "orders.read",
+    "endpoint_group": "betamethod",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить информацию об отправлении по идентификатору",
+    "description": "Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2237-Novyi-metod-polucheniia-FBP-postingov-po-identifikatoru-otpravleniia/) в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "posting_number": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "posting_number"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
     "method_id": "SupplyOrderActSummaryGet",
     "domain": "supplyorderapi",
     "path": "/v1/supply-order/act/summary/get",
@@ -5686,6 +7659,408 @@
       },
       "required": [
         "operation_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "WarehouseAPI_ListDropOffPointsForCreateFBSWarehouse",
+    "domain": "fbswarehousesetup",
+    "path": "/v1/warehouse/fbs/create/drop-off/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "warehouses.read",
+    "endpoint_group": "fbswarehousesetup",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список drop-off пунктов для создания склада",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "coordinates": {
+          "type": "object",
+          "properties": {
+            "latitude": {
+              "type": "number"
+            },
+            "longitude": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "latitude",
+            "longitude"
+          ]
+        },
+        "country_code": {
+          "type": "string"
+        },
+        "is_kgt": {
+          "type": "boolean"
+        },
+        "search": {
+          "type": "object",
+          "properties": {
+            "address": {
+              "type": "string",
+              "maxLength": 1000
+            },
+            "types": {
+              "type": "array",
+              "maxItems": 3,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "PVZ",
+                  "PPZ",
+                  "SC"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "country_code",
+        "is_kgt"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "WarehouseAPI_ListDropOffPointsForUpdateFBSWarehouse",
+    "domain": "fbswarehousesetup",
+    "path": "/v1/warehouse/fbs/update/drop-off/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "warehouses.read",
+    "endpoint_group": "fbswarehousesetup",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список drop-off пунктов для изменения информации склада",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "search": {
+          "type": "object",
+          "properties": {
+            "address": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "maxItems": 3,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "PVZ",
+                  "PPZ",
+                  "SC"
+                ]
+              }
+            }
+          }
+        },
+        "warehouse_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "warehouse_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "WarehouseFbsCreateDropOffTimeslotList",
+    "domain": "fbswarehousesetup",
+    "path": "/v1/warehouse/fbs/create/drop-off/timeslot/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "warehouses.read",
+    "endpoint_group": "fbswarehousesetup",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список таймслотов для создания склада с отгрузкой drop-off",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "drop_off_point_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "drop_off_point_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "WarehouseFbsUpdateDropOffTimeslotList",
+    "domain": "fbswarehousesetup",
+    "path": "/v1/warehouse/fbs/update/drop-off/timeslot/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "warehouses.read",
+    "endpoint_group": "fbswarehousesetup",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список таймслотов для обновления склада с отгрузкой drop-off",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "drop_off_point_id": {
+          "type": "integer"
+        },
+        "warehouse_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "drop_off_point_id",
+        "warehouse_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "WarehouseFbsCreatePickUpTimeslotList",
+    "domain": "fbswarehousesetup",
+    "path": "/v1/warehouse/fbs/create/pick-up/timeslot/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "warehouses.read",
+    "endpoint_group": "fbswarehousesetup",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список таймслотов для создания склада с отгрузкой pick-up",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "address_coordinates": {
+          "type": "object",
+          "properties": {
+            "latitude": {
+              "type": "number"
+            },
+            "longitude": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "latitude",
+            "longitude"
+          ]
+        },
+        "is_kgt": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "is_kgt",
+        "address_coordinates"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "WarehouseFbsUpdatePickUpTimeslotList",
+    "domain": "fbswarehousesetup",
+    "path": "/v1/warehouse/fbs/update/pick-up/timeslot/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "warehouses.read",
+    "endpoint_group": "fbswarehousesetup",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список таймслотов для обновления склада с отгрузкой pick-up",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "warehouse_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "warehouse_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "WarehouseFBSCreateReturnPointList",
+    "domain": "fbswarehousesetup",
+    "path": "/v1/warehouse/fbs/create/return-point/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "returns.read",
+    "endpoint_group": "fbswarehousesetup",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список пунктов возврата для создания склада",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "coordinates": {
+          "type": "object",
+          "properties": {
+            "latitude": {
+              "type": "number"
+            },
+            "longitude": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "latitude",
+            "longitude"
+          ]
+        },
+        "country_code": {
+          "type": "string"
+        },
+        "last_id": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "search": {
+          "type": "object",
+          "properties": {
+            "address": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "PVZ",
+                  "PPZ",
+                  "SC"
+                ]
+              }
+            }
+          }
+        },
+        "selected_dropoff_point_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "country_code",
+        "coordinates",
+        "limit"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "WarehouseFBSUpdateReturnPointList",
+    "domain": "fbswarehousesetup",
+    "path": "/v1/warehouse/fbs/update/return-point/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "returns.read",
+    "endpoint_group": "fbswarehousesetup",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список пунктов возврата для обновления склада",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "current_dropoff_point_id": {
+          "type": "integer"
+        },
+        "current_return_point_id": {
+          "type": "integer"
+        },
+        "last_id": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "search": {
+          "type": "object",
+          "properties": {
+            "address": {
+              "type": "string",
+              "maximum": 1000
+            },
+            "types": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "PVZ",
+                  "PPZ",
+                  "SC"
+                ]
+              }
+            }
+          }
+        },
+        "warehouse_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "warehouse_id",
+        "limit"
       ],
       "additionalProperties": false
     },
@@ -6158,6 +8533,49 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
+    "method_id": "ActionsAutoAddProductsList",
+    "domain": "promosbeta",
+    "path": "/v1/actions/auto-add/products/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "advertising.read",
+    "endpoint_group": "promosbeta",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список товаров из автодобавления в акцию",
+    "description": "Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2009-Novye-metody-dlia-upravleniia-avtodobavleniem-tovarov-v-aktsii/) в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action_id": {
+          "type": "integer"
+        },
+        "auto_add_date": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "offset": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "action_id",
+        "auto_add_date",
+        "limit"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
     "method_id": "CheckNotification",
     "domain": "notification",
     "path": "/v1/notification/check",
@@ -6283,6 +8701,36 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
+    "method_id": "CargoesDeleteStatusV2",
+    "domain": "fbotransport",
+    "path": "/v2/cargoes/delete/status",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "catalog.read",
+    "endpoint_group": "fbotransport",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить информацию о статусе удаления грузомест и транспортных грузомест",
+    "description": "Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2179-Novye-beta-metody-dlia-raboty-s-transportnymi-gruzr/) в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "operation_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "operation_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
     "method_id": "CargoesTransportActivateStatus",
     "domain": "fbotransport",
     "path": "/v1/cargoes/transport/activate/status",
@@ -6313,6 +8761,33 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
+    "method_id": "CargoesTransportCreateStatus",
+    "domain": "fbotransport",
+    "path": "/v1/cargoes/transport/create/status",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "catalog.read",
+    "endpoint_group": "fbotransport",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить статус создания транспортного грузоместа",
+    "description": "Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2179-Novye-beta-metody-dlia-raboty-s-transportnymi-gruzr/) в сообществе разработчиков Ozon for dev.\n\n[Подробнее о работе с транспортными грузоместами](https://dev.ozon.ru/start/525-Rabota-s-transportnymi-gruzomestami-TGM-v-postavkakh-FBO/)",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "operation_id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
     "method_id": "CargoesTransportBindStatus",
     "domain": "fbotransport",
     "path": "/v1/cargoes/transport/bind/status",
@@ -6326,6 +8801,70 @@
     "report_job": false,
     "sensitive_data": false,
     "summary": "Получить статус связывания или отвязывания грузомест и транспортных грузомест",
+    "description": "Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2179-Novye-beta-metody-dlia-raboty-s-transportnymi-gruzr/) в сообществе разработчиков Ozon for dev.\n\n[Подробнее о работе с транспортными грузоместами](https://dev.ozon.ru/start/525-Rabota-s-transportnymi-gruzomestami-TGM-v-postavkakh-FBO/)",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "operation_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "operation_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "CargoesSuppliesGet",
+    "domain": "fbotransport",
+    "path": "/v1/cargoes/supplies/get",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "catalog.read",
+    "endpoint_group": "fbotransport",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить информацию о грузоместах в поставках",
+    "description": "Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2179-Novye-beta-metody-dlia-raboty-s-transportnymi-gruzr/) в сообществе разработчиков Ozon for dev.\n\n[Подробнее о работе с транспортными грузоместами](https://dev.ozon.ru/start/525-Rabota-s-transportnymi-gruzomestami-TGM-v-postavkakh-FBO/)",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "supply_ids": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "supply_ids"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "CargoesLabelTransportByOrderStatus",
+    "domain": "fbotransport",
+    "path": "/v1/cargoes/label/transport-by-order/status",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "reports.read",
+    "endpoint_group": "fbotransport",
+    "pagination": "none",
+    "file_download": true,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить статус генерации этикеток для транспортных грузомеcт по идентификатору поставки",
     "description": "Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2179-Novye-beta-metody-dlia-raboty-s-transportnymi-gruzr/) в сообществе разработчиков Ozon for dev.\n\n[Подробнее о работе с транспортными грузоместами](https://dev.ozon.ru/start/525-Rabota-s-transportnymi-gruzomestami-TGM-v-postavkakh-FBO/)",
     "input_schema": {
       "type": "object",
@@ -6366,6 +8905,48 @@
       },
       "required": [
         "operation_idd"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "FbpDraftDirectGetTimeslot",
+    "domain": "draftdirectfbp",
+    "path": "/v1/fbp/draft/direct/timeslot/get",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "catalog.read",
+    "endpoint_group": "draftdirectfbp",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список таймслотов для прямой поставки",
+    "description": "Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/1700-FBP-metody/) в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "bundle_id": {
+          "type": "string"
+        },
+        "interval_end": {
+          "type": "string"
+        },
+        "interval_start": {
+          "type": "string"
+        },
+        "warehouse_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "bundle_id",
+        "interval_end",
+        "interval_start",
+        "warehouse_id"
       ],
       "additionalProperties": false
     },
@@ -6531,6 +9112,44 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
+    "method_id": "FbpAPI_FbpAvailableTimeslotList",
+    "domain": "orderdirectfbp",
+    "path": "/v1/fbp/order/direct/timeslot/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "orders.read",
+    "endpoint_group": "orderdirectfbp",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список таймслотов для поставки",
+    "description": "Вы можете оставить обратную связь по этому методу в комментариях к [обсуждению](https://dev.ozon.ru/community/1700-FBP-metody/) в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "interval_end": {
+          "type": "string"
+        },
+        "interval_start": {
+          "type": "string"
+        },
+        "supply_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "interval_end",
+        "interval_start",
+        "supply_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
     "method_id": "FbpAPI_FbpCheckActState",
     "domain": "deliveryfbp",
     "path": "/v1/fbp/act-from/get",
@@ -6595,6 +9214,69 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
+    "method_id": "FbpAPI_FbpArchiveGet",
+    "domain": "deliveryfbp",
+    "path": "/v1/fbp/archive/get",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "deliveryfbp",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить информацию о завершённой поставке",
+    "description": "Вы можете оставить обратную связь по этому методу в комментариях к [обсуждению](https://dev.ozon.ru/community/1700-FBP-metody/) в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "supply_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "supply_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "FbpAPI_FbpArchiveList",
+    "domain": "deliveryfbp",
+    "path": "/v1/fbp/archive/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "deliveryfbp",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список завершённых поставок",
+    "description": "Вы можете оставить обратную связь по этому методу в комментариях к [обсуждению](https://dev.ozon.ru/community/1700-FBP-metody/) в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "string"
+        },
+        "last_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "count"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
     "method_id": "FbpAPI_FbpGetLabel",
     "domain": "deliveryfbp",
     "path": "/v1/fbp/label/get",
@@ -6652,6 +9334,69 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
+    "method_id": "FbpAPI_FbpDraftGet",
+    "domain": "deliveryfbpdraft",
+    "path": "/v1/fbp/draft/get",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "deliveryfbpdraft",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить информацию о черновике поставки",
+    "description": "Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/1700-FBP-metody/) в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "supply_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "supply_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "FbpAPI_FbpDraftList",
+    "domain": "deliveryfbpdraft",
+    "path": "/v1/fbp/draft/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "deliveryfbpdraft",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Список черновиков поставки",
+    "description": "Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/1700-FBP-metody/) в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "last_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
     "method_id": "FbpAPI_FbpOrderDropOffTimetable",
     "domain": "orderdropofffbp",
     "path": "/v1/fbp/order/drop-off/timetable",
@@ -6684,6 +9429,140 @@
         "province_uuid",
         "warehouse_id"
       ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "FbpAPI_FbpOrderGet",
+    "domain": "deliveryfbp",
+    "path": "/v1/fbp/order/get",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "deliveryfbp",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить информацию о конкретной поставке",
+    "description": "Вы можете оставить обратную связь по этому методу в комментариях к [обсуждению](https://dev.ozon.ru/community/1700-FBP-metody/) в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "supply_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "supply_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "FbpAPI_FbpOrderList",
+    "domain": "deliveryfbp",
+    "path": "/v1/fbp/order/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "deliveryfbp",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список поставок",
+    "description": "Вы можете оставить обратную связь по этому методу в комментариях к [обсуждению](https://dev.ozon.ru/community/1700-FBP-metody/) в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "last_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "PostingFbpList",
+    "domain": "deliveryfbp",
+    "path": "/v1/posting/fbp/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "logistics.read",
+    "endpoint_group": "deliveryfbp",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список отправлений",
+    "description": "Вы можете оставить обратную связь по этому методу в комментариях к [обсуждению](https://dev.ozon.ru/community/2054-Novyi-beta-metod-dlia-raboty-s-FBP-postingami-v-Seller-API/ ) в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "type": "string"
+        },
+        "filter": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "offer_id": {
+              "type": "string"
+            },
+            "posting_numbers": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "since": {
+              "type": "string"
+            },
+            "statuses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "to": {
+              "type": "string"
+            }
+          }
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "sort_by": {
+          "type": "string"
+        },
+        "sort_dir": {
+          "type": "string",
+          "enum": [
+            "ASC",
+            "DESC"
+          ]
+        }
+      },
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -7091,12 +9970,12 @@
     "path": "/v1/analytics/product-queries/details",
     "http_method": "POST",
     "safety": "read",
-    "reason": "Explicitly classified report/file generation with no seller-state mutation",
+    "reason": "Explicitly classified data retrieval",
     "permission": "analytics.read",
     "endpoint_group": "premium",
     "pagination": "bounded",
     "file_download": false,
-    "report_job": true,
+    "report_job": false,
     "sensitive_data": false,
     "summary": "Получить детализацию запросов по товару",
     "description": "Используйте метод, чтобы получить данные по запросам на конкретный товар. Полная аналитика доступна с подпиской [Premium](https://seller-edu.ozon.ru/seller-rating/about-rating/premium-program), [Premium Plus](https://seller-edu.ozon.ru/seller-rating/about-rating/subscription-premium-plus) или [Premium Pro](https://seller-edu.ozon.ru/seller-rating/about-rating/podpiska-premium-pro). Без подписки вы можете посмотреть часть показателей. Метод аналогичен просмотру данных по товару на вкладке **Товары в поиске → Запросы моего товара** в личном кабинете.\n\nАналитику по запросам можно проверить за определённые даты. Для этого укажите интервал в полях `date_from` и `date_to`. Данные за последний месяц доступны в любом интервале, кроме текущей даты — расчёт происходит в течение 1–2 дней. Аналитика за даты раньше месяца назад доступна только с подпиской [Premium](https://seller-edu.ozon.ru/seller-rating/about-rating/premium-program), [Premium Plus](https://seller-edu.ozon.ru/seller-rating/about-rating/subscription-premium-plus) или [Premium Pro](https://seller-edu.ozon.ru/seller-rating/about-rating/podpiska-premium-pro) и только по неделям — в запросе укажите параметр `date_from`.\n\n[Подробнее о работе с запросами товара в Базе знаний продавца](https://seller-edu.ozon.ru/analytics-and-metrics/graphs/analitika-po-zaprosu)",
@@ -7319,6 +10198,29 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
+    "method_id": "CancelReasonList",
+    "domain": "cancelreasonapi",
+    "path": "/v1/cancel-reason/list",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "catalog.read",
+    "endpoint_group": "cancelreasonapi",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Причины отмены отправлений",
+    "description": "Возвращает возможные причины отмены отправлений и заказов.",
+    "input_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
     "method_id": "DeliveryCheck",
     "domain": "deliveryapi",
     "path": "/v1/delivery/check",
@@ -7479,6 +10381,93 @@
     "input_schema": {
       "type": "object",
       "properties": {},
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "OrderAPI_OrderCancelCheck",
+    "domain": "orderapi",
+    "path": "/v1/order/cancel/check",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "orders.read",
+    "endpoint_group": "orderapi",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Проверить возможность отмены заказа",
+    "description": "Возвращает возможность отмены заказа для покупателя.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "order_number": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "order_number"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "OrderAPI_OrderCancelStatus",
+    "domain": "orderapi",
+    "path": "/v1/order/cancel/status",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "orders.read",
+    "endpoint_group": "orderapi",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить статус отмены заказа",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "order_number": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "order_number"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+  },
+  {
+    "method_id": "PostingAPI_PostingCancelStatus",
+    "domain": "fbopostingapi",
+    "path": "/v1/posting/cancel/status",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "orders.read",
+    "endpoint_group": "fbopostingapi",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Проверить статус отмены отправления",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "posting_number": {
+          "type": "string"
+        }
+      },
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -7689,12 +10678,12 @@
     "path": "/api/client/statistics/{UUID}",
     "http_method": "GET",
     "safety": "read",
-    "reason": "Explicitly classified report/file generation with no seller-state mutation",
+    "reason": "Explicitly classified data retrieval",
     "permission": "analytics.read",
     "endpoint_group": "performance",
     "pagination": "none",
     "file_download": false,
-    "report_job": true,
+    "report_job": false,
     "sensitive_data": true,
     "summary": "Cтатус отчёта",
     "description": "",

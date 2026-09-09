@@ -26,6 +26,11 @@ function classify({ http_method, path: apiPath, operationId, summary, descriptio
   const semantic = normalize(`${operationId} ${last} ${summary}`);
   const all = normalize(`${operationId} ${apiPath} ${summary} ${description}`);
   if (/\/chat\/(send|start)(\/|$)|\/seller\/message(\/|$)|\/feedbacks?\/answer(\/|$)|\/questions?\/(answer|reply)(\/|$)/i.test(apiPath)) return "WRITE";
+  if (/^(change|update|set|add|delete|remove|cancel|send|reply|answer|confirm|accept|reject|activate|deactivate|измен|обнов|добав|удал|отмен|отправ|ответ|актив|деактив|установ|подтверд|приня|отклон)/i.test(String(summary ?? "").trim())) {
+    if (/generate|report|barcode|label|document|выгруз|отч[её]т|штрихкод/i.test(`${apiPath} ${operationId} ${summary}`)) return "SEMANTIC_READ_JOB";
+    return destructiveWords.test(String(summary)) ? "DESTRUCTIVE" : "WRITE";
+  }
+  if (/^(get|list|info|status|history|details|check|search)$/i.test(last) || /(Get|List|Info|Status|History|Details|Check|Search)(V\d+)?$/.test(operationId)) return "READ";
   if (method === "DELETE" || destructiveWords.test(semantic)) return "DESTRUCTIVE";
   if (semanticJobWords.test(all) && /\b(generate|download|report|statistics|analytics|выгруз|отч[её]т|сформир)/i.test(semantic)
       && !/\b(price|stock|order|shipment|carriage|campaign|product|offer|card|warehouse|promotion|bid|chat|feedback|question)\b.*\b(update|set|change|create|send|reply|answer|confirm|cancel)/i.test(all)) {

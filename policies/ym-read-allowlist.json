@@ -278,6 +278,121 @@
     "source_hash": "935a7f2660651cb08426ba7bda0da8a1eea03d38786ea6f96e6287312e9848d5"
   },
   {
+    "method_id": "deleteDocuments",
+    "domain": "documents",
+    "path": "/v1/businesses/{businessId}/offers/documents/delete",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified report/file generation with no seller-state mutation",
+    "permission": "reports.read",
+    "endpoint_group": "documents",
+    "pagination": "none",
+    "file_download": true,
+    "report_job": true,
+    "sensitive_data": false,
+    "summary": "Удаление документов",
+    "description": "{% include notitle [access](../../_auto/method_scopes/deleteDocuments.md) %}\n\nУдаляет документы на товары по их идентификаторам. За один запрос можно удалить не более 100 документов.\n\nПовторный запрос на удаление возвращает успешный ответ.\nОтсутствие одного документа не мешает обработке остальных.\n\n{% include notitle [limit](../../_auto/method_limits/deleteDocuments.md) %}",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "businessId": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "documentIds": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 100,
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "required": [
+        "businessId",
+        "documentIds"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "official-git:a664db5320954f08d1f193ea831852f59d050657",
+    "source_hash": "935a7f2660651cb08426ba7bda0da8a1eea03d38786ea6f96e6287312e9848d5"
+  },
+  {
+    "method_id": "updateDocuments",
+    "domain": "documents",
+    "path": "/v1/businesses/{businessId}/offers/documents/update",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Explicitly classified report/file generation with no seller-state mutation",
+    "permission": "reports.read",
+    "endpoint_group": "documents",
+    "pagination": "none",
+    "file_download": true,
+    "report_job": true,
+    "sensitive_data": false,
+    "summary": "Обновление документов",
+    "description": "{% include notitle [access](../../_auto/method_scopes/updateDocuments.md) %}\n\nПолностью обновляет номер, тип и даты документов на товары. За один запрос можно обновить не более 100 документов.\n\nДля каждого документа передайте его идентификатор и актуальные значения номера, типа и дат.\nЕсли дата не указана, ранее сохраненная дата будет удалена.\nОшибка одного документа не мешает обработке остальных.\n\n{% include notitle [limit](../../_auto/method_limits/updateDocuments.md) %}",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "businessId": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "documents": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 100,
+          "items": {
+            "type": "object",
+            "properties": {
+              "number": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "CONFORMITY_DECLARATION",
+                  "CONFORMITY_CERTIFICATE",
+                  "STATE_REGISTRATION_CERTIFICATE",
+                  "MEDICINAL_PRODUCT_CERTIFICATE",
+                  "BIOLOGICALLY_ACTIVE_ADDITIVE_CERTIFICATE",
+                  "MEDICAL_DEVICE_CERTIFICATE",
+                  "AGROCHEMICAL_PESTICIDE_CERTIFICATE"
+                ]
+              },
+              "activeFromDate": {
+                "type": "string"
+              },
+              "activeToDate": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "required": [
+              "number",
+              "type",
+              "id"
+            ]
+          }
+        }
+      },
+      "required": [
+        "businessId",
+        "documents"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "official-git:a664db5320954f08d1f193ea831852f59d050657",
+    "source_hash": "935a7f2660651cb08426ba7bda0da8a1eea03d38786ea6f96e6287312e9848d5"
+  },
+  {
     "method_id": "getOperations",
     "domain": "operations",
     "path": "/v1/businesses/{businessId}/operations",
@@ -5007,12 +5122,12 @@
     "path": "/v2/reports/info/{reportId}",
     "http_method": "GET",
     "safety": "read",
-    "reason": "Explicitly classified report/file generation with no seller-state mutation",
+    "reason": "Explicitly classified data retrieval",
     "permission": "reports.read",
     "endpoint_group": "reports",
     "pagination": "none",
     "file_download": false,
-    "report_job": true,
+    "report_job": false,
     "sensitive_data": false,
     "summary": "Получение заданного отчета или документа",
     "description": "{% include notitle [access](../../_auto/method_scopes/getReportInfo.md) %}\n\nВозвращает статус генерации заданного отчета или документа и, если он готов, ссылку для скачивания.\n\nЧтобы воспользоваться этим запросом, вначале нужно запустить генерацию отчета или документа. [Инструкция](../../step-by-step/reports.md)\n\n{% include notitle [limit](../../_auto/method_limits/getReportInfo.md) %}",
