@@ -5,6 +5,7 @@ import { executeApprovedRead, type ReadMethod, type ReadTransport } from "../src
 
 const OZON = "00000000-0000-4000-8000-000000000011";
 const WB = "00000000-0000-4000-8000-000000000001";
+const YM = "00000000-0000-4000-8000-000000000021";
 const method: ReadMethod = {
   method_id: "test.read",
   domain: "catalog",
@@ -96,3 +97,26 @@ for (const methodId of [
   await denied(methodId, () => executeApprovedRead({ store, marketplace: "ozon", connectionId: OZON, method: forbidden as any, params: {}, transport }), transport);
 }
 console.log("Ozon write-negative spy transport: PASS (9/9 HTTP_REQUESTS_SENT=0)");
+
+for (const [marketplace, connectionId, inventoryFile, methodIds] of [
+  ["wildberries", WB, "wb-operations.json", [
+    "wb_prices_set_post_api_v2_upload_task", "wb_stocks_update_put_api_v3_stocks_warehouse_id",
+    "wb_cards_update_post_content_v2_cards_update", "wb_cards_create_post_content_v2_cards_upload",
+    "wb_media_save_by_links_post_content_v3_media_save", "wb_order_cancel_patch_api_v3_orders_order_id_cancel",
+    "wb_warehouse_create_post_api_v3_warehouses", "wb_advert_bids_set_patch_api_advert_v1_bids",
+    "wb_question_reply_patch_api_v1_questions", "wb_tag_delete_delete_content_v2_tag_tag_id",
+  ]],
+  ["yandex_market", YM, "ym-operations.json", [
+    "updateBusinessPrices", "updateStocksOnPartnerWarehouses", "updateOfferContent", "updateOrderStatus",
+    "updateGoodsQuestionTextEntity", "sendMessageToChat",
+  ]],
+] as const) {
+  const inventory = JSON.parse(fs.readFileSync(new URL(`../inventory/${inventoryFile}`, import.meta.url), "utf8"));
+  for (const methodId of methodIds) {
+    const forbidden = inventory.find((item: any) => item.method_id === methodId);
+    assert(forbidden && ["WRITE", "DESTRUCTIVE"].includes(forbidden.classification), `${methodId}: classified forbidden`);
+    const transport = new SpyTransport();
+    await denied(methodId, () => executeApprovedRead({ store, marketplace, connectionId, method: forbidden as any, params: {}, transport }), transport);
+  }
+  console.log(`${marketplace} write-negative spy transport: PASS (${methodIds.length}/${methodIds.length} HTTP_REQUESTS_SENT=0)`);
+}
