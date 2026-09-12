@@ -4,152 +4,96 @@ Source of truth: [`MARKETPLACE_MCP_MANIFEST.yaml`](../../MARKETPLACE_MCP_MANIFES
 
 ## Baseline
 
-- Production repository baseline: v0.3.0 at `0acd8026f0bf688f2cc6bca1e5f9633997117b51` (`origin/main`). A deployed revision is not evidenced in this repository.
-- Candidate: v0.4.0 at `e0e105f08e2139d76df2e919d8d073563ef3e7c5` on `codex/full-readonly-coverage`.
-- Runtime: `READ_ONLY`; architecture target: `READ + Controlled WRITE`; no global WRITE switch.
-- Surface: 17 production tools; 32 candidate tools. The extra 15 are five generic READ discovery/execution tools per marketplace, not endpoint wrappers.
-- Inventory: Ozon 511 operations, WB 181, Yandex Market 169. Candidate READ allowlists contain 282, 113, and 108 methods respectively.
-- Planning readiness: **55%** — 19 target controls scored as 8 complete, 5 partial at half credit, and 6 missing. This is prioritization, not release acceptance.
+- Audited planning baseline: `3e48f6563f86f947fa13120edff3e7b48e8bc545`; baseline Manifest SHA-256: `DBDEB513A8385AD52946C53984F34F418DA170B8932AA2D013DD8FF558E1A846`.
+- Production repository baseline remains v0.3.0 at `0acd8026f0bf688f2cc6bca1e5f9633997117b51`; a deployed revision is not evidenced.
+- Candidate runtime code remains v0.4.0 at `e0e105f08e2139d76df2e919d8d073563ef3e7c5`.
+- Runtime: `READ_ONLY`; architecture: `READ + Controlled WRITE`; WRITE capabilities remain disabled and no WRITE endpoint is required before a real MOS demand.
+- Surface: 17 production tools and 32 candidate tools. The extra 15 are five generic READ discovery/execution tools per marketplace, not endpoint wrappers.
+- Full inventories remain outside persistent LLM context: Ozon 511 operations, WB 181, Yandex Market 169; candidate READ allowlists contain 282, 113, and 108 methods.
+- Planning readiness: **50%** — 25 controls after replacing one coarse Ozon control with seven MOS cutover controls: 8 complete, 9 implemented-unverified at half credit, and 8 candidate/missing at zero credit. This is prioritization, not release acceptance.
 
-## Gap analysis
+## MOS boundary and ownership
 
-| v1 target | Current evidence | Gap |
+- MOS is unchanged. Its existing `CapabilityAdapter` is the future integration boundary.
+- Marketplace MCP owns marketplace access/execution infrastructure only.
+- MOS retains tenant authorization, connection lifecycle, SourceContract, Raw Vault, lineage, normalization, DQ/schema drift, sync orchestration, checkpoints, and Findings/Actions/Approval/Verification/Outcomes.
+- Integrate capabilities incrementally behind `CapabilityAdapter`; do not create another MOS integration layer and do not perform a big-bang transport migration.
+- Existing MOS Ozon transport is not removable until every Ozon cutover criterion below has accepted evidence.
+- WB and Yandex Market have no MOS connectors; Marketplace MCP is their primary access layer. Do not duplicate those connectors in MOS.
+
+## Ozon MOS requirements coverage
+
+| Requirement | Existing capability | Status | Gap | Action |
+|---|---|---|---|---|
+| Seller roles / API-key capabilities | `AccessAPI_RolesByToken` via `ozon_read_execute`; Manifest ID `ozon.seller_roles.read` | implemented_unverified | No real-key permission parity evidence | Add to bounded Ozon parity matrix and bind result to seller identity |
+| Seller account identity / cabinet binding | `SellerAPI_SellerInfo` via `ozon_read_execute`; Manifest ID `ozon.seller_identity.read` | implemented_unverified | No stable cabinet-binding evidence | Define identity fields/hash and compare with the authorized cabinet |
+| Warehouse directory READ | `WarehouseListV2` via `ozon_read_execute`; Manifest ID `ozon.warehouses.read` | implemented_unverified | `warehouses.read` is not in current env-seeded permission set; no real response evidence | Provision least privilege, test cursor pages, record schema |
+| Returns READ | `returnsList` via `ozon_read_execute`; Manifest ID `ozon.returns.read` | implemented_unverified | `returns.read` is not in current env-seeded permission set; no real response evidence | Provision least privilege and run bounded representative READ |
+| FBS unfulfilled READ | `PostingFbsUnfulfilledList` via `ozon_read_execute`; Manifest ID `ozon.fbs_unfulfilled.read` | implemented_unverified | No representative real response evidence | Run bounded v4 READ; retain v3 only as a compatibility fallback until upstream retirement |
+| Pagination parity with MOS Ozon adapter | Generic dispatch accepts cursor/offset/last_id and returns raw upstream paging fields | candidate | No iteration contract, normalized continuation metadata, or multi-page equivalence test | Specify endpoint-by-endpoint stop/continuation semantics and compare sequences with MOS |
+| Redacted/raw response contract for MOS normalization | Generic dispatch returns bounded upstream JSON and has conditional key-based redaction | candidate | Ozon methods above are marked non-sensitive; `view` is not a compatibility contract; normalization and evidence views are not proven | Define lossless normalization input separately from redacted evidence and test both on representative payloads |
+
+No listed requirement is classified as absent solely because it was not previously a separate business capability in the Manifest.
+
+## Remaining v1 gaps
+
+| Target | Current evidence | Gap |
 |---|---|---|
-| READ + Controlled WRITE architecture | Capability classes and disabled WRITE are represented in the Manifest | Controlled-WRITE runtime contract is intentionally deferred; no WRITE endpoint is needed for v1 |
-| WRITE disabled | No WRITE tools or global enable flag in production or candidate | No v1 gap; future WRITE remains demand-gated |
-| Fail closed | Production v0.3 explicit tools are READ-only; candidate locally denies Yandex `deleteDocuments`/`updateDocuments` with zero transport calls | Continue semantic review for every inventory refresh |
-| Ozon READ | Products, stocks, prices, orders plus candidate generic READ | Representative real-account E2E and recorded contract evidence missing |
-| Wildberries READ | Products, stocks, prices, orders plus candidate generic READ | Representative real-account E2E missing; Analytics has no sandbox |
-| Yandex Market READ | Campaigns, products, stocks, prices, orders plus candidate generic READ | Representative real-account E2E missing |
-| Credentials isolation | Credentials are separate from MCP arguments and encrypted in PostgreSQL | Production secret-manager/deployment evidence missing |
-| Permissions | Per-connection `.read` permissions are enforced | Real tokens/scopes need evidence per marketplace |
-| Rate/retry | Per marketplace/connection/group limits, retries, timeout handling exist | Production telemetry proving behavior is missing |
-| Audit | Every registered tool is wrapped by audit logic | Retention/access/export operating contract is not documented or verified |
-| PII/security | Default sensitive-field redaction, bounded I/O, bearer auth and Origin checks exist | Marketplace PII inventory and adversarial production evidence incomplete |
-| Capability registry | Compact Manifest created; full inventories remain external to LLM context | Runtime version/manifest-hash visibility still missing |
-| Production deployment | Docker and compose definitions exist | Deployed commit and health evidence absent |
-| Remote MCP E2E | Streamable HTTP transport exists | Authenticated remote E2E evidence absent |
-| Rollback | Git history and container build inputs exist | A rehearsed rollback with evidence is absent |
+| Ozon cutover | Five required reads are allowlisted behind generic dispatch | Permission provisioning, pagination equivalence, response-contract parity, and real-account evidence |
+| WB primary access | Typed and generic READ paths exist | Representative real-credential E2E; Analytics/Common have no sandbox isolation |
+| Yandex Market primary access | Typed and generic READ paths exist | Representative business/campaign and dual-stock E2E |
+| Credentials isolation | Credentials stay outside MCP arguments and are encrypted in PostgreSQL | Production secret-manager/deployment evidence |
+| Rate/retry | Per marketplace/connection/group limiting, retries, and timeouts exist | Ozon representative telemetry and parity evidence |
+| PII/evidence | Key-based redaction, bounded I/O, bearer auth, and Origin checks exist | Marketplace field inventory, adversarial tests, and proof that MOS normalization remains lossless |
+| Release binding | Manifest and generated Passport exist | Runtime commit/Manifest identity, immutable image binding, and release gate |
+| Remote MCP | Streamable HTTP exists | Authenticated Remote MCP E2E evidence |
+| Rollback | Git/container inputs exist | Rehearsed immutable-digest rollback evidence |
 
-## P0 — blocks v1.0
+## Ordered v1 roadmap
 
-### P0.1 Restore the fail-closed candidate boundary — COMPLETE
+### 1. Close Ozon parity gaps
 
-- Why: the candidate READ allowlist contains `deleteDocuments` and `updateDocuments`, both explicitly state-changing upstream operations.
-- Dependencies: pinned Yandex inventory source already recorded in `inventory/ym-operations.json`.
-- Acceptance criteria: both operations are classified `DESTRUCTIVE`/`WRITE`, absent from the READ allowlist, and negative spy-transport tests prove `HTTP_REQUESTS_SENT=0`; all policy checks pass.
-- Complexity: S.
-- Done: commit `e0e105f08e2139d76df2e919d8d073563ef3e7c5` classifies `deleteDocuments` as `DESTRUCTIVE`, `updateDocuments` as `WRITE`, removes both from the allowlist, and proves `2/2 HTTP_REQUESTS_SENT=0`.
-- Remaining: independent review is still required before promotion; no implementation work remains for this defect.
+- Bind the five implemented-unverified reads to explicit stable capability IDs without adding endpoint-per-tool wrappers.
+- Add least-privilege provisioning for `warehouses.read` and `returns.read`.
+- Define pagination continuation/stop semantics and a lossless raw normalization view plus a separately redacted evidence view.
+- Acceptance: local contract tests cover roles, identity, warehouses, returns, FBS unfulfilled, multi-page equivalence, credentials isolation, retry/rate behavior, and redaction; WRITE stays disabled.
 
-### P0.2 Prove representative Ozon real READ E2E
+### 2. Prove Ozon real READ E2E
 
-- Why: Ozon contracts are least authoritative and current tests use samples/mocks rather than a complete live flow.
-- Dependencies: isolated read-only seller credential, redacted evidence storage, P0.1.
-- Acceptance criteria: authenticated Remote MCP calls for capabilities plus representative products, stocks, prices, and orders reads pass; no seller data changes; response schemas, audit entries, rate handling, and secret redaction are evidenced.
-- Complexity: M.
-- Done: normalized adapter, generic dispatch, permissions, rate/retry and mock/sample contract tests.
-- Remaining: controlled real-account run and immutable redacted evidence.
+- Use an isolated authorized Seller API credential and bounded calls for all seven cutover requirements.
+- Compare seller identity, roles, records, page sequences, and required normalization fields with the existing MOS adapter without modifying MOS.
+- Acceptance: representative real-credential evidence is immutable, redacted, reviewer-accepted, and bound to runtime commit/Manifest hash. Only then may an incremental `CapabilityAdapter` cutover be considered; the legacy transport remains available until cutover acceptance.
 
-### P0.3 Prove representative Wildberries real READ E2E
+### 3. Prove Wildberries real READ E2E
 
-- Why: sandbox coverage excludes Analytics/Common and cannot alone prove stocks safely.
-- Dependencies: isolated read-only token with documented categories, redacted evidence storage, P0.1.
-- Acceptance criteria: capabilities, products, both stock models where available, prices, and orders pass over Remote MCP; the production-read caveat is explicitly accepted; no mutation occurs.
-- Complexity: M.
-- Done: adapter, category-specific rate limits, sandbox warning and mock/sample contract tests.
-- Remaining: controlled real-account run and evidence.
+- Validate token categories and products, stocks, prices, and orders over the primary Marketplace MCP access layer.
+- Acceptance: bounded Remote MCP reads pass with the Analytics/Common production-read caveat explicitly accepted; no MOS connector is created.
 
-### P0.4 Prove representative Yandex Market real READ E2E
+### 4. Prove Yandex Market real READ E2E
 
-- Why: business/campaign identity and dual stock paths require live verification.
-- Dependencies: P0.1, isolated API key, known business/campaign IDs, redacted evidence storage.
-- Acceptance criteria: campaigns, products, FBS stocks, FBO stocks, prices, and orders pass over Remote MCP; forbidden document mutations remain locally denied.
-- Complexity: M.
-- Done: dual-path adapter and sample mapping tests.
-- Remaining: controlled real-account run and evidence.
+- Validate key scope, business/campaign identity, products, FBS/FBO stocks, prices, and orders.
+- Acceptance: bounded Remote MCP reads pass and forbidden document mutations remain locally denied; no MOS connector is created.
 
-### P0.5 Bind and verify the production release
+### 5. Bind deployment, commit, and Manifest
 
-- Why: repository state does not prove what is deployed or whether rollback works.
-- Dependencies: P0.1–P0.4, accepted candidate commit.
-- Acceptance criteria: immutable image digest maps to an accepted commit and Manifest hash; `/health` and authenticated Remote MCP smoke pass; rollback to the prior digest is rehearsed and the service is re-verified; WRITE remains disabled.
-- Complexity: M.
-- Done: Dockerfile, compose definition, HTTP bearer/Origin protections.
-- Remaining: release evidence, deployment verification, remote smoke and rollback drill.
+- Expose a compact read-only runtime identity containing version, full commit, Manifest SHA-256, `READ_ONLY`, and `write_runtime_enabled=false`.
+- Bind the accepted commit and Manifest into an immutable image; release gates regenerate/check the Passport and reject stale or WRITE-enabled state.
+- Acceptance: image digest, runtime identity, commit, Manifest hash, local verification, and reviewer decision agree.
 
-## P1 — required for a complete v1.0
+### 6. Prove authenticated Remote MCP E2E
 
-### P1.1 Expose version and Manifest identity safely
+- Run the accepted bounded read matrix through the deployed HTTP transport for Ozon, WB, and Yandex Market.
+- Acceptance: authentication, Origin controls, credentials isolation, audit correlations, rate/retry behavior, bounded output, and redacted evidence are proven against the bound image.
 
-- Why: operators and MOS must distinguish source, candidate and deployed runtime without loading the full inventory.
-- Dependencies: stable Manifest schema.
-- Acceptance criteria: a compact read-only identity response exposes MCP version, commit and Manifest SHA-256 without paths, credentials or inventory payloads; tests bind values to the build.
-- Complexity: S.
-- Done: version exists in `package.json` and `src/server.ts`; commits exist in the Manifest.
-- Remaining: one compact runtime surface and build binding.
+### 7. Verify rollback
 
-### P1.2 Complete PII and audit operating controls
-
-- Why: technical redaction and audit storage need explicit marketplace coverage and operations rules.
-- Dependencies: representative payload samples from P0 E2E runs.
-- Acceptance criteria: sensitive fields are inventoried per marketplace; adversarial tests cover nested keys and errors; audit retention/access rules are documented and verified without credential leakage.
-- Complexity: M.
-- Done: default redaction, encrypted credentials and audit wrappers.
-- Remaining: coverage matrix, nested/adversarial tests and operating evidence.
-
-### P1.3 Make baseline artifacts release-gated
-
-- Why: Passport, version and capability statuses must not drift independently.
-- Dependencies: Manifest generator/checker.
-- Acceptance criteria: CI runs `baseline:check`, `policies:check`, build and tests; stale Passport, enabled WRITE, missing references or a MOS lock fail the gate.
-- Complexity: S.
-- Done: Manifest and generated Passport checker exist.
-- Remaining: wire the checks into the repository CI/release gate without duplicating inventories.
-
-### P1.4 Reconcile stale README status
-
-- Why: README currently says both v0.4 and “Status: v0.3”, and documents 17 tools although candidate exposes 32.
-- Dependencies: accepted promotion decision.
-- Acceptance criteria: README points to Manifest/Passport, clearly separates production from candidate, and contains no independent capability registry.
-- Complexity: S.
-- Done: contradiction identified.
-- Remaining: update only after the candidate disposition is accepted.
-
-## P2 — after v1.0
-
-### P2.1 History collectors
-
-- Why: longitudinal analysis may later help MOS, but it is not required for safe live READ.
-- Dependencies: explicit MOS use case and retention design.
-- Acceptance criteria: a future task packet defines required snapshots, retention, tenant isolation and cost before implementation.
-- Complexity: L.
-- Done: schema foundations are mentioned in the current project roadmap.
-- Remaining: all runtime implementation, deferred.
-
-### P2.2 Additional READ domains
-
-- Why: finance, advertising, reviews and reports should only be promoted when MOS consumes them.
-- Dependencies: concrete MOS capability IDs and marketplace-specific real E2E.
-- Acceptance criteria: each promoted business capability has demand, minimal permissions, real evidence and no new endpoint-specific MCP tool unless justified.
-- Complexity: M per domain.
-- Done: candidate inventory/allowlist discovery exists.
-- Remaining: demand-driven selection and verification.
-
-### P2.3 Controlled WRITE capabilities — DO NOT BUILD BEFORE MOS NEEDS IT
-
-- Why: WRITE is future architecture, not a v1 READ requirement.
-- Dependencies: explicit MOS use case, separate authorization, preview/dry-run, human confirmation where required, idempotency, limits, audit and rollback semantics.
-- Acceptance criteria: each WRITE capability is enabled independently by stable capability ID; DESTRUCTIVE remains a separate class; no global `write_enabled=true`; negative tests prove every other mutation stays local.
-- Complexity: L per capability.
-- Done: WRITE/DESTRUCTIVE inventory classes and disabled Manifest entries exist.
-- Remaining: no runtime work is authorized or required for v1.0.
+- Restore the prior immutable digest, verify health/identity, return to the accepted v1 digest, and verify again without rebuilding either image.
+- Acceptance: timestamps, both digests, commit/Manifest identities, health results, Remote MCP smoke hashes, and reviewer acceptance are recorded.
 
 ## Context economy
 
-- Keep the 15 candidate generic tools through v1 to avoid an unneeded compatibility rewrite; they cover 503 approved operations without 503 endpoint wrappers.
-- Do not place inventories, Passport or roadmap into mandatory agent context. Load the Manifest first, then a referenced policy item only when needed.
-- The 17 legacy typed tools overlap the generic dispatch, but removing them before MOS migration would create compatibility risk. Measure actual MOS usage after v1; then deprecate redundant typed tools individually.
-- After MOS call sites are known, the three namespaced generic sets could become five shared `marketplace_read_*` tools, reducing the surface from 32 to 22 without losing endpoint coverage. Combining that with a controlled typed-tool migration could eventually reach 9 tools; neither change belongs in the v1 critical path.
-- The README is currently the main duplicate/stale narrative. Reduce it to onboarding/operations plus links after release identity is settled.
-- A compact runtime identity/capability response can further reduce persistent context by replacing prose with version, hash and stable IDs.
+- Keep the compact generic tool surface; do not put the full API inventory, Passport, or roadmap into mandatory MOS Codex context.
+- Load the Manifest first and fetch an individual allowlist entry only when needed.
+- Do not optimize `32 -> 22 tools` during v1 unless measured context cost blocks a v1 criterion.
+- Do not permanently attach the full Marketplace MCP catalog to MOS Codex. MOS should consume stable capability contracts behind `CapabilityAdapter`.
+- Preserve the disabled Controlled WRITE architecture; implementation requires a later concrete MOS demand and separate capability-level acceptance.

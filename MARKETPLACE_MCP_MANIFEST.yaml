@@ -19,6 +19,14 @@ tool_surface:
   candidate_generic_read_tools_per_marketplace: 5
   assessment: "Compact legacy business tools plus generic allowlisted READ dispatch; do not add endpoint-per-tool wrappers."
 
+integration_boundary:
+  consumer: MOS
+  boundary: CapabilityAdapter
+  mcp_ownership: marketplace_access_and_execution
+  mos_changes_required: false
+  migration_strategy: incremental_capability_cutover
+  persistent_full_catalog_allowed: false
+
 security_guarantees:
   production_read_only_boundary: enforced
   candidate_read_only_boundary: enforced
@@ -37,7 +45,7 @@ marketplaces:
     production_read: implemented
     candidate_extended_read: implemented_unverified
     representative_real_e2e: missing
-    notes: "Seller READ mappings exist; Ozon remains the weakest contract source because no public official OpenAPI is available."
+    notes: "MOS cutover READ routes exist through generic dispatch, but permission binding, pagination parity, response-contract parity, and real-credential evidence remain open."
   wildberries:
     production_read: implemented
     candidate_extended_read: implemented_unverified
@@ -74,6 +82,46 @@ capabilities:
     status: production
     permission: orders.read
     reference: src/adapters/ozon/tools.ts
+  - capability_id: ozon.seller_roles.read
+    marketplace: ozon
+    operation_class: READ
+    status: candidate
+    verification_status: implemented_unverified
+    permission: catalog.read
+    method_id: AccessAPI_RolesByToken
+    reference: policies/ozon-read-allowlist.json
+  - capability_id: ozon.seller_identity.read
+    marketplace: ozon
+    operation_class: READ
+    status: candidate
+    verification_status: implemented_unverified
+    permission: catalog.read
+    method_id: SellerAPI_SellerInfo
+    reference: policies/ozon-read-allowlist.json
+  - capability_id: ozon.warehouses.read
+    marketplace: ozon
+    operation_class: READ
+    status: candidate
+    verification_status: implemented_unverified
+    permission: warehouses.read
+    method_id: WarehouseListV2
+    reference: policies/ozon-read-allowlist.json
+  - capability_id: ozon.returns.read
+    marketplace: ozon
+    operation_class: READ
+    status: candidate
+    verification_status: implemented_unverified
+    permission: returns.read
+    method_id: returnsList
+    reference: policies/ozon-read-allowlist.json
+  - capability_id: ozon.fbs_unfulfilled.read
+    marketplace: ozon
+    operation_class: READ
+    status: candidate
+    verification_status: implemented_unverified
+    permission: orders.read
+    method_id: PostingFbsUnfulfilledList
+    reference: policies/ozon-read-allowlist.json
   - capability_id: ozon.finance.read
     marketplace: ozon
     operation_class: READ
@@ -173,9 +221,44 @@ capabilities:
     permission: documents.delete
     reference: inventory/ym-operations.json
 
+ozon_mos_cutover:
+  transport_removable: false
+  requirements:
+    - requirement: seller_roles_and_key_capabilities
+      existing_capability: ozon.seller_roles.read
+      status: implemented_unverified
+      gap: real credential and permission parity evidence
+    - requirement: seller_account_identity
+      existing_capability: ozon.seller_identity.read
+      status: implemented_unverified
+      gap: cabinet binding and stable identity parity evidence
+    - requirement: warehouse_directory
+      existing_capability: ozon.warehouses.read
+      status: implemented_unverified
+      gap: warehouses.read provisioning and real response evidence
+    - requirement: returns
+      existing_capability: ozon.returns.read
+      status: implemented_unverified
+      gap: returns.read provisioning and representative real response evidence
+    - requirement: fbs_unfulfilled
+      existing_capability: ozon.fbs_unfulfilled.read
+      status: implemented_unverified
+      gap: representative real response evidence
+    - requirement: pagination_equivalence
+      existing_capability: generic bounded READ parameters and raw upstream paging fields
+      status: candidate
+      gap: no MOS-equivalence contract or multi-page parity test
+    - requirement: redacted_raw_response_contract
+      existing_capability: generic raw JSON dispatch plus conditional sensitive-field redaction
+      status: candidate
+      gap: no MOS normalization compatibility proof; Ozon sensitive-field classification and evidence redaction are incomplete
+
 blockers:
+  - blocker_id: P0-OZON-PARITY-001
+    summary: "Ozon MOS cutover is blocked by permission provisioning for warehouse/returns reads, pagination equivalence, and a normalization-compatible redacted/raw response contract."
+    evidence: docs/roadmap/MARKETPLACE_MCP_V1.md
   - blocker_id: P0-REAL-E2E-001
-    summary: "No representative real-credential E2E PASS is recorded for Ozon, Wildberries, or Yandex Market."
+    summary: "No representative real-credential E2E PASS is recorded for Ozon cutover requirements, Wildberries, or Yandex Market."
     evidence: README.md
   - blocker_id: P0-RELEASE-001
     summary: "The deployed production revision, production smoke result, Remote MCP E2E, and rollback exercise are not evidenced in this repository."
@@ -185,21 +268,24 @@ blockers:
     evidence: src/core/readPolicy.ts
 
 v1_readiness:
-  percent: 55
-  method: "19 target controls: 8 complete, 5 half-credit partial, 6 missing; planning estimate, not release acceptance."
-  next_milestone: "Prove representative real-credential Ozon READ over authenticated Remote MCP with redacted evidence."
+  percent: 50
+  method: "25 target controls after replacing one coarse Ozon control with seven MOS cutover controls: 8 complete, 9 half-credit implemented-unverified, 8 candidate/missing; planning estimate, not release acceptance."
+  next_milestone: "Close Ozon permission, pagination, and response-contract gaps, then prove all seven cutover requirements with representative real credentials."
 
 verification:
-  observed_at_utc: "2026-09-12T19:41:21Z"
+  observed_at_utc: "2026-09-12T19:59:46Z"
   checkout: "C:/marketplace-mcp-worktrees/full-readonly-coverage"
   branch: codex/full-readonly-coverage
-  head: "e0e105f08e2139d76df2e919d8d073563ef3e7c5"
+  head: "3e48f6563f86f947fa13120edff3e7b48e8bc545"
   remote: "https://github.com/bssoft2b/marketplace-mcp.git"
   evidence:
     - "git status --short --branch"
     - "git log -8 --date=iso-strict"
     - "package.json"
     - "src/server.ts"
+    - "src/adapters/common/readTools.ts"
+    - "src/core/store.ts"
+    - "src/core/readPolicy.ts"
     - "test/read-policy.test.ts"
     - "test/policy-inventory.test.ts"
     - "inventory/*-operations.json"
