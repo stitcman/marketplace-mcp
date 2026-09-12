@@ -4,7 +4,7 @@ import type { Marketplace, Store } from "../../core/store.js";
 import { audited } from "../../core/audit.js";
 import { envelope } from "../../core/respond.js";
 import { findReadMethod, getReadPolicy } from "../../core/readPolicies.js";
-import { executeApprovedRead } from "../../core/readPolicy.js";
+import { executeApprovedRead, executeApprovedReadPage } from "../../core/readPolicy.js";
 import { MarketplaceReadTransport } from "../../core/genericReadTransport.js";
 import { resolveConnection } from "../../core/connections.js";
 import { MpError } from "../../core/errors.js";
@@ -15,7 +15,10 @@ const transport = new MarketplaceReadTransport();
 const connectionId = z.string().uuid();
 const outputSchema = {
   success: z.literal(true), marketplace: z.string(), connection_id: z.string().nullable(), data: z.unknown(),
-  meta: z.object({ fetched_at: z.string(), source: z.enum(["official_api", "mock", "cache", "internal"]), cached: z.boolean(), next_cursor: z.string().nullable() }),
+  meta: z.object({
+    fetched_at: z.string(), source: z.enum(["official_api", "mock", "cache", "internal"]), cached: z.boolean(), next_cursor: z.string().nullable(),
+    continuation: z.object({ kind: z.enum(["none", "cursor", "offset", "last_id"]), has_more: z.boolean(), request_patch: z.record(z.unknown()).nullable() }).optional(),
+  }),
 };
 
 export function registerReadTools(server: McpServer, store: Store, marketplace: Marketplace) {
@@ -45,15 +48,19 @@ export function registerReadTools(server: McpServer, store: Store, marketplace: 
       return envelope({ items: methods, count: methods.length }, { marketplace, connectionId: connection.connection_id, source: "internal" });
     }));
 
-  const executeSchema = { connection_id: connectionId, method_id: z.string().min(1).max(200), params: z.record(z.unknown()).default({}), view: z.enum(["compact", "full"]).default("compact"), include_sensitive: z.boolean().default(false) };
-  server.registerTool(`${prefix}_read_execute`, { title: `${prefix.toUpperCase()} approved READ execute`, description: "Executes exactly one allowlisted READ method after local connection, permission, size and schema checks.", inputSchema: executeSchema, outputSchema },
+  const executeSchema = { connection_id: connectionId, method_id: z.string().min(1).max(200), params: z.record(z.unknown()).default({}) };
+  server.registerTool(`${prefix}_read_execute`, { title: `${prefix.toUpperCase()} approved READ execute`, description: "Executes one allowlisted READ page and returns its lossless marketplace payload plus generic continuation metadata. Evidence and audit representations are redacted separately.", inputSchema: executeSchema, outputSchema },
     audited(store, `${prefix}_read_execute`, async (args, setCtx) => {
       setCtx({ marketplace, connectionId: args.connection_id });
       const method = findReadMethod(marketplace, args.method_id);
       if (!method) throw new MpError("LOCAL_DENY", "Unknown or non-READ method_id", { marketplace });
       const connection = await resolveConnection(store, marketplace, args.connection_id);
-      const data = connection.mock ? { mock: true, method_id: method.method_id, params: args.params } : await executeApprovedRead({ store, marketplace, connectionId: args.connection_id, method, params: args.params, transport, includeSensitive: args.include_sensitive });
-      return envelope(data, { marketplace, connectionId: args.connection_id, source: connection.mock ? "mock" : "official_api" });
+      if (connection.mock) {
+        const data = { mock: true, method_id: method.method_id, params: args.params };
+        return envelope(data, { marketplace, connectionId: args.connection_id, source: "mock" });
+      }
+      const page = await executeApprovedReadPage({ store, marketplace, connectionId: args.connection_id, method, params: args.params, transport });
+      return envelope(page.payload, { marketplace, connectionId: args.connection_id, source: "official_api", continuation: page.continuation });
     }));
 
   server.registerTool(`${prefix}_read_file`, { title: `${prefix.toUpperCase()} approved READ file`, description: "Runs an approved report/file READ and returns bounded cache metadata, never binary/base64.", inputSchema: { connection_id: connectionId, method_id: z.string().min(1).max(200), params: z.record(z.unknown()).default({}) }, outputSchema },

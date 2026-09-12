@@ -9,7 +9,7 @@
     "dev": "tsx src/index.ts",
     "start": "node dist/index.js",
     "start:http": "node dist/index.js --http",
-    "test": "tsx test/read-policy.test.ts && tsx test/smoke.test.ts",
+    "test": "tsx test/read-policy.test.ts && tsx test/ozon-parity.test.ts && tsx test/smoke.test.ts",
     "baseline:generate": "node scripts/generate-marketplace-passport.mjs",
     "baseline:check": "node scripts/generate-marketplace-passport.mjs --check",
     "policies:generate": "node scripts/generate-read-policies.mjs",

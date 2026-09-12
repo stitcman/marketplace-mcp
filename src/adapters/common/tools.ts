@@ -191,6 +191,8 @@ export function registerCommonTools(server: McpServer, store: Store) {
             stocks_read: has("stocks.read"),
             orders_read: has("orders.read"),
             price_read: has("prices.read"),
+            warehouses_read: has("warehouses.read"),
+            returns_read: has("returns.read"),
             price_write: false, // WRITE lands in a later stage with preview/confirmation
           },
           // Which platform token scopes the tools require (spec §6):

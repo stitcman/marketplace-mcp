@@ -50,7 +50,11 @@ export class MemoryStore implements Store {
   public auditLog: ToolCallLog[] = [];
 
   constructor() {
-    const READ_PERMS = ["catalog.read", "stocks.read", "orders.read", "prices.read"];
+    const READ_PERMS: Record<Marketplace, string[]> = {
+      wildberries: ["catalog.read", "stocks.read", "orders.read", "prices.read"],
+      ozon: ["catalog.read", "stocks.read", "orders.read", "prices.read", "warehouses.read", "returns.read"],
+      yandex_market: ["catalog.read", "stocks.read", "orders.read", "prices.read"],
+    };
     const seed = (id: string, marketplace: Marketplace, name: string, mock: boolean, credentials: Record<string, string> = {}, sandbox = false) => {
       this.conns.set(id, {
         connection_id: id,
@@ -59,7 +63,7 @@ export class MemoryStore implements Store {
         status: "active",
         mock,
         sandbox,
-        permissions: READ_PERMS,
+        permissions: READ_PERMS[marketplace],
         created_at: new Date().toISOString(),
       });
       this.creds.set(id, credentials);

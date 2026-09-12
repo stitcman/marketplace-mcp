@@ -14,5 +14,9 @@ for (const marketplace of ["ozon", "wb", "ym"] as const) {
   }
   assert(allowlist.every((m: any) => m.input_schema?.type === "object"), `${marketplace}: every allowed method has a request schema`);
   assert(allowlist.every((m: any) => !Object.keys(m.input_schema?.properties ?? {}).some((key) => /^(client-id|api-key|authorization|token)$/i.test(key))), `${marketplace}: credentials are absent from MCP input schemas`);
+  if (marketplace === "ozon") {
+    assert.equal(inventory.length, 511, "ozon: full classified upstream inventory remains present");
+    assert.equal(allowlist.length, 282, "ozon: reviewed safe READ inventory remains available through generic execution");
+  }
   console.log(`${marketplace}: inventory=${inventory.length}, allowed=${allowlist.length}, unclassified=0`);
 }

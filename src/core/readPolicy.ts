@@ -49,6 +49,17 @@ export interface ReadTransport {
 export const MAX_REQUEST_BYTES = 64 * 1024;
 export const MAX_RESPONSE_BYTES = 256 * 1024;
 
+export interface ReadContinuation {
+  kind: "none" | "cursor" | "offset" | "last_id";
+  has_more: boolean;
+  request_patch: Record<string, unknown> | null;
+}
+
+export interface ApprovedReadPage {
+  payload: unknown;
+  continuation: ReadContinuation;
+}
+
 export async function executeApprovedRead(input: {
   store: Store;
   marketplace: Marketplace;
@@ -58,6 +69,33 @@ export async function executeApprovedRead(input: {
   transport: ReadTransport;
   includeSensitive?: boolean;
   preserveArtifact?: boolean;
+}): Promise<unknown> {
+  const raw = await performApprovedRead(input);
+  if (input.preserveArtifact && raw && typeof raw === "object" && (raw as any).__download === true) return raw;
+  const redacted = input.method.sensitive_data && !input.includeSensitive ? redactForEvidence(raw) : raw;
+  return boundResponse(redacted);
+}
+
+export async function executeApprovedReadPage(input: {
+  store: Store;
+  marketplace: Marketplace;
+  connectionId: string;
+  method: ReadMethod;
+  params: Record<string, unknown>;
+  transport: ReadTransport;
+}): Promise<ApprovedReadPage> {
+  const payload = await performApprovedRead(input);
+  requireBoundedRawPage(payload);
+  return { payload, continuation: continuationFor(input.method, input.params, payload) };
+}
+
+async function performApprovedRead(input: {
+  store: Store;
+  marketplace: Marketplace;
+  connectionId: string;
+  method: ReadMethod;
+  params: Record<string, unknown>;
+  transport: ReadTransport;
 }): Promise<unknown> {
   const { store, marketplace, connectionId, method, params, transport } = input;
   const conn = await resolveConnection(store, marketplace, connectionId);
@@ -70,10 +108,7 @@ export async function executeApprovedRead(input: {
   if (schemaError) deny(schemaError);
 
   const credentials = await store.getCredentials(conn.connection_id);
-  const raw = await transport.send({ marketplace, connectionId: conn.connection_id, method, params, credentials });
-  if (input.preserveArtifact && raw && typeof raw === "object" && (raw as any).__download === true) return raw;
-  const redacted = method.sensitive_data && !input.includeSensitive ? redactSensitive(raw) : raw;
-  return boundResponse(redacted);
+  return transport.send({ marketplace, connectionId: conn.connection_id, method, params, credentials });
 }
 
 function deny(message: string): never {
@@ -123,11 +158,71 @@ function matchesType(value: unknown, type: string) {
   return typeof value === type;
 }
 
-const sensitiveKeyPart = /(buyer|customer|client|recipient|phone|telephone|address|email|fio|message|chattext|full.?name)/i;
-function redactSensitive(value: unknown): unknown {
-  if (Array.isArray(value)) return value.map(redactSensitive);
+const sensitiveKeyPart = /(api.?key|authorization|bearer|token|secret|password|credential|client.?id|buyer|customer|recipient|phone|telephone|address|email|fio|message|chattext|full.?name)/i;
+export function redactForEvidence(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(redactForEvidence);
   if (!value || typeof value !== "object") return value;
-  return Object.fromEntries(Object.entries(value as Record<string, unknown>).map(([key, child]) => [key, sensitiveKeyPart.test(key) ? "[REDACTED]" : redactSensitive(child)]));
+  return Object.fromEntries(Object.entries(value as Record<string, unknown>).map(([key, child]) => [key, sensitiveKeyPart.test(key) ? "[REDACTED]" : redactForEvidence(child)]));
+}
+
+function continuationFor(method: ReadMethod, params: Record<string, unknown>, payload: unknown): ReadContinuation {
+  const properties = method.input_schema?.properties ?? {};
+  if ("cursor" in properties) return tokenContinuation("cursor", params.cursor, payload);
+  if ("offset" in properties && "limit" in properties) return offsetContinuation(params, payload);
+  if ("last_id" in properties) return tokenContinuation("last_id", params.last_id, payload);
+  return { kind: "none", has_more: false, request_patch: null };
+}
+
+function tokenContinuation(kind: "cursor" | "last_id", current: unknown, payload: unknown): ReadContinuation {
+  const next = field(payload, kind) ?? field(payload, kind === "cursor" ? "next_cursor" : "last_id");
+  const count = recordCount(payload);
+  const explicit = booleanField(payload, "has_next");
+  const terminal = next === undefined || next === null || next === "" || (kind === "last_id" && next === 0);
+  const hasMore = count > 0 && explicit !== false && !terminal && next !== current;
+  return { kind, has_more: hasMore, request_patch: hasMore ? { [kind]: next } : null };
+}
+
+function offsetContinuation(params: Record<string, unknown>, payload: unknown): ReadContinuation {
+  const count = recordCount(payload);
+  const limit = typeof params.limit === "number" ? params.limit : 0;
+  const offset = typeof params.offset === "number" ? params.offset : 0;
+  const explicit = booleanField(payload, "has_next");
+  const hasMore = count > 0 && (explicit === true || (explicit === undefined && limit > 0 && count >= limit));
+  return { kind: "offset", has_more: hasMore, request_patch: hasMore ? { offset: offset + count } : null };
+}
+
+function object(value: unknown): Record<string, unknown> | null {
+  return value && typeof value === "object" && !Array.isArray(value) ? value as Record<string, unknown> : null;
+}
+
+function field(payload: unknown, name: string): unknown {
+  const root = object(payload);
+  const result = object(root?.result);
+  return root?.[name] ?? result?.[name];
+}
+
+function booleanField(payload: unknown, name: string): boolean | undefined {
+  const value = field(payload, name);
+  return typeof value === "boolean" ? value : undefined;
+}
+
+function recordCount(payload: unknown): number {
+  if (Array.isArray(payload)) return payload.length;
+  const root = object(payload);
+  if (!root) return 0;
+  const resultValue = root.result;
+  const result = object(resultValue);
+  for (const value of [root.items, root.postings, root.returns, root.warehouses, result?.items, result?.postings, result?.returns, result?.warehouses, resultValue]) {
+    if (Array.isArray(value)) return value.length;
+  }
+  return 0;
+}
+
+function requireBoundedRawPage(payload: unknown): void {
+  const bytes = Buffer.byteLength(JSON.stringify(payload), "utf8");
+  if (bytes > MAX_RESPONSE_BYTES) {
+    throw new MpError("BULK_LIMIT_EXCEEDED", `Upstream page exceeds ${MAX_RESPONSE_BYTES} bytes; reduce the page limit`);
+  }
 }
 
 function boundResponse(value: unknown): unknown {

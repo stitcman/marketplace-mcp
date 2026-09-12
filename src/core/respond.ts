@@ -1,4 +1,5 @@
 /** Normalized response envelope (spec §16) + packing into MCP content. */
+import type { ReadContinuation } from "./readPolicy.js";
 
 export interface Envelope<T> {
   success: true;
@@ -10,6 +11,7 @@ export interface Envelope<T> {
     source: "official_api" | "mock" | "cache" | "internal";
     cached: boolean;
     next_cursor: string | null;
+    continuation?: ReadContinuation;
   };
 }
 
@@ -21,6 +23,7 @@ export function envelope<T>(
     source?: Envelope<T>["meta"]["source"];
     cached?: boolean;
     nextCursor?: string | null;
+    continuation?: ReadContinuation;
   } = {},
 ): Envelope<T> {
   return {
@@ -33,6 +36,7 @@ export function envelope<T>(
       source: o.source ?? "official_api",
       cached: o.cached ?? false,
       next_cursor: o.nextCursor ?? null,
+      ...(o.continuation ? { continuation: o.continuation } : {}),
     },
   };
 }
