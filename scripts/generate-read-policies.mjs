@@ -27,7 +27,6 @@ function classify({ http_method, path: apiPath, operationId, summary, descriptio
   const all = normalize(`${operationId} ${apiPath} ${summary} ${description}`);
   if (/\/chat\/(send|start)(\/|$)|\/seller\/message(\/|$)|\/feedbacks?\/answer(\/|$)|\/questions?\/(answer|reply)(\/|$)/i.test(apiPath)) return "WRITE";
   if (/^(change|update|set|add|delete|remove|cancel|send|reply|answer|confirm|accept|reject|activate|deactivate|измен|обнов|добав|удал|отмен|отправ|ответ|актив|деактив|установ|подтверд|приня|отклон)/i.test(String(summary ?? "").trim())) {
-    if (/generate|report|barcode|label|document|выгруз|отч[её]т|штрихкод/i.test(`${apiPath} ${operationId} ${summary}`)) return "SEMANTIC_READ_JOB";
     return destructiveWords.test(String(summary)) ? "DESTRUCTIVE" : "WRITE";
   }
   if (/^(get|list|info|status|history|details|check|search)$/i.test(last) || /(Get|List|Info|Status|History|Details|Check|Search)(V\d+)?$/.test(operationId)) return "READ";

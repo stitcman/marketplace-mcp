@@ -120,3 +120,32 @@ for (const [marketplace, connectionId, inventoryFile, methodIds] of [
   }
   console.log(`${marketplace} write-negative spy transport: PASS (${methodIds.length}/${methodIds.length} HTTP_REQUESTS_SENT=0)`);
 }
+
+const ymInventory = JSON.parse(fs.readFileSync(new URL("../inventory/ym-operations.json", import.meta.url), "utf8"));
+const ymAllowlist = JSON.parse(fs.readFileSync(new URL("../policies/ym-read-allowlist.json", import.meta.url), "utf8"));
+for (const testCase of [
+  {
+    methodId: "deleteDocuments",
+    classification: "DESTRUCTIVE",
+    params: { businessId: 1, documentIds: [1] },
+  },
+  {
+    methodId: "updateDocuments",
+    classification: "WRITE",
+    params: {
+      businessId: 1,
+      documents: [{ id: 1, number: "DOC-1", type: "CONFORMITY_CERTIFICATE" }],
+    },
+  },
+] as const) {
+  const operation = ymInventory.find((item: any) => item.method_id === testCase.methodId);
+  assert.equal(operation?.classification, testCase.classification, `${testCase.methodId}: exact forbidden class`);
+  assert(!ymAllowlist.some((item: any) => item.method_id === testCase.methodId), `${testCase.methodId}: absent from READ allowlist`);
+  const transport = new SpyTransport();
+  await denied(
+    testCase.methodId,
+    () => executeApprovedRead({ store, marketplace: "yandex_market", connectionId: YM, method: operation, params: testCase.params, transport }),
+    transport,
+  );
+}
+console.log("Yandex document mutations: PASS (2/2 HTTP_REQUESTS_SENT=0)");
