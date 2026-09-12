@@ -1,0 +1,206 @@
+schema_version: "1.0"
+mcp_version: "0.4.0"
+production_commit: "0acd8026f0bf688f2cc6bca1e5f9633997117b51"
+candidate_commit: "e0e105f08e2139d76df2e919d8d073563ef3e7c5"
+production_commit_basis: "origin/main repository baseline; deployed revision is not evidenced"
+production_mode: READ_ONLY
+controlled_write_architecture: true
+write_runtime_enabled: false
+global_write_switch_allowed: false
+
+supported_marketplaces:
+  - ozon
+  - wildberries
+  - yandex_market
+
+tool_surface:
+  production_tools: 17
+  candidate_tools: 32
+  candidate_generic_read_tools_per_marketplace: 5
+  assessment: "Compact legacy business tools plus generic allowlisted READ dispatch; do not add endpoint-per-tool wrappers."
+
+security_guarantees:
+  production_read_only_boundary: enforced
+  candidate_read_only_boundary: enforced
+  unknown_operations_denied_locally: true
+  per_connection_permissions: true
+  credentials_outside_tool_arguments: true
+  credentials_encrypted_at_rest_in_postgres: true
+  sensitive_response_redaction_default: true
+  bounded_request_and_response_sizes: true
+  rate_limit_and_retry_controls: true
+  tool_call_audit: true
+  destructive_operations_separate_risk_class: true
+
+marketplaces:
+  ozon:
+    production_read: implemented
+    candidate_extended_read: implemented_unverified
+    representative_real_e2e: missing
+    notes: "Seller READ mappings exist; Ozon remains the weakest contract source because no public official OpenAPI is available."
+  wildberries:
+    production_read: implemented
+    candidate_extended_read: implemented_unverified
+    representative_real_e2e: missing
+    notes: "WB sandbox does not isolate Analytics/Common; stock checks may read the production account."
+  yandex_market:
+    production_read: implemented
+    candidate_extended_read: implemented_unverified
+    representative_real_e2e: missing
+    notes: "deleteDocuments is DESTRUCTIVE and updateDocuments is WRITE; both are absent from the READ allowlist and covered by zero-transport regression tests."
+
+capabilities:
+  - capability_id: ozon.products.read
+    marketplace: ozon
+    operation_class: READ
+    status: production
+    permission: catalog.read
+    reference: src/adapters/ozon/tools.ts
+  - capability_id: ozon.stocks.read
+    marketplace: ozon
+    operation_class: READ
+    status: production
+    permission: stocks.read
+    reference: src/adapters/ozon/tools.ts
+  - capability_id: ozon.prices.read
+    marketplace: ozon
+    operation_class: READ
+    status: production
+    permission: prices.read
+    reference: src/adapters/ozon/tools.ts
+  - capability_id: ozon.orders.read
+    marketplace: ozon
+    operation_class: READ
+    status: production
+    permission: orders.read
+    reference: src/adapters/ozon/tools.ts
+  - capability_id: ozon.finance.read
+    marketplace: ozon
+    operation_class: READ
+    status: candidate
+    permission: finance.read
+    reference: policies/ozon-read-allowlist.json
+  - capability_id: ozon.prices.write
+    marketplace: ozon
+    operation_class: WRITE
+    status: disabled
+    permission: prices.write
+    reference: inventory/ozon-operations.json
+
+  - capability_id: wildberries.products.read
+    marketplace: wildberries
+    operation_class: READ
+    status: production
+    permission: catalog.read
+    reference: src/adapters/wb/tools.ts
+  - capability_id: wildberries.stocks.read
+    marketplace: wildberries
+    operation_class: READ
+    status: production
+    permission: stocks.read
+    reference: src/adapters/wb/tools.ts
+  - capability_id: wildberries.prices.read
+    marketplace: wildberries
+    operation_class: READ
+    status: production
+    permission: prices.read
+    reference: src/adapters/wb/tools.ts
+  - capability_id: wildberries.orders.read
+    marketplace: wildberries
+    operation_class: READ
+    status: production
+    permission: orders.read
+    reference: src/adapters/wb/tools.ts
+  - capability_id: wildberries.finance.read
+    marketplace: wildberries
+    operation_class: READ
+    status: candidate
+    permission: finance.read
+    reference: policies/wb-read-allowlist.json
+  - capability_id: wildberries.prices.write
+    marketplace: wildberries
+    operation_class: WRITE
+    status: disabled
+    permission: prices.write
+    reference: inventory/wb-operations.json
+
+  - capability_id: yandex_market.campaigns.read
+    marketplace: yandex_market
+    operation_class: READ
+    status: production
+    permission: catalog.read
+    reference: src/adapters/ym/tools.ts
+  - capability_id: yandex_market.products.read
+    marketplace: yandex_market
+    operation_class: READ
+    status: production
+    permission: catalog.read
+    reference: src/adapters/ym/tools.ts
+  - capability_id: yandex_market.stocks.read
+    marketplace: yandex_market
+    operation_class: READ
+    status: production
+    permission: stocks.read
+    reference: src/adapters/ym/tools.ts
+  - capability_id: yandex_market.prices.read
+    marketplace: yandex_market
+    operation_class: READ
+    status: production
+    permission: prices.read
+    reference: src/adapters/ym/tools.ts
+  - capability_id: yandex_market.orders.read
+    marketplace: yandex_market
+    operation_class: READ
+    status: production
+    permission: orders.read
+    reference: src/adapters/ym/tools.ts
+  - capability_id: yandex_market.finance.read
+    marketplace: yandex_market
+    operation_class: READ
+    status: candidate
+    permission: finance.read
+    reference: policies/ym-read-allowlist.json
+  - capability_id: yandex_market.documents.update
+    marketplace: yandex_market
+    operation_class: WRITE
+    status: disabled
+    permission: documents.write
+    reference: inventory/ym-operations.json
+  - capability_id: yandex_market.documents.delete
+    marketplace: yandex_market
+    operation_class: DESTRUCTIVE
+    status: disabled
+    permission: documents.delete
+    reference: inventory/ym-operations.json
+
+blockers:
+  - blocker_id: P0-REAL-E2E-001
+    summary: "No representative real-credential E2E PASS is recorded for Ozon, Wildberries, or Yandex Market."
+    evidence: README.md
+  - blocker_id: P0-RELEASE-001
+    summary: "The deployed production revision, production smoke result, Remote MCP E2E, and rollback exercise are not evidenced in this repository."
+    evidence: docker-compose.yml
+  - blocker_id: P1-SECURITY-001
+    summary: "PII redaction exists, but a marketplace-by-marketplace PII inventory and production evidence are incomplete."
+    evidence: src/core/readPolicy.ts
+
+v1_readiness:
+  percent: 55
+  method: "19 target controls: 8 complete, 5 half-credit partial, 6 missing; planning estimate, not release acceptance."
+  next_milestone: "Prove representative real-credential Ozon READ over authenticated Remote MCP with redacted evidence."
+
+verification:
+  observed_at_utc: "2026-09-12T19:41:21Z"
+  checkout: "C:/marketplace-mcp-worktrees/full-readonly-coverage"
+  branch: codex/full-readonly-coverage
+  head: "e0e105f08e2139d76df2e919d8d073563ef3e7c5"
+  remote: "https://github.com/bssoft2b/marketplace-mcp.git"
+  evidence:
+    - "git status --short --branch"
+    - "git log -8 --date=iso-strict"
+    - "package.json"
+    - "src/server.ts"
+    - "test/read-policy.test.ts"
+    - "test/policy-inventory.test.ts"
+    - "inventory/*-operations.json"
+    - "policies/*-read-allowlist.json"
