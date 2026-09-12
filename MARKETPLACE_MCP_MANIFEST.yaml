@@ -1,7 +1,7 @@
 schema_version: "1.0"
 mcp_version: "0.4.0"
 production_commit: "0acd8026f0bf688f2cc6bca1e5f9633997117b51"
-candidate_commit: "e0e105f08e2139d76df2e919d8d073563ef3e7c5"
+candidate_commit: "321478fcd02b2dd779aa0ca2e3fa7bc599026d3b"
 production_commit_basis: "origin/main repository baseline; deployed revision is not evidenced"
 production_mode: READ_ONLY
 controlled_write_architecture: true
@@ -34,7 +34,9 @@ security_guarantees:
   per_connection_permissions: true
   credentials_outside_tool_arguments: true
   credentials_encrypted_at_rest_in_postgres: true
-  sensitive_response_redaction_default: true
+  normalization_payload_lossless_bounded: true
+  audit_payload_capture: false
+  evidence_redaction: enforced
   bounded_request_and_response_sizes: true
   rate_limit_and_retry_controls: true
   tool_call_audit: true
@@ -43,9 +45,9 @@ security_guarantees:
 marketplaces:
   ozon:
     production_read: implemented
-    candidate_extended_read: implemented_unverified
+    candidate_extended_read: local_verified
     representative_real_e2e: missing
-    notes: "MOS cutover READ routes exist through generic dispatch, but permission binding, pagination parity, response-contract parity, and real-credential evidence remain open."
+    notes: "Local parity gate passes for the seven MOS cutover requirements through generic dispatch; representative real-credential evidence remains open."
   wildberries:
     production_read: implemented
     candidate_extended_read: implemented_unverified
@@ -86,7 +88,7 @@ capabilities:
     marketplace: ozon
     operation_class: READ
     status: candidate
-    verification_status: implemented_unverified
+    verification_status: local_verified
     permission: catalog.read
     method_id: AccessAPI_RolesByToken
     reference: policies/ozon-read-allowlist.json
@@ -94,7 +96,7 @@ capabilities:
     marketplace: ozon
     operation_class: READ
     status: candidate
-    verification_status: implemented_unverified
+    verification_status: local_verified
     permission: catalog.read
     method_id: SellerAPI_SellerInfo
     reference: policies/ozon-read-allowlist.json
@@ -102,7 +104,7 @@ capabilities:
     marketplace: ozon
     operation_class: READ
     status: candidate
-    verification_status: implemented_unverified
+    verification_status: local_verified
     permission: warehouses.read
     method_id: WarehouseListV2
     reference: policies/ozon-read-allowlist.json
@@ -110,7 +112,7 @@ capabilities:
     marketplace: ozon
     operation_class: READ
     status: candidate
-    verification_status: implemented_unverified
+    verification_status: local_verified
     permission: returns.read
     method_id: returnsList
     reference: policies/ozon-read-allowlist.json
@@ -118,7 +120,7 @@ capabilities:
     marketplace: ozon
     operation_class: READ
     status: candidate
-    verification_status: implemented_unverified
+    verification_status: local_verified
     permission: orders.read
     method_id: PostingFbsUnfulfilledList
     reference: policies/ozon-read-allowlist.json
@@ -222,41 +224,39 @@ capabilities:
     reference: inventory/ym-operations.json
 
 ozon_mos_cutover:
+  local_parity_gate: passed
   transport_removable: false
   requirements:
     - requirement: seller_roles_and_key_capabilities
       existing_capability: ozon.seller_roles.read
-      status: implemented_unverified
-      gap: real credential and permission parity evidence
+      status: local_verified
+      gap: representative real-credential parity evidence
     - requirement: seller_account_identity
       existing_capability: ozon.seller_identity.read
-      status: implemented_unverified
-      gap: cabinet binding and stable identity parity evidence
+      status: local_verified
+      gap: real cabinet-binding evidence
     - requirement: warehouse_directory
       existing_capability: ozon.warehouses.read
-      status: implemented_unverified
-      gap: warehouses.read provisioning and real response evidence
+      status: local_verified
+      gap: real response and multi-page evidence
     - requirement: returns
       existing_capability: ozon.returns.read
-      status: implemented_unverified
-      gap: returns.read provisioning and representative real response evidence
+      status: local_verified
+      gap: representative real response evidence
     - requirement: fbs_unfulfilled
       existing_capability: ozon.fbs_unfulfilled.read
-      status: implemented_unverified
+      status: local_verified
       gap: representative real response evidence
     - requirement: pagination_equivalence
-      existing_capability: generic bounded READ parameters and raw upstream paging fields
-      status: candidate
-      gap: no MOS-equivalence contract or multi-page parity test
+      existing_capability: generic cursor, offset, and last_id continuation contract
+      status: local_verified
+      gap: representative real multi-page equivalence evidence
     - requirement: redacted_raw_response_contract
-      existing_capability: generic raw JSON dispatch plus conditional sensitive-field redaction
-      status: candidate
-      gap: no MOS normalization compatibility proof; Ozon sensitive-field classification and evidence redaction are incomplete
+      existing_capability: lossless bounded normalization payload plus separate redacted evidence representation
+      status: local_verified
+      gap: representative real-payload normalization and redaction evidence
 
 blockers:
-  - blocker_id: P0-OZON-PARITY-001
-    summary: "Ozon MOS cutover is blocked by permission provisioning for warehouse/returns reads, pagination equivalence, and a normalization-compatible redacted/raw response contract."
-    evidence: docs/roadmap/MARKETPLACE_MCP_V1.md
   - blocker_id: P0-REAL-E2E-001
     summary: "No representative real-credential E2E PASS is recorded for Ozon cutover requirements, Wildberries, or Yandex Market."
     evidence: README.md
@@ -268,15 +268,15 @@ blockers:
     evidence: src/core/readPolicy.ts
 
 v1_readiness:
-  percent: 50
-  method: "25 target controls after replacing one coarse Ozon control with seven MOS cutover controls: 8 complete, 9 half-credit implemented-unverified, 8 candidate/missing; planning estimate, not release acceptance."
-  next_milestone: "Close Ozon permission, pagination, and response-contract gaps, then prove all seven cutover requirements with representative real credentials."
+  percent: 68
+  method: "25 target controls: 15 complete including seven local Ozon parity controls, 4 half-credit partial, 6 missing; planning estimate, not release acceptance."
+  next_milestone: "Run representative Ozon Real READ E2E for all seven cutover requirements and bind redacted evidence to the candidate commit and Manifest hash."
 
 verification:
-  observed_at_utc: "2026-09-12T19:59:46Z"
+  observed_at_utc: "2026-09-12T20:18:04Z"
   checkout: "C:/marketplace-mcp-worktrees/full-readonly-coverage"
   branch: codex/full-readonly-coverage
-  head: "3e48f6563f86f947fa13120edff3e7b48e8bc545"
+  head: "321478fcd02b2dd779aa0ca2e3fa7bc599026d3b"
   remote: "https://github.com/bssoft2b/marketplace-mcp.git"
   evidence:
     - "git status --short --branch"
@@ -287,6 +287,7 @@ verification:
     - "src/core/store.ts"
     - "src/core/readPolicy.ts"
     - "test/read-policy.test.ts"
+    - "test/ozon-parity.test.ts"
     - "test/policy-inventory.test.ts"
     - "inventory/*-operations.json"
     - "policies/*-read-allowlist.json"
