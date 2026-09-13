@@ -5,9 +5,12 @@
 
 - MCP version: `0.4.0`
 - Production repository baseline: `0acd8026f0bf688f2cc6bca1e5f9633997117b51` (origin/main repository baseline; deployed revision is not evidenced)
-- Candidate: `321478fcd02b2dd779aa0ca2e3fa7bc599026d3b`
+- Candidate source baseline: `321478fcd02b2dd779aa0ca2e3fa7bc599026d3b` (Historical source baseline metadata only; not runtime release binding.)
 - Runtime mode: `READ_ONLY`
 - Architecture: `READ + Controlled WRITE`; WRITE runtime is disabled
+- Candidate tool surface: **33 tools**, including audited `marketplace_runtime_identity`
+- Runtime binding: declared build commit + SHA-256 of exact Manifest bytes
+- Final provenance boundary: external attestation of commit + Manifest SHA-256 + image digest
 - v1 readiness: **68%** (25 target controls: 15 complete including seven local Ozon parity controls, 4 half-credit partial, 6 missing; planning estimate, not release acceptance.)
 
 ## Marketplace readiness

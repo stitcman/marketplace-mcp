@@ -10,6 +10,7 @@ import {
   type ReadMethod,
   type ReadTransport,
 } from "../src/core/readPolicy.js";
+import type { RuntimeIdentity } from "../src/core/runtimeIdentity.js";
 
 const OZON = "00000000-0000-4000-8000-000000000011";
 
@@ -197,7 +198,14 @@ for (const [methodId] of required) {
     sandbox: false,
     permissions: ["warehouses.read"],
   }, { client_id: "credential-client-id", api_key: "credential-api-key" });
-  const server = buildServer(integrationStore);
+  const runtimeIdentity: RuntimeIdentity = Object.freeze({
+    version: "0.4.0",
+    commit: null,
+    manifest_sha256: "f".repeat(64),
+    mode: "READ_ONLY",
+    write_runtime_enabled: false,
+  });
+  const server = buildServer(integrationStore, runtimeIdentity);
   const client = new Client({ name: "ozon-parity", version: "0.0.1" });
   const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
   await Promise.all([server.connect(serverTransport), client.connect(clientTransport)]);

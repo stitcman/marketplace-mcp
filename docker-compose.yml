@@ -10,7 +10,10 @@ services:
       - pgdata:/var/lib/postgresql/data
       - ./migrations:/docker-entrypoint-initdb.d
   mcp:
-    build: .
+    build:
+      context: .
+      args:
+        GIT_COMMIT: ${GIT_COMMIT:?set GIT_COMMIT to the exact full commit being built}
     command: ["node", "dist/index.js", "--http"]
     environment:
       DATABASE_URL: postgres://mcp:mcp_dev_password@postgres:5432/marketplace_mcp

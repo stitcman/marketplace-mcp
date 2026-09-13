@@ -14,6 +14,10 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { initStore } from "./core/store.js";
 import { buildServer } from "./server.js";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { bootstrapApplication } from "./bootstrap.js";
+import { loadRuntimeIdentity, type RuntimeIdentity } from "./core/runtimeIdentity.js";
 
 const useHttp = process.argv.includes("--http");
 
@@ -32,10 +36,22 @@ function originAllowed(origin: string | undefined, allowed: string[]): boolean {
 }
 
 async function main() {
-  const store = await initStore();
+  const applicationRoot = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
+  await bootstrapApplication({
+    loadIdentity: () => loadRuntimeIdentity({
+      env: process.env,
+      manifestPath: path.join(applicationRoot, "MARKETPLACE_MCP_MANIFEST.yaml"),
+      packagePath: path.join(applicationRoot, "package.json"),
+    }),
+    initializeStore: initStore,
+    startRuntime,
+  });
+}
+
+async function startRuntime(store: Awaited<ReturnType<typeof initStore>>, runtimeIdentity: Readonly<RuntimeIdentity>) {
 
   if (!useHttp) {
-    const server = buildServer(store);
+    const server = buildServer(store, runtimeIdentity);
     await server.connect(new StdioServerTransport());
     console.error("[mcp] stdio transport ready");
     return;
@@ -88,7 +104,7 @@ async function main() {
       }
 
       // Stateless mode: a fresh transport and server per request, no session state.
-      const server = buildServer(store);
+      const server = buildServer(store, runtimeIdentity);
       const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
       res.on("close", () => {
         transport.close();

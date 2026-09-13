@@ -4,7 +4,7 @@ import { mkdtempSync, readFileSync, rmSync, statSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import type { EvidenceEnvelope, RuntimeIdentity } from "../../src/core/runtimeIdentity.js";
-import { assertRealE2EPreflight } from "./read-e2e.js";
+import { assertRealE2EPreflight, parseRuntimeIdentityEnvelope } from "./read-e2e.js";
 import { writeEvidence } from "./evidence.js";
 
 const repoRoot = path.resolve(import.meta.dirname, "..", "..");
@@ -23,6 +23,7 @@ const identity: RuntimeIdentity = {
 const env: NodeJS.ProcessEnv = {
   MP_E2E_MARKETPLACE: "ozon",
   MP_E2E_CONNECTION_ID: "00000000-0000-4000-8000-000000000011",
+  MP_E2E_EXPECTED_RUNTIME_ENV: "production",
   MP_E2E_EXPECTED_COMMIT: expectedCommit,
   MP_E2E_EXPECTED_MANIFEST_SHA256: expectedManifest,
   MP_E2E_BASE_URL: "https://mcp.example.test/mcp",
@@ -31,6 +32,71 @@ const env: NodeJS.ProcessEnv = {
 };
 
 try {
+  const runtimeEnvelope = {
+    success: true,
+    marketplace: null,
+    connection_id: null,
+    data: identity,
+    meta: {
+      fetched_at: "2026-09-13T10:00:00.000Z",
+      source: "internal",
+      cached: false,
+      next_cursor: null,
+    },
+  };
+  assert.deepEqual(parseRuntimeIdentityEnvelope(runtimeEnvelope), identity, "strict runtime identity envelope is accepted");
+  assert.throws(
+    () => parseRuntimeIdentityEnvelope(identity),
+    /standard success envelope/,
+    "raw runtime identity is rejected",
+  );
+  assert.throws(
+    () => parseRuntimeIdentityEnvelope({ ...runtimeEnvelope, success: false }),
+    /standard success envelope/,
+    "non-success envelope is rejected",
+  );
+  assert.throws(
+    () => parseRuntimeIdentityEnvelope({ success: true }),
+    /standard success envelope/,
+    "envelope without data is rejected",
+  );
+  assert.throws(
+    () => parseRuntimeIdentityEnvelope({ ...runtimeEnvelope, data: { ...identity, version: "" } }),
+    /version must be a non-empty string/,
+    "empty runtime version is rejected",
+  );
+  assert.throws(
+    () => parseRuntimeIdentityEnvelope({ ...runtimeEnvelope, data: { ...identity, environment_dump: "secret" } }),
+    /exactly five approved fields/,
+    "runtime identity with an extra field is rejected",
+  );
+  assert.throws(
+    () => parseRuntimeIdentityEnvelope({ ...runtimeEnvelope, data: { ...identity, manifest_sha256: "A".repeat(64) } }),
+    /lowercase hex digest/,
+    "non-canonical Manifest digest is rejected",
+  );
+  assert.throws(
+    () => parseRuntimeIdentityEnvelope({ ...runtimeEnvelope, debug: true }),
+    /exactly the standard fields/,
+    "extra envelope field is rejected",
+  );
+  const { meta: _missingMeta, ...envelopeWithoutMeta } = runtimeEnvelope;
+  assert.throws(
+    () => parseRuntimeIdentityEnvelope(envelopeWithoutMeta),
+    /exactly the standard fields/,
+    "missing envelope meta is rejected",
+  );
+  assert.throws(
+    () => parseRuntimeIdentityEnvelope({ ...runtimeEnvelope, meta: { ...runtimeEnvelope.meta, debug: true } }),
+    /meta must contain exactly the standard fields/,
+    "extra envelope meta field is rejected",
+  );
+  assert.throws(
+    () => parseRuntimeIdentityEnvelope({ ...runtimeEnvelope, meta: { ...runtimeEnvelope.meta, source: "official_api" } }),
+    /envelope meta is invalid/,
+    "non-internal identity source is rejected",
+  );
+
   const config = assertRealE2EPreflight(env, identity, repoRoot);
   assert.equal(config.marketplace, "ozon", "valid preflight returns the selected marketplace");
   assert.equal(config.connectionId, env.MP_E2E_CONNECTION_ID, "valid preflight returns the connection ID");
@@ -39,7 +105,7 @@ try {
   for (const name of [
     "MP_E2E_MARKETPLACE",
     "MP_E2E_CONNECTION_ID",
-    "MP_E2E_EXPECTED_COMMIT",
+    "MP_E2E_EXPECTED_RUNTIME_ENV",
     "MP_E2E_EXPECTED_MANIFEST_SHA256",
     "MP_E2E_BASE_URL",
     "MP_E2E_AUTH_TOKEN",
@@ -56,6 +122,11 @@ try {
     () => assertRealE2EPreflight({ ...env, MP_E2E_MARKETPLACE: "amazon" }, identity, repoRoot),
     /MP_E2E_MARKETPLACE must be one of/,
     "unknown marketplace fails closed",
+  );
+  assert.throws(
+    () => assertRealE2EPreflight({ ...env, MP_E2E_EXPECTED_RUNTIME_ENV: "staging" }, identity, repoRoot),
+    /MP_E2E_EXPECTED_RUNTIME_ENV must be production or development/,
+    "unknown expected runtime environment fails closed",
   );
   assert.throws(
     () => assertRealE2EPreflight({ ...env, MP_E2E_BASE_URL: "https://user:password@mcp.example.test/mcp" }, identity, repoRoot),
@@ -81,6 +152,20 @@ try {
     () => assertRealE2EPreflight(env, { ...identity, write_runtime_enabled: true as false }, repoRoot),
     /WRITE runtime must be disabled/,
     "WRITE-enabled runtime fails closed",
+  );
+  assert.throws(
+    () => assertRealE2EPreflight(env, { ...identity, commit: null }, repoRoot),
+    /production runtime commit must be a full Git SHA/,
+    "production commit cannot be null",
+  );
+  const developmentEnv = { ...env, MP_E2E_EXPECTED_RUNTIME_ENV: "development" };
+  delete developmentEnv.MP_E2E_EXPECTED_COMMIT;
+  const developmentConfig = assertRealE2EPreflight(developmentEnv, { ...identity, commit: null }, repoRoot);
+  assert.equal(developmentConfig.expectedCommit, null, "development harness accepts only an unbound runtime");
+  assert.throws(
+    () => assertRealE2EPreflight(developmentEnv, identity, repoRoot),
+    /development runtime commit must be null/,
+    "development harness rejects a bound runtime",
   );
   assert.throws(
     () => assertRealE2EPreflight({ ...env, MP_E2E_EVIDENCE_DIR: path.join(repoRoot, "evidence") }, identity, repoRoot),

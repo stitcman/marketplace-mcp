@@ -11,6 +11,7 @@ import { MpError } from "../../core/errors.js";
 import { WbClient } from "../wb/client.js";
 import { OzonClient } from "../ozon/client.js";
 import { YmClient } from "../ym/client.js";
+import type { RuntimeIdentity } from "../../core/runtimeIdentity.js";
 
 /**
  * Which platform token scope/category each tool needs. All three marketplaces model
@@ -48,7 +49,19 @@ const REQUIRED_CREDENTIALS: Record<string, string[]> = {
   yandex_market: ["api_key"],
 };
 
-export function registerCommonTools(server: McpServer, store: Store) {
+export function registerCommonTools(server: McpServer, store: Store, runtimeIdentity: Readonly<RuntimeIdentity>) {
+  server.registerTool(
+    "marketplace_runtime_identity",
+    {
+      title: "Marketplace MCP runtime identity",
+      description: "Returns the immutable startup version, build commit, exact Manifest SHA-256, and READ-only safety state.",
+      inputSchema: {},
+    },
+    audited(store, "marketplace_runtime_identity", async () =>
+      envelope(runtimeIdentity, { source: "internal" }),
+    ),
+  );
+
   server.registerTool(
     "connections_list",
     {

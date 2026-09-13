@@ -2,31 +2,19 @@ import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { parse } from "yaml";
+import { validateManifestContract, validateManifestRepository } from "../src/core/manifestContract.ts";
 
 const root = path.resolve(new URL("..", import.meta.url).pathname.slice(process.platform === "win32" ? 1 : 0));
 const manifestPath = path.join(root, "MARKETPLACE_MCP_MANIFEST.yaml");
 const passportPath = path.join(root, "MARKETPLACE_MCP_PASSPORT.md");
 const manifest = parse(fs.readFileSync(manifestPath, "utf8"));
+const packageJson = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
 
 function requireValue(condition, message) {
   if (!condition) throw new Error(`Manifest validation failed: ${message}`);
 }
-requireValue(manifest.schema_version === "1.0", "schema_version must be 1.0");
-requireValue(manifest.production_mode === "READ_ONLY", "production_mode must remain READ_ONLY");
-requireValue(manifest.controlled_write_architecture === true, "controlled_write_architecture must be true");
-requireValue(manifest.write_runtime_enabled === false, "write_runtime_enabled must remain false");
-requireValue(manifest.global_write_switch_allowed === false, "global write switch must remain forbidden");
-requireValue(Array.isArray(manifest.capabilities) && manifest.capabilities.length > 0, "capabilities are required");
-requireValue(new Set(manifest.capabilities.map((item) => item.capability_id)).size === manifest.capabilities.length, "capability_id values must be unique");
-
-for (const item of manifest.capabilities) {
-  requireValue(["READ", "WRITE", "DESTRUCTIVE", "SEMANTIC_READ_JOB"].includes(item.operation_class), `${item.capability_id} has invalid operation_class`);
-  requireValue(["production", "candidate", "planned", "disabled", "deprecated"].includes(item.status), `${item.capability_id} has invalid status`);
-  if (["WRITE", "DESTRUCTIVE"].includes(item.operation_class)) requireValue(item.status === "disabled", `${item.capability_id} must be disabled`);
-  requireValue(fs.existsSync(path.join(root, item.reference)), `${item.capability_id} reference does not exist: ${item.reference}`);
-}
-
-requireValue(!fs.existsSync(path.join(root, "marketplace-mcp.lock.json")), "consumer MOS lock must not exist in this repository");
+const validatedManifest = validateManifestContract(manifest, packageJson.version);
+validateManifestRepository(validatedManifest, root);
 
 const title = (value) => value.replaceAll("_", " ").replace(/\b\w/g, (char) => char.toUpperCase());
 const list = (items) => items.length ? items.map((item) => `- \`${item.capability_id}\` — ${item.status}`).join("\n") : "- None";
@@ -45,9 +33,12 @@ const output = `<!-- Generated from MARKETPLACE_MCP_MANIFEST.yaml. Do not edit i
 
 - MCP version: \`${manifest.mcp_version}\`
 - Production repository baseline: \`${manifest.production_commit}\` (${manifest.production_commit_basis})
-- Candidate: \`${manifest.candidate_commit}\`
+- Candidate source baseline: \`${manifest.candidate_commit}\` (${manifest.candidate_commit_basis})
 - Runtime mode: \`${manifest.production_mode}\`
 - Architecture: \`READ + Controlled WRITE\`; WRITE runtime is disabled
+- Candidate tool surface: **${manifest.tool_surface.candidate_tools} tools**, including audited \`${manifest.runtime_identity.tool}\`
+- Runtime binding: declared build commit + SHA-256 of exact Manifest bytes
+- Final provenance boundary: external attestation of commit + Manifest SHA-256 + image digest
 - v1 readiness: **${manifest.v1_readiness.percent}%** (${manifest.v1_readiness.method})
 
 ## Marketplace readiness

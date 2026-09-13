@@ -11,6 +11,7 @@ import { buildServer } from "../src/server.js";
 import { RateLimiter } from "../src/core/rateLimiter.js";
 import { WbClient, WB_GROUPS_WITHOUT_SANDBOX } from "../src/adapters/wb/client.js";
 import { OrderSchema, PriceSchema, ProductSchema, StockSchema } from "../src/adapters/common/schema.js";
+import type { RuntimeIdentity } from "../src/core/runtimeIdentity.js";
 
 let failures = 0;
 function assert(cond: unknown, msg: string): asserts cond {
@@ -21,7 +22,14 @@ function assert(cond: unknown, msg: string): asserts cond {
 }
 
 const store = new MemoryStore();
-const server = buildServer(store);
+const runtimeIdentity: RuntimeIdentity = Object.freeze({
+  version: "0.4.0",
+  commit: "d".repeat(40),
+  manifest_sha256: "e".repeat(64),
+  mode: "READ_ONLY",
+  write_runtime_enabled: false,
+});
+const server = buildServer(store, runtimeIdentity);
 const client = new Client({ name: "smoke", version: "0.0.1" });
 const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
 await Promise.all([server.connect(serverTransport), client.connect(clientTransport)]);
@@ -30,7 +38,7 @@ await Promise.all([server.connect(serverTransport), client.connect(clientTranspo
 const tools = await client.listTools();
 const names = tools.tools.map((t) => t.name).sort();
 console.log("tools:", names.join(", "));
-for (const expected of ["connections_list", "connection_get", "connection_test", "marketplace_capabilities", "wb_products_list", "wb_stocks_get", "wb_prices_get", "wb_orders_list"]) {
+for (const expected of ["connections_list", "connection_get", "connection_test", "marketplace_capabilities", "marketplace_runtime_identity", "wb_products_list", "wb_stocks_get", "wb_prices_get", "wb_orders_list"]) {
   assert(names.includes(expected), `tool ${expected} present`);
 }
 
@@ -42,7 +50,13 @@ for (const expected of ["ozon_products_list", "ozon_stocks_get", "ozon_prices_ge
 for (const prefix of ["ozon", "wb", "ym"]) for (const suffix of ["read_search", "read_describe", "read_capabilities", "read_execute", "read_file"]) {
   assert(names.includes(`${prefix}_${suffix}`), `tool ${prefix}_${suffix} present`);
 }
-assert(names.length === 32, `compact catalog has 32 tools (17 existing + 15 extended), got ${names.length}`);
+assert(names.length === 33, `compact catalog has 33 tools (18 core/business + 15 extended), got ${names.length}`);
+
+const identityResult: any = await client.callTool({ name: "marketplace_runtime_identity", arguments: {} });
+const identityPayload = JSON.parse(identityResult.content[0].text);
+assert(JSON.stringify(identityPayload.data) === JSON.stringify(runtimeIdentity), "runtime identity tool returns the immutable startup identity");
+assert(Object.keys(identityPayload.data).length === 5, "runtime identity data contains no sixth field");
+assert(Object.keys(identityPayload.data).sort().join(",") === "commit,manifest_sha256,mode,version,write_runtime_enabled", "runtime identity exposes only the approved fields");
 
 const searchResult: any = await client.callTool({ name: "ozon_read_search", arguments: { query: "seller", limit: 3 } });
 const searchPayload = JSON.parse(searchResult.content[0].text);

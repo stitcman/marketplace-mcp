@@ -5,13 +5,14 @@ import { registerWbTools } from "./adapters/wb/tools.js";
 import { registerOzonTools } from "./adapters/ozon/tools.js";
 import { registerYmTools } from "./adapters/ym/tools.js";
 import { registerReadTools } from "./adapters/common/readTools.js";
+import type { RuntimeIdentity } from "./core/runtimeIdentity.js";
 
-export function buildServer(store: Store): McpServer {
+export function buildServer(store: Store, runtimeIdentity: Readonly<RuntimeIdentity>): McpServer {
   const server = new McpServer({
     name: "marketplace-mcp",
-    version: "0.4.0",
+    version: runtimeIdentity.version,
   });
-  registerCommonTools(server, store);
+  registerCommonTools(server, store, runtimeIdentity);
   registerWbTools(server, store);
   registerOzonTools(server, store);
   registerYmTools(server, store);

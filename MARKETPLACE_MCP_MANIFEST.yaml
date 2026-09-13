@@ -2,6 +2,7 @@ schema_version: "1.0"
 mcp_version: "0.4.0"
 production_commit: "0acd8026f0bf688f2cc6bca1e5f9633997117b51"
 candidate_commit: "321478fcd02b2dd779aa0ca2e3fa7bc599026d3b"
+candidate_commit_basis: "Historical source baseline metadata only; not runtime release binding."
 production_commit_basis: "origin/main repository baseline; deployed revision is not evidenced"
 production_mode: READ_ONLY
 controlled_write_architecture: true
@@ -15,9 +16,15 @@ supported_marketplaces:
 
 tool_surface:
   production_tools: 17
-  candidate_tools: 32
+  candidate_tools: 33
   candidate_generic_read_tools_per_marketplace: 5
   assessment: "Compact legacy business tools plus generic allowlisted READ dispatch; do not add endpoint-per-tool wrappers."
+
+runtime_identity:
+  tool: marketplace_runtime_identity
+  binding: declared_build_commit_plus_exact_manifest_sha256
+  candidate_commit_semantics: historical_source_metadata
+  final_release_provenance: external_attestation_of_commit_manifest_sha256_and_image_digest
 
 integration_boundary:
   consumer: MOS
