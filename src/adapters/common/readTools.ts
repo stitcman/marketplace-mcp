@@ -1,6 +1,6 @@
 import { z } from "zod";
-import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { Marketplace, Store } from "../../core/store.js";
+import type { ToolRegistrar } from "../../core/toolVisibility.js";
 import { audited } from "../../core/audit.js";
 import { envelope } from "../../core/respond.js";
 import { findReadMethod, getReadPolicy } from "../../core/readPolicies.js";
@@ -21,7 +21,7 @@ const outputSchema = {
   }),
 };
 
-export function registerReadTools(server: McpServer, store: Store, marketplace: Marketplace) {
+export function registerReadTools(server: ToolRegistrar, store: Store, marketplace: Marketplace) {
   const prefix = prefixes[marketplace];
   server.registerTool(`${prefix}_read_search`, { title: `${prefix.toUpperCase()} approved READ search`, description: "Searches only the local version-controlled READ allowlist.", inputSchema: { query: z.string().min(1).max(200), domain: z.string().max(80).optional(), limit: z.number().int().min(1).max(50).default(10) }, outputSchema },
     audited(store, `${prefix}_read_search`, async (args) => {

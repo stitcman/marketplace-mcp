@@ -3,8 +3,8 @@
  * connections_list never returns credentials.
  */
 import { z } from "zod";
-import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { Store } from "../../core/store.js";
+import type { ToolRegistrar } from "../../core/toolVisibility.js";
 import { envelope } from "../../core/respond.js";
 import { audited } from "../../core/audit.js";
 import { MpError } from "../../core/errors.js";
@@ -49,7 +49,7 @@ const REQUIRED_CREDENTIALS: Record<string, string[]> = {
   yandex_market: ["api_key"],
 };
 
-export function registerCommonTools(server: McpServer, store: Store, runtimeIdentity: Readonly<RuntimeIdentity>) {
+export function registerCommonTools(server: ToolRegistrar, store: Store, runtimeIdentity: Readonly<RuntimeIdentity>) {
   server.registerTool(
     "marketplace_runtime_identity",
     {

@@ -5,7 +5,7 @@
  * same shape (see schema.ts), so the demo never promises fields the API does not return.
  */
 import { z } from "zod";
-import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import type { ToolRegistrar } from "../../core/toolVisibility.js";
 import type { Store } from "../../core/store.js";
 import { resolveConnection, requirePermission } from "../../core/connections.js";
 import { envelope } from "../../core/respond.js";
@@ -62,7 +62,7 @@ async function fetchSkuMap(client: WbClient): Promise<Record<string, string>> {
   return map;
 }
 
-export function registerWbTools(server: McpServer, store: Store) {
+export function registerWbTools(server: ToolRegistrar, store: Store) {
   server.registerTool(
     "wb_products_list",
     {

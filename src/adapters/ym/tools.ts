@@ -9,7 +9,7 @@
  * rule as multi-account support (spec §5): never choose silently.
  */
 import { z } from "zod";
-import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import type { ToolRegistrar } from "../../core/toolVisibility.js";
 import type { Store } from "../../core/store.js";
 import { resolveConnection, requirePermission } from "../../core/connections.js";
 import { envelope } from "../../core/respond.js";
@@ -85,7 +85,7 @@ async function resolveBusinessId(
   return String(businesses[0].businessId);
 }
 
-export function registerYmTools(server: McpServer, store: Store) {
+export function registerYmTools(server: ToolRegistrar, store: Store) {
   server.registerTool(
     "ym_campaigns_list",
     {

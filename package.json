@@ -9,7 +9,7 @@
     "dev": "tsx src/index.ts",
     "start": "node dist/index.js",
     "start:http": "node dist/index.js --http",
-    "test": "tsx test/runtime-identity.test.ts && tsx test/startup-order.test.ts && tsx test/runtime-identity-tool.test.ts && tsx test/read-policy.test.ts && tsx test/ozon-parity.test.ts && tsx test/smoke.test.ts",
+    "test": "tsx test/runtime-identity.test.ts && tsx test/startup-order.test.ts && tsx test/runtime-identity-tool.test.ts && tsx test/tool-visibility.test.ts && tsx test/read-policy.test.ts && tsx test/ozon-parity.test.ts && tsx test/smoke.test.ts",
     "test:real:preflight": "tsx test/real/preflight.test.ts",
     "test:real": "tsx test/real/read-e2e.ts",
     "baseline:generate": "tsx scripts/generate-marketplace-passport.mjs",

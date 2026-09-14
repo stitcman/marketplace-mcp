@@ -9,7 +9,7 @@
  *  - orders come from two independent methods (FBO and FBS) with different shapes.
  */
 import { z } from "zod";
-import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import type { ToolRegistrar } from "../../core/toolVisibility.js";
 import type { Store } from "../../core/store.js";
 import { resolveConnection, requirePermission } from "../../core/connections.js";
 import { envelope } from "../../core/respond.js";
@@ -59,7 +59,7 @@ async function ozonClientFor(store: Store, connectionId: string): Promise<OzonCl
   return new OzonClient(creds.client_id, creds.api_key, connectionId);
 }
 
-export function registerOzonTools(server: McpServer, store: Store) {
+export function registerOzonTools(server: ToolRegistrar, store: Store) {
   server.registerTool(
     "ozon_products_list",
     {
