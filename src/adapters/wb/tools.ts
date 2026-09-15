@@ -22,7 +22,27 @@ import {
   type Price,
   type Product,
   type Stock,
+  encodeCursor,
+  decodeCursor,
 } from "./schema.js";
+
+type WbStocksCursor =
+  | { phase: "FBO"; offset: number }
+  | {
+      phase: "FBS";
+      card_cursor?: { updatedAt?: string; nmID?: number };
+      variant_offset: number;
+      warehouse_index: number;
+    };
+
+type WbOrdersCursor = {
+  last_change_date: string;
+  seen_order_ids: string[];
+};
+
+const WB_STOCKS_DEFAULT_LIMIT = 100;
+const WB_STOCKS_MAX_LIMIT = 1000;
+const WB_FBS_CARD_PAGE_LIMIT = 100;
 
 const connectionArg = {
   connection_id: z
@@ -134,7 +154,8 @@ export function registerWbTools(server: ToolRegistrar, store: Store) {
         "Returns current stock levels split by FBO (WB warehouses) and FBS (seller warehouses): " +
         "available to order, in transit to customer, in transit from customer. Read-only. " +
         "Fulfillment models are never merged into one number. WB refreshes this data every 30 minutes. " +
-        "Requires the Analytics (Аналитика) token category.",
+        "FBO requires the Analytics token category; FBS requires the Marketplace token category. " +
+        "WB does not expose a separate reserved quantity here, so reserved=0 is a normalization placeholder.",
       inputSchema: {
         ...connectionArg,
         fulfillment_model: z
@@ -143,6 +164,8 @@ export function registerWbTools(server: ToolRegistrar, store: Store) {
           .describe("FBO — WB warehouses, FBS — seller warehouses, all — both (two API calls)"),
         seller_sku: z.string().optional().describe("Filter by seller article"),
         marketplace_product_id: z.string().optional().describe("Filter by WB article (nmID)"),
+        limit: z.number().int().min(1).max(WB_STOCKS_MAX_LIMIT).default(WB_STOCKS_DEFAULT_LIMIT).describe("Page size, max 1000"),
+        cursor: z.string().optional().describe("Opaque continuation cursor from next_cursor"),
       },
       outputSchema: listEnvelopeSchema(StockSchema).shape,
     },
@@ -151,6 +174,7 @@ export function registerWbTools(server: ToolRegistrar, store: Store) {
       setCtx({ marketplace: "wildberries", connectionId: conn.connection_id });
       requirePermission(conn, "stocks.read");
       const model: "FBO" | "FBS" | "all" = args.fulfillment_model ?? "all";
+      const limit = args.limit ?? WB_STOCKS_DEFAULT_LIMIT;
 
       const applyFilters = (items: Stock[]) =>
         items
@@ -159,21 +183,27 @@ export function registerWbTools(server: ToolRegistrar, store: Store) {
           .filter((s) => !args.marketplace_product_id || s.marketplace_product_id === args.marketplace_product_id);
 
       if (conn.mock) {
-        const items = applyFilters(mockStocks);
-        return envelope({ items, has_more: false, next_cursor: null }, { marketplace: "wildberries", connectionId: conn.connection_id, source: "mock" });
+        const page = paginate(applyFilters(mockStocks), limit, args.cursor);
+        return envelope(page, { marketplace: "wildberries", connectionId: conn.connection_id, source: "mock", nextCursor: page.next_cursor });
       }
 
       const client = await wbClientFor(store, conn);
 
-      // Analytics API. The old GET /api/v1/supplier/stocks was switched off on 2026-06-23.
-      // FBO: POST /api/analytics/v1/stocks-report/wb-warehouses
-      // FBS: POST /api/analytics/v1/stocks-report/seller-warehouses
-      const nmIds = args.marketplace_product_id ? [Number(args.marketplace_product_id)] : undefined;
-      const body = { ...(nmIds ? { nmIds } : {}), limit: 250_000, offset: 0 };
+      const initialPhase: "FBO" | "FBS" = model === "FBS" ? "FBS" : "FBO";
+      const defaultState: WbStocksCursor = initialPhase === "FBO"
+        ? { phase: "FBO", offset: 0 }
+        : { phase: "FBS", variant_offset: 0, warehouse_index: 0 };
+      const state = args.cursor
+        ? decodeCursor<WbStocksCursor>(args.cursor, defaultState)
+        : defaultState;
 
-      const fetchGroup = async (path: string, fulfillment: "FBO" | "FBS"): Promise<Stock[]> => {
-        const raw = await client.request<any>("analytics", path, { method: "POST", body });
-        return (raw?.data?.items ?? []).map((r: any) => ({
+      if (state.phase === "FBO") {
+        const nmIds = args.marketplace_product_id ? [Number(args.marketplace_product_id)] : undefined;
+        const raw = await client.request<any>("analytics", "/api/analytics/v1/stocks-report/wb-warehouses", {
+          method: "POST",
+          body: { ...(nmIds ? { nmIds } : {}), limit, offset: state.offset },
+        });
+        let items: Stock[] = (raw?.data?.items ?? []).map((r: any) => ({
           marketplace: "wildberries" as const,
           marketplace_product_id: String(r.nmId),
           size_id: r.chrtId != null ? String(r.chrtId) : null,
@@ -181,26 +211,105 @@ export function registerWbTools(server: ToolRegistrar, store: Store) {
           warehouse: r.warehouseName ?? null,
           warehouse_id: r.warehouseId != null ? String(r.warehouseId) : null,
           region: r.regionName ?? null,
-          fulfillment_model: fulfillment,
+          fulfillment_model: "FBO",
           available: r.quantity ?? 0,
           reserved: 0, // WB does not expose reserved quantities in stocks-report
           in_transit_to_customer: r.inWayToClient ?? 0,
           in_transit_from_customer: r.inWayFromClient ?? 0,
         }));
-      };
 
-      let items: Stock[] = [];
-      if (model === "FBO" || model === "all") items.push(...(await fetchGroup("/api/analytics/v1/stocks-report/wb-warehouses", "FBO")));
-      if (model === "FBS" || model === "all") items.push(...(await fetchGroup("/api/analytics/v1/stocks-report/seller-warehouses", "FBS")));
-
-      // stocks-report returns only nmId — we enrich the seller article from product cards,
-      // otherwise filtering by seller_sku and human-readable output would be impossible.
-      if (items.length > 0) {
-        const skuMap = await fetchSkuMap(client);
-        items = items.map((s) => ({ ...s, seller_sku: skuMap[s.marketplace_product_id] ?? null }));
+        if (items.length > 0) {
+          const skuMap = await fetchSkuMap(client);
+          items = items.map((stock) => ({ ...stock, seller_sku: skuMap[stock.marketplace_product_id] ?? null }));
+        }
+        const filtered = applyFilters(items);
+        const upstreamHasMore = items.length >= limit;
+        const nextState: WbStocksCursor | null = upstreamHasMore
+          ? { phase: "FBO", offset: state.offset + items.length }
+          : model === "all"
+            ? { phase: "FBS", variant_offset: 0, warehouse_index: 0 }
+            : null;
+        const nextCursor = nextState ? encodeCursor(nextState) : null;
+        return envelope(
+          { items: filtered, has_more: nextCursor !== null, next_cursor: nextCursor },
+          { marketplace: "wildberries", connectionId: conn.connection_id, nextCursor },
+        );
       }
 
-      return envelope({ items: applyFilters(items), has_more: false, next_cursor: null }, { marketplace: "wildberries", connectionId: conn.connection_id });
+      const warehousesRaw = await client.request<any[]>("marketplace", "/api/v3/warehouses");
+      const warehouses = (warehousesRaw ?? [])
+        .filter((warehouse: any) => warehouse?.id != null && warehouse?.isDeleting !== true)
+        .sort((left: any, right: any) => Number(left.id) - Number(right.id));
+      const warehouse = warehouses[state.warehouse_index];
+      if (!warehouse) {
+        return envelope(
+          { items: [], has_more: false, next_cursor: null },
+          { marketplace: "wildberries", connectionId: conn.connection_id },
+        );
+      }
+
+      const filterText = args.marketplace_product_id ?? args.seller_sku;
+      const cardsRaw = await client.request<any>("content", "/content/v2/get/cards/list", {
+        method: "POST",
+        body: {
+          settings: {
+            sort: { ascending: true },
+            cursor: { limit: WB_FBS_CARD_PAGE_LIMIT, ...(state.card_cursor ?? {}) },
+            filter: { withPhoto: -1, ...(filterText ? { textSearch: filterText } : {}) },
+          },
+        },
+      });
+      const variants = (cardsRaw?.cards ?? []).flatMap((card: any) =>
+        (card?.sizes ?? []).map((size: any) => ({
+          chrtId: Number(size.chrtID),
+          nmId: String(card.nmID),
+          sellerSku: card.vendorCode ?? null,
+        })).filter((variant: any) => Number.isFinite(variant.chrtId)),
+      );
+      const batch = variants.slice(state.variant_offset, state.variant_offset + limit);
+      const byChrtId = new Map<number, { chrtId: number; nmId: string; sellerSku: string | null }>(
+        batch.map((variant: any) => [variant.chrtId, variant]),
+      );
+      const stocksRaw = batch.length === 0
+        ? { stocks: [] }
+        : await client.request<any>("marketplace", `/api/v3/stocks/${warehouse.id}`, {
+            method: "POST",
+            body: { chrtIds: batch.map((variant: any) => variant.chrtId) },
+          });
+      const items: Stock[] = (stocksRaw?.stocks ?? []).map((stock: any) => {
+        const variant = byChrtId.get(Number(stock.chrtId));
+        return {
+          marketplace: "wildberries" as const,
+          marketplace_product_id: variant?.nmId ?? "",
+          size_id: stock.chrtId != null ? String(stock.chrtId) : null,
+          seller_sku: variant?.sellerSku ?? null,
+          warehouse: warehouse.name ?? null,
+          warehouse_id: String(warehouse.id),
+          region: null,
+          fulfillment_model: "FBS" as const,
+          available: stock.amount ?? 0,
+          reserved: 0,
+          in_transit_to_customer: 0,
+          in_transit_from_customer: 0,
+        };
+      });
+
+      const nextCardCursor = cardsRaw?.cursor?.total >= WB_FBS_CARD_PAGE_LIMIT
+        ? { updatedAt: cardsRaw?.cursor?.updatedAt, nmID: cardsRaw?.cursor?.nmID }
+        : undefined;
+      let nextState: WbStocksCursor | null = null;
+      if (state.warehouse_index + 1 < warehouses.length) {
+        nextState = { ...state, warehouse_index: state.warehouse_index + 1 };
+      } else if (state.variant_offset + batch.length < variants.length) {
+        nextState = { ...state, variant_offset: state.variant_offset + batch.length, warehouse_index: 0 };
+      } else if (nextCardCursor) {
+        nextState = { phase: "FBS", card_cursor: nextCardCursor, variant_offset: 0, warehouse_index: 0 };
+      }
+      const nextCursor = nextState ? encodeCursor(nextState) : null;
+      return envelope(
+        { items: applyFilters(items).slice(0, limit), has_more: nextCursor !== null, next_cursor: nextCursor },
+        { marketplace: "wildberries", connectionId: conn.connection_id, nextCursor },
+      );
     }),
   );
 
@@ -285,11 +394,23 @@ export function registerWbTools(server: ToolRegistrar, store: Store) {
       }
 
       const client = await wbClientFor(store, conn);
+      const cursorState = args.cursor
+        ? decodeCursor<WbOrdersCursor>(args.cursor, { last_change_date: dateFrom, seen_order_ids: [] })
+        : null;
       // Statistics API: GET /api/v1/supplier/orders?dateFrom=... (limit: 1 request per minute)
       const raw = await client.request<any[]>("statistics", "/api/v1/supplier/orders", {
-        query: { dateFrom },
+        query: { dateFrom: cursorState?.last_change_date ?? dateFrom },
       });
-      const all: Order[] = (raw ?? []).map((o) => ({
+      const eligible = (raw ?? []).filter((order) => {
+        if (!cursorState) return true;
+        const changedAt = String(order.lastChangeDate ?? "");
+        const orderId = String(order.srid ?? order.gNumber ?? "");
+        if (changedAt < cursorState.last_change_date) return false;
+        return changedAt !== cursorState.last_change_date || !cursorState.seen_order_ids.includes(orderId);
+      });
+      const limit = args.limit ?? 100;
+      const pageRows = eligible.slice(0, limit);
+      const items: Order[] = pageRows.map((o) => ({
         marketplace: "wildberries" as const,
         order_id: o.srid ?? o.gNumber ?? null,
         created_at: o.date ?? null,
@@ -301,8 +422,20 @@ export function registerWbTools(server: ToolRegistrar, store: Store) {
         status: o.isCancel ? "cancelled" : "created",
         is_cancelled: Boolean(o.isCancel),
       }));
-      const page = paginate(all, args.limit ?? 100, args.cursor);
-      return envelope(page, { marketplace: "wildberries", connectionId: conn.connection_id, nextCursor: page.next_cursor });
+      const hasMore = eligible.length > pageRows.length || (raw?.length ?? 0) >= 80_000;
+      let nextCursor: string | null = null;
+      if (hasMore && pageRows.length > 0) {
+        const lastChangeDate = String(pageRows.at(-1)?.lastChangeDate ?? cursorState?.last_change_date ?? dateFrom);
+        const previousSeen = cursorState?.last_change_date === lastChangeDate ? cursorState.seen_order_ids : [];
+        const pageSeen = pageRows
+          .filter((order) => String(order.lastChangeDate ?? "") === lastChangeDate)
+          .map((order) => String(order.srid ?? order.gNumber ?? ""));
+        nextCursor = encodeCursor({ last_change_date: lastChangeDate, seen_order_ids: [...new Set([...previousSeen, ...pageSeen])] });
+      }
+      return envelope(
+        { items, has_more: nextCursor !== null, next_cursor: nextCursor },
+        { marketplace: "wildberries", connectionId: conn.connection_id, nextCursor },
+      );
     }),
   );
 }

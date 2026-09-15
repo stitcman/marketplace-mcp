@@ -25,6 +25,7 @@ export interface LimitRule {
 export const WB_LIMITS: Record<string, LimitRule> = {
   statistics: { requests: 1, perMs: 60_000 }, // supplier/orders: 1 request per minute
   analytics: { requests: 3, perMs: 60_000 }, // stocks-report: 3 per minute, 20s interval
+  marketplace: { requests: 300, perMs: 60_000 }, // seller warehouses and FBS inventory: 300 per minute
   content: { requests: 100, perMs: 60_000 }, // "Content" category
   prices: { requests: 10, perMs: 6_000 }, // "Prices and discounts" category
   common: { requests: 3, perMs: 30_000 }, // /ping: 3 per 30s, counted per domain

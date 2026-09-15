@@ -15,6 +15,7 @@ import { rateLimiter, withRetries, WB_LIMITS } from "../../core/rateLimiter.js";
 const HOSTS = {
   statistics: "https://statistics-api.wildberries.ru",
   analytics: "https://seller-analytics-api.wildberries.ru",
+  marketplace: "https://marketplace-api.wildberries.ru",
   content: "https://content-api.wildberries.ru",
   prices: "https://discounts-prices-api.wildberries.ru",
   common: "https://common-api.wildberries.ru",
@@ -41,7 +42,7 @@ export type WbGroup = keyof typeof HOSTS;
 export const WB_HOSTS = HOSTS;
 
 /** Groups without a sandbox: in sandbox mode they still hit production. */
-export const WB_GROUPS_WITHOUT_SANDBOX: WbGroup[] = ["analytics", "common"];
+export const WB_GROUPS_WITHOUT_SANDBOX: WbGroup[] = ["analytics", "marketplace", "common"];
 
 export class WbClient {
   constructor(
