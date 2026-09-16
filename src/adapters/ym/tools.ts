@@ -516,9 +516,7 @@ export function registerYmTools(server: ToolRegistrar, store: Store) {
       }
 
       const offset = cursor?.normalized_offset ?? 0;
-      const nextToken = raw?.paging?.nextPageToken ?? null;
-      if (cursor && cursor.next_page_token !== nextToken)
-        throw new MpError("INVALID_ARGUMENT", "Yandex orders cursor no longer matches the upstream page", { marketplace: "yandex_market" });
+      const nextToken = cursor?.next_page_token ?? raw?.paging?.nextPageToken ?? null;
       const pageItems = items.slice(offset, offset + limit);
       let nextCursor: string | null = null;
       if (offset + pageItems.length < items.length) {
