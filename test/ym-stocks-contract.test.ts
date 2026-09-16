@@ -15,6 +15,7 @@ const originalFetch = globalThis.fetch; const calls: URL[] = [];
 globalThis.fetch = async (input) => {
   const url = new URL(String(input)); calls.push(url);
   if (url.pathname === "/v3/businesses/7/warehouses") {
+    assert(url.searchParams.get("limit") === "30", "seller warehouse discovery must use the official bounded maximum limit=30");
     const token = url.searchParams.get("pageToken");
     return json(token ? { result: { warehouses: [{ id: 30, name: "C" }], paging: {} } } : { result: { warehouses: [{ id: 20, name: "B" }, { id: 10, name: "A" }], paging: { nextPageToken: "warehouse-2" } } });
   }

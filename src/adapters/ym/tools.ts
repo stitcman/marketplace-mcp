@@ -290,7 +290,7 @@ export function registerYmTools(server: ToolRegistrar, store: Store) {
         const cursor = sellerStocksCursor(args.cursor, businessId);
         const warehousePage = await client.request<any>("stocks", `/v3/businesses/${businessId}/warehouses`, {
           method: "POST",
-          query: { limit: "100", ...(cursor?.warehouse_page_token ? { pageToken: cursor.warehouse_page_token } : {}) },
+          query: { limit: "30", ...(cursor?.warehouse_page_token ? { pageToken: cursor.warehouse_page_token } : {}) },
           body: {},
         });
         const warehouses: any[] = warehousePage?.result?.warehouses ?? warehousePage?.warehouses ?? [];
@@ -360,7 +360,7 @@ export function registerYmTools(server: ToolRegistrar, store: Store) {
         if (nextToken) state.stock_page_token = nextToken;
         else {
           const warehousePage = await client.request<any>("stocks", `/v3/businesses/${businessId}/warehouses`, {
-            method: "POST", query: { limit: "100", ...(state.warehouse_page_token ? { pageToken: state.warehouse_page_token } : {}) }, body: {},
+            method: "POST", query: { limit: "30", ...(state.warehouse_page_token ? { pageToken: state.warehouse_page_token } : {}) }, body: {},
           });
           const currentWarehouses: any[] = warehousePage?.result?.warehouses ?? warehousePage?.warehouses ?? [];
           const count = currentWarehouses.length;
