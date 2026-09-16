@@ -318,8 +318,8 @@ export function registerYmTools(server: ToolRegistrar, store: Store) {
 
       const raw = await client.request<any>("stocks", path, {
         method: "POST",
-        query: { limit: String(limit), ...(campaignId ? (decodeCursor<string>(args.cursor, "") ? { pageToken: decodeCursor<string>(args.cursor, "") } : {}) : (stockPageToken ? { pageToken: stockPageToken } : {})), ...(partnerWarehouseId ? { partnerWarehouseId } : {}) },
-        body: {},
+        query: { limit: String(limit), ...(campaignId ? (decodeCursor<string>(args.cursor, "") ? { pageToken: decodeCursor<string>(args.cursor, "") } : {}) : (stockPageToken ? { pageToken: stockPageToken } : {})) },
+        body: partnerWarehouseId ? { partnerWarehouseId: Number(partnerWarehouseId) } : {},
       });
 
       // Response: warehouses[] → offers[] → stocks[] by type.
