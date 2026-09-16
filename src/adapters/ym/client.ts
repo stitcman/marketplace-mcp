@@ -98,15 +98,28 @@ export class YmClient {
     });
   }
 
+  /** A bounded page of shops in the account. */
+  async campaignsPage(limit: number, pageToken?: string): Promise<{
+    items: Array<{ id: number; domain: string | null; businessId: number | null; businessName: string | null; placementType: string | null }>;
+    nextPageToken: string | null;
+  }> {
+    const raw = await this.request<any>("campaigns", "/v2/campaigns", {
+      query: { limit: String(limit), ...(pageToken ? { pageToken } : {}) },
+    });
+    return {
+      items: (raw?.campaigns ?? []).map((c: any) => ({
+        id: c.id,
+        domain: c.domain ?? null,
+        businessId: c.business?.id ?? null,
+        businessName: c.business?.name ?? null,
+        placementType: c.placementType ?? null,
+      })),
+      nextPageToken: raw?.paging?.nextPageToken ? String(raw.paging.nextPageToken) : null,
+    };
+  }
+
   /** Shops in the account — doubles as the cheapest possible key check. */
   async campaigns(): Promise<Array<{ id: number; domain: string | null; businessId: number | null; businessName: string | null; placementType: string | null }>> {
-    const raw = await this.request<any>("campaigns", "/v2/campaigns", { query: { pageSize: "100" } });
-    return (raw?.campaigns ?? []).map((c: any) => ({
-      id: c.id,
-      domain: c.domain ?? null,
-      businessId: c.business?.id ?? null,
-      businessName: c.business?.name ?? null,
-      placementType: c.placementType ?? null,
-    }));
+    return (await this.campaignsPage(100)).items;
   }
 }

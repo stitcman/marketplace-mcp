@@ -85,6 +85,40 @@ async function resolveBusinessId(
   return String(businesses[0].businessId);
 }
 
+type YmSellerStocksCursor = {
+  v: 1; kind: "ym_seller_stocks"; business_id: string; warehouse_page_token: string | null;
+  warehouse_index: number; stock_page_token: string | null;
+};
+type YmOrdersCursor = {
+  v: 1; kind: "ym_orders"; business_id: string; date_from: string; date_to: string;
+  request_page_token: string | null; normalized_offset: number; next_page_token: string | null;
+};
+
+function sellerStocksCursor(cursor: string | undefined, businessId: string): YmSellerStocksCursor | null {
+  if (!cursor) return null;
+  const value = decodeCursor<unknown>(cursor, null);
+  if (!value || typeof value !== "object") throw new MpError("INVALID_ARGUMENT", "Invalid Yandex seller stocks cursor", { marketplace: "yandex_market" });
+  const state = value as Partial<YmSellerStocksCursor>;
+  if (state.v !== 1 || state.kind !== "ym_seller_stocks" || state.business_id !== businessId ||
+    (state.warehouse_page_token !== null && typeof state.warehouse_page_token !== "string") ||
+    typeof state.warehouse_index !== "number" || !Number.isInteger(state.warehouse_index) || state.warehouse_index < 0 ||
+    (state.stock_page_token !== null && typeof state.stock_page_token !== "string"))
+    throw new MpError("INVALID_ARGUMENT", "Invalid or incompatible Yandex seller stocks cursor", { marketplace: "yandex_market" });
+  return state as YmSellerStocksCursor;
+}
+
+function ordersCursor(cursor: string | undefined, businessId: string, fromDate: string, toDate: string): YmOrdersCursor | null {
+  if (!cursor) return null;
+  const value = decodeCursor<unknown>(cursor, null);
+  if (!value || typeof value !== "object") throw new MpError("INVALID_ARGUMENT", "Invalid Yandex orders cursor", { marketplace: "yandex_market" });
+  const state = value as Partial<YmOrdersCursor>;
+  if (state.v !== 1 || state.kind !== "ym_orders" || state.business_id !== businessId || state.date_from !== fromDate || state.date_to !== toDate ||
+    (state.request_page_token !== null && typeof state.request_page_token !== "string") || typeof state.normalized_offset !== "number" || !Number.isInteger(state.normalized_offset) || state.normalized_offset < 0 ||
+    (state.next_page_token !== null && typeof state.next_page_token !== "string"))
+    throw new MpError("INVALID_ARGUMENT", "Invalid or incompatible Yandex orders cursor", { marketplace: "yandex_market" });
+  return state as YmOrdersCursor;
+}
+
 export function registerYmTools(server: ToolRegistrar, store: Store) {
   server.registerTool(
     "ym_campaigns_list",
@@ -94,30 +128,36 @@ export function registerYmTools(server: ToolRegistrar, store: Store) {
         "Returns the Yandex Market shops (campaignId) and business accounts (businessId) the token can reach. " +
         "Yandex Market has a two-level structure: an account holds several shops, and different methods " +
         "need different identifiers. Call this before the other ym_* tools.",
-      inputSchema: { ...connectionArg },
+      inputSchema: {
+        ...connectionArg,
+        limit: z.number().int().min(1).max(100).default(100).describe("Page size, max 100"),
+        cursor: z.string().optional().describe("Cursor from the previous response (next_cursor)"),
+      },
     },
     audited(store, "ym_campaigns_list", async (args, setCtx) => {
       const conn = await resolveConnection(store, "yandex_market", args.connection_id);
       setCtx({ marketplace: "yandex_market", connectionId: conn.connection_id });
       requirePermission(conn, "catalog.read");
 
+      const limit = args.limit ?? 100;
       if (conn.mock) {
-        return envelope(
-          { items: mockCampaigns, has_more: false, next_cursor: null },
-          { marketplace: "yandex_market", connectionId: conn.connection_id, source: "mock" },
-        );
+        const page = paginate(mockCampaigns, limit, args.cursor);
+        return envelope(page, { marketplace: "yandex_market", connectionId: conn.connection_id, source: "mock", nextCursor: page.next_cursor });
       }
 
       const client = await ymClientFor(store, conn.connection_id);
-      const campaigns = await client.campaigns();
-      const items = campaigns.map((c) => ({
+      const pageToken = decodeCursor<string>(args.cursor, "");
+      const page = await client.campaignsPage(limit, pageToken || undefined);
+      const items = page.items.map((c) => ({
         campaign_id: String(c.id),
         business_id: c.businessId != null ? String(c.businessId) : null,
         business_name: c.businessName,
         domain: c.domain,
         placement_type: c.placementType,
       }));
-      return envelope({ items, has_more: false, next_cursor: null }, { marketplace: "yandex_market", connectionId: conn.connection_id });
+      const hasMore = page.nextPageToken != null;
+      const nextCursor = hasMore ? encodeCursor(page.nextPageToken) : null;
+      return envelope({ items, has_more: hasMore, next_cursor: nextCursor }, { marketplace: "yandex_market", connectionId: conn.connection_id, nextCursor });
     }),
   );
 
@@ -154,7 +194,7 @@ export function registerYmTools(server: ToolRegistrar, store: Store) {
 
       const raw = await client.request<any>("default", `/v2/businesses/${businessId}/offer-mappings`, {
         method: "POST",
-        query: { limit: String(limit), ...(pageToken ? { page_token: pageToken } : {}) },
+        query: { limit: String(limit), ...(pageToken ? { pageToken } : {}) },
         body: {},
       });
       const mappings: any[] = raw?.result?.offerMappings ?? [];
@@ -240,13 +280,45 @@ export function registerYmTools(server: ToolRegistrar, store: Store) {
       //    works only when there are no warehouse groups.
       // Without campaign_id, FBY stock is invisible entirely, so the tool supports both paths.
       const campaignId: string | undefined = args.campaign_id;
+      const businessId = await resolveBusinessId(client, args.business_id, creds.business_id);
+      let partnerWarehouseId: string | undefined;
+      let partnerWarehouseName: string | null = null;
+      let campaignFulfillment: "FBO" | "FBS" | undefined;
+      let sellerNextCursor: YmSellerStocksCursor | null = null;
+      let stockPageToken: string | undefined;
+      if (!campaignId) {
+        const cursor = sellerStocksCursor(args.cursor, businessId);
+        const warehousePage = await client.request<any>("stocks", `/v3/businesses/${businessId}/warehouses`, {
+          method: "POST",
+          query: { limit: "100", ...(cursor?.warehouse_page_token ? { pageToken: cursor.warehouse_page_token } : {}) },
+          body: {},
+        });
+        const warehouses: any[] = warehousePage?.result?.warehouses ?? warehousePage?.warehouses ?? [];
+        const sorted = [...warehouses].sort((a, b) => String(a.id ?? a.partnerWarehouseId).localeCompare(String(b.id ?? b.partnerWarehouseId), undefined, { numeric: true }));
+        const warehouseIndex = cursor?.warehouse_index ?? 0;
+        const selected = sorted[warehouseIndex];
+        if (!selected || (selected.id ?? selected.partnerWarehouseId) == null)
+          throw new MpError("NOT_FOUND", "Yandex Market returned no seller warehouse for this business", { marketplace: "yandex_market" });
+        partnerWarehouseId = String(selected.id ?? selected.partnerWarehouseId);
+        partnerWarehouseName = selected.name ?? selected.warehouseName ?? null;
+        stockPageToken = cursor?.stock_page_token ?? undefined;
+        sellerNextCursor = {
+          v: 1, kind: "ym_seller_stocks", business_id: businessId,
+          warehouse_page_token: cursor?.warehouse_page_token ?? null, warehouse_index: warehouseIndex, stock_page_token: null,
+        };
+      } else {
+        const campaign = (await client.campaignsPage(100)).items.find((item) => String(item.id) === campaignId);
+        if (!campaign)
+          throw new MpError("NOT_FOUND", "Yandex Market campaign is not available to this connection", { marketplace: "yandex_market" });
+        campaignFulfillment = campaign.placementType === "FBY" ? "FBO" : "FBS";
+      }
       const path = campaignId
         ? `/v2/campaigns/${campaignId}/offers/stocks`
-        : `/v3/businesses/${await resolveBusinessId(client, args.business_id, creds.business_id)}/offers/stocks`;
+        : `/v3/businesses/${businessId}/offers/stocks`;
 
       const raw = await client.request<any>("stocks", path, {
         method: "POST",
-        query: { limit: String(limit), ...(pageToken ? { page_token: pageToken } : {}) },
+        query: { limit: String(limit), ...(campaignId ? (decodeCursor<string>(args.cursor, "") ? { pageToken: decodeCursor<string>(args.cursor, "") } : {}) : (stockPageToken ? { pageToken: stockPageToken } : {})), ...(partnerWarehouseId ? { partnerWarehouseId } : {}) },
         body: {},
       });
 
@@ -266,12 +338,12 @@ export function registerYmTools(server: ToolRegistrar, store: Store) {
             marketplace_product_id: String(o.offerId ?? ""),
             size_id: null,
             seller_sku: o.offerId ?? null,
-            warehouse: null, // warehouse names come from a separate directory (GET /v2/warehouses)
-            warehouse_id: w.warehouseId != null ? String(w.warehouseId) : null,
+            warehouse: partnerWarehouseName,
+            warehouse_id: w.warehouseId != null ? String(w.warehouseId) : partnerWarehouseId ?? null,
             region: null,
             // A per-shop query covers Market warehouses (FBY), i.e. FBO;
             // a per-account query covers seller warehouses, i.e. FBS.
-            fulfillment_model: campaignId ? "FBO" : "FBS",
+            fulfillment_model: campaignFulfillment ?? "FBS",
             available,
             reserved: byType.FREEZE ?? 0,
             in_transit_to_customer: 0,
@@ -281,10 +353,28 @@ export function registerYmTools(server: ToolRegistrar, store: Store) {
       }
 
       const nextToken = result?.paging?.nextPageToken ?? "";
-      const hasMore = Boolean(nextToken);
+      let nextCursor: string | null;
+      if (campaignId) nextCursor = nextToken ? encodeCursor(nextToken) : null;
+      else {
+        const state = sellerNextCursor!;
+        if (nextToken) state.stock_page_token = nextToken;
+        else {
+          const warehousePage = await client.request<any>("stocks", `/v3/businesses/${businessId}/warehouses`, {
+            method: "POST", query: { limit: "100", ...(state.warehouse_page_token ? { pageToken: state.warehouse_page_token } : {}) }, body: {},
+          });
+          const currentWarehouses: any[] = warehousePage?.result?.warehouses ?? warehousePage?.warehouses ?? [];
+          const count = currentWarehouses.length;
+          const discoveryNext = warehousePage?.result?.paging?.nextPageToken ?? warehousePage?.paging?.nextPageToken ?? null;
+          if (state.warehouse_index + 1 < count) state.warehouse_index += 1;
+          else if (discoveryNext) { state.warehouse_page_token = discoveryNext; state.warehouse_index = 0; }
+          else sellerNextCursor = null;
+        }
+        nextCursor = sellerNextCursor ? encodeCursor(sellerNextCursor) : null;
+      }
+      const hasMore = Boolean(nextCursor);
       return envelope(
-        { items: applyFilter(items), has_more: hasMore, next_cursor: hasMore ? encodeCursor(nextToken) : null },
-        { marketplace: "yandex_market", connectionId: conn.connection_id, nextCursor: hasMore ? encodeCursor(nextToken) : null },
+        { items: items.filter((item) => !args.seller_sku || item.seller_sku === args.seller_sku), has_more: hasMore, next_cursor: nextCursor },
+        { marketplace: "yandex_market", connectionId: conn.connection_id, nextCursor },
       );
     }),
   );
@@ -323,7 +413,7 @@ export function registerYmTools(server: ToolRegistrar, store: Store) {
       // Prices arrive together with products in offer-mappings (basicPrice + discountBase).
       const raw = await client.request<any>("default", `/v2/businesses/${businessId}/offer-mappings`, {
         method: "POST",
-        query: { limit: String(limit), ...(pageToken ? { page_token: pageToken } : {}) },
+        query: { limit: String(limit), ...(pageToken ? { pageToken } : {}) },
         body: {},
       });
       const mappings: any[] = raw?.result?.offerMappings ?? [];
@@ -366,6 +456,7 @@ export function registerYmTools(server: ToolRegistrar, store: Store) {
         ...connectionArg,
         ...businessArg,
         date_from: z.string().optional().describe("ISO start date (defaults to −30 days). Range must not exceed 30 days."),
+        date_to: z.string().optional().describe("ISO end date (defaults to today). Range must not exceed 30 days."),
         limit: z.number().int().min(1).max(50).default(50).describe("Page size, max 50 (API limitation)"),
         cursor: z.string().optional(),
       },
@@ -377,6 +468,11 @@ export function registerYmTools(server: ToolRegistrar, store: Store) {
       requirePermission(conn, "orders.read");
       const limit = args.limit ?? 50;
       const fromIso = args.date_from ?? new Date(Date.now() - 30 * 86_400_000).toISOString();
+      const toIso = args.date_to ?? new Date().toISOString();
+      const fromDate = fromIso.slice(0, 10);
+      const toDate = toIso.slice(0, 10);
+      if (new Date(`${toDate}T00:00:00Z`).getTime() - new Date(`${fromDate}T00:00:00Z`).getTime() > 30 * 86_400_000)
+        throw new MpError("INVALID_ARGUMENT", "Yandex Market orders date range must not exceed 30 days", { marketplace: "yandex_market" });
 
       if (conn.mock) {
         const page = paginate(mockOrders.filter((o) => (o.created_at ?? "") >= fromIso), limit, args.cursor);
@@ -386,12 +482,13 @@ export function registerYmTools(server: ToolRegistrar, store: Store) {
       const client = await ymClientFor(store, conn.connection_id);
       const creds = await store.getCredentials(conn.connection_id);
       const businessId = await resolveBusinessId(client, args.business_id, creds.business_id);
-      const pageToken = decodeCursor<string>(args.cursor, "");
+      const cursor = ordersCursor(args.cursor, businessId, fromDate, toDate);
+      const requestPageToken = cursor?.request_page_token ?? null;
 
       const raw = await client.request<any>("orders", `/v1/businesses/${businessId}/orders`, {
         method: "POST",
-        query: { limit: String(limit), ...(pageToken ? { page_token: pageToken } : {}) },
-        body: { dateFrom: fromIso.slice(0, 10), dateTo: new Date().toISOString().slice(0, 10) },
+        query: { limit: String(limit), ...(requestPageToken ? { pageToken: requestPageToken } : {}) },
+        body: { dates: { creationDateFrom: fromDate, creationDateTo: toDate } },
       });
 
       // An order contains several items — we normalize to one row per item, as with WB
@@ -402,7 +499,7 @@ export function registerYmTools(server: ToolRegistrar, store: Store) {
         const cancelled = status === "cancelled" || status === "canceled";
         for (const it of o.items ?? []) {
           const qty = Number(it.count ?? 1);
-          const unit = Number(it.price ?? it.buyerPrice ?? 0);
+          const unit = Number(it.price ?? it.buyerPrice ?? it.prices?.buyerPrice ?? 0);
           items.push({
             marketplace: "yandex_market",
             order_id: o.orderId != null ? String(o.orderId) : null,
@@ -418,11 +515,21 @@ export function registerYmTools(server: ToolRegistrar, store: Store) {
         }
       }
 
-      const nextToken = raw?.paging?.nextPageToken ?? "";
-      const hasMore = Boolean(nextToken);
+      const offset = cursor?.normalized_offset ?? 0;
+      const nextToken = raw?.paging?.nextPageToken ?? null;
+      if (cursor && cursor.next_page_token !== nextToken)
+        throw new MpError("INVALID_ARGUMENT", "Yandex orders cursor no longer matches the upstream page", { marketplace: "yandex_market" });
+      const pageItems = items.slice(offset, offset + limit);
+      let nextCursor: string | null = null;
+      if (offset + pageItems.length < items.length) {
+        nextCursor = encodeCursor({ v: 1, kind: "ym_orders", business_id: businessId, date_from: fromDate, date_to: toDate, request_page_token: requestPageToken, normalized_offset: offset + pageItems.length, next_page_token: nextToken } satisfies YmOrdersCursor);
+      } else if (nextToken) {
+        nextCursor = encodeCursor({ v: 1, kind: "ym_orders", business_id: businessId, date_from: fromDate, date_to: toDate, request_page_token: nextToken, normalized_offset: 0, next_page_token: null } satisfies YmOrdersCursor);
+      }
+      const hasMore = Boolean(nextCursor);
       return envelope(
-        { items, has_more: hasMore, next_cursor: hasMore ? encodeCursor(nextToken) : null },
-        { marketplace: "yandex_market", connectionId: conn.connection_id, nextCursor: hasMore ? encodeCursor(nextToken) : null },
+        { items: pageItems, has_more: hasMore, next_cursor: nextCursor },
+        { marketplace: "yandex_market", connectionId: conn.connection_id, nextCursor },
       );
     }),
   );
