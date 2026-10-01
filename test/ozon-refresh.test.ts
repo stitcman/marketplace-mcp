@@ -65,14 +65,14 @@ try {
     assert.equal(legacy.error.code, 'FEATURE_NOT_SUPPORTED');
   });
   await check('prices: declared price preserves missing, null and zero', async () => {
-    for (const value of [undefined, null, '0']) {
+    for (const value of [undefined, null, '0', {amount: '0', currency: 'CNY'}]) {
       reply = () => ({items: [{product_id: 101, price: {price: '1.25', ...(value === undefined ? {} : {declared_price: value})}}], cursor: ''});
       const result = await call('ozon_prices_get');
-      assert.deepEqual(result.data.items[0].declared_price, value === undefined ? undefined : value === null ? null : {amount: value, currency: 'RUB'});
+      assert.deepEqual(result.data.items[0].declared_price, value === undefined ? undefined : value === null ? null : typeof value === 'object' ? value : {amount: value, currency: 'RUB'});
     }
   });
   await check('orders: FBS v4 root response, exact money, independent terminal streams and fixed window', async () => {
-    reply = (path) => path === '/v2/posting/fbo/list' ? {result: [{posting_number: 'FBO-SYNTH', products: [{sku: 555, quantity: 1, price: '1.00'}]}]}
+    reply = (path) => path === '/v3/posting/fbo/list' ? {postings: [{posting_number: 'FBO-SYNTH', products: [{sku: 555, quantity: 1, price: '1.00'}]}], cursor: '', has_next: false}
       : {postings: [{posting_number: 'FBS-SYNTH', products: [{sku: 777, offer_id: 'synthetic', quantity: 3, price: {amount: '90071992547409.93', currency: 'RUB'}}]}], cursor: 'fbs-next', has_next: true};
     const first = await call('ozon_orders_list', {fulfillment_model: 'all', date_from: '2026-09-30T00:00:00Z'});
     assert.equal(first.success, true);
@@ -84,16 +84,28 @@ try {
     assert.equal(first.data.items[1].marketplace_product_id, null, 'sku is not product_id');
     assert.equal(first.data.items[1].source_sku, '777');
     const end = calls[1].body.filter.to;
-    reply = (path) => path === '/v2/posting/fbo/list' ? {result: []} : {postings: [], cursor: '', has_next: false};
+    reply = (path) => path === '/v3/posting/fbo/list' ? {postings: [], cursor: '', has_next: false} : {postings: [], cursor: '', has_next: false};
     const second = await call('ozon_orders_list', {fulfillment_model: 'all', date_from: '2026-09-30T00:00:00Z', cursor: first.data.next_cursor});
     assert.equal(second.success, true);
-    assert.equal(calls[3].body.cursor, 'fbs-next');
-    assert.equal(calls[3].body.filter.to, end);
+    assert.equal(calls[2].body.cursor, 'fbs-next');
+    assert.equal(calls[2].body.filter.to, end);
     assert.equal(second.data.has_more, false);
     const count = calls.length;
     const mismatch = await call('ozon_orders_list', {fulfillment_model: 'FBS', cursor: first.data.next_cursor});
     assert.equal(mismatch.success, false);
     assert.equal(calls.length, count, 'incompatible cursor sends no HTTP');
+  });
+  await check('orders: FBO v3 uses independent cursor and never revisits terminal stream', async () => {
+    reply = (path) => ({postings: [{posting_number: 'SYNTHETIC', products: [{sku: 1, quantity: 1, price: {amount: '1.00', currency: 'RUB'}}]}], cursor: path === '/v3/posting/fbo/list' ? 'fbo-2' : '', has_next: path === '/v3/posting/fbo/list'});
+    const first = await call('ozon_orders_list', {fulfillment_model: 'all'});
+    assert.equal(first.success, true);
+    assert.equal(calls[0].path, '/v3/posting/fbo/list');
+    reply = () => ({postings: [], cursor: '', has_next: false});
+    const second = await call('ozon_orders_list', {fulfillment_model: 'all', cursor: first.data.next_cursor});
+    assert.equal(second.success, true);
+    assert.equal(calls.length, 3, 'only unfinished FBO stream called');
+    assert.equal(calls[2].body.cursor, 'fbo-2');
+    assert.equal(second.data.has_more, false);
   });
 } finally { OzonClient.prototype.request = original; }
 if (failures) process.exitCode = 1;

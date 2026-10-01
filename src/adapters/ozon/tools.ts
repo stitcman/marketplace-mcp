@@ -307,7 +307,7 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
           price: { amount: String(p.old_price ?? p.price ?? "0"), currency },
           discount_percent: discount,
           price_after_discount: { amount: String(p.price ?? "0"), currency },
-          ...(p.declared_price === undefined ? {} : {declared_price: p.declared_price === null ? null : {amount: String(p.declared_price), currency}}),
+          ...(p.declared_price === undefined ? {} : {declared_price: p.declared_price === null ? null : typeof p.declared_price === 'object' ? MoneySchema.parse(p.declared_price) : {amount: String(p.declared_price), currency}}),
         };
       });
 
@@ -343,7 +343,7 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
       const limit = args.limit ?? 100;
       const binding = cursorBinding(conn.connection_id, 'ozon_orders_list', [model, args.date_from ?? null]);
       const state = args.cursor && !conn.mock ? decodeCursor<any>(args.cursor, null) : null;
-      if (args.cursor && !conn.mock && (state?.v !== 2 || state.binding !== binding || typeof state.since !== 'string' || typeof state.to !== 'string' || !Number.isSafeInteger(state.fbo_offset) || state.fbo_offset < 0 || typeof state.fbs_cursor !== 'string' || typeof state.fbo_done !== 'boolean' || typeof state.fbs_done !== 'boolean')) {
+      if (args.cursor && !conn.mock && (state?.v !== 3 || state.binding !== binding || typeof state.since !== 'string' || typeof state.to !== 'string' || typeof state.fbo_cursor !== 'string' || typeof state.fbs_cursor !== 'string' || typeof state.fbo_done !== 'boolean' || typeof state.fbs_done !== 'boolean')) {
         throw new MpError('INVALID_ARGUMENT', 'Incompatible Ozon order cursor; restart without cursor');
       }
       const since = state?.since ?? (args.date_from
@@ -357,10 +357,9 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
       }
 
       const client = await ozonClientFor(store, conn.connection_id);
-      const offset = state?.fbo_offset ?? 0;
       let fboDone = state?.fbo_done ?? model === 'FBS';
       let fbsDone = state?.fbs_done ?? model === 'FBO';
-      let fboOffset = offset;
+      let fboCursor = state?.fbo_cursor ?? '';
       let fbsCursor = state?.fbs_cursor ?? '';
 
       // A posting contains several items; we normalize to one row per item so the shape
@@ -403,13 +402,13 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
 
       const collected: OzonOrder[] = [];
       if (!fboDone) {
-        const fbo = await client.request<any>("/v2/posting/fbo/list", {
-          dir: "DESC", filter: { since, to }, limit, offset, with: { analytics_data: true },
+        const fbo = await client.request<any>("/v3/posting/fbo/list", {
+          sort_dir: "DESC", filter: { since, to }, limit, cursor: fboCursor, with: { analytics_data: true },
         });
-        collected.push(...flatten(fbo?.result ?? [], "FBO"));
-        const count = (fbo?.result ?? []).length;
-        fboDone = fbo?.has_next === false || (fbo?.has_next !== true && count < limit);
-        fboOffset += count;
+        if (!Array.isArray(fbo?.postings)) throw new MpError('INVALID_ARGUMENT', 'Ozon FBO v3 response is missing postings');
+        collected.push(...flatten(fbo.postings, "FBO"));
+        fboDone = !cursorPage(fbo, fboCursor, binding).has_more;
+        fboCursor = fbo?.cursor ?? '';
       }
       if (!fbsDone) {
         const fbs = await client.request<any>("/v4/posting/fbs/list", {
@@ -424,7 +423,7 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
 
       // Exactly `limit` postings came back — assume there is another page.
       const hasMore = !fboDone || !fbsDone;
-      const nextCursor = hasMore ? encodeCursor({v: 2, binding, since, to, fbo_offset: fboOffset, fbs_cursor: fbsCursor, fbo_done: fboDone, fbs_done: fbsDone}) : null;
+      const nextCursor = hasMore ? encodeCursor({v: 3, binding, since, to, fbo_cursor: fboCursor, fbs_cursor: fbsCursor, fbo_done: fboDone, fbs_done: fbsDone}) : null;
       return envelope(
         { items: collected, has_more: hasMore, next_cursor: nextCursor },
         { marketplace: "ozon", connectionId: conn.connection_id, nextCursor },
