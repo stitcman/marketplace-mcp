@@ -4,7 +4,7 @@ import crypto from "node:crypto";
 import YAML from "yaml";
 import { execFileSync } from "node:child_process";
 import { applyOzonOverrides } from './apply-ozon-contract-overrides.mjs';
-import { renderedAdditions, officialCurrentKeys } from './ozon-rendered-contracts.mjs';
+import { renderedAdditions, officialCurrentKeys, applyCurrentRenderedContracts } from './ozon-rendered-contracts.mjs';
 
 const root = path.resolve(import.meta.dirname, "..");
 const refs = process.env.MARKETPLACE_MCP_REFERENCE_ROOT ?? "C:/marketplace-mcp-references";
@@ -193,7 +193,7 @@ function generateOzon() {
   }
   const additions=renderedAdditions();
   const current=officialCurrentKeys();
-  const reviewed=applyOzonOverrides([...records,...additions]);
+  const reviewed=applyOzonOverrides(applyCurrentRenderedContracts(applyOzonOverrides([...records,...additions])));
   const absent=reviewed.filter(r=>!current.has(`${r.endpoint_group==='performance'?'performance':'seller'}|${r.method_id}|${r.http_method}|${r.path}`));
   if(absent.length!==2||absent.some(r=>!['QuantProductList','QuantGetInfo'].includes(r.method_id)))throw Error('Unexplained official inventory absence');
   fs.writeFileSync(path.join(outInventory,'ozon-tombstones.json'),JSON.stringify(absent.map(r=>({...r,admission:'denied',lifecycle:{status:'absent_from_current_official_docs',observed_at:snapshotDate(),replacement:[],formal_removal_not_inferred:true}})),null,2)+'\n');

@@ -5,3 +5,7 @@ const day=[{unit_number:'p',date:'2026-09-30',total_amount:{amount:'1.25',curren
 assert.equal(reconcilePostingDay(day,[{posting_number:'p',accruals:[{accrual_date:'2026-09-30',accrued:{amount:'1.25',currency:'RUB'}},{accrual_date:'2026-09-29',accrued:{amount:'8',currency:'RUB'}}]}],'2026-09-30').status,'PASS');
 assert.equal(reconcilePostingDay(day,[{posting_number:'p',accruals:[{accrual_date:'2026-09-30',accrued:{amount:'2',currency:'RUB'}}]}],'2026-09-30').status,'FAIL');
 console.log('PASS cross-endpoint reconciliation rejects empty coverage and distinguishes all-date history');
+const productDay=[{unit_number:'p',date:'2026-09-30',total_amount:{amount:'100',currency:'RUB'},posting:{products:[{commission:{sale_amount:{amount:'120',currency:'RUB'},commission:{amount:'-10',currency:'RUB'}},delivery:{total_accrued:{amount:'-10',currency:'RUB'},services:[{type_id:32,accrued:{amount:'-10',currency:'RUB'}}]}}]}}];
+const feeGroups=[{posting_number:'p',accruals:[{type_id:69,accrual_date:'2026-09-30',accrued:{amount:'-10',currency:'RUB'}},{type_id:32,accrual_date:'2026-09-30',accrued:{amount:'-10',currency:'RUB'}},{type_id:3,accrual_date:'2026-09-30',accrued:{amount:'-2',currency:'RUB'}}]}];
+assert.equal(reconcilePostingDay(productDay,feeGroups,'2026-09-30',[{id:69,name:'SaleCommission'},{id:3,name:'BrandCommission'},{id:32,name:'Logistic'}]).status,'PASS');
+feeGroups[0].accruals[0].accrued.amount='-11';assert.equal(reconcilePostingDay(productDay,feeGroups,'2026-09-30',[{id:69,name:'SaleCommission'}]).status,'FAIL');

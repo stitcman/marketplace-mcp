@@ -9,8 +9,8 @@ let errors=0;
 for(const [id,params,payload,patch] of [
  ['ActionsProducts',{action_id:1,limit:1,last_id:''},{products:[{id:1}],last_id:'next'},{last_id:'next'}],
  ['ActionsAutoAddProductsListV2',{action_id:1,auto_add_date:'2026-09-30T00:00:00Z',limit:1,offset:0},{products:[{id:1}],total:2},{offset:1}],
- ['AnalyticsDecommissionedGoods',{filter:{},page:0,page_size:1},{items:[{id:1}],total_count:1},{page:1}],
- ['WarehouseRfbsReturnPointList',{filters:{},limit:1,last_id:0},{points:[{id:12}]},{last_id:12}],
+ ['AnalyticsDecommissionedGoods',{filter:{date_from:'2026-09-29T00:00:00Z',date_to:'2026-09-30T00:00:00Z',delivery_schema:'FBO'},page:0,page_size:1},{items:[{id:1}],total_count:1},{page:1}],
+ ['WarehouseRfbsReturnPointList',{filters:{coordinates:{latitude:55.75,longitude:37.61},country_code:'RU'},limit:1,last_id:0},{points:[{id:12}]},{last_id:12}],
 ] as const){try{const page=await executeApprovedReadPage({store,marketplace:'ozon',connectionId:conn.connection_id,method:requireReadMethod('ozon',id),params,transport:{async send(){return payload;}}});assert.equal(page.continuation.has_more,true,id);assert.deepEqual(page.continuation.request_patch,patch,id);const nextParams={...params,...page.continuation.request_patch};let secondCalls=0;const second=await executeApprovedReadPage({store,marketplace:'ozon',connectionId:conn.connection_id,method:requireReadMethod('ozon',id),params:nextParams,transport:{async send(){secondCalls++;return {products:[],points:[],items:[],total_count:0,last_id:''};}}});assert.equal(secondCalls,1);assert.equal(second.continuation.has_more,false);console.log('PASS '+id+' documented pagination two pages');}catch(error){errors++;console.error('FAIL '+id+': '+(error as Error).message);}}
 try {
  const method=requireReadMethod('ozon','GetFinanceAccrualPostings');const rows=Array.from({length:20},(_,i)=>({posting_number:String(i),accruals:[{detail:'\"'.repeat(6000)}]}));

@@ -1,0 +1,1567 @@
+{
+  "family": "performance",
+  "source": "https://docs.ozon.ru/api/performance/",
+  "retrieved_at_utc": "2026-10-01T09:18:46.301Z",
+  "extractor_source": "function captureOfficialDOM(){const label=t=>{let p=t.previousElementSibling;while(p){if(/^H[1-6]$/.test(p.tagName))return p.innerText;p=p.previousElementSibling;}return '';},fields=t=>{const rows=Array.from(t.querySelector(':scope > tbody')?.children??[]),out=[];for(let i=0;i<rows.length;i++){const row=rows[i],name=row.children[0]?.getAttribute('title');if(!name)continue;const text=row.children[1]?.innerText??'',child=rows[i+1]?.children[0]?.getAttribute('colspan')?rows[i+1].querySelector('table'):null;out.push({name,required:/\\brequired\\b/.test(row.children[0].innerText),material:text.split('\\n\\n')[0],children:child?fields(child):[]});}return out;};return Array.from(document.querySelectorAll('[data-section-id^=\"operation/\"]')).map(node=>{const tables=Array.from(node.querySelectorAll('table')).filter(t=>!t.parentElement.closest('table')),requests=tables.filter(t=>/REQUEST BODY SCHEMA|QUERY PARAMETERS|PATH PARAMETERS/i.test(label(t)));return {method_id:node.getAttribute('data-section-id').slice(10),text:node.innerText.normalize('NFC').replace(/\\r\\n?/g,'\\n').split('Примеры запроса')[0].split('Примеры ответа')[0].split('\\n').map(x=>x.trimEnd()).join('\\n').trim(),request_tables:requests.map(t=>({label:label(t),fields:fields(t)})),request_closed_schema_nodes:requests.reduce((n,t)=>n+t.querySelectorAll('button[aria-label=\"expand properties\"]:has(svg.gkvVFD)').length,0),closed_schema_nodes:node.querySelectorAll('button[aria-label=\"expand properties\"]:has(svg.gkvVFD)').length};});}",
+  "operations": [
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "ListCampaigns",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "QUERY PARAMETERS",
+          "fields": [
+            {
+              "name": "campaignIds",
+              "required": false,
+              "material": "Array of strings <uint64>",
+              "children": [],
+              "description": "Array of strings <uint64>\n\nСписок идентификаторов кампаний, для которых необходимо вывести информацию.\n\nЕсли передать значение, то в ответе будет информация по кампаниям, которые указаны в поле campaigns. Если поле пустое, информация будет отдана по всем кампаниям."
+            },
+            {
+              "name": "advObjectType",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nТип рекламируемой кампании:\n\nSKU — Оплата за клик;\nBANNER — Баннерная рекламная кампания;\nSEARCH_PROMO — Оплата за заказ;\nVIDEO_BANNER — Видеобаннер.\n\nПодробнее о типах рекламных кампаний"
+            },
+            {
+              "name": "state",
+              "required": false,
+              "material": "string\nDefault: \"CAMPAIGN_STATE_UNKNOWN\"\nEnum: \"CAMPAIGN_STATE_UNKNOWN\" \"CAMPAIGN_STATE_RUNNING\" \"CAMPAIGN_STATE_PLANNED\" \"CAMPAIGN_STATE_STOPPED\" \"CAMPAIGN_STATE_INACTIVE\" \"CAMPAIGN_STATE_ARCHIVED\" \"CAMPAIGN_STATE_MODERATION_DRAFT\" \"CAMPAIGN_STATE_MODERATION_IN_PROGRESS\" \"CAMPAIGN_STATE_MODERATION_FAILED\" \"CAMPAIGN_STATE_FINISHED\"",
+              "children": [],
+              "description": "string\nDefault: \"CAMPAIGN_STATE_UNKNOWN\"\nEnum: \"CAMPAIGN_STATE_UNKNOWN\" \"CAMPAIGN_STATE_RUNNING\" \"CAMPAIGN_STATE_PLANNED\" \"CAMPAIGN_STATE_STOPPED\" \"CAMPAIGN_STATE_INACTIVE\" \"CAMPAIGN_STATE_ARCHIVED\" \"CAMPAIGN_STATE_MODERATION_DRAFT\" \"CAMPAIGN_STATE_MODERATION_IN_PROGRESS\" \"CAMPAIGN_STATE_MODERATION_FAILED\" \"CAMPAIGN_STATE_FINISHED\"\n\nСостояние кампании.\n\nВозможные значения:\n\nCAMPAIGN_STATE_RUNNING — активная кампания;\nCAMPAIGN_STATE_PLANNED — кампания, сроки проведения которой ещё не наступили;\nCAMPAIGN_STATE_STOPPED — кампания, приостановленная из-за нехватки бюджета;\nCAMPAIGN_STATE_INACTIVE — кампания, остановленная владельцем;\nCAMPAIGN_STATE_ARCHIVED — архивная кампания;\nCAMPAIGN_STATE_MODERATION_DRAFT — отредактированная кампания до отправки на модерацию;\nCAMPAIGN_STATE_MODERATION_IN_PROGRESS — кампания, отправленная на модерацию;\nCAMPAIGN_STATE_MODERATION_FAILED — кампания, непрошедшая модерацию;\nCAMPAIGN_STATE_FINISHED — кампания завершена, дата окончания в прошлом, такую кампанию нельзя изменить, можно только клонировать или создать новую."
+            },
+            {
+              "name": "page",
+              "required": false,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nНомер страницы. Пагинация начинается с единицы."
+            },
+            {
+              "name": "pageSize",
+              "required": false,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nРазмер страницы."
+            }
+          ]
+        }
+      ],
+      "text": "Список кампаний\nGET\n/api/client/campaign\nОписание и примерыКонсоль\nQUERY PARAMETERS\ncampaignIds\nArray of strings <uint64>\n\nСписок идентификаторов кампаний, для которых необходимо вывести информацию.\n\nЕсли передать значение, то в ответе будет информация по кампаниям, которые указаны в поле campaigns. Если поле пустое, информация будет отдана по всем кампаниям.\n\n\nadvObjectType\nstring\n\nТип рекламируемой кампании:\n\nSKU — Оплата за клик;\nBANNER — Баннерная рекламная кампания;\nSEARCH_PROMO — Оплата за заказ;\nVIDEO_BANNER — Видеобаннер.\n\nПодробнее о типах рекламных кампаний\n\n\nstate\nstring\nDefault: \"CAMPAIGN_STATE_UNKNOWN\"\nEnum: \"CAMPAIGN_STATE_UNKNOWN\" \"CAMPAIGN_STATE_RUNNING\" \"CAMPAIGN_STATE_PLANNED\" \"CAMPAIGN_STATE_STOPPED\" \"CAMPAIGN_STATE_INACTIVE\" \"CAMPAIGN_STATE_ARCHIVED\" \"CAMPAIGN_STATE_MODERATION_DRAFT\" \"CAMPAIGN_STATE_MODERATION_IN_PROGRESS\" \"CAMPAIGN_STATE_MODERATION_FAILED\" \"CAMPAIGN_STATE_FINISHED\"\n\nСостояние кампании.\n\nВозможные значения:\n\nCAMPAIGN_STATE_RUNNING — активная кампания;\nCAMPAIGN_STATE_PLANNED — кампания, сроки проведения которой ещё не наступили;\nCAMPAIGN_STATE_STOPPED — кампания, приостановленная из-за нехватки бюджета;\nCAMPAIGN_STATE_INACTIVE — кампания, остановленная владельцем;\nCAMPAIGN_STATE_ARCHIVED — архивная кампания;\nCAMPAIGN_STATE_MODERATION_DRAFT — отредактированная кампания до отправки на модерацию;\nCAMPAIGN_STATE_MODERATION_IN_PROGRESS — кампания, отправленная на модерацию;\nCAMPAIGN_STATE_MODERATION_FAILED — кампания, непрошедшая модерацию;\nCAMPAIGN_STATE_FINISHED — кампания завершена, дата окончания в прошлом, такую кампанию нельзя изменить, можно только клонировать или создать новую.\n\npage\ninteger <int64>\n\nНомер страницы. Пагинация начинается с единицы.\n\n\npageSize\ninteger <int64>\n\nРазмер страницы.\n\nОтветы\n200\n\nСписок всех кампаний\n\nRESPONSE SCHEMA: application/json\nlist\nArray of objects\n\nСписок кампаний.\n\n\n\nArray ()\nid\nstring <uint64>\n\nИдентификатор кампании.\n\n\npaymentType\nstring\nDefault: \"CAMPAIGN_TYPE_INVALID\"\n\nТип оплаты:\n\nCPC — за клики,\nCPM — за показы,\nCPO — за заказы.\n\ntitle\nstring\n\nНазвание кампании.\n\n\nstate\nstring\nDefault: \"CAMPAIGN_STATE_UNKNOWN\"\n\nСостояние кампании:\n\nCAMPAIGN_STATE_RUNNING — активная кампания;\nCAMPAIGN_STATE_PLANNED — кампания, сроки проведения которой ещё не наступили;\nCAMPAIGN_STATE_STOPPED — кампания, приостановленная из-за нехватки бюджета;\nCAMPAIGN_STATE_INACTIVE — кампания, остановленная владельцем;\nCAMPAIGN_STATE_ARCHIVED — архивная кампания;\nCAMPAIGN_STATE_MODERATION_DRAFT — отредактированная кампания до отправки на модерацию;\nCAMPAIGN_STATE_MODERATION_IN_PROGRESS — кампания, отправленная на модерацию;\nCAMPAIGN_STATE_MODERATION_FAILED — кампания, непрошедшая модерацию;\nCAMPAIGN_STATE_FINISHED — кампания завершена, дата окончания в прошлом, такую кампанию нельзя изменить, можно только клонировать или создать новую.\n\nadvObjectType\nstring\n\nТип рекламируемой кампании:\n\nSKU — Оплата за клик;\nBANNER — Баннерная рекламная кампания;\nSEARCH_PROMO — Оплата за заказ;\nVIDEO_BANNER — Видеобаннер.\n\nfromDate\nstring\n\nДата старта рекламной кампании.\n\n\ntoDate\nstring\n\nДата завершения рекламной кампании.\n\n\nautostopStatus\nstring\nDefault: \"AUTOSTOP_STATUS_NONE\"\nEnum: \"AUTOSTOP_STATUS_NONE\" \"AUTOSTOP_STATUS_ENABLED\" \"AUTOSTOP_STATUS_DISABLED\" \"AUTOSTOP_STATUS_STOPPED\"\n\nСтатус кампании:\n\nAUTOSTOP_STATUS_NONE — продавец создал кампанию вручную.\nAUTOSTOP_STATUS_ENABLED — кампания создана автоматически и остановится, когда кончатся баллы.\nAUTOSTOP_STATUS_DISABLED — кампания создана автоматически, но она не остановится, когда кончатся баллы.\nAUTOSTOP_STATUS_STOPPED — баллы закончились, кампания остановлена автоматически.\n\nisAutocreated\nboolean\n\ntrue, если кампания создана автоматически.\n\n\nbudget\nstring <uint64>\n\nБюджет рекламной кампании. Единица измерения — одна миллионная доля рубля, округляется до копеек. Например, значение 1 000 000 в параметре равно 1 рублю.\n\n\ndailyBudget\nstring <uint64>\n\nДневной бюджет рекламной кампании. Единица измерения — одна миллионная доля рубля, округляется до копеек. Например, значение 1 000 000 в параметре равно 1 рублю.\n\n\nweeklyBudget\nstring <uint64>\n\nНедельный бюджет рекламной кампании. Единица измерения — одна миллионная доля рубля, округляется до копеек. Например, значение 1 000 000 в параметре равно 1 рублю.\n\n\nplacement\nstring\nDefault: \"PLACEMENT_INVALID\"\nEnum: \"PLACEMENT_INVALID\" \"PLACEMENT_PDP\" \"PLACEMENT_SEARCH_AND_CATEGORY\" \"PLACEMENT_TOP_PROMOTION\" \"PLACEMENT_OVERTOP\" \"PLACEMENT_TAKEOVER\" \"PLACEMENT_TILE_MAIN\"\n\nМесто размещения продвигаемых товаров:\n\nPLACEMENT_INVALID — не определено.\nPLACEMENT_PDP — карточка товара. Доступно только для кампаний с ручным управлением.\nPLACEMENT_SEARCH_AND_CATEGORY — поиск и рекомендации.\nPLACEMENT_TOP_PROMOTION — поиск.\nPLACEMENT_OVERTOP — поиск и главная (Спецразмещение).\nPLACEMENT_TAKEOVER — одновременный показ товаров на первых 4 плитках.\nPLACEMENT_TILE_MAIN — главная, нативный баннер.\n\nproductAutopilotStrategy\nstring\nDefault: \"NO_AUTO_STRATEGY\"\nEnum: \"MAX_VIEWS\" \"MAX_CLICKS\" \"TOP_MAX_CLICKS\" \"NO_AUTO_STRATEGY\" \"TAKEOVER\" \"TOP_PROMOTION\" \"TARGET_BIDS\" \"TARGET_CIR\"\n\nСтратегия, которая используется для кампании:\n\nMAX_VIEWS — максимальное количество показов;\nMAX_CLICKS — автостратегия для Поиска и рекомендаций;\nTOP_MAX_CLICKS — автостратегия для Поиска;\nTAKEOVER — спецразмещение для Поиска;\nTOP_PROMOTION — вывод в топ;\nTARGET_BIDS — средняя стоимость клика для Поиска и рекомендаций;\nTARGET_CIR — целевой расход;\nNO_AUTO_STRATEGY — автостратегия не используется.\n\nautopilot\nobject\n\nИнформация о кампании. Возвращается, если в параметре productAutopilotStrategy включена стратегия.\n\n\n\ncategoryId\nstring <uint64>\n\nИдентификатор категории.\n\n\nskuAddMode\nstring\nEnum: \"PRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN\" \"PRODUCT_CAMPAIGN_SKU_ADD_MODE_MANUAL\" \"PRODUCT_CAMPAIGN_SKU_ADD_MODE_AUTO\"\n\nРазрешение на автоматическое добавление товаров категории, указанной в categoryId, в кампании со стратегией MAX_VIEWS:\n\nPRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN — стратегия добавления товаров в кампанию не установлена;\nPRODUCT_CAMPAIGN_SKU_ADD_MODE_MANUAL — добавлять товары в кампанию можно только вручную;\nPRODUCT_CAMPAIGN_SKU_ADD_MODE_AUTO — можно добавлять товары категории categoryId в кампанию автоматически.\n\nЕсли тип разрешения пустой или было передано PRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN, добавлять товары в кампанию можно только вручную.\n\nДля кампаний без стратегии MAX_VIEWS возвращается значение PRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN.\n\n\ncreatedAt\nstring <date-time>\n\nДата создания кампании в формате RFC3339.\n\n\nupdatedAt\nstring <date-time>\n\nДата обновления кампании в формате RFC3339.\n\n\nproductCampaignMode\nstring\nDefault: \"PRODUCT_CAMPAIGN_MODE_AUTO\"\nEnum: \"PRODUCT_CAMPAIGN_MODE_AUTO\" \"PRODUCT_CAMPAIGN_MODE_MANUAL\"\n\nРежим создания и управления товарной рекламной кампанией:\n\nPRODUCT_CAMPAIGN_MODE_AUTO — автоматически;\nPRODUCT_CAMPAIGN_MODE_MANUAL — вручную.\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "ListCampaignObjects",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "PATH PARAMETERS",
+          "fields": [
+            {
+              "name": "campaignId",
+              "required": true,
+              "material": "string <uint64>",
+              "children": [],
+              "description": "string <uint64>\n\nИдентификатор кампании."
+            }
+          ]
+        }
+      ],
+      "text": "Список продвигаемых объектов в кампании\nGET\n/api/client/campaign/{campaignId}/objects\nОписание и примерыКонсоль\n\nМетод для получения списка продвигаемых объектов в кампаниях «Оплата за клик», «Баннеры» и «Видеобаннеры».\n\nЧтобы получить товары в кампании «Оплата за заказ», используйте POST /campaign/search_promo/v2/products.\n\nPATH PARAMETERS\ncampaignId\nrequired\n\nstring <uint64>\n\nИдентификатор кампании.\n\nОтветы\n200\n\nСписок рекламируемых объектов в кампании\n\nRESPONSE SCHEMA: application/json\nlist\nArray of objects\n\nСписок идентификаторов рекламируемых объектов.\n\n\n\nArray ()\nid\nstring <uint64>\n\nИдентификатор рекламируемого объекта:\n\nSKU — для рекламы товаров в спонсорских полках и в каталоге;\nчисловой идентификатор — для баннерных кампаний.\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "GetLimitsList",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [],
+      "text": "Лимиты ставок для инструментов продвижения\nGET\n/api/client/limits/list\nОписание и примерыКонсоль\n\nВы можете получить лимиты ставок по инструментам:\n\nОплата за заказ:\nМинимальная и максимальная ставка для инструмента.\nМинимальные ставки за заказ для некоторых категорий товаров.\nСпецразмещение и Оплата за клик:\nМинимальная и максимальная ставка за клик.\nМинимальные ставки за клик для некоторых категорий товаров.\nОтветы\n200\n\nЛимиты ставок\n\nRESPONSE SCHEMA: application/json\nlimits\nArray of objects\n\nМинимальные и максимальные ставки для инструментов продвижения.\n\n\n\nArray ()\ncategories\nArray of objects\n\nМинимальная ставка для категории второго уровня. Если категории нет в списке, применяется минимальная ставка для инструмента.\n\n\n\nArray ()\nbid\nnumber <double>\n\nСтавка в рублях.\n\n\ncategory\nstring\n\nКатегория товара.\n\n\nmaxBid\nnumber <double>\n\nМаксимальная ставка в рублях.\n\n\nminBid\nnumber <double>\n\nМинимальная ставка в рублях.\n\n\nobjectType\nstring\nEnum: \"SKU\" \"SEARCH_PROMO\"\n\nТип инструмента:\n\nSKU — Оплата за клик,\nSEARCH_PROMO — Оплата за заказ.\n\npaymentMethod\nstring\nEnum: \"CPO\" \"CPC\" \"CPM\"\n\nСпособ оплаты:\n\nCPO — оплата за заказ,\nCPC — оплата за клик,\nCPM — оплата за 1000 показов.\n\nplacement\nstring\nEnum: \"CAMPAIGN_PLACEMENT_SEARCH_AND_CATEGORY\" \"CAMPAIGN_PLACEMENT_TOP_PROMOTION\" \"CAMPAIGN_PLACEMENT_OVERTOP\"\n\nТип кампании:\n\nCAMPAIGN_PLACEMENT_SEARCH_AND_CATEGORY — Поиск и рекомендации;\nCAMPAIGN_PLACEMENT_TOP_PROMOTION — Поиск;\nCAMPAIGN_PLACEMENT_OVERTOP — Спецразмещение.\ndefault\n\nОшибка"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "ExternalCampaign_BidBySKU",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "marketplaceId",
+              "required": false,
+              "material": "string\nEnum: \"MARKETPLACE_ID_RU\" \"MARKETPLACE_ID_KZ\" \"MARKETPLACE_ID_BY\"",
+              "children": [],
+              "description": "string\nEnum: \"MARKETPLACE_ID_RU\" \"MARKETPLACE_ID_KZ\" \"MARKETPLACE_ID_BY\"\n\nСтрана витрины:\n\nMARKETPLACE_ID_RU — Россия;\nMARKETPLACE_ID_KZ — Казахстан;\nMARKETPLACE_ID_BY — Белоруссия."
+            },
+            {
+              "name": "paymentType",
+              "required": false,
+              "material": "string\nEnum: \"CPO\" \"CPC\" \"CPC_TOP\"",
+              "children": [],
+              "description": "string\nEnum: \"CPO\" \"CPC\" \"CPC_TOP\"\n\nТип минимальной ставки:\n\nCPO — по кампании «Оплата за заказ»;\nCPC — по поиску и рекомендациям;\nCPC_TOP — по поиску."
+            },
+            {
+              "name": "sku",
+              "required": false,
+              "material": "Array of strings <uint64>",
+              "children": [],
+              "description": "Array of strings <uint64>\n\nИдентификатор товара: Ozon ID или SKU."
+            }
+          ]
+        }
+      ],
+      "text": "Минимальная ставка для товаров по SKU\nPOST\n/api/client/min/sku\nОписание и примерыКонсоль\n\nИспользуйте метод, чтобы узнать минимальную ставку для одного или нескольких товаров по SKU.\n\nREQUEST BODY SCHEMA: application/json\nmarketplaceId\nstring\nEnum: \"MARKETPLACE_ID_RU\" \"MARKETPLACE_ID_KZ\" \"MARKETPLACE_ID_BY\"\n\nСтрана витрины:\n\nMARKETPLACE_ID_RU — Россия;\nMARKETPLACE_ID_KZ — Казахстан;\nMARKETPLACE_ID_BY — Белоруссия.\n\npaymentType\nstring\nEnum: \"CPO\" \"CPC\" \"CPC_TOP\"\n\nТип минимальной ставки:\n\nCPO — по кампании «Оплата за заказ»;\nCPC — по поиску и рекомендациям;\nCPC_TOP — по поиску.\n\nsku\nArray of strings <uint64>\n\nИдентификатор товара: Ozon ID или SKU.\n\nОтветы\n200\n\nРазмер минимальной ставки\n\nRESPONSE SCHEMA: application/json\nminBids\nArray of objects\n\nИнформация о минимальных ставках.\n\n\n\nArray ()\nbid\nnumber <double>\n\nРазмер ставки.\n\n\nsku\nstring <uint64>\n\nИдентификатор товара: Ozon ID или SKU.\n\ndefault\n\nОшибка"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "ExternalCampaign_ListProductsWithBonuses2",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [],
+      "text": "Список товаров с бонусами\nGET\n/api/client/products_with_bonuses\nОписание и примерыКонсоль\n\nВозвращает список SKU товаров, на которые начислены бонусы.\n\nЗа клик на товар в первую очередь тратятся начисленные на него бонусы. Если бонусы кончились, тратится общий бюджет кампании.\n\nОтветы\n200\n\nСписок товаров с бонусами\n\nRESPONSE SCHEMA: application/json\nskus\nArray of strings <uint64>\n\nСписок SKU товаров.\n\ndefault\n\nОшибка"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "SubmitRequest",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "campaigns",
+              "required": true,
+              "material": "Array of strings <uint64>",
+              "children": [],
+              "description": "Array of strings <uint64>\n\nСписок идентификаторов кампаний, для которых необходимо подготовить отчёт.\n\nФормат отчёта:\n\nCSV — если в списке одна кампания.\nZIP архив — если в списке несколько кампаний. Каждый файл соответствует одной кампании из списка. Имя файла вида <идентификатор кампании>.csv."
+            },
+            {
+              "name": "from",
+              "required": false,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nНачальная дата периода отчёта в формате RFC 3339.\n\nМаксимальный период, за который можно получить отчёт — 62 дня."
+            },
+            {
+              "name": "to",
+              "required": false,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nКонечная дата периода отчёта в формате RFC 3339.\n\nМаксимальный период, за который можно получить отчёт — 62 дня."
+            },
+            {
+              "name": "dateFrom",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10."
+            },
+            {
+              "name": "dateTo",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nКонечная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10."
+            },
+            {
+              "name": "groupBy",
+              "required": false,
+              "material": "string\nDefault: \"NO_GROUP_BY\"\nEnum: \"NO_GROUP_BY\" \"DATE\" \"START_OF_WEEK\" \"START_OF_MONTH\"",
+              "children": [],
+              "description": "string\nDefault: \"NO_GROUP_BY\"\nEnum: \"NO_GROUP_BY\" \"DATE\" \"START_OF_WEEK\" \"START_OF_MONTH\"\n\nТип группировки по времени:\n\nDATE — группировка по дате (по дням);\nSTART_OF_WEEK — группировка по неделям;\nSTART_OF_MONTH — группировка по месяцам."
+            }
+          ]
+        }
+      ],
+      "text": "Статистика по кампании\nPOST\n/api/client/statistics\nОписание и примерыКонсоль\n\nВ запросе укажите временной промежуток с помощью полей from и to или dateFrom и dateTo. Если заполнены все четыре поля, в ответе будет статистика по временному промежутку из полей dateFrom и dateTo.\n\nPerformance API асинхронный. Поэтому в результате запроса будет не сам отчёт, а уникальный идентификатор отправленного запроса, с помощью которого можно проверить статус формирования отчёта и скачать отчёт. Формат отчёта — CSV.\n\nАрхивы с примерами отчётов для разных типов кампаний:\n\nБаннеры и нативные баннеры\nВидеобаннеры\nОплата за клик\n\nЧтобы запросить отчёт в формате JSON, добавьте в адрес метода /json и отправьте запрос по адресу /api/client/statistics/json.\n\nREQUEST BODY SCHEMA: application/json\ncampaigns\nrequired\n\nArray of strings <uint64>\n\nСписок идентификаторов кампаний, для которых необходимо подготовить отчёт.\n\nФормат отчёта:\n\nCSV — если в списке одна кампания.\nZIP архив — если в списке несколько кампаний. Каждый файл соответствует одной кампании из списка. Имя файла вида <идентификатор кампании>.csv.\n\nfrom\nstring <date-time>\n\nНачальная дата периода отчёта в формате RFC 3339.\n\nМаксимальный период, за который можно получить отчёт — 62 дня.\n\n\nto\nstring <date-time>\n\nКонечная дата периода отчёта в формате RFC 3339.\n\nМаксимальный период, за который можно получить отчёт — 62 дня.\n\n\ndateFrom\nstring\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\n\ndateTo\nstring\n\nКонечная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\n\ngroupBy\nstring\nDefault: \"NO_GROUP_BY\"\nEnum: \"NO_GROUP_BY\" \"DATE\" \"START_OF_WEEK\" \"START_OF_MONTH\"\n\nТип группировки по времени:\n\nDATE — группировка по дате (по дням);\nSTART_OF_WEEK — группировка по неделям;\nSTART_OF_MONTH — группировка по месяцам.\nОтветы\n200\n\nСтатистика по кампании\n\nRESPONSE SCHEMA: application/json\nUUID\nstring\n\nУникальный идентификатор отправленного запроса.\n\nПо нему можно проверить статус формирования отчёта и скачать отчёт.\n\n\nvendor\nboolean\n\nЕсли запрашивается отчёт с аналитикой внешнего трафика — true.\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "VideoCampaignsSubmitRequest",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "campaigns",
+              "required": true,
+              "material": "Array of strings <uint64>",
+              "children": [],
+              "description": "Array of strings <uint64>\n\nСписок идентификаторов кампаний, для которых необходимо подготовить отчёт.\n\nФормат отчёта:\n\nCSV — если в списке одна кампания.\nZIP архив — если в списке несколько кампаний. Каждый файл соответствует одной кампании из списка. Имя файла вида <идентификатор кампании>.csv."
+            },
+            {
+              "name": "dateFrom",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10."
+            },
+            {
+              "name": "dateTo",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nКонечная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10."
+            },
+            {
+              "name": "groupBy",
+              "required": false,
+              "material": "string\nDefault: \"NO_GROUP_BY\"\nEnum: \"NO_GROUP_BY\" \"DATE\" \"START_OF_WEEK\" \"START_OF_MONTH\"",
+              "children": [],
+              "description": "string\nDefault: \"NO_GROUP_BY\"\nEnum: \"NO_GROUP_BY\" \"DATE\" \"START_OF_WEEK\" \"START_OF_MONTH\"\n\nТип группировки по времени:\n\nDATE — группировка по дате (по дням);\nSTART_OF_WEEK — группировка по неделям;\nSTART_OF_MONTH — группировка по месяцам."
+            }
+          ]
+        }
+      ],
+      "text": "Статистика по показам видеобаннера\nPOST\n/api/client/statistics/video\nОписание и примерыКонсоль\n\nВ запросе укажите временной промежуток с помощью полей dateFrom и dateTo.\n\nPerformance API асинхронный. Поэтому в результате запроса будет не сам отчёт, а уникальный идентификатор отправленного запроса, с помощью которого можно проверить статус формирования отчёта и скачать отчёт. Формат отчёта — CSV.\n\nОтчёт содержит:\n\nназвание;\nидентификатор кампании;\nпериод отчёта;\nидентификатор баннера;\nпоказы;\nклики;\nохват;\nCTR;\nдоля видимых показов;\nдосмотры по квартилям: 25%, 50%, 75% и 100%;\nдоля досмотров: 25%, 50%, 75% и 100%;\nпросмотры со звуком;\nзаказы;\nрасход.\n\nЧтобы запросить отчёт в формате JSON, добавьте в адрес метода /json и отправьте запрос по адресу /api/client/statistics/video/json.\n\nREQUEST BODY SCHEMA: application/json\ncampaigns\nrequired\n\nArray of strings <uint64>\n\nСписок идентификаторов кампаний, для которых необходимо подготовить отчёт.\n\nФормат отчёта:\n\nCSV — если в списке одна кампания.\nZIP архив — если в списке несколько кампаний. Каждый файл соответствует одной кампании из списка. Имя файла вида <идентификатор кампании>.csv.\n\ndateFrom\nstring\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\n\ndateTo\nstring\n\nКонечная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\n\ngroupBy\nstring\nDefault: \"NO_GROUP_BY\"\nEnum: \"NO_GROUP_BY\" \"DATE\" \"START_OF_WEEK\" \"START_OF_MONTH\"\n\nТип группировки по времени:\n\nDATE — группировка по дате (по дням);\nSTART_OF_WEEK — группировка по неделям;\nSTART_OF_MONTH — группировка по месяцам.\nОтветы\n200\n\nСтатистика по показам видеобаннера\n\nRESPONSE SCHEMA: application/json\nUUID\nstring\n\nУникальный идентификатор отправленного запроса.\n\nПо нему можно проверить статус формирования отчёта и скачать отчёт.\n\n\nvendor\nboolean\n\nЕсли запрашивается отчёт с аналитикой внешнего трафика — true.\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "AttributionSubmitRequest",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "campaigns",
+              "required": true,
+              "material": "Array of strings <uint64>",
+              "children": [],
+              "description": "Array of strings <uint64>\n\nСписок идентификаторов кампаний, для которых необходимо подготовить отчёт.\n\nФормат отчёта:\n\nCSV — если в списке одна кампания.\nZIP архив — если в списке несколько кампаний. Каждый файл соответствует одной кампании из списка. Имя файла вида <идентификатор кампании>.csv."
+            },
+            {
+              "name": "from",
+              "required": false,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nНачальная дата периода отчёта в формате RFC 3339.\n\nМаксимальный период, за который можно получить отчёт — 62 дня."
+            },
+            {
+              "name": "to",
+              "required": false,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nКонечная дата периода отчёта в формате RFC 3339.\n\nМаксимальный период, за который можно получить отчёт — 62 дня."
+            },
+            {
+              "name": "dateFrom",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10."
+            },
+            {
+              "name": "dateTo",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nКонечная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10."
+            },
+            {
+              "name": "groupBy",
+              "required": false,
+              "material": "string\nDefault: \"NO_GROUP_BY\"\nEnum: \"NO_GROUP_BY\" \"DATE\" \"START_OF_WEEK\" \"START_OF_MONTH\"",
+              "children": [],
+              "description": "string\nDefault: \"NO_GROUP_BY\"\nEnum: \"NO_GROUP_BY\" \"DATE\" \"START_OF_WEEK\" \"START_OF_MONTH\"\n\nТип группировки по времени:\n\nDATE — группировка по дате (по дням);\nSTART_OF_WEEK — группировка по неделям;\nSTART_OF_MONTH — группировка по месяцам."
+            }
+          ]
+        }
+      ],
+      "text": "Отчёт по заказам\nPOST\n/api/client/statistics/attribution\nОписание и примерыКонсоль\n\nМетод для получения отчёта по заказам на баннеры.\n\nВ запросе укажите временной промежуток с помощью полей from и to или dateFrom и dateTo. Если заполнены все четыре поля, в ответе будет статистика по временному промежутку из полей dateFrom и dateTo.\n\nPerformance API асинхронный. Поэтому в результате запроса будет не сам отчёт, а уникальный идентификатор отправленного запроса, с помощью которого можно проверить статус формирования отчёта и скачать отчёт. Формат отчёта — CSV.\n\nОтчёт содержит:\n\nназвание,\nидентификатор кампании,\nпериод отчёта,\nSKU,\nназвания товаров,\nколичество заказов,\nвыручка в рублях,\nколичество заказов модели,\nвыручка с заказов модели,\nтип атрибуции.\n\nЧтобы запросить отчёт в формате JSON, добавьте в адрес метода /json и отправьте запрос по адресу /api/client/statistics/attribution/json.\n\nREQUEST BODY SCHEMA: application/json\ncampaigns\nrequired\n\nArray of strings <uint64>\n\nСписок идентификаторов кампаний, для которых необходимо подготовить отчёт.\n\nФормат отчёта:\n\nCSV — если в списке одна кампания.\nZIP архив — если в списке несколько кампаний. Каждый файл соответствует одной кампании из списка. Имя файла вида <идентификатор кампании>.csv.\n\nfrom\nstring <date-time>\n\nНачальная дата периода отчёта в формате RFC 3339.\n\nМаксимальный период, за который можно получить отчёт — 62 дня.\n\n\nto\nstring <date-time>\n\nКонечная дата периода отчёта в формате RFC 3339.\n\nМаксимальный период, за который можно получить отчёт — 62 дня.\n\n\ndateFrom\nstring\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\n\ndateTo\nstring\n\nКонечная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\n\ngroupBy\nstring\nDefault: \"NO_GROUP_BY\"\nEnum: \"NO_GROUP_BY\" \"DATE\" \"START_OF_WEEK\" \"START_OF_MONTH\"\n\nТип группировки по времени:\n\nDATE — группировка по дате (по дням);\nSTART_OF_WEEK — группировка по неделям;\nSTART_OF_MONTH — группировка по месяцам.\nОтветы\n200\n\nОтчёт по заказам\n\nRESPONSE SCHEMA: application/json\nUUID\nstring\n\nУникальный идентификатор отправленного запроса.\n\nПо нему можно проверить статус формирования отчёта и скачать отчёт.\n\n\nvendor\nboolean\n\nЕсли запрашивается отчёт с аналитикой внешнего трафика — true.\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "StatisticsCheck",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "PATH PARAMETERS",
+          "fields": [
+            {
+              "name": "UUID",
+              "required": true,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nУникальный идентификатор запроса."
+            }
+          ]
+        }
+      ],
+      "text": "Cтатус отчёта\nGET\n/api/client/statistics/{UUID}\nОписание и примерыКонсоль\nPATH PARAMETERS\nUUID\nrequired\n\nstring\n\nУникальный идентификатор запроса.\n\nОтветы\n200\n\nCтатус отчёта\n\nRESPONSE SCHEMA: application/json\nUUID\nstring\n\nУникальный идентификатор запроса, для которого производилась проверка.\n\n\nstate\nstring\nDefault: \"NOT_STARTED\"\nEnum: \"NOT_STARTED\" \"IN_PROGRESS\" \"ERROR\" \"OK\"\n\nТекущее состояние запроса:\n\nNOT_STARTED — запрос ожидает выполнения;\nIN_PROGRESS — запрос выполняется в данный момент;\nERROR — выполнение запроса завершилось ошибкой;\nOK — запрос успешно выполнен.\n\ncreatedAt\nstring <date-time>\n\nДата и время получения запроса сервером, часовой пояс UTC.\n\n\nupdatedAt\nstring <date-time>\n\nДата и время последнего обновления состояния запроса, часовой пояс UTC.\n\n\nrequest\nobject\n\nСтруктура исходного запроса.\n\n\n\ncampaigns\nrequired\n\nArray of strings <uint64>\n\nСписок идентификаторов кампаний, для которых необходимо подготовить отчёт.\n\nФормат отчёта:\n\nCSV — если в списке одна кампания.\nZIP архив — если в списке несколько кампаний. Каждый файл соответствует одной кампании из списка. Имя файла вида <идентификатор кампании>.csv.\n\nfrom\nstring <date-time>\n\nНачальная дата периода отчёта в формате RFC 3339.\n\nМаксимальный период, за который можно получить отчёт — 62 дня.\n\n\nto\nstring <date-time>\n\nКонечная дата периода отчёта в формате RFC 3339.\n\nМаксимальный период, за который можно получить отчёт — 62 дня.\n\n\ndateFrom\nstring\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\n\ndateTo\nstring\n\nКонечная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\n\ngroupBy\nstring\nDefault: \"NO_GROUP_BY\"\nEnum: \"NO_GROUP_BY\" \"DATE\" \"START_OF_WEEK\" \"START_OF_MONTH\"\n\nТип группировки по времени:\n\nDATE — группировка по дате (по дням);\nSTART_OF_WEEK — группировка по неделям;\nSTART_OF_MONTH — группировка по месяцам.\n\nerror\nstring\n\nКраткое описание возникшей ошибки.\n\nПоле присутствует, если выполнение запроса завершилось ошибкой.\n\n\nlink\nstring\n\nОтносительная ссылка на отчёт в формате CSV.\n\nПоле присутствует, если запрос выполнен успешно.\n\n\nkind\nstring\nDefault: \"STATS\"\nEnum: \"STATS\" \"SEARCH_PHRASES\" \"ATTRIBUTION\" \"VIDEO\"\n\nТип запрашиваемого отчёта:\n\nSTATS — отчёт по кампании;\nSEARCH_PHRASES — отчёт по поисковым фразам и по категории товаров;\nATTRIBUTION — отчёт по заказам для оплаты за заказ;\nVIDEO — отчёт по показам видеобаннера.\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "ListReports",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "QUERY PARAMETERS",
+          "fields": [
+            {
+              "name": "page",
+              "required": false,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nНомер страницы."
+            },
+            {
+              "name": "pageSize",
+              "required": false,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nРазмер страницы."
+            }
+          ]
+        }
+      ],
+      "text": "Список отчётов, сгенерированных через интерфейс\nGET\n/api/client/statistics/list\nОписание и примерыКонсоль\n\nМетод для получения списка отчётов, которые сгенерированы через интерфейс рекламного кабинета.\n\nQUERY PARAMETERS\npage\ninteger <int64>\n\nНомер страницы.\n\n\npageSize\ninteger <int64>\n\nРазмер страницы.\n\nОтветы\n200\n\nСписок отчётов\n\nRESPONSE SCHEMA: application/json\nitems\nArray of objects\n\nСписок отчётов.\n\n\n\nArray ()\ncampaigns\nArray of objects\n\nСписок кампаний.\n\n\n\nArray ()\nid\nstring <uint64>\n\nИдентификатор кампании.\n\n\ntitle\nstring\n\nНазвание кампании.\n\n\nmeta\nobject\n\nИнформация о запросе.\n\n\n\nUUID\nstring\n\nУникальный идентификатор запроса, для которого производилась проверка.\n\n\nstate\nstring\nDefault: \"NOT_STARTED\"\nEnum: \"NOT_STARTED\" \"IN_PROGRESS\" \"ERROR\" \"OK\"\n\nТекущее состояние запроса:\n\nNOT_STARTED — запрос ожидает выполнения;\nIN_PROGRESS — запрос выполняется в данный момент;\nERROR — выполнение запроса завершилось ошибкой;\nOK — запрос успешно выполнен.\n\ncreatedAt\nstring <date-time>\n\nДата и время получения запроса сервером, часовой пояс UTC.\n\n\nupdatedAt\nstring <date-time>\n\nДата и время последнего обновления состояния запроса, часовой пояс UTC.\n\n\nrequest\nobject\n\nСтруктура исходного запроса.\n\n\n\ncampaigns\nrequired\n\nArray of strings <uint64>\n\nСписок идентификаторов кампаний, для которых необходимо подготовить отчёт.\n\nФормат отчёта:\n\nCSV — если в списке одна кампания.\nZIP архив — если в списке несколько кампаний. Каждый файл соответствует одной кампании из списка. Имя файла вида <идентификатор кампании>.csv.\n\nfrom\nstring <date-time>\n\nНачальная дата периода отчёта в формате RFC 3339.\n\nМаксимальный период, за который можно получить отчёт — 62 дня.\n\n\nto\nstring <date-time>\n\nКонечная дата периода отчёта в формате RFC 3339.\n\nМаксимальный период, за который можно получить отчёт — 62 дня.\n\n\ndateFrom\nstring\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\n\ndateTo\nstring\n\nКонечная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\n\ngroupBy\nstring\nDefault: \"NO_GROUP_BY\"\nEnum: \"NO_GROUP_BY\" \"DATE\" \"START_OF_WEEK\" \"START_OF_MONTH\"\n\nТип группировки по времени:\n\nDATE — группировка по дате (по дням);\nSTART_OF_WEEK — группировка по неделям;\nSTART_OF_MONTH — группировка по месяцам.\n\nerror\nstring\n\nКраткое описание возникшей ошибки.\n\nПоле присутствует, если выполнение запроса завершилось ошибкой.\n\n\nlink\nstring\n\nОтносительная ссылка на отчёт в формате CSV.\n\nПоле присутствует, если запрос выполнен успешно.\n\n\nkind\nstring\nDefault: \"STATS\"\nEnum: \"STATS\" \"SEARCH_PHRASES\" \"ATTRIBUTION\" \"VIDEO\"\n\nТип запрашиваемого отчёта:\n\nSTATS — отчёт по кампании;\nSEARCH_PHRASES — отчёт по поисковым фразам и по категории товаров;\nATTRIBUTION — отчёт по заказам для оплаты за заказ;\nVIDEO — отчёт по показам видеобаннера.\n\nname\nstring\n\nНазвание отчёта.\n\n\ntotal\nstring <uint64>\n\nКоличество отчётов.\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "ListReportsExternal",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "QUERY PARAMETERS",
+          "fields": [
+            {
+              "name": "page",
+              "required": false,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nНомер страницы."
+            },
+            {
+              "name": "pageSize",
+              "required": false,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nРазмер страницы."
+            }
+          ]
+        }
+      ],
+      "text": "Список отчётов, сгенерированных через API\nGET\n/api/client/statistics/externallist\nОписание и примерыКонсоль\n\nМетод для получения списка отчётов, которые сгенерированы через API сервисными аккаунтами.\n\nQUERY PARAMETERS\npage\ninteger <int64>\n\nНомер страницы.\n\n\npageSize\ninteger <int64>\n\nРазмер страницы.\n\nОтветы\n200\n\nСписок отчётов\n\nRESPONSE SCHEMA: application/json\nitems\nArray of objects\n\nСписок отчётов.\n\n\n\nArray ()\ncampaigns\nArray of objects\n\nСписок кампаний.\n\n\n\nArray ()\nid\nstring <uint64>\n\nИдентификатор кампании.\n\n\ntitle\nstring\n\nНазвание кампании.\n\n\nmeta\nobject\n\nИнформация о запросе.\n\n\n\nUUID\nstring\n\nУникальный идентификатор запроса, для которого производилась проверка.\n\n\nstate\nstring\nDefault: \"NOT_STARTED\"\nEnum: \"NOT_STARTED\" \"IN_PROGRESS\" \"ERROR\" \"OK\"\n\nТекущее состояние запроса:\n\nNOT_STARTED — запрос ожидает выполнения;\nIN_PROGRESS — запрос выполняется в данный момент;\nERROR — выполнение запроса завершилось ошибкой;\nOK — запрос успешно выполнен.\n\ncreatedAt\nstring <date-time>\n\nДата и время получения запроса сервером, часовой пояс UTC.\n\n\nupdatedAt\nstring <date-time>\n\nДата и время последнего обновления состояния запроса, часовой пояс UTC.\n\n\nrequest\nobject\n\nСтруктура исходного запроса.\n\n\n\ncampaigns\nrequired\n\nArray of strings <uint64>\n\nСписок идентификаторов кампаний, для которых необходимо подготовить отчёт.\n\nФормат отчёта:\n\nCSV — если в списке одна кампания.\nZIP архив — если в списке несколько кампаний. Каждый файл соответствует одной кампании из списка. Имя файла вида <идентификатор кампании>.csv.\n\nfrom\nstring <date-time>\n\nНачальная дата периода отчёта в формате RFC 3339.\n\nМаксимальный период, за который можно получить отчёт — 62 дня.\n\n\nto\nstring <date-time>\n\nКонечная дата периода отчёта в формате RFC 3339.\n\nМаксимальный период, за который можно получить отчёт — 62 дня.\n\n\ndateFrom\nstring\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\n\ndateTo\nstring\n\nКонечная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\n\ngroupBy\nstring\nDefault: \"NO_GROUP_BY\"\nEnum: \"NO_GROUP_BY\" \"DATE\" \"START_OF_WEEK\" \"START_OF_MONTH\"\n\nТип группировки по времени:\n\nDATE — группировка по дате (по дням);\nSTART_OF_WEEK — группировка по неделям;\nSTART_OF_MONTH — группировка по месяцам.\n\nerror\nstring\n\nКраткое описание возникшей ошибки.\n\nПоле присутствует, если выполнение запроса завершилось ошибкой.\n\n\nlink\nstring\n\nОтносительная ссылка на отчёт в формате CSV.\n\nПоле присутствует, если запрос выполнен успешно.\n\n\nkind\nstring\nDefault: \"STATS\"\nEnum: \"STATS\" \"SEARCH_PHRASES\" \"ATTRIBUTION\" \"VIDEO\"\n\nТип запрашиваемого отчёта:\n\nSTATS — отчёт по кампании;\nSEARCH_PHRASES — отчёт по поисковым фразам и по категории товаров;\nATTRIBUTION — отчёт по заказам для оплаты за заказ;\nVIDEO — отчёт по показам видеобаннера.\n\nname\nstring\n\nНазвание отчёта.\n\n\ntotal\nstring <uint64>\n\nКоличество отчётов.\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "DownloadStatistics",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "QUERY PARAMETERS",
+          "fields": [
+            {
+              "name": "UUID",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nУникальный идентификатор запроса."
+            }
+          ]
+        }
+      ],
+      "text": "Получить отчёты\nGET\n/api/client/statistics/report\nОписание и примерыКонсоль\n\nПри успешном запросе ссылка на скачивание отчёта в формате CSV или ZIP появится в поле link при использовании метода «Статус отчета».\n\nФормат отчёта в заголовке ответа указан в поле content-type. Формат зависит от того, сколько кампаний в поле campaigns исходного запроса:\n\nCSV — если в списке одна кампания.\nZIP-архив — если в списке несколько кампаний. Каждый файл соответствует одной кампании из списка. Имя файла вида <идентификатор кампании>.csv.\nQUERY PARAMETERS\nUUID\nstring\n\nУникальный идентификатор запроса.\n\nОтветы\n200\n\nОтчёт\n\nRESPONSE HEADERS\ncontent-type\nstring\nExample: \"text/csv; charset=UTF-8\"\n\nx-o3-trace-id\nstring\nRESPONSE SCHEMA: text/csv\nstring\n\nСтроки отчёта.\n\n404\n\nНекорректный UUID\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "MediaCampaignList",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "QUERY PARAMETERS",
+          "fields": [
+            {
+              "name": "campaignIds",
+              "required": false,
+              "material": "Array of strings <uint64>",
+              "children": [],
+              "description": "Array of strings <uint64>\n\nСписок идентификаторов кампаний, для которых необходимо подготовить отчёт.\n\nЕсли поле заполнено, в отчёте будет статистика только по указанным кампаниям. Если поле пустое, в ответе будет статистика по всем кампаниям в указанном промежутке времени.\n\nНеобязательное поле."
+            },
+            {
+              "name": "from",
+              "required": false,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nНачальная дата периода отчёта в формате RFC3339.\n\nНеобязательное поле."
+            },
+            {
+              "name": "to",
+              "required": false,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nКонечная дата периода отчёта в формате RFC3339.\n\nНеобязательное поле."
+            },
+            {
+              "name": "dateFrom",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\nНеобязательное поле."
+            },
+            {
+              "name": "dateTo",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\nНеобязательное поле."
+            }
+          ]
+        }
+      ],
+      "text": "Статистика по медийным кампаниям\nGET\n/api/client/statistics/campaign/media\nОписание и примерыКонсоль\n\nВ запросе укажите временной промежуток с помощью полей from и to или dateFrom и dateTo. Если заполнены все четыре поля, в ответе будет статистика по временному промежутку из полей dateFrom и dateTo.\n\nФормат отчёта — CSV.\n\nЧтобы запросить отчёт в формате JSON, добавьте в адрес метода /json и отправьте запрос по адресу /api/client/statistics/campaign/media/json.\n\nОтчёт содержит:\n\nидентификатор кампании,\nназвание кампании,\nформат кампании,\nстатус кампании,\nдневной бюджет в рублях,\nбюджет в рублях,\nрасход в рублях,\nпоказы,\nклики,\nсредняя цена 1000 показов в рублях,\nотношение числа кликов к числу показов (CTR),\nсредняя цена клика в рублях,\nзаказы в штуках,\nзаказы после просмотра в штуках,\nсумма заказов после просмотра,\nдоля рекламных расходов (ДРР),\nсумма заказов,\nтип оплаты,\nтип бюджета.\nQUERY PARAMETERS\ncampaignIds\nArray of strings <uint64>\n\nСписок идентификаторов кампаний, для которых необходимо подготовить отчёт.\n\nЕсли поле заполнено, в отчёте будет статистика только по указанным кампаниям. Если поле пустое, в ответе будет статистика по всем кампаниям в указанном промежутке времени.\n\nНеобязательное поле.\n\n\nfrom\nstring <date-time>\n\nНачальная дата периода отчёта в формате RFC3339.\n\nНеобязательное поле.\n\n\nto\nstring <date-time>\n\nКонечная дата периода отчёта в формате RFC3339.\n\nНеобязательное поле.\n\n\ndateFrom\nstring\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\nНеобязательное поле.\n\n\ndateTo\nstring\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\nНеобязательное поле.\n\nОтветы\n200\n\nСтатистика по медийным кампаниям\n\nRESPONSE SCHEMA: application/json\ncontentType\nstring\n\nФормат отчёта.\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "ProductCampaignList",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "QUERY PARAMETERS",
+          "fields": [
+            {
+              "name": "campaignIds",
+              "required": false,
+              "material": "Array of strings <uint64>",
+              "children": [],
+              "description": "Array of strings <uint64>\n\nСписок идентификаторов кампаний, для которых необходимо подготовить отчёт.\n\nЕсли поле заполнено, в отчёте будет статистика только по указанным кампаниям. Если поле пустое, в ответе будет статистика по всем кампаниям в указанном промежутке времени.\n\nНеобязательное поле."
+            },
+            {
+              "name": "from",
+              "required": false,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nНачальная дата периода отчёта в формате RFC3339.\n\nНеобязательное поле."
+            },
+            {
+              "name": "to",
+              "required": false,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nКонечная дата периода отчёта в формате RFC3339.\n\nНеобязательное поле."
+            },
+            {
+              "name": "dateFrom",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\nНеобязательное поле."
+            },
+            {
+              "name": "dateTo",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\nНеобязательное поле."
+            }
+          ]
+        }
+      ],
+      "text": "Статистика по кампании Оплата за клик\nGET\n/api/client/statistics/campaign/product\nОписание и примерыКонсоль\nНе расходует лимиты Performance API.\n\nВ запросе укажите временной промежуток с помощью полей from и to или dateFrom и dateTo. Если заполнены все четыре поля, в ответе будет статистика по временному промежутку из полей dateFrom и dateTo.\n\nФормат отчёта — CSV.\n\nЧтобы запросить отчёт в формате JSON, добавьте в адрес метода /json и отправьте запрос по адресу /api/client/statistics/campaign/product/json.\n\nОтчёт содержит:\n\nидентификатор кампании,\nназвание кампании,\nтип объекта,\nстатус кампании,\nнедельный бюджет в рублях,\nбюджет в рублях,\nрасход в рублях,\nпоказы,\nклики,\nколичество добавлений товара в корзину,\nотношение числа кликов к числу показов (CTR),\nсредняя цена клика в рублях,\nзаказы в штуках,\nзаказы в рублях,\nдоля рекламных расходов (ДРР),\nтип продвижения,\nместа размещения для спецразмещения.\nQUERY PARAMETERS\ncampaignIds\nArray of strings <uint64>\n\nСписок идентификаторов кампаний, для которых необходимо подготовить отчёт.\n\nЕсли поле заполнено, в отчёте будет статистика только по указанным кампаниям. Если поле пустое, в ответе будет статистика по всем кампаниям в указанном промежутке времени.\n\nНеобязательное поле.\n\n\nfrom\nstring <date-time>\n\nНачальная дата периода отчёта в формате RFC3339.\n\nНеобязательное поле.\n\n\nto\nstring <date-time>\n\nКонечная дата периода отчёта в формате RFC3339.\n\nНеобязательное поле.\n\n\ndateFrom\nstring\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\nНеобязательное поле.\n\n\ndateTo\nstring\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\nНеобязательное поле.\n\nОтветы\n200\n\nСтатистика по продуктовым кампаниям\n\nRESPONSE SCHEMA: application/json\ncontentType\nstring\n\nФормат отчёта.\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "GetCampaignExpense",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "QUERY PARAMETERS",
+          "fields": [
+            {
+              "name": "campaignIds",
+              "required": false,
+              "material": "Array of strings <uint64>",
+              "children": [],
+              "description": "Array of strings <uint64>\n\nСписок идентификаторов кампаний, для которых необходимо подготовить отчёт.\n\nЕсли поле заполнено, в отчёте будет статистика только по указанным кампаниям. Если поле пустое, в ответе будет статистика по всем кампаниям в указанном промежутке времени.\n\nНеобязательное поле."
+            },
+            {
+              "name": "dateFrom",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\nНеобязательное поле."
+            },
+            {
+              "name": "dateTo",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\nНеобязательное поле."
+            }
+          ]
+        }
+      ],
+      "text": "Статистика по расходу кампаний\nGET\n/api/client/statistics/expense\nОписание и примерыКонсоль\n\nЕсли в запросе не указаны значения полей dateFrom и dateTo, то в ответе будет статистика за последние 7 дней.\n\nФормат отчёта — CSV.\n\nЧтобы запросить отчёт в формате JSON, добавьте в адрес метода /json и отправьте запрос по адресу /api/client/statistics/expense/json.\n\nОтчёт содержит:\n\nидентификатор кампании,\nдата,\nназвание,\nрасход,\nрасход с абонентского счёта,\nрасход бонусов.\nQUERY PARAMETERS\ncampaignIds\nArray of strings <uint64>\n\nСписок идентификаторов кампаний, для которых необходимо подготовить отчёт.\n\nЕсли поле заполнено, в отчёте будет статистика только по указанным кампаниям. Если поле пустое, в ответе будет статистика по всем кампаниям в указанном промежутке времени.\n\nНеобязательное поле.\n\n\ndateFrom\nstring\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\nНеобязательное поле.\n\n\ndateTo\nstring\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\nНеобязательное поле.\n\nОтветы\n200\n\nСтатистика по расходу кампаний\n\nRESPONSE SCHEMA: application/json\ncontentType\nstring\n\nФормат отчёта.\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "GetCampaignDailyStats",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "QUERY PARAMETERS",
+          "fields": [
+            {
+              "name": "campaignIds",
+              "required": false,
+              "material": "Array of strings <uint64>",
+              "children": [],
+              "description": "Array of strings <uint64>\n\nСписок идентификаторов кампаний, для которых необходимо подготовить отчёт.\n\nЕсли поле заполнено, в отчёте будет статистика только по указанным кампаниям. Если поле пустое, в ответе будет статистика по всем кампаниям в указанном промежутке времени.\n\nНеобязательное поле."
+            },
+            {
+              "name": "dateFrom",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\nНеобязательное поле."
+            },
+            {
+              "name": "dateTo",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\nНеобязательное поле."
+            }
+          ]
+        }
+      ],
+      "text": "Дневная статистика по кампаниям\nGET\n/api/client/statistics/daily\nОписание и примерыКонсоль\n\nЕсли в запросе не указаны значения полей dateFrom и dateTo, то в ответе будет статистика за последние 7 дней.\n\nФормат отчёта — CSV.\n\nЧтобы запросить отчёт в формате JSON, добавьте в адрес метода /json и отправьте запрос по адресу /api/client/statistics/daily/json.\n\nОтчёт содержит:\n\nидентификатор кампании,\nназвание кампании,\nдата,\nпоказы,\nклики,\nрасход в рублях,\nзаказы в штуках,\nзаказы в рублях.\nQUERY PARAMETERS\ncampaignIds\nArray of strings <uint64>\n\nСписок идентификаторов кампаний, для которых необходимо подготовить отчёт.\n\nЕсли поле заполнено, в отчёте будет статистика только по указанным кампаниям. Если поле пустое, в ответе будет статистика по всем кампаниям в указанном промежутке времени.\n\nНеобязательное поле.\n\n\ndateFrom\nstring\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\nНеобязательное поле.\n\n\ndateTo\nstring\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\nНеобязательное поле.\n\nОтветы\n200\n\nДневная статистика по кампаниям\n\nRESPONSE SCHEMA: application/json\ncontentType\nstring\n\nФормат отчёта.\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "SearchPromoOrdersReportSubmitRequest",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "from",
+              "required": false,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nНачальная дата периода отчёта в формате RFC 3339."
+            },
+            {
+              "name": "to",
+              "required": false,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nКонечная дата периода отчёта в формате RFC 3339."
+            }
+          ]
+        }
+      ],
+      "text": "Получить отчёт по заказам в оплате за заказ — выбранные товары\nPOST\n/api/client/statistic/orders/generate\nОписание и примерыКонсоль\n\nВ параметрах запроса from и to укажите промежуток времени.\n\nPerformance API асинхронный. Поэтому в результате запроса будет не сам отчёт, а уникальный идентификатор отправленного запроса, с помощью которого можно проверить статус формирования отчёта и скачать отчёт в формате CSV.\n\nЧтобы запросить отчёт в формате JSON, добавьте /json в адрес метода: /api/client/statistic/orders/generate/json.\n\nОтчёт содержит:\n\nпериод отчёта;\nдату;\nID заказа;\nномер заказа;\nSKU;\nSKU продвигаемого товара;\nартикул;\nнаименование;\nисточник заказа;\nколичество;\nстоимость, ₽;\nставку, %;\nставку, ₽;\nрасход, ₽.\nREQUEST BODY SCHEMA: application/json\nfrom\nstring <date-time>\n\nНачальная дата периода отчёта в формате RFC 3339.\n\n\nto\nstring <date-time>\n\nКонечная дата периода отчёта в формате RFC 3339.\n\nОтветы\n200\n\nСтатистика по кампании\n\nRESPONSE SCHEMA: application/json\nUUID\nstring\n\nУникальный идентификатор отправленного запроса.\n\nПо нему можно проверить статус формирования отчёта и скачать отчёт.\n\n\nvendor\nboolean\n\nЕсли запрашивается отчёт с аналитикой внешнего трафика — true.\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "SearchPromoProductsReportSubmitRequest",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "from",
+              "required": false,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nНачальная дата периода отчёта в формате RFC 3339."
+            },
+            {
+              "name": "to",
+              "required": false,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nКонечная дата периода отчёта в формате RFC 3339."
+            }
+          ]
+        }
+      ],
+      "text": "Получить отчёт по товарам в оплате за заказ — выбранные товары\nPOST\n/api/client/statistic/products/generate\nОписание и примерыКонсоль\n\nВ параметрах запроса from и to укажите промежуток времени.\n\nPerformance API асинхронный. Поэтому в результате запроса будет не сам отчёт, а уникальный идентификатор отправленного запроса, с помощью которого можно проверить статус формирования отчёта и скачать отчёт в формате CSV.\n\nЧтобы запросить отчёт в формате JSON, добавьте /json в адрес метода: /api/client/statistic/products/generate/json.\n\nОтчёт содержит:\n\nпериод отчёта;\nSKU;\nартикул;\nнаименование;\nкатегорию;\nпродвижение;\nцену товара, ₽;\nставку, %;\nставку, ₽;\nколичество заказов;\nсумму заказов, ₽;\nрасход, ₽;\nпродажи («Оплата за клик»), ₽;\nрасход («Оплата за клик»), ₽;\nзаказы («Оплата за клик»), шт;\nв корзину;\nДРР, %;\nпоследнее изменение.\nREQUEST BODY SCHEMA: application/json\nfrom\nstring <date-time>\n\nНачальная дата периода отчёта в формате RFC 3339.\n\n\nto\nstring <date-time>\n\nКонечная дата периода отчёта в формате RFC 3339.\n\nОтветы\n200\n\nСтатистика по кампании\n\nRESPONSE SCHEMA: application/json\nUUID\nstring\n\nУникальный идентификатор отправленного запроса.\n\nПо нему можно проверить статус формирования отчёта и скачать отчёт.\n\n\nvendor\nboolean\n\nЕсли запрашивается отчёт с аналитикой внешнего трафика — true.\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "GenerateAllSkuPromoOrdersReport",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "QUERY PARAMETERS",
+          "fields": [
+            {
+              "name": "timeBounds.from",
+              "required": false,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nНачальная дата периода отчёта в формате RFC 3339."
+            },
+            {
+              "name": "timeBounds.to",
+              "required": false,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nКонечная дата периода отчёта в формате RFC 3339."
+            }
+          ]
+        }
+      ],
+      "text": "Получить отчёт по заказам в оплате за заказ — все товары\nGET\n/api/client/statistics/all_sku_promo/orders/generate\nОписание и примерыКонсоль\n\nВ параметрах запроса timeBounds.from и timeBounds.to укажите промежуток времени.\n\nPerformance API асинхронный. Поэтому в результате запроса будет не сам отчёт, а уникальный идентификатор отправленного запроса, с помощью которого можно проверить статус формирования отчёта и скачать отчёт в формате CSV.\n\nЧтобы запросить отчёт в формате JSON, добавьте /json в адрес метода: /api/client/statistics/all_sku_promo/orders/generate/json.\n\nОтчёт содержит:\n\nпериод отчёта;\nдату;\nидентификатор заказа;\nномер заказа;\nSKU;\nSKU продвигаемого товара;\nартикул;\nназвание товара;\nколичество;\nстоимость, ₽;\nстоимость продажи, ₽;\nставку, %;\nставку, ₽;\nрасход, ₽.\nQUERY PARAMETERS\ntimeBounds.from\nstring <date-time>\n\nНачальная дата периода отчёта в формате RFC 3339.\n\n\ntimeBounds.to\nstring <date-time>\n\nКонечная дата периода отчёта в формате RFC 3339.\n\nОтветы\n200\n\nСтатистика по кампании\n\nRESPONSE SCHEMA: application/json\nUUID\nstring\n\nУникальный идентификатор отправленного запроса.\n\nПо нему можно проверить статус формирования отчёта и скачать отчёт.\n\ndefault\n\nОшибка"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "GenerateAllSkuPromoProductsReport",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "QUERY PARAMETERS",
+          "fields": [
+            {
+              "name": "timeBounds.from",
+              "required": false,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nНачальная дата периода отчёта в формате RFC 3339."
+            },
+            {
+              "name": "timeBounds.to",
+              "required": false,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nКонечная дата периода отчёта в формате RFC 3339."
+            }
+          ]
+        }
+      ],
+      "text": "Получить отчёт по товарам в оплате за заказ — все товары\nGET\n/api/client/statistics/all_sku_promo/products/generate\nОписание и примерыКонсоль\n\nВ параметрах запроса timeBounds.from и timeBounds.to укажите промежуток времени.\n\nPerformance API асинхронный. Поэтому в результате запроса будет не сам отчёт, а уникальный идентификатор отправленного запроса, с помощью которого можно проверить статус формирования отчёта и скачать отчёт в формате CSV.\n\nЧтобы запросить отчёт в формате JSON, добавьте /json в адрес метода: /api/client/statistics/all_sku_promo/products/generate/json.\n\nОтчёт содержит:\n\nдату;\nстатус продвижения: включено или выключено;\nрасход, ₽;\nпродажи из поиска, ₽;\nпродажи из рекомендаций, ₽;\nколичество заказов из поиска;\nколичество заказов из рекомендаций.\nQUERY PARAMETERS\ntimeBounds.from\nstring <date-time>\n\nНачальная дата периода отчёта в формате RFC 3339.\n\n\ntimeBounds.to\nstring <date-time>\n\nКонечная дата периода отчёта в формате RFC 3339.\n\nОтветы\n200\n\nСтатистика по кампании\n\nRESPONSE SCHEMA: application/json\nUUID\nstring\n\nУникальный идентификатор отправленного запроса.\n\nПо нему можно проверить статус формирования отчёта и скачать отчёт.\n\ndefault\n\nОшибка"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "ExternalStatistics_StatisticsPhrasesSubmitRequest2",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "campaigns",
+              "required": false,
+              "material": "Array of strings <uint64>",
+              "children": [],
+              "description": "Array of strings <uint64>\n\nСписок кампаний."
+            },
+            {
+              "name": "dateFrom",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10. Дата не может быть раньше 1 февраля 2025 года."
+            },
+            {
+              "name": "dateTo",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nКонечная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10."
+            },
+            {
+              "name": "from",
+              "required": false,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nНачальная дата периода отчёта в формате RFC 3339. Дата не может быть раньше 1 февраля 2025 года."
+            },
+            {
+              "name": "to",
+              "required": false,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nКонечная дата периода отчёта в формате RFC 3339."
+            },
+            {
+              "name": "groupBy",
+              "required": false,
+              "material": "string\nDefault: \"NO_GROUP_BY\"\nEnum: \"NO_GROUP_BY\" \"DATE\" \"START_OF_WEEK\" \"START_OF_MONTH\"",
+              "children": [],
+              "description": "string\nDefault: \"NO_GROUP_BY\"\nEnum: \"NO_GROUP_BY\" \"DATE\" \"START_OF_WEEK\" \"START_OF_MONTH\"\n\nТип группировки по времени:\n\nDATE — группировка по дате (по дням);\nSTART_OF_WEEK — группировка по неделям;\nSTART_OF_MONTH — группировка по месяцам."
+            }
+          ]
+        }
+      ],
+      "text": "Отчёт по поисковым запросам\nPOST\n/api/client/statistics/phrases\nОписание и примерыКонсоль\n\nМетод находится на стадии тестирования.\n\nОтчёт можно сформировать только для кампаний с оплатой за клик с признаком placement = PLACEMENT_TOP_PROMOTION.\n\nЧтобы запросить отчёт в формате JSON, добавьте в адрес метода /json и отправьте запрос по адресу /api/client/statistics/phrases/json.\n\nREQUEST BODY SCHEMA: application/json\ncampaigns\nArray of strings <uint64>\n\nСписок кампаний.\n\n\ndateFrom\nstring\n\nНачальная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10. Дата не может быть раньше 1 февраля 2025 года.\n\n\ndateTo\nstring\n\nКонечная дата периода отчёта в формате ГГГГ-ММ-ДД. Например: 2019-02-10.\n\n\nfrom\nstring <date-time>\n\nНачальная дата периода отчёта в формате RFC 3339. Дата не может быть раньше 1 февраля 2025 года.\n\n\nto\nstring <date-time>\n\nКонечная дата периода отчёта в формате RFC 3339.\n\n\ngroupBy\nstring\nDefault: \"NO_GROUP_BY\"\nEnum: \"NO_GROUP_BY\" \"DATE\" \"START_OF_WEEK\" \"START_OF_MONTH\"\n\nТип группировки по времени:\n\nDATE — группировка по дате (по дням);\nSTART_OF_WEEK — группировка по неделям;\nSTART_OF_MONTH — группировка по месяцам.\nОтветы\n200\n\nОтчёт по поисковым запросам\n\nRESPONSE SCHEMA: application/json\nUUID\nstring\n\nУникальный идентификатор отправленного запроса.\n\nПо нему можно проверить статус формирования отчёта и скачать отчёт.\n\n\nvendor\nboolean\n\nЕсли запрашивается отчёт с аналитикой внешнего трафика — true.\n\ndefault\n\nОшибка"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "SearchPromoProductsSKUStatistics2",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "campaignIds",
+              "required": false,
+              "material": "Array of strings <uint64>",
+              "children": [],
+              "description": "Array of strings <uint64>\n\nСписок идентификаторов кампаний."
+            },
+            {
+              "name": "dateFrom",
+              "required": false,
+              "material": "string YYYY-MM-DD",
+              "children": [],
+              "description": "string YYYY-MM-DD\n\nДата начала периода статистики, не раньше предыдущего дня."
+            },
+            {
+              "name": "dateTo",
+              "required": false,
+              "material": "string YYYY-MM-DD",
+              "children": [],
+              "description": "string YYYY-MM-DD\n\nДата окончания периода статистики."
+            }
+          ]
+        }
+      ],
+      "text": "Получить статистику по товарам в оплате за клик\nPOST\n/api/client/statistics/products/sku\nОписание и примерыКонсоль\nНе расходует лимиты Performance API.\nREQUEST BODY SCHEMA: application/json\ncampaignIds\nArray of strings <uint64>\n\nСписок идентификаторов кампаний.\n\n\ndateFrom\nstring YYYY-MM-DD\n\nДата начала периода статистики, не раньше предыдущего дня.\n\n\ndateTo\nstring YYYY-MM-DD\n\nДата окончания периода статистики.\n\nОтветы\n200\n\nСтатистика по товарам\n\nRESPONSE SCHEMA: application/json\nrows\nArray of objects\n\nСтатистика по товарам.\n\n\n\nArray ()\navgCpc\nstring\n\nСредняя стоимость клика в рублях.\n\n\ncampaignId\nstring <uint64>\n\nИдентификатор кампании.\n\n\nclicks\nstring <uint64>\n\nКоличество кликов.\n\n\nctr\nnumber <double>\n\nОтношение числа кликов к числу показов — CTR.\n\n\ndate\nstring\n\nДата, за которую посчитана статистика.\n\n\ndateAdded\nstring <date-time>\n\nДата добавления кампании.\n\n\ndrr\nnumber <double>\n\nДоля рекламных расходов — ДРР.\n\n\nexpense\nstring\n\nРасход в рублях.\n\n\nmodelOrders\nstring <uint64>\n\nКоличество заказов модели.\n\n\nmodelSales\nstring\n\nСтоимость заказов модели в рублях.\n\n\norders\nstring <uint64>\n\nКоличество заказов.\n\n\nprice\nstring\n\nЦена товара в рублях.\n\n\nsales\nstring\n\nСтоимость заказов в рублях.\n\n\nsku\nstring <uint64>\n\nИдентификатор товара в системе Ozon — SKU.\n\n\ntoCart\nstring <uint64>\n\nКоличество добавлений товара в корзину.\n\n\nviews\nstring <uint64>\n\nКоличество показов.\n\ndefault\n\nОшибка"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "CreateProductCampaignCPCV2",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "title",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nНазвание рекламной кампании."
+            },
+            {
+              "name": "fromDate",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nДата начала рекламной кампании по московскому времени.\n\nЕсли параметр не заполнен, датой старта считается начало текущего дня. Открутка начинается сразу после активации кампании, если не нужна модерация."
+            },
+            {
+              "name": "toDate",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nДата окончания рекламной кампании по московскому времени. Параметр не учитывается для кампаний с оплатой за клики, созданных в автоматическом режиме."
+            },
+            {
+              "name": "dailyBudget",
+              "required": false,
+              "material": "string <uint64>\nDeprecated",
+              "children": [],
+              "description": "string <uint64>\nDeprecated\n\nОграничение дневного бюджета рекламной кампании. Единица измерения — одна миллионная доля рубля, округляется до копеек. Например, значение 1 000 000 в параметре равно 1 рублю.\n\nЕсли параметр не заполнен, дневной бюджет не ограничен. После создания рекламной кампании изменить бюджет с дневного на недельный и наоборот не получится."
+            },
+            {
+              "name": "weeklyBudget",
+              "required": false,
+              "material": "string <uint64>",
+              "children": [],
+              "description": "string <uint64>\n\nОграничение недельного бюджета рекламной кампании. Единица измерения — одна миллионная доля рубля, округляется до копеек. Например, значение 1 000 000 в параметре равно 1 рублю.\n\nЕсли параметр не заполнен, недельный бюджет не ограничен. После создания рекламной кампании изменить бюджет с недельного на дневной и наоборот не получится."
+            },
+            {
+              "name": "placement",
+              "required": true,
+              "material": "string\nDefault: \"PLACEMENT_INVALID\"\nEnum: \"PLACEMENT_TOP_PROMOTION\" \"PLACEMENT_INVALID\" \"PLACEMENT_SEARCH_AND_CATEGORY\"",
+              "children": [],
+              "description": "string\nDefault: \"PLACEMENT_INVALID\"\nEnum: \"PLACEMENT_TOP_PROMOTION\" \"PLACEMENT_INVALID\" \"PLACEMENT_SEARCH_AND_CATEGORY\"\n\nМесто размещения продвигаемых товаров:\n\nPLACEMENT_TOP_PROMOTION — поиск;\nPLACEMENT_INVALID — не определено;\nPLACEMENT_SEARCH_AND_CATEGORY — поиск и рекомендации."
+            },
+            {
+              "name": "productAutopilotStrategy",
+              "required": false,
+              "material": "string\nEnum: \"MAX_CLICKS\" \"TOP_MAX_CLICKS\" \"TARGET_BIDS\" \"TOP_PROMOTION\" \"TARGET_CIR\"",
+              "children": [],
+              "description": "string\nEnum: \"MAX_CLICKS\" \"TOP_MAX_CLICKS\" \"TARGET_BIDS\" \"TOP_PROMOTION\" \"TARGET_CIR\"\n\nСтратегия, которая будет использоваться для кампании:\n\nMAX_CLICKS — автостратегия для Поиска и рекомендаций;\nTOP_MAX_CLICKS — автостратегия для Поиска;\nTARGET_BIDS — средняя стоимость клика для Поиска и рекомендаций;\nTOP_PROMOTION — вывод в топ;\nTARGET_CIR — целевой расход."
+            }
+          ]
+        }
+      ],
+      "text": "Создать кампанию с оплатой за клики\nPOST\n/api/client/campaign/cpc/v2/product\nОписание и примерыКонсоль\n\nМетод для создания товарной рекламной кампании с оплатой за клики.\n\nПри успешном выполнении запроса в поле campaignId ответа будет идентификатор созданной кампании.\n\nREQUEST BODY SCHEMA: application/json\ntitle\nstring\n\nНазвание рекламной кампании.\n\n\nfromDate\nstring\n\nДата начала рекламной кампании по московскому времени.\n\nЕсли параметр не заполнен, датой старта считается начало текущего дня. Открутка начинается сразу после активации кампании, если не нужна модерация.\n\n\ntoDate\nstring\n\nДата окончания рекламной кампании по московскому времени. Параметр не учитывается для кампаний с оплатой за клики, созданных в автоматическом режиме.\n\n\ndailyBudget\nstring <uint64>\nDeprecated\n\nОграничение дневного бюджета рекламной кампании. Единица измерения — одна миллионная доля рубля, округляется до копеек. Например, значение 1 000 000 в параметре равно 1 рублю.\n\nЕсли параметр не заполнен, дневной бюджет не ограничен. После создания рекламной кампании изменить бюджет с дневного на недельный и наоборот не получится.\n\n\nweeklyBudget\nstring <uint64>\n\nОграничение недельного бюджета рекламной кампании. Единица измерения — одна миллионная доля рубля, округляется до копеек. Например, значение 1 000 000 в параметре равно 1 рублю.\n\nЕсли параметр не заполнен, недельный бюджет не ограничен. После создания рекламной кампании изменить бюджет с недельного на дневной и наоборот не получится.\n\n\nplacement\nrequired\n\nstring\nDefault: \"PLACEMENT_INVALID\"\nEnum: \"PLACEMENT_TOP_PROMOTION\" \"PLACEMENT_INVALID\" \"PLACEMENT_SEARCH_AND_CATEGORY\"\n\nМесто размещения продвигаемых товаров:\n\nPLACEMENT_TOP_PROMOTION — поиск;\nPLACEMENT_INVALID — не определено;\nPLACEMENT_SEARCH_AND_CATEGORY — поиск и рекомендации.\n\nproductAutopilotStrategy\nstring\nEnum: \"MAX_CLICKS\" \"TOP_MAX_CLICKS\" \"TARGET_BIDS\" \"TOP_PROMOTION\" \"TARGET_CIR\"\n\nСтратегия, которая будет использоваться для кампании:\n\nMAX_CLICKS — автостратегия для Поиска и рекомендаций;\nTOP_MAX_CLICKS — автостратегия для Поиска;\nTARGET_BIDS — средняя стоимость клика для Поиска и рекомендаций;\nTOP_PROMOTION — вывод в топ;\nTARGET_CIR — целевой расход.\nОтветы\n200\n\nКампания создана\n\nRESPONSE SCHEMA: application/json\ncampaignId\nstring <uint64>\n\nИдентификатор кампании.\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "CalculateDynamicBudget",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "createCampaign",
+              "required": false,
+              "material": "object",
+              "children": [
+                {
+                  "name": "autopilotStrategy",
+                  "required": false,
+                  "material": "string\nDefault: \"NO_AUTO_STRATEGY\"\nEnum: \"MAX_CLICKS\" \"TOP_MAX_CLICKS\" \"TARGET_BIDS\" \"NO_AUTO_STRATEGY\"",
+                  "children": [],
+                  "description": "string\nDefault: \"NO_AUTO_STRATEGY\"\nEnum: \"MAX_CLICKS\" \"TOP_MAX_CLICKS\" \"TARGET_BIDS\" \"NO_AUTO_STRATEGY\"\n\nСтратегия, которая будет использоваться для кампании:\n\nMAX_CLICKS — автостратегия для Поиска и рекомендаций;\nTOP_MAX_CLICKS — автостратегия для Поиска;\nTARGET_BIDS — средняя стоимость клика для Поиска;\nNO_AUTO_STRATEGY — не использовать автостратегию."
+                },
+                {
+                  "name": "placement",
+                  "required": false,
+                  "material": "string\nDefault: \"CAMPAIGN_PLACEMENT_INVALID\"\nEnum: \"CAMPAIGN_PLACEMENT_INVALID\" \"CAMPAIGN_PLACEMENT_PDP\" \"CAMPAIGN_PLACEMENT_SEARCH_AND_CATEGORY\" \"CAMPAIGN_PLACEMENT_TOP_PROMOTION\" \"CAMPAIGN_PLACEMENT_TAKEOVER\"",
+                  "children": [],
+                  "description": "string\nDefault: \"CAMPAIGN_PLACEMENT_INVALID\"\nEnum: \"CAMPAIGN_PLACEMENT_INVALID\" \"CAMPAIGN_PLACEMENT_PDP\" \"CAMPAIGN_PLACEMENT_SEARCH_AND_CATEGORY\" \"CAMPAIGN_PLACEMENT_TOP_PROMOTION\" \"CAMPAIGN_PLACEMENT_TAKEOVER\"\n\nМесто размещения рекламы:\n\nCAMPAIGN_PLACEMENT_INVALID — не определено;\nCAMPAIGN_PLACEMENT_PDP — карточка товара;\nCAMPAIGN_PLACEMENT_SEARCH_AND_CATEGORY — поиск и рекомендации;\nCAMPAIGN_PLACEMENT_TOP_PROMOTION — поиск;\nCAMPAIGN_PLACEMENT_TAKEOVER — одновременный показ товаров на первых 4 плитках. Значение устарело."
+                },
+                {
+                  "name": "skusCount",
+                  "required": false,
+                  "material": "string <uint64>",
+                  "children": [],
+                  "description": "string <uint64>\n\nКоличество товаров."
+                }
+              ],
+              "description": "object\n\nПараметры для расчёта при создании кампании."
+            },
+            {
+              "name": "updateCampaign",
+              "required": false,
+              "material": "object",
+              "children": [
+                {
+                  "name": "addingSkus",
+                  "required": false,
+                  "material": "Array of strings <uint64>",
+                  "children": [],
+                  "description": "Array of strings <uint64>\n\nТовары, которые добавили в кампанию."
+                },
+                {
+                  "name": "autopilotStrategy",
+                  "required": false,
+                  "material": "object",
+                  "children": [
+                    {
+                      "name": "strategy",
+                      "required": false,
+                      "material": "string\nDefault: \"NO_AUTO_STRATEGY\"\nEnum: \"MAX_CLICKS\" \"TOP_MAX_CLICKS\" \"TARGET_BIDS\" \"NO_AUTO_STRATEGY\"",
+                      "children": [],
+                      "description": "string\nDefault: \"NO_AUTO_STRATEGY\"\nEnum: \"MAX_CLICKS\" \"TOP_MAX_CLICKS\" \"TARGET_BIDS\" \"NO_AUTO_STRATEGY\"\n\nСтратегия, которая будет использоваться для кампании:\n\nMAX_CLICKS — автостратегия для Поиска и рекомендаций;\nTOP_MAX_CLICKS — автостратегия для Поиска;\nTARGET_BIDS — средняя стоимость клика для Поиска;\nNO_AUTO_STRATEGY — не использовать автостратегию."
+                    }
+                  ],
+                  "description": "object\n\nИнформация об автостратегии."
+                },
+                {
+                  "name": "campaignId",
+                  "required": false,
+                  "material": "string <uint64>",
+                  "children": [],
+                  "description": "string <uint64>\n\nИдентификатор кампании."
+                }
+              ],
+              "description": "object\n\nПараметры для расчёта при обновлении кампании."
+            }
+          ]
+        }
+      ],
+      "text": "Рассчитать минимальный бюджет кампании Deprecated\nPOST\n/external/api/dynamic_budget\nОписание и примерыКонсоль\n1 сентября 2025 года метод будет отключён. Теперь минимальный бюджет рассчитывается по формуле: 2 000 рублей × 1 SKU.\nREQUEST BODY SCHEMA: application/json\ncreateCampaign\nobject\n\nПараметры для расчёта при создании кампании.\n\n\n\nautopilotStrategy\nstring\nDefault: \"NO_AUTO_STRATEGY\"\nEnum: \"MAX_CLICKS\" \"TOP_MAX_CLICKS\" \"TARGET_BIDS\" \"NO_AUTO_STRATEGY\"\n\nСтратегия, которая будет использоваться для кампании:\n\nMAX_CLICKS — автостратегия для Поиска и рекомендаций;\nTOP_MAX_CLICKS — автостратегия для Поиска;\nTARGET_BIDS — средняя стоимость клика для Поиска;\nNO_AUTO_STRATEGY — не использовать автостратегию.\n\nplacement\nstring\nDefault: \"CAMPAIGN_PLACEMENT_INVALID\"\nEnum: \"CAMPAIGN_PLACEMENT_INVALID\" \"CAMPAIGN_PLACEMENT_PDP\" \"CAMPAIGN_PLACEMENT_SEARCH_AND_CATEGORY\" \"CAMPAIGN_PLACEMENT_TOP_PROMOTION\" \"CAMPAIGN_PLACEMENT_TAKEOVER\"\n\nМесто размещения рекламы:\n\nCAMPAIGN_PLACEMENT_INVALID — не определено;\nCAMPAIGN_PLACEMENT_PDP — карточка товара;\nCAMPAIGN_PLACEMENT_SEARCH_AND_CATEGORY — поиск и рекомендации;\nCAMPAIGN_PLACEMENT_TOP_PROMOTION — поиск;\nCAMPAIGN_PLACEMENT_TAKEOVER — одновременный показ товаров на первых 4 плитках. Значение устарело.\n\nskusCount\nstring <uint64>\n\nКоличество товаров.\n\n\nupdateCampaign\nobject\n\nПараметры для расчёта при обновлении кампании.\n\n\n\naddingSkus\nArray of strings <uint64>\n\nТовары, которые добавили в кампанию.\n\n\nautopilotStrategy\nobject\n\nИнформация об автостратегии.\n\n\n\nstrategy\nstring\nDefault: \"NO_AUTO_STRATEGY\"\nEnum: \"MAX_CLICKS\" \"TOP_MAX_CLICKS\" \"TARGET_BIDS\" \"NO_AUTO_STRATEGY\"\n\nСтратегия, которая будет использоваться для кампании:\n\nMAX_CLICKS — автостратегия для Поиска и рекомендаций;\nTOP_MAX_CLICKS — автостратегия для Поиска;\nTARGET_BIDS — средняя стоимость клика для Поиска;\nNO_AUTO_STRATEGY — не использовать автостратегию.\n\ncampaignId\nstring <uint64>\n\nИдентификатор кампании.\n\nОтветы\n200\n\nРезультат запроса\n\nRESPONSE SCHEMA: application/json\ncampaignBudget\nstring <uint64>\n\nБюджет рекламной кампании. Единица измерения — одна миллионная доля рубля, округляется до копеек. Например, значение 1 000 000 в параметре равно 1 рублю.\n\n\ndynamicBudget\nstring <uint64>\n\nМинимальный бюджет.\n\n\ndynamicBudgetType\nstring\nDefault: \"DYNAMIC_BUDGET_REQUIRED\"\nEnum: \"DYNAMIC_BUDGET_REQUIRED\" \"DYNAMIC_BUDGET_RECOMMENDED\"\n\nТип минимального бюджета:\n\nDYNAMIC_BUDGET_REQUIRED — обязательный;\nDYNAMIC_BUDGET_RECOMMENDED — рекомендованный.\n\nskuPrice\nstring <uint64>\n\nСумма в рублях, на которую увеличивается минимальный бюджет за каждый добавленный в кампанию товар.\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "ActivateCampaign",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "PATH PARAMETERS",
+          "fields": [
+            {
+              "name": "campaignId",
+              "required": true,
+              "material": "string <uint64>",
+              "children": [],
+              "description": "string <uint64>\n\nИдентификатор кампании."
+            }
+          ]
+        }
+      ],
+      "text": "Активировать кампанию\nPOST\n/api/client/campaign/{campaignId}/activate\nОписание и примерыКонсоль\nPATH PARAMETERS\ncampaignId\nrequired\n\nstring <uint64>\n\nИдентификатор кампании.\n\nREQUEST BODY SCHEMA: application/json\nobject\nОтветы\n200\n\nКампания активирована\n\nRESPONSE SCHEMA: application/json\nid\nstring <uint64>\n\nИдентификатор кампании.\n\n\nautostopStatus\nstring\nDefault: \"AUTOSTOP_STATUS_NONE\"\nEnum: \"AUTOSTOP_STATUS_NONE\" \"AUTOSTOP_STATUS_ENABLED\" \"AUTOSTOP_STATUS_DISABLED\" \"AUTOSTOP_STATUS_STOPPED\"\n\nСтатус кампании:\n\nAUTOSTOP_STATUS_NONE — продавец создал кампанию вручную.\nAUTOSTOP_STATUS_ENABLED — кампания создана автоматически и остановится, когда кончатся баллы.\nAUTOSTOP_STATUS_DISABLED — кампания создана автоматически, но она не остановится, когда кончатся баллы.\nAUTOSTOP_STATUS_STOPPED — баллы закончились, кампания остановлена автоматически.\n\nisAutocreated\nboolean\n\ntrue, если кампания создана автоматически.\n\n\npaymentType\nstring\nDefault: \"CAMPAIGN_TYPE_INVALID\"\n\nТип оплаты:\n\nCPC — за клики.\n\ntitle\nstring\n\nНазвание кампании.\n\n\nstate\nstring\nDefault: \"CAMPAIGN_STATE_UNKNOWN\"\n\nСостояние кампании:\n\nCAMPAIGN_STATE_RUNNING — активная кампания;\nCAMPAIGN_STATE_PLANNED — кампания, сроки проведения которой ещё не наступили;\nCAMPAIGN_STATE_STOPPED — кампания, приостановленная из-за нехватки бюджета;\nCAMPAIGN_STATE_INACTIVE — кампания, остановленная владельцем;\nCAMPAIGN_STATE_ARCHIVED — архивная кампания;\nCAMPAIGN_STATE_MODERATION_DRAFT — отредактированная кампания до отправки на модерацию;\nCAMPAIGN_STATE_MODERATION_IN_PROGRESS — кампания, отправленная на модерацию;\nCAMPAIGN_STATE_MODERATION_FAILED — кампания, непрошедшая модерацию;\nCAMPAIGN_STATE_FINISHED — кампания завершена, дата окончания в прошлом, такую кампанию нельзя изменить, можно только клонировать или создать новую.\n\nfromDate\nstring\n\nДата старта рекламной кампании.\n\n\ntoDate\nstring\n\nДата завершения рекламной кампании.\n\n\nbudget\nstring <uint64>\n\nБюджет рекламной кампании. Единица измерения — одна миллионная доля рубля, округляется до копеек. Например, значение 1 000 000 в параметре равно 1 рублю.\n\n\ndailyBudget\nstring <uint64>\nDeprecated\n\nДневной бюджет рекламной кампании. Единица измерения — одна миллионная доля рубля, округляется до копеек. Например, значение 1 000 000 в параметре равно 1 рублю.\n\n\nweeklyBudget\nstring <uint64>\n\nНедельный бюджет рекламной кампании. Единица измерения — одна миллионная доля рубля, округляется до копеек. Например, значение 1 000 000 в параметре равно 1 рублю.\n\n\nplacement\nstring\nDefault: \"PLACEMENT_INVALID\"\nEnum: \"PLACEMENT_INVALID\" \"PLACEMENT_PDP\" \"PLACEMENT_SEARCH_AND_CATEGORY\" \"PLACEMENT_TOP_PROMOTION\" \"PLACEMENT_OVERTOP\"\n\nМесто размещения продвигаемых товаров:\n\nPLACEMENT_INVALID — не определено.\nPLACEMENT_PDP — карточка товара. Доступно только для кампаний с ручным управлением.\nPLACEMENT_SEARCH_AND_CATEGORY — поиск и рекомендации.\nPLACEMENT_TOP_PROMOTION — поиск.\n\nproductAutopilotStrategy\nstring\nEnum: \"MAX_CLICKS\" \"TOP_MAX_CLICKS\" \"TARGET_BIDS\" \"TOP_PROMOTION\" \"TARGET_CIR\"\n\nСтратегия, которая используется для кампании:\n\nMAX_CLICKS — автостратегия для Поиска и рекомендаций;\nTOP_MAX_CLICKS — автостратегия для Поиска;\nTARGET_BIDS — средняя стоимость клика для Поиска и рекомендаций;\nTOP_PROMOTION — вывод в топ;\nTARGET_CIR — целевой расход.\n\nautopilot\nobject\n\nИнформация о кампании. Возвращается, если в параметре productAutopilotStrategy включена стратегия.\n\n\n\ncategoryId\nstring <uint64>\n\nИдентификатор категории.\n\n\nskuAddMode\nstring\nEnum: \"PRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN\" \"PRODUCT_CAMPAIGN_SKU_ADD_MODE_MANUAL\" \"PRODUCT_CAMPAIGN_SKU_ADD_MODE_AUTO\"\n\nРазрешение на автоматическое добавление товаров категории, указанной в categoryId, в кампании со стратегией MAX_VIEWS:\n\nPRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN — стратегия добавления товаров в кампанию не установлена;\nPRODUCT_CAMPAIGN_SKU_ADD_MODE_MANUAL — добавлять товары в кампанию можно только вручную;\nPRODUCT_CAMPAIGN_SKU_ADD_MODE_AUTO — можно добавлять товары категории categoryId в кампанию автоматически.\n\nЕсли тип разрешения пустой или было передано PRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN, добавлять товары в кампанию можно только вручную.\n\nДля кампаний без стратегии MAX_VIEWS возвращается значение PRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN.\n\n\ncreatedAt\nstring <date-time>\n\nДата создания кампании в формате RFC3339.\n\n\nupdatedAt\nstring <date-time>\n\nДата обновления кампании в формате RFC3339.\n\n\nproductCampaignMode\nstring\nDefault: \"PRODUCT_CAMPAIGN_MODE_AUTO\"\nEnum: \"PRODUCT_CAMPAIGN_MODE_AUTO\" \"PRODUCT_CAMPAIGN_MODE_MANUAL\"\n\nРежим создания и управления товарной рекламной кампанией:\n\nPRODUCT_CAMPAIGN_MODE_AUTO — автоматически;\nPRODUCT_CAMPAIGN_MODE_MANUAL — вручную.\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "DeactivateCampaign",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "PATH PARAMETERS",
+          "fields": [
+            {
+              "name": "campaignId",
+              "required": true,
+              "material": "string <uint64>",
+              "children": [],
+              "description": "string <uint64>\n\nИдентификатор кампании."
+            }
+          ]
+        }
+      ],
+      "text": "Выключить кампанию\nPOST\n/api/client/campaign/{campaignId}/deactivate\nОписание и примерыКонсоль\nPATH PARAMETERS\ncampaignId\nrequired\n\nstring <uint64>\n\nИдентификатор кампании.\n\nREQUEST BODY SCHEMA: application/json\nobject\nОтветы\n200\n\nКампания деактивирована\n\nRESPONSE SCHEMA: application/json\nid\nstring <uint64>\n\nИдентификатор кампании.\n\n\nautostopStatus\nstring\nDefault: \"AUTOSTOP_STATUS_NONE\"\nEnum: \"AUTOSTOP_STATUS_NONE\" \"AUTOSTOP_STATUS_ENABLED\" \"AUTOSTOP_STATUS_DISABLED\" \"AUTOSTOP_STATUS_STOPPED\"\n\nСтатус кампании:\n\nAUTOSTOP_STATUS_NONE — продавец создал кампанию вручную.\nAUTOSTOP_STATUS_ENABLED — кампания создана автоматически и остановится, когда кончатся баллы.\nAUTOSTOP_STATUS_DISABLED — кампания создана автоматически, но она не остановится, когда кончатся баллы.\nAUTOSTOP_STATUS_STOPPED — баллы закончились, кампания остановлена автоматически.\n\nisAutocreated\nboolean\n\ntrue, если кампания создана автоматически.\n\n\npaymentType\nstring\nDefault: \"CAMPAIGN_TYPE_INVALID\"\n\nТип оплаты:\n\nCPC — за клики.\n\ntitle\nstring\n\nНазвание кампании.\n\n\nstate\nstring\nDefault: \"CAMPAIGN_STATE_UNKNOWN\"\n\nСостояние кампании:\n\nCAMPAIGN_STATE_RUNNING — активная кампания;\nCAMPAIGN_STATE_PLANNED — кампания, сроки проведения которой ещё не наступили;\nCAMPAIGN_STATE_STOPPED — кампания, приостановленная из-за нехватки бюджета;\nCAMPAIGN_STATE_INACTIVE — кампания, остановленная владельцем;\nCAMPAIGN_STATE_ARCHIVED — архивная кампания;\nCAMPAIGN_STATE_MODERATION_DRAFT — отредактированная кампания до отправки на модерацию;\nCAMPAIGN_STATE_MODERATION_IN_PROGRESS — кампания, отправленная на модерацию;\nCAMPAIGN_STATE_MODERATION_FAILED — кампания, непрошедшая модерацию;\nCAMPAIGN_STATE_FINISHED — кампания завершена, дата окончания в прошлом, такую кампанию нельзя изменить, можно только клонировать или создать новую.\n\nfromDate\nstring\n\nДата старта рекламной кампании.\n\n\ntoDate\nstring\n\nДата завершения рекламной кампании.\n\n\nbudget\nstring <uint64>\n\nБюджет рекламной кампании. Единица измерения — одна миллионная доля рубля, округляется до копеек. Например, значение 1 000 000 в параметре равно 1 рублю.\n\n\ndailyBudget\nstring <uint64>\nDeprecated\n\nДневной бюджет рекламной кампании. Единица измерения — одна миллионная доля рубля, округляется до копеек. Например, значение 1 000 000 в параметре равно 1 рублю.\n\n\nweeklyBudget\nstring <uint64>\n\nНедельный бюджет рекламной кампании. Единица измерения — одна миллионная доля рубля, округляется до копеек. Например, значение 1 000 000 в параметре равно 1 рублю.\n\n\nplacement\nstring\nDefault: \"PLACEMENT_INVALID\"\nEnum: \"PLACEMENT_INVALID\" \"PLACEMENT_PDP\" \"PLACEMENT_SEARCH_AND_CATEGORY\" \"PLACEMENT_TOP_PROMOTION\" \"PLACEMENT_OVERTOP\"\n\nМесто размещения продвигаемых товаров:\n\nPLACEMENT_INVALID — не определено.\nPLACEMENT_PDP — карточка товара. Доступно только для кампаний с ручным управлением.\nPLACEMENT_SEARCH_AND_CATEGORY — поиск и рекомендации.\nPLACEMENT_TOP_PROMOTION — поиск.\n\nproductAutopilotStrategy\nstring\nEnum: \"MAX_CLICKS\" \"TOP_MAX_CLICKS\" \"TARGET_BIDS\" \"TOP_PROMOTION\" \"TARGET_CIR\"\n\nСтратегия, которая используется для кампании:\n\nMAX_CLICKS — автостратегия для Поиска и рекомендаций;\nTOP_MAX_CLICKS — автостратегия для Поиска;\nTARGET_BIDS — средняя стоимость клика для Поиска и рекомендаций;\nTOP_PROMOTION — вывод в топ;\nTARGET_CIR — целевой расход.\n\nautopilot\nobject\n\nИнформация о кампании. Возвращается, если в параметре productAutopilotStrategy включена стратегия.\n\n\n\ncategoryId\nstring <uint64>\n\nИдентификатор категории.\n\n\nskuAddMode\nstring\nEnum: \"PRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN\" \"PRODUCT_CAMPAIGN_SKU_ADD_MODE_MANUAL\" \"PRODUCT_CAMPAIGN_SKU_ADD_MODE_AUTO\"\n\nРазрешение на автоматическое добавление товаров категории, указанной в categoryId, в кампании со стратегией MAX_VIEWS:\n\nPRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN — стратегия добавления товаров в кампанию не установлена;\nPRODUCT_CAMPAIGN_SKU_ADD_MODE_MANUAL — добавлять товары в кампанию можно только вручную;\nPRODUCT_CAMPAIGN_SKU_ADD_MODE_AUTO — можно добавлять товары категории categoryId в кампанию автоматически.\n\nЕсли тип разрешения пустой или было передано PRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN, добавлять товары в кампанию можно только вручную.\n\nДля кампаний без стратегии MAX_VIEWS возвращается значение PRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN.\n\n\ncreatedAt\nstring <date-time>\n\nДата создания кампании в формате RFC3339.\n\n\nupdatedAt\nstring <date-time>\n\nДата обновления кампании в формате RFC3339.\n\n\nproductCampaignMode\nstring\nDefault: \"PRODUCT_CAMPAIGN_MODE_AUTO\"\nEnum: \"PRODUCT_CAMPAIGN_MODE_AUTO\" \"PRODUCT_CAMPAIGN_MODE_MANUAL\"\n\nРежим создания и управления товарной рекламной кампанией:\n\nPRODUCT_CAMPAIGN_MODE_AUTO — автоматически;\nPRODUCT_CAMPAIGN_MODE_MANUAL — вручную.\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "PatchProductCampaign",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "PATH PARAMETERS",
+          "fields": [
+            {
+              "name": "campaignId",
+              "required": true,
+              "material": "string <uint64>",
+              "children": [],
+              "description": "string <uint64>\n\nИдентификатор кампании."
+            }
+          ]
+        },
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "autopilot",
+              "required": false,
+              "material": "object",
+              "children": [
+                {
+                  "name": "categoryId",
+                  "required": false,
+                  "material": "string <uint64>",
+                  "children": [],
+                  "description": "string <uint64>\n\nИдентификатор категории."
+                },
+                {
+                  "name": "skuAddMode",
+                  "required": false,
+                  "material": "string\nEnum: \"PRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN\" \"PRODUCT_CAMPAIGN_SKU_ADD_MODE_MANUAL\" \"PRODUCT_CAMPAIGN_SKU_ADD_MODE_AUTO\"",
+                  "children": [],
+                  "description": "string\nEnum: \"PRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN\" \"PRODUCT_CAMPAIGN_SKU_ADD_MODE_MANUAL\" \"PRODUCT_CAMPAIGN_SKU_ADD_MODE_AUTO\"\n\nРазрешение на автоматическое добавление товаров из категории, которая указана в categoryId, в кампании с автостратегией MAX_VIEWS:\n\nPRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN — стратегия добавления товаров в кампанию не установлена;\nPRODUCT_CAMPAIGN_SKU_ADD_MODE_MANUAL — добавлять товары в кампанию можно только вручную;\nPRODUCT_CAMPAIGN_SKU_ADD_MODE_AUTO — можно добавлять товары категории categoryId в кампанию автоматически.\n\nЕсли тип разрешения пустой или было передано PRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN, добавлять товары в кампанию можно только вручную.\n\nДля кампаний без автостратегии MAX_VIEWS возвращается значение PRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN."
+                }
+              ],
+              "description": "object\n\nИнформация о кампании. Обязательный параметр, если в параметре productAutopilotStrategy включена автостратегия."
+            },
+            {
+              "name": "fromDate",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nДата начала рекламной кампании по московскому времени.\n\nНе может быть раньше текущей даты."
+            },
+            {
+              "name": "toDate",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nДата окончания рекламной кампании по московскому времени.\n\nНе может быть раньше даты начала."
+            },
+            {
+              "name": "budget",
+              "required": false,
+              "material": "string <uint64>",
+              "children": [],
+              "description": "string <uint64>\n\nОграничение общего бюджета рекламной кампании. Единица измерения — одна миллионная доля рубля, округляется до копеек. Например, значение 1 000 000 в параметре равно 1 рублю.\n\nУчитывается только для автоматических кампаний брендов и агентств. В других организациях установить новое ограничение общего бюджета не получится. Если у кампании уже установлен бюджет, можно:\n\nУбрать ограничения: передайте 0 в этом параметре.\nНе менять бюджет кампании. Когда он будет исчерпан, уберите ограничения бюджета или создайте новую кампанию с неограниченным бюджетом."
+            },
+            {
+              "name": "dailyBudget",
+              "required": false,
+              "material": "string <uint64>\nDeprecated",
+              "children": [],
+              "description": "string <uint64>\nDeprecated\n\nОграничение дневного бюджета рекламной кампании. Единица измерения — одна миллионная доля рубля, округляется до копеек. Например, значение 1 000 000 в параметре равно 1 рублю.\n\nЕсли параметр не заполнен, дневной бюджет не ограничен. После создания рекламной кампании изменить бюджет с дневного на недельный и наоборот не получится."
+            },
+            {
+              "name": "weeklyBudget",
+              "required": false,
+              "material": "string <uint64>",
+              "children": [],
+              "description": "string <uint64>\n\nОграничение недельного бюджета рекламной кампании. Единица измерения — одна миллионная доля рубля, округляется до копеек. Например, значение 1 000 000 в параметре равно 1 рублю.\n\nЕсли параметр не заполнен, недельный бюджет не ограничен. После создания рекламной кампании изменить бюджет с недельного на дневной и наоборот не получится."
+            }
+          ]
+        }
+      ],
+      "text": "Параметры кампании\nPATCH\n/api/client/campaign/{campaignId}\nОписание и примерыКонсоль\n\nМетод для изменения параметров кампании.\n\nPATH PARAMETERS\ncampaignId\nrequired\n\nstring <uint64>\n\nИдентификатор кампании.\n\nREQUEST BODY SCHEMA: application/json\nautopilot\nobject\n\nИнформация о кампании. Обязательный параметр, если в параметре productAutopilotStrategy включена автостратегия.\n\n\n\ncategoryId\nstring <uint64>\n\nИдентификатор категории.\n\n\nskuAddMode\nstring\nEnum: \"PRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN\" \"PRODUCT_CAMPAIGN_SKU_ADD_MODE_MANUAL\" \"PRODUCT_CAMPAIGN_SKU_ADD_MODE_AUTO\"\n\nРазрешение на автоматическое добавление товаров из категории, которая указана в categoryId, в кампании с автостратегией MAX_VIEWS:\n\nPRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN — стратегия добавления товаров в кампанию не установлена;\nPRODUCT_CAMPAIGN_SKU_ADD_MODE_MANUAL — добавлять товары в кампанию можно только вручную;\nPRODUCT_CAMPAIGN_SKU_ADD_MODE_AUTO — можно добавлять товары категории categoryId в кампанию автоматически.\n\nЕсли тип разрешения пустой или было передано PRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN, добавлять товары в кампанию можно только вручную.\n\nДля кампаний без автостратегии MAX_VIEWS возвращается значение PRODUCT_CAMPAIGN_SKU_ADD_MODE_UNKNOWN.\n\n\nfromDate\nstring\n\nДата начала рекламной кампании по московскому времени.\n\nНе может быть раньше текущей даты.\n\n\ntoDate\nstring\n\nДата окончания рекламной кампании по московскому времени.\n\nНе может быть раньше даты начала.\n\n\nbudget\nstring <uint64>\n\nОграничение общего бюджета рекламной кампании. Единица измерения — одна миллионная доля рубля, округляется до копеек. Например, значение 1 000 000 в параметре равно 1 рублю.\n\nУчитывается только для автоматических кампаний брендов и агентств. В других организациях установить новое ограничение общего бюджета не получится. Если у кампании уже установлен бюджет, можно:\n\nУбрать ограничения: передайте 0 в этом параметре.\nНе менять бюджет кампании. Когда он будет исчерпан, уберите ограничения бюджета или создайте новую кампанию с неограниченным бюджетом.\n\ndailyBudget\nstring <uint64>\nDeprecated\n\nОграничение дневного бюджета рекламной кампании. Единица измерения — одна миллионная доля рубля, округляется до копеек. Например, значение 1 000 000 в параметре равно 1 рублю.\n\nЕсли параметр не заполнен, дневной бюджет не ограничен. После создания рекламной кампании изменить бюджет с дневного на недельный и наоборот не получится.\n\n\nweeklyBudget\nstring <uint64>\n\nОграничение недельного бюджета рекламной кампании. Единица измерения — одна миллионная доля рубля, округляется до копеек. Например, значение 1 000 000 в параметре равно 1 рублю.\n\nЕсли параметр не заполнен, недельный бюджет не ограничен. После создания рекламной кампании изменить бюджет с недельного на дневной и наоборот не получится.\n\nОтветы\n200\n\nПараметры кампании обновлены\n\nRESPONSE SCHEMA: application/json\ncampaignId\nstring <uint64>\n\nИдентификатор кампании.\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "AddProducts",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "PATH PARAMETERS",
+          "fields": [
+            {
+              "name": "campaignId",
+              "required": true,
+              "material": "string <uint64>",
+              "children": [],
+              "description": "string <uint64>\n\nИдентификатор кампании."
+            }
+          ]
+        },
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "bids",
+              "required": false,
+              "material": "Array of objects",
+              "children": [
+                {
+                  "name": "sku",
+                  "required": false,
+                  "material": "string <uint64>",
+                  "children": [],
+                  "description": "string <uint64>\n\nSKU рекламируемого товара.\n\nОбязательное поле."
+                },
+                {
+                  "name": "bid",
+                  "required": false,
+                  "material": "string <uint64>\nТолько для стратегии «Средняя стоимость клика».",
+                  "children": [],
+                  "description": "string <uint64>\nТолько для стратегии «Средняя стоимость клика».\n\nСтавка за один клик — CPC."
+                },
+                {
+                  "name": "targetCir",
+                  "required": false,
+                  "material": "number <double> [ 10 .. 100 ]\nDefault: 15\nТолько для стратегии «Целевой расход».",
+                  "children": [],
+                  "description": "number <double> [ 10 .. 100 ]\nDefault: 15\nТолько для стратегии «Целевой расход».\n\nЦелевая доля рекламных расходов в процентах."
+                },
+                {
+                  "name": "topPosition",
+                  "required": false,
+                  "material": "string <uint64>\nDefault: \"Топ-20\"\nТолько для стратегии «Вывод в топ».",
+                  "children": [],
+                  "description": "string <uint64>\nDefault: \"Топ-20\"\nТолько для стратегии «Вывод в топ».\n\nДиапазон позиций в поиске:\n\nТоп-4,\nТоп-12,\nТоп-20,\nТоп-30."
+                }
+              ],
+              "description": "Array of objects\n\nСтавки за клики."
+            }
+          ]
+        }
+      ],
+      "text": "Добавить товары в кампанию\nPOST\n/api/client/campaign/{campaignId}/products\nОписание и примерыКонсоль\n\nВ кампанию можно добавить не более 500 товаров.\n\nРекомендации по заполнению параметров для разных кампаний\n\nДля добавления в кампанию товаров передайте значения параметров sku и bid. Если параметр bid не указан, автоматически задаётся конкурентная ставка.\n\nПараметр bid учитывается только для кампании с включённой стратегией «Средняя стоимость клика».\n\nДля кампании с включённой стратегией можно добавлять товары только из категории autopilot.categoryId.\n\nPATH PARAMETERS\ncampaignId\nrequired\n\nstring <uint64>\n\nИдентификатор кампании.\n\nREQUEST BODY SCHEMA: application/json\nbids\nArray of objects\n\nСтавки за клики.\n\n\n\nArray ()\nsku\nstring <uint64>\n\nSKU рекламируемого товара.\n\nОбязательное поле.\n\n\nbid\nstring <uint64>\nТолько для стратегии «Средняя стоимость клика».\n\nСтавка за один клик — CPC.\n\n\ntargetCir\nnumber <double> [ 10 .. 100 ]\nDefault: 15\nТолько для стратегии «Целевой расход».\n\nЦелевая доля рекламных расходов в процентах.\n\n\ntopPosition\nstring <uint64>\nDefault: \"Топ-20\"\nТолько для стратегии «Вывод в топ».\n\nДиапазон позиций в поиске:\n\nТоп-4,\nТоп-12,\nТоп-20,\nТоп-30.\nОтветы\n200\n\nТовары добавлены в кампанию\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "UpdateProducts",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "PATH PARAMETERS",
+          "fields": [
+            {
+              "name": "campaignId",
+              "required": true,
+              "material": "string <uint64>",
+              "children": [],
+              "description": "string <uint64>\n\nИдентификатор кампании."
+            }
+          ]
+        },
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "bids",
+              "required": false,
+              "material": "Array of objects",
+              "children": [
+                {
+                  "name": "sku",
+                  "required": true,
+                  "material": "string <uint64>",
+                  "children": [],
+                  "description": "string <uint64>\n\nSKU рекламируемого товара."
+                },
+                {
+                  "name": "bid",
+                  "required": false,
+                  "material": "string <uint64>\nТолько для стратегии «Средняя стоимость клика».",
+                  "children": [],
+                  "description": "string <uint64>\nТолько для стратегии «Средняя стоимость клика».\n\nСтавка за один клик — CPC."
+                },
+                {
+                  "name": "targetCir",
+                  "required": false,
+                  "material": "number <double> [ 10 .. 100 ]\nDefault: 15\nТолько для стратегии «Целевой расход».",
+                  "children": [],
+                  "description": "number <double> [ 10 .. 100 ]\nDefault: 15\nТолько для стратегии «Целевой расход».\n\nЦелевая доля рекламных расходов в процентах."
+                },
+                {
+                  "name": "topPosition",
+                  "required": false,
+                  "material": "string <uint64>\nDefault: \"Топ-20\"\nТолько для стратегии «Вывод в топ».",
+                  "children": [],
+                  "description": "string <uint64>\nDefault: \"Топ-20\"\nТолько для стратегии «Вывод в топ».\n\nДиапазон позиций в поиске:\n\nТоп-4,\nТоп-12,\nТоп-20,\nТоп-30."
+                }
+              ],
+              "description": "Array of objects\n\nСтавки за клики."
+            }
+          ]
+        }
+      ],
+      "text": "Обновить ставки товаров\nPUT\n/api/client/campaign/{campaignId}/products\nОписание и примерыКонсоль\n\nЭтот метод перезаписывает список стоп-слов и фразы со ставками. Исходные стоп-слова и фразы со ставками удаляются.\n\nЧтобы обновить ставки в кампании с размещением в карточке товара, передайте значения параметров sku и bid.\n\nПараметр bid учитывается только для кампании с включённой стратегией «Средняя стоимость клика».\n\nPATH PARAMETERS\ncampaignId\nrequired\n\nstring <uint64>\n\nИдентификатор кампании.\n\nREQUEST BODY SCHEMA: application/json\nbids\nArray of objects\n\nСтавки за клики.\n\n\n\nArray ()\nsku\nrequired\n\nstring <uint64>\n\nSKU рекламируемого товара.\n\n\nbid\nstring <uint64>\nТолько для стратегии «Средняя стоимость клика».\n\nСтавка за один клик — CPC.\n\n\ntargetCir\nnumber <double> [ 10 .. 100 ]\nDefault: 15\nТолько для стратегии «Целевой расход».\n\nЦелевая доля рекламных расходов в процентах.\n\n\ntopPosition\nstring <uint64>\nDefault: \"Топ-20\"\nТолько для стратегии «Вывод в топ».\n\nДиапазон позиций в поиске:\n\nТоп-4,\nТоп-12,\nТоп-20,\nТоп-30.\nОтветы\n200\n\nСтавки обновлены\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "GetProductsV2",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "PATH PARAMETERS",
+          "fields": [
+            {
+              "name": "campaignId",
+              "required": true,
+              "material": "string <uint64>",
+              "children": [],
+              "description": "string <uint64>\n\nИдентификатор кампании."
+            }
+          ]
+        },
+        {
+          "label": "QUERY PARAMETERS",
+          "fields": [
+            {
+              "name": "page",
+              "required": false,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nНомер страницы."
+            },
+            {
+              "name": "pageSize",
+              "required": false,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nРазмер страницы."
+            }
+          ]
+        }
+      ],
+      "text": "Список товаров кампании\nGET\n/api/client/campaign/{campaignId}/v2/products\nОписание и примерыКонсоль\nPATH PARAMETERS\ncampaignId\nrequired\n\nstring <uint64>\n\nИдентификатор кампании.\n\nQUERY PARAMETERS\npage\ninteger <int64>\n\nНомер страницы.\n\n\npageSize\ninteger <int64>\n\nРазмер страницы.\n\nОтветы\n200\n\nСписок товаров кампании\n\nRESPONSE SCHEMA: application/json\nproducts\nArray of objects\n\nСписок товаров кампании.\n\n\n\nArray ()\nsku\nstring <uint64>\n\nИдентификатор товара: Ozon ID или SKU.\n\n\nbid\nstring <uint64>\nТолько для стратегии «Средняя стоимость клика».\n\nСтавка за один клик — CPC.\n\n\ntargetCir\nnumber <double> [ 10 .. 100 ]\nDefault: 15\nТолько для стратегии «Целевой расход».\n\nЦелевая доля рекламных расходов в процентах.\n\n\ntitle\nstring\n\nНазвание товара.\n\n\ntopPosition\nstring <uint64>\nDefault: \"Топ-20\"\nТолько для стратегии «Вывод в топ».\n\nДиапазон позиций в поиске:\n\nТоп-4,\nТоп-12,\nТоп-20,\nТоп-30.\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "DeleteProducts",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "PATH PARAMETERS",
+          "fields": [
+            {
+              "name": "campaignId",
+              "required": true,
+              "material": "string <uint64>",
+              "children": [],
+              "description": "string <uint64>\n\nИдентификатор кампании."
+            }
+          ]
+        },
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "sku",
+              "required": false,
+              "material": "Array of strings <uint64>",
+              "children": [],
+              "description": "Array of strings <uint64>\n\nSKU продвигаемого товара."
+            }
+          ]
+        }
+      ],
+      "text": "Удалить товары из кампании\nPOST\n/api/client/campaign/{campaignId}/products/delete\nОписание и примерыКонсоль\nPATH PARAMETERS\ncampaignId\nrequired\n\nstring <uint64>\n\nИдентификатор кампании.\n\nREQUEST BODY SCHEMA: application/json\nsku\nArray of strings <uint64>\n\nSKU продвигаемого товара.\n\nОтветы\n200\n\nТовар удалён из кампании\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "GetProductsCompetitiveBids",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "PATH PARAMETERS",
+          "fields": [
+            {
+              "name": "campaignId",
+              "required": true,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nИдентификатор кампании."
+            }
+          ]
+        },
+        {
+          "label": "QUERY PARAMETERS",
+          "fields": [
+            {
+              "name": "skus",
+              "required": false,
+              "material": "Array of strings",
+              "children": [],
+              "description": "Array of strings\n\nСписок SKU товаров."
+            }
+          ]
+        }
+      ],
+      "text": "Конкурентные ставки для товара\nGET\n/api/client/campaign/{campaignId}/products/bids/competitive\nОписание и примерыКонсоль\n\nЕсли товар не добавлен в кампанию, в параметре bid будет значение 0. В одном запросе вы можете передать до 200 товаров.\n\nPATH PARAMETERS\ncampaignId\nrequired\n\nstring\n\nИдентификатор кампании.\n\nQUERY PARAMETERS\nskus\nArray of strings\n\nСписок SKU товаров.\n\nОтветы\n200\n\nКонкурентные ставки\n\nRESPONSE SCHEMA: application/json\nbids\nArray of objects\n\nСписок ставок.\n\n\n\nArray ()\nbid\nstring <uint64>\n\nСтавка.\n\n\nsku\nstring\n\nSKU товара.\n\n\ncampaignId\nstring\n\nИдентификатор кампании.\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "ExternalCampaign_ListSearchPromoProductsV2",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "page",
+              "required": false,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nНомер страницы. Пагинация начинается с единицы."
+            },
+            {
+              "name": "pageSize",
+              "required": false,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nРазмер страницы."
+            }
+          ]
+        }
+      ],
+      "text": "Список товаров в продвижении в оплате за заказ\nPOST\n/api/client/campaign/search_promo/v2/products\nОписание и примерыКонсоль\nREQUEST BODY SCHEMA: application/json\npage\ninteger <int64>\n\nНомер страницы. Пагинация начинается с единицы.\n\n\npageSize\ninteger <int64>\n\nРазмер страницы.\n\nОтветы\n200\n\nСписок товаров\n\nRESPONSE SCHEMA: application/json\nproducts\nArray of objects\n\nСписок товаров.\n\n\n\nArray ()\nbid\nnumber <double>\n\nСтавка за 1 заказ (CPO). Единица измерения — процент от цены товара.\n\n\nbidPrice\nstring\n\nСтавка за 1 заказ (CPO) в рублях.\n\n\nbidWithoutAdditive\nnumber <double>\n\nСтавка за 1 заказ (CPO) в рублях без участия в акции «Морковск».\n\n\ncarrotsAdditive\nnumber <double>\n\nПроцент, на который участие в акции «Морковск» повышает ставку.\n\n\ncarrotsStatus\nstring\nDefault: \"CARROTS_STATUS_INVALID\"\nEnum: \"CARROTS_STATUS_INVALID\" \"CARROTS_STATUS_UNAVAILABLE\" \"CARROTS_STATUS_DISABLED\" \"CARROTS_STATUS_ENABLED\"\n\nСтатус участия товара в акции Морковск»:\n\nCARROTS_STATUS_INVALID — статус отсутствует;\nCARROTS_STATUS_UNAVAILABLE — статус недоступен;\nCARROTS_STATUS_DISABLED — товар не участвует в акции;\nCARROTS_STATUS_ENABLED — товар участвует в акции.\n\nhint\nobject\n\nМаксимальная ставка.\n\n\n\ncampaignId\nstring <uint64>\n\nИдентификатор кампании.\n\n\norganisationTitle\nstring\n\nНазвание организации.\n\n\nimageUrl\nstring\n\nАдрес ссылки на изображение.\n\n\nisSearchPromoAvailable\nboolean\n\ntrue, если товар не заблокирован в продвижении в оплате за заказ.\n\n\npreviousBid\nobject\n\nИнформация о предыдущем значении ставки.\n\n\n\nbid\nnumber <double>\n\nПредыдущее значение products.bid.\n\n\nbidPrice\nstring\n\nПредыдущее значение products.bidPrice.\n\n\nupdatedAt\nstring <date-time>\n\nДата и время последнего изменения ставки.\n\n\npreviousVisibilityIndex\nstring\n\nПредыдущее значение visibilityIndex.\n\n\nprice\nstring\n\nЦена товара.\n\n\nsearchPromoStatus\nboolean\n\ntrue, если включено продвижение товара в оплате за заказ.\n\n\nsku\nstring <uint64>\n\nSKU продвигаемого товара.\n\n\nsourceSku\nstring\n\nАртикул продавца.\n\n\ntitle\nstring\n\nНазвание товара.\n\n\nviews\nobject\n\nИнформация о просмотрах.\n\n\n\npreviousWeek\nstring <uint64>\n\nКоличество просмотров товара за предыдущую неделю.\n\n\nthisWeek\nstring <uint64>\n\nКоличество просмотров товара за последние 7 дней.\n\n\nvisibilityIndex\nstring\n\nИндекс видимости.\n\n\ntotal\nstring <uint64>\n\nКоличество товаров.\n\ndefault\n\nОшибка"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "ExternalCampaign_GetProductsRecommendedBids",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "skus",
+              "required": false,
+              "material": "Array of strings <uint64>",
+              "children": [],
+              "description": "Array of strings <uint64>\n\nСписок идентификаторов товаров."
+            }
+          ]
+        }
+      ],
+      "text": "Рекомендованные ставки для товаров Deprecated\nPOST\n/api/client/search_promo/bids/recommendation\nОписание и примерыКонсоль\n\nЗа один запрос вы можете передать до 200 SKU.\n\nREQUEST BODY SCHEMA: application/json\nskus\nArray of strings <uint64>\n\nСписок идентификаторов товаров.\n\nОтветы\n200\n\nРекомендованные ставки\n\nRESPONSE SCHEMA: application/json\nrecommendedBids\nobject\n\nСписок рекомендованных ставок.\n\n\n\nSKU*\nstring\n\nSKU товара и рекомендованная ставка за 1 заказ (CPO) в процентах от цены товара.\n\ndefault\n\nОшибка"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "ExternalCampaign_SetSearchPromoBidsV2",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "bids",
+              "required": false,
+              "material": "Array of objects",
+              "children": [
+                {
+                  "name": "bid",
+                  "required": false,
+                  "material": "number <double>",
+                  "children": [],
+                  "description": "number <double>\n\nСтавка за 1 заказ (CPO), единица измерения — процент от цены товара."
+                },
+                {
+                  "name": "sku",
+                  "required": false,
+                  "material": "string <uint64>",
+                  "children": [],
+                  "description": "string <uint64>\n\nИдентификатор товара."
+                }
+              ],
+              "description": "Array of objects\n\nЗначения ставок."
+            }
+          ]
+        }
+      ],
+      "text": "Установить ставку на товар Deprecated\nPOST\n/api/client/campaign/search_promo/v2/bids/set\nОписание и примерыКонсоль\n\nЕсли товар ещё не добавлен в продвижение, система добавит его автоматически.\n\nВ одном запросе можно передать максимум 1000 товаров.\n\nREQUEST BODY SCHEMA: application/json\nbids\nArray of objects\n\nЗначения ставок.\n\n\n\nArray ()\nbid\nnumber <double>\n\nСтавка за 1 заказ (CPO), единица измерения — процент от цены товара.\n\n\nsku\nstring <uint64>\n\nИдентификатор товара.\n\nОтветы\n200\n\nСтавка установлена\n\nRESPONSE SCHEMA: application/json\nresponse\nArray of objects\n\nОтвет метода.\n\n\n\nArray ()\nbid\nnumber <double>\n\nЗначения ставок.\n\n\nerror\nstring\n\nОшибка, из-за которой нельзя обновить ставку.\n\n\nsku\nstring <uint64>\n\nSKU продвигаемого товара.\n\n\nupdate\nboolean\n\ntrue, если ставка обновилась.\n\ndefault\n\nОшибка"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "ExternalCampaign_GetCPOMinBids",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "skus",
+              "required": false,
+              "material": "Array of strings <uint64>",
+              "children": [],
+              "description": "Array of strings <uint64>\n\nСписок идентификаторов товаров."
+            }
+          ]
+        }
+      ],
+      "text": "Получить фиксированные ставки для товаров\nPOST\n/api/client/search_promo/get_cpo_min_bids\nОписание и примерыКонсоль\n\nЗа один запрос вы можете передать до 200 SKU.\n\nREQUEST BODY SCHEMA: application/json\nskus\nArray of strings <uint64>\n\nСписок идентификаторов товаров.\n\nОтветы\n200\n\nФиксированные ставки получены\n\nRESPONSE SCHEMA: application/json\nbids\nArray of objects\n\nИнформация о ставках.\n\n\n\nArray ()\nbid\nnumber <double>\n\nЗначение ставки.\n\n\nsku\nstring <uint64>\n\nSKU продвигаемого товара.\n\ndefault\n\nОшибка"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "ExternalCampaign_BatchEnableProducts",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "skus",
+              "required": false,
+              "material": "Array of strings <uint64>",
+              "children": [],
+              "description": "Array of strings <uint64>\n\nСписок идентификаторов товаров."
+            }
+          ]
+        }
+      ],
+      "text": "Включить продвижение товара в оплате за заказ\nPOST\n/api/client/search_promo/product/enable\nОписание и примерыКонсоль\n\nВ одном запросе можно передать максимум 1000 товаров.\n\nREQUEST BODY SCHEMA: application/json\nskus\nArray of strings <uint64>\n\nСписок идентификаторов товаров.\n\nОтветы\n200\n\nПродвижение товара включено\n\nRESPONSE SCHEMA: application/json\nresponse\nArray of objects\n\nОтвет метода.\n\n\n\nArray ()\nbid\nnumber <double>\n\nЗначения ставок.\n\n\nerror\nstring\n\nОшибка, из-за которой нельзя включить продвижение товара.\n\n\nsku\nstring <uint64>\n\nSKU продвигаемого товара.\n\n\nupdate\nboolean\n\ntrue, если продвижение товара включилось.\n\ndefault\n\nОшибка"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "ExternalCampaign_BatchDisableProducts",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "skus",
+              "required": false,
+              "material": "Array of strings <uint64>",
+              "children": [],
+              "description": "Array of strings <uint64>\n\nСписок идентификаторов товаров."
+            }
+          ]
+        }
+      ],
+      "text": "Отключить продвижение товара в оплате за заказ\nPOST\n/api/client/search_promo/product/disable\nОписание и примерыКонсоль\n\nВ одном запросе можно передать максимум 1000 товаров.\n\nREQUEST BODY SCHEMA: application/json\nskus\nArray of strings <uint64>\n\nСписок идентификаторов товаров.\n\nОтветы\n200\n\nПродвижение товара отключено\n\nRESPONSE SCHEMA: application/json\nobject\ndefault\n\nОшибка"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "ExternalCampaign_DeleteSearchPromoBidsV2",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "sku",
+              "required": false,
+              "material": "Array of strings <uint64>",
+              "children": [],
+              "description": "Array of strings <uint64>\n\nСписок идентификаторов товаров."
+            }
+          ]
+        }
+      ],
+      "text": "Удалить товар из продвижения в оплате за заказ\nPOST\n/api/client/campaign/search_promo/v2/bids/delete\nОписание и примерыКонсоль\n\nВ одном запросе можно передать максимум 1000 товаров.\n\nREQUEST BODY SCHEMA: application/json\nsku\nArray of strings <uint64>\n\nСписок идентификаторов товаров.\n\nОтветы\n200\n\nТовар удалён\n\nRESPONSE SCHEMA: application/json\nobject\ndefault\n\nОшибка"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "ActivateAllSkuPromoCampaign",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [],
+      "text": "Включить продвижение в оплате за заказ — все товары\nGET\n/api/client/campaign/all_sku_promo/activate\nОписание и примерыКонсоль\nОтветы\n200\n\nПродвижение включено\n\nRESPONSE SCHEMA: application/json\nselectedBid\nstring <uint64>\n\nВыбранная ставка для продвижения.\n\ndefault\n\nОшибка"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "DeactivateAllSkuPromoCampaign",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [],
+      "text": "Выключить продвижение в оплате за заказ — все товары\nGET\n/api/client/campaign/all_sku_promo/deactivate\nОписание и примерыКонсоль\nОтветы\n200\n\nПродвижение выключено\n\ndefault\n\nОшибка"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "SetAllSkuPromoCampaignBid2",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "QUERY PARAMETERS",
+          "fields": [
+            {
+              "name": "bid",
+              "required": false,
+              "material": "string <uint64>\nDefault: 7",
+              "children": [],
+              "description": "string <uint64>\nDefault: 7\n\nЗначение ставки в процентах:\n\n5,\n7,\n9."
+            }
+          ]
+        }
+      ],
+      "text": "Установить ставку для продвижения в Оплате за заказ — все товары\nGET\n/api/client/campaign/all_sku_promo/set_bid\nОписание и примерыКонсоль\nQUERY PARAMETERS\nbid\nstring <uint64>\nDefault: 7\n\nЗначение ставки в процентах:\n\n5,\n7,\n9.\nОтветы\n200\n\nСтавка установлена\n\ndefault\n\nОшибка"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "ExternalCampaign_BatchEnableCarrots4",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "skus",
+              "required": true,
+              "material": "Array of strings <uint64>",
+              "children": [],
+              "description": "Array of strings <uint64>\n\nСписок идентификаторов товаров."
+            }
+          ]
+        }
+      ],
+      "text": "Включить продвижение товаров в акции «Морковск»\nPOST\n/api/client/campaign/search_promo/carrots/enable\nОписание и примерыКонсоль\n\nДобавляет товары в акцию «Морковск».\nПодробнее об акции\n\nREQUEST BODY SCHEMA: application/json\nskus\nrequired\n\nArray of strings <uint64>\n\nСписок идентификаторов товаров.\n\nОтветы\n200\n\nПродвижение включено\n\nRESPONSE SCHEMA: application/json\nskuToInfo\nobject\n\nИнформация о включении продвижения по SKU товара.\n\n\n\nproperty name*\nobject\n\nИнформация об операции.\n\n\n\nerror\nstring\nDefault: \"CARROT_ERROR_NONE\"\nEnum: \"CARROT_ERROR_NONE\" \"CARROT_ERROR_INVALID_PRICE\" \"CARROT_ERROR_INVALID_PRODUCT\" \"CARROT_ERROR_OTHER\"\n\nОшибка при включении или отключении продвижения:\n\nCARROT_ERROR_NONE — нет ошибки;\nCARROT_ERROR_INVALID_PRICE — цена товара ниже минимального значения;\nCARROT_ERROR_INVALID_PRODUCT — товар не прошёл модерацию;\nCARROT_ERROR_OTHER — прочие ошибки.\n\nisEnabled\nboolean\n\ntrue, если продвижение включено.\n\ndefault\n\nОшибка"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "ExternalCampaign_BatchDisableCarrots4",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "skus",
+              "required": true,
+              "material": "Array of strings <uint64>",
+              "children": [],
+              "description": "Array of strings <uint64>\n\nСписок идентификаторов товаров."
+            }
+          ]
+        }
+      ],
+      "text": "Отключить продвижение товаров в акции «Морковск»\nPOST\n/api/client/campaign/search_promo/carrots/disable\nОписание и примерыКонсоль\n\nУдаляет товары из акции «Морковск».\nПодробнее об акции\n\nREQUEST BODY SCHEMA: application/json\nskus\nrequired\n\nArray of strings <uint64>\n\nСписок идентификаторов товаров.\n\nОтветы\n200\n\nПродвижение отключено\n\nRESPONSE SCHEMA: application/json\nskuToInfo\nobject\n\nИнформация об отключении продвижения по SKU товара.\n\n\n\nproperty name*\nobject\n\nИнформация об операции.\n\n\n\nerror\nstring\nDefault: \"CARROT_ERROR_NONE\"\nEnum: \"CARROT_ERROR_NONE\" \"CARROT_ERROR_INVALID_PRICE\" \"CARROT_ERROR_INVALID_PRODUCT\" \"CARROT_ERROR_OTHER\"\n\nОшибка при включении или отключении продвижения:\n\nCARROT_ERROR_NONE — нет ошибки;\nCARROT_ERROR_INVALID_PRICE — цена товара ниже минимального значения;\nCARROT_ERROR_INVALID_PRODUCT — товар не прошёл модерацию;\nCARROT_ERROR_OTHER — прочие ошибки.\n\nisDisabled\nboolean\n\ntrue, если продвижение отключено.\n\ndefault\n\nAn unexpected error response."
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "VendorStatisticsSubmitRequest",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "dateFrom",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nНачало отчётного периода.\n\nДата должна быть не ранее 1 января 2022 года."
+            },
+            {
+              "name": "dateTo",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nКонец отчётного периода.\n\nДата должна быть позднее dateFrom не больше чем на 3 месяца. Если дата позднее трёх месяцев, отчёт сформируется за 3 месяца с даты, указанной в dateFrom."
+            },
+            {
+              "name": "type",
+              "required": false,
+              "material": "string\nEnum: \"TRAFFIC_SOURCES\" \"ORDERS\"",
+              "children": [],
+              "description": "string\nEnum: \"TRAFFIC_SOURCES\" \"ORDERS\"\n\nТип отчёта:\n\nTRAFFIC_SOURCES — отчёт по источникам трафика.\nORDERS — отчёт по заказам."
+            }
+          ]
+        }
+      ],
+      "text": "Отчёт с аналитикой внешнего трафика\nPOST\n/api/client/vendors/statistics\nОписание и примерыКонсоль\n\nМетод для запуска формирования отчёта с аналитикой внешнего трафика.\n\nРазница между dateFrom и dateTo должна быть не больше трёх месяцев. Если разница больше, отчёт сформируется за 3 месяца с даты, указанной в dateFrom.\n\nREQUEST BODY SCHEMA: application/json\ndateFrom\nstring\n\nНачало отчётного периода.\n\nДата должна быть не ранее 1 января 2022 года.\n\n\ndateTo\nstring\n\nКонец отчётного периода.\n\nДата должна быть позднее dateFrom не больше чем на 3 месяца. Если дата позднее трёх месяцев, отчёт сформируется за 3 месяца с даты, указанной в dateFrom.\n\n\ntype\nstring\nEnum: \"TRAFFIC_SOURCES\" \"ORDERS\"\n\nТип отчёта:\n\nTRAFFIC_SOURCES — отчёт по источникам трафика.\nORDERS — отчёт по заказам.\nОтветы\n200\n\nУспешно\n\nRESPONSE SCHEMA: application/json\nUUID\nstring\n\nУникальный идентификатор отправленного запроса.\n\nПо нему можно проверить статус формирования отчёта и скачать отчёт.\n\n\nvendor\nboolean\n\nЕсли запрашивается отчёт с аналитикой внешнего трафика — true.\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "VendorStatisticsListReports",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "QUERY PARAMETERS",
+          "fields": [
+            {
+              "name": "page",
+              "required": false,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nНомер страницы."
+            },
+            {
+              "name": "pageSize",
+              "required": false,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nРазмер страницы."
+            }
+          ]
+        }
+      ],
+      "text": "Список запрошенных отчётов с аналитикой внешнего трафика\nGET\n/api/client/vendors/statistics/list\nОписание и примерыКонсоль\nQUERY PARAMETERS\npage\ninteger <int64>\n\nНомер страницы.\n\n\npageSize\ninteger <int64>\n\nРазмер страницы.\n\nОтветы\n200\n\nОтчёты\n\nRESPONSE SCHEMA: application/json\nitems\nArray of objects\n\nИнформация об отчётах.\n\n\n\nArray ()\nmeta\nobject\n\nИнформация об отчёте.\n\n\n\nUUID\nstring\n\nУникальный идентификатор отправленного запроса, с помощью которого в дальнейшем можно проверить статус выполнения запроса и скачать отчёт.\n\n\ncreatedAt\nstring <date-time>\n\nДата формирования отчёта.\n\n\nerror\nstring\n\nОписание ошибки.\n\n\nlink\nstring\n\nСсылка на отчёт.\n\n\nrequest\nobject\n\nМетод, с помощью которого запросили формирование отчёта.\n\n\n\ndateFrom\nstring\n\nНачало отчётного периода.\n\nДата должна быть не ранее 1 января 2022 года.\n\n\ndateTo\nstring\n\nКонец отчётного периода.\n\nДата должна быть позднее dateFrom не больше чем на 3 месяца. Если дата позднее трёх месяцев, отчёт сформируется за 3 месяца с даты, указанной в dateFrom.\n\n\ntype\nstring\nEnum: \"TRAFFIC_SOURCES\" \"ORDERS\"\n\nТип отчёта:\n\nTRAFFIC_SOURCES — отчёт по источникам трафика.\nORDERS — отчёт по заказам.\n\nstate\nany\nDefault: \"NOT_STARTED\"\nEnum: \"NOT_STARTED\" \"IN_PROGRESS\" \"OK\" \"ERROR\" \"TIMEOUT\" \"CANCEL\"\n\nСтатус формирования отчёта:\n\nNOT_STARTED — ещё не началось.\nIN_PROGRESS — в процессе.\nCANCEL — отменено.\nOK — отчёт сформирован.\nERROR — произошла ошибка.\nTIMEOUT — время ожидания истекло.\n\nupdatedAt\nstring <date-time>\n\nВремя изменения статуса.\n\n\nname\nstring\n\nНазвание отчёта.\n\n\ntotal\nstring <uint64>\n\nКоличество отчётов.\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "VendorStatisticsCheck",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "PATH PARAMETERS",
+          "fields": [
+            {
+              "name": "UUID",
+              "required": true,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nУникальный идентификатор запроса."
+            }
+          ]
+        },
+        {
+          "label": "QUERY PARAMETERS",
+          "fields": [
+            {
+              "name": "vendor",
+              "required": true,
+              "material": "boolean",
+              "children": [],
+              "description": "boolean\n\nПризнак, что запрашивается отчёт с аналитикой внешнего трафика. Передавайте true в этом параметре."
+            }
+          ]
+        }
+      ],
+      "text": "Информация об отчёте по UUID\nGET\n/api/client/vendors/statistics/{UUID}\nОписание и примерыКонсоль\nPATH PARAMETERS\nUUID\nrequired\n\nstring\n\nУникальный идентификатор запроса.\n\nQUERY PARAMETERS\nvendor\nrequired\n\nboolean\n\nПризнак, что запрашивается отчёт с аналитикой внешнего трафика. Передавайте true в этом параметре.\n\nОтветы\n200\n\nИнформация об отчёте\n\nRESPONSE SCHEMA: application/json\nUUID\nstring\n\nУникальный идентификатор отправленного запроса, с помощью которого в дальнейшем можно проверить статус выполнения запроса и скачать отчёт.\n\n\ncreatedAt\nstring <date-time>\n\nДата формирования отчёта.\n\n\nerror\nstring\n\nОписание ошибки.\n\n\nlink\nstring\n\nСсылка на отчёт.\n\n\nrequest\nobject\n\nМетод, с помощью которого запросили формирование отчёта.\n\n\n\ndateFrom\nstring\n\nНачало отчётного периода.\n\nДата должна быть не ранее 1 января 2022 года.\n\n\ndateTo\nstring\n\nКонец отчётного периода.\n\nДата должна быть позднее dateFrom не больше чем на 3 месяца. Если дата позднее трёх месяцев, отчёт сформируется за 3 месяца с даты, указанной в dateFrom.\n\n\ntype\nstring\nEnum: \"TRAFFIC_SOURCES\" \"ORDERS\"\n\nТип отчёта:\n\nTRAFFIC_SOURCES — отчёт по источникам трафика.\nORDERS — отчёт по заказам.\n\nstate\nany\nDefault: \"NOT_STARTED\"\nEnum: \"NOT_STARTED\" \"IN_PROGRESS\" \"OK\" \"ERROR\" \"TIMEOUT\" \"CANCEL\"\n\nСтатус формирования отчёта:\n\nNOT_STARTED — ещё не началось.\nIN_PROGRESS — в процессе.\nCANCEL — отменено.\nOK — отчёт сформирован.\nERROR — произошла ошибка.\nTIMEOUT — время ожидания истекло.\n\nupdatedAt\nstring <date-time>\n\nВремя изменения статуса.\n\ndefault\n\nОшибка запроса"
+    },
+    {
+      "closed_schema_nodes": 0,
+      "method_id": "GetVendorTag",
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "QUERY PARAMETERS",
+          "fields": [
+            {
+              "name": "orgId",
+              "required": true,
+              "material": "string <uint64>",
+              "children": [],
+              "description": "string <uint64>\n\nИдентификатор организации."
+            }
+          ]
+        }
+      ],
+      "text": "Метка организации для внешних рекламных кампаний\nGET\n/api/client/organisation/vendor_tag\nОписание и примерыКонсоль\n\nМетод возвращает префикс для метки UTM_CAMPAIGN по идентификатору организации.\n\nПодробнее о ссылках для внешних рекламных кампаний\n\nQUERY PARAMETERS\norgId\nrequired\n\nstring <uint64>\n\nИдентификатор организации.\n\nОтветы\n200\n\nМетка организации\n\nRESPONSE SCHEMA: application/json\ntag\nstring\n\nПрефикс организации для UTM-метки.\n\ndefault\n\nОшибка запроса"
+    }
+  ]
+}

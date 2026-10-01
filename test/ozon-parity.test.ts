@@ -113,26 +113,12 @@ for (const [methodId] of required) {
 }
 
 {
-  const raw = { result: { postings: [{ posting_number: "A" }, { posting_number: "B" }], has_next: true } };
-  const result = await page(
-    "PostingAPI_GetFbsPostingUnfulfilledList",
-    { filter: { cutoff_from: "2026-01-01T00:00:00Z", cutoff_to: "2026-01-02T00:00:00Z" }, limit: 2, offset: 4 },
-    raw,
-  );
-  assert.deepEqual(result.continuation, {
-    kind: "offset",
-    has_more: true,
-    request_patch: { offset: 6 },
-  }, "offset advances by returned records without gaps or duplicates");
-}
-
-{
-  const result = await page(
-    "PostingAPI_GetFbsPostingUnfulfilledList",
-    { filter: { cutoff_from: "2026-01-01T00:00:00Z", cutoff_to: "2026-01-02T00:00:00Z" }, limit: 2, offset: 4 },
-    { result: { postings: [{ posting_number: "A" }] } },
-  );
-  assert.deepEqual(result.continuation, { kind: "offset", has_more: false, request_patch: null }, "short offset page stops");
+  assert.equal(findReadMethod("ozon", "PostingAPI_GetFbsPostingUnfulfilledList"), null, "retired v3 unfulfilled denied");
+  const raw = { postings: [{ posting_number: "A" }, { posting_number: "B" }], cursor: "next" };
+  const result = await page("PostingFboList", {filter: {since: "2026-01-01T00:00:00Z", to: "2026-01-02T00:00:00Z"}, limit: 2, cursor: "first"}, raw);
+  assert.deepEqual(result.continuation, {kind: "cursor", has_more: true, request_patch: {cursor: "next"}}, "current FBO cursor advances");
+  const terminal = await page("PostingFboList", {limit: 2, cursor: "next"}, {postings: [], cursor: "next"});
+  assert.deepEqual(terminal.continuation, {kind: "cursor", has_more: false, request_patch: null});
 }
 
 {

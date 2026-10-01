@@ -1,87 +1,1239 @@
 {
-  "artifact": "official-new-20-rendered-contracts",
-  "retrieved_at_utc": "2026-10-01T07:41:12.959Z",
-  "source": "https://docs.ozon.ru/api/seller/",
+  "family": "seller",
+  "source": "https://docs.ozon.ru/api/seller/#operation/GetProductInfoStocksByWarehouseFbo",
+  "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+  "extractor_source": "function captureOfficialDOM(){const label=t=>{let p=t.previousElementSibling;while(p){if(/^H[1-6]$/.test(p.tagName))return p.innerText;p=p.previousElementSibling;}return '';},fields=t=>{const rows=Array.from(t.querySelector(':scope > tbody')?.children??[]),out=[];for(let i=0;i<rows.length;i++){const row=rows[i],name=row.children[0]?.getAttribute('title');if(!name)continue;const text=row.children[1]?.innerText??'',child=rows[i+1]?.children[0]?.getAttribute('colspan')?rows[i+1].querySelector('table'):null;out.push({name,required:/\\brequired\\b/.test(row.children[0].innerText),material:text.split('\\n\\n')[0],children:child?fields(child):[]});}return out;};return Array.from(document.querySelectorAll('[data-section-id^=\"operation/\"]')).map(node=>{const tables=Array.from(node.querySelectorAll('table')).filter(t=>!t.parentElement.closest('table')),requests=tables.filter(t=>/REQUEST BODY SCHEMA|QUERY PARAMETERS|PATH PARAMETERS/i.test(label(t)));return {method_id:node.getAttribute('data-section-id').slice(10),text:node.innerText.normalize('NFC').replace(/\\r\\n?/g,'\\n').split('Примеры запроса')[0].split('Примеры ответа')[0].split('\\n').map(x=>x.trimEnd()).join('\\n').trim(),request_tables:requests.map(t=>({label:label(t),fields:fields(t)})),request_closed_schema_nodes:requests.reduce((n,t)=>n+t.querySelectorAll('button[aria-label=\"expand properties\"]:has(svg.gkvVFD)').length,0),closed_schema_nodes:node.querySelectorAll('button[aria-label=\"expand properties\"]:has(svg.gkvVFD)').length};});}",
   "operations": [
     {
+      "closed_schema_nodes": 0,
       "method_id": "ProductImportPicturesV2",
-      "text": "Загрузить или обновить изображения товара\nPOST\n/v2/product/pictures/import\nОписание и примерыКонсоль\n\nПри каждом вызове метода передавайте все изображения, которые должны быть на карточке товара. Например, если вы вызвали метод и загрузили 10 изображений, а затем вызвали метод второй раз и загрузили ещё одно, то все 10 предыдущих сотрутся.\n\nДля загрузки передайте адрес ссылки на изображение в общедоступном облачном хранилище. Формат изображения по ссылке — JPG или PNG.\n\nИзображения в массиве items.images располагайте в соответствии с желаемым порядком на сайте. Главным будет первое изображение в массиве.\n\nДля каждого товара вы можете загрузить до 50 изображений.\n\nДля загрузки маркетингового цвета используйте поле items.color_image.\n\nПодробнее о требованиях к фото в Базе знаний продавца\n\nЕсли вы хотите изменить состав или порядок изображений, получите информацию с помощью метода /v3/product/info/list — в нём отображается текущий порядок и состав изображений. Скопируйте данные полей items.images и items.color_image, измените и дополните состав или порядок при необходимости.\n\nУ метода есть лимит на количество операций c товарами в минуту и в сутки. Если вы превысите лимит, вернётся ошибка 429 с описанием в поле message и заголовками:\n\nItem-Retry-After — время в минутах до обновления лимита. Для суточного лимита — время до 03:00 по московскому времени.\nItem-Rate-Limit-Remaining — остаток операций до следующего сброса лимита.\n\nЧтобы узнать лимит, используйте метод /v4/product/info/limit.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\t\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\t\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\nitems\t\nArray of objects <= 100 items\n\nИнформация о товарах.\n\nОтветы\n200\n\nИзображения загружены или обновлены\n\nRESPONSE SCHEMA: application/json\ntask_id\t\ninteger <int64>\n\nИдентификатор задания. Чтобы проверить статус изображений, передайте полученное значение в метод /v1/product/import/info.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n429\n\nСлишком много запросов\n\n500\n\nВнутренняя ошибка сервера\n\nПримеры запроса\nContent type\napplication/json\n{\n\"items\": \n[\n{\n\"offer_id\": \"PROD-2023-001\",\n\"primary_image\": \"https://example.com/cloud-storage/images/main-image-front.jpg\",\n\"color_image\": \"\",\n\"images\": [ ]\n}\n]\n}\nКопировать\nСвернуть всё\nПримеры ответа\n200400403404409429500\nContent type\napplication/json\n{\n\"task_id\": 0\n}\nКопировать\nСвернуть всё"
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "items",
+              "required": false,
+              "material": "Array of objects <= 100 items",
+              "children": [
+                {
+                  "name": "offer_id",
+                  "required": true,
+                  "material": "string",
+                  "children": [],
+                  "description": "string\n\nИдентификатор товара в системе продавца — артикул."
+                },
+                {
+                  "name": "primary_image",
+                  "required": false,
+                  "material": "string",
+                  "children": [],
+                  "description": "string\n\nГлавное изображение товара."
+                },
+                {
+                  "name": "color_image",
+                  "required": false,
+                  "material": "string",
+                  "children": [],
+                  "description": "string\n\nМаркетинговый цвет."
+                },
+                {
+                  "name": "images",
+                  "required": false,
+                  "material": "Array of strings <= 50 items",
+                  "children": [],
+                  "description": "Array of strings <= 50 items\n\nСписок ссылок на изображения. Изображения в массиве расположены в порядке их расположения на сайте. Первое изображение в массиве будет главным, если в запросе не передано primary_image."
+                }
+              ],
+              "description": "Array of objects <= 100 items\n\nИнформация о товарах."
+            }
+          ]
+        }
+      ],
+      "text": "Загрузить или обновить изображения товара\nPOST\n/v2/product/pictures/import\nОписание и примерыКонсоль\n\nПри каждом вызове метода передавайте все изображения, которые должны быть на карточке товара. Например, если вы вызвали метод и загрузили 10 изображений, а затем вызвали метод второй раз и загрузили ещё одно, то все 10 предыдущих сотрутся.\n\nДля загрузки передайте адрес ссылки на изображение в общедоступном облачном хранилище. Формат изображения по ссылке — JPG или PNG.\n\nИзображения в массиве items.images располагайте в соответствии с желаемым порядком на сайте. Главным будет первое изображение в массиве.\n\nДля каждого товара вы можете загрузить до 50 изображений.\n\nДля загрузки маркетингового цвета используйте поле items.color_image.\n\nПодробнее о требованиях к фото в Базе знаний продавца\n\nЕсли вы хотите изменить состав или порядок изображений, получите информацию с помощью метода /v3/product/info/list — в нём отображается текущий порядок и состав изображений. Скопируйте данные полей items.images и items.color_image, измените и дополните состав или порядок при необходимости.\n\nУ метода есть лимит на количество операций c товарами в минуту и в сутки. Если вы превысите лимит, вернётся ошибка 429 с описанием в поле message и заголовками:\n\nItem-Retry-After — время в минутах до обновления лимита. Для суточного лимита — время до 03:00 по московскому времени.\nItem-Rate-Limit-Remaining — остаток операций до следующего сброса лимита.\n\nЧтобы узнать лимит, используйте метод /v4/product/info/limit.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\nitems\nArray of objects <= 100 items\n\nИнформация о товарах.\n\n\n\nArray ()\noffer_id\nrequired\n\nstring\n\nИдентификатор товара в системе продавца — артикул.\n\n\nprimary_image\nstring\n\nГлавное изображение товара.\n\n\ncolor_image\nstring\n\nМаркетинговый цвет.\n\n\nimages\nArray of strings <= 50 items\n\nСписок ссылок на изображения. Изображения в массиве расположены в порядке их расположения на сайте. Первое изображение в массиве будет главным, если в запросе не передано primary_image.\n\nОтветы\n200\n\nИзображения загружены или обновлены\n\nRESPONSE SCHEMA: application/json\ntask_id\ninteger <int64>\n\nИдентификатор задания. Чтобы проверить статус изображений, передайте полученное значение в метод /v1/product/import/info.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n429\n\nСлишком много запросов\n\n500\n\nВнутренняя ошибка сервера"
     },
     {
+      "closed_schema_nodes": 0,
       "method_id": "ActionsCandidates",
-      "text": "Получить список товаров, которые могут участвовать в акции\nPOST\n/v2/actions/candidates\nОписание и примерыКонсоль\nДо 13 октября 2026 года метод работает аналогично /v1/actions/candidates.\nHEADER PARAMETERS\nClient-Id\nrequired\n\t\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\t\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\naction_id\t\ninteger <uint64>\n\nИдентификатор акции. Получите методом /v1/actions.\n\n\nlast_id\t\nstring\n\nИдентификатор последнего значения на странице. При первом запросе оставьте пустым.\n\n\nlimit\t\ninteger <uint64> <= 100\n\nКоличество значений на странице.\n\nОтветы\n200\n\nСписок товаров, которые могут участвовать в акции\n\nRESPONSE SCHEMA: application/json\nlast_id\t\nstring\n\nИдентификатор последнего значения на странице. Чтобы получить следующие значения, передайте полученное значение в следующем запросе в параметре last_id.\n\n\nproducts\t\nArray of objects\n\nСписок товаров.\n\n\ntotal\t\ninteger <uint64>\n\nОбщее количество товаров, которое доступно для акции.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\nПримеры запроса\nContent type\napplication/json\n{\n\"action_id\": 258568,\n\"last_id\": \"80698\",\n\"limit\": 100\n}\nКопировать\nСвернуть всё\nПримеры ответа\n200400403404409500\nContent type\napplication/json\n{\n\"products\": \n[\n{\n\"id\": 8888888,\n\"price\": \n{\n\"amount\": \"1827\",\n\"currency\": \"RUB\"\n},\n\"action_price\": \n{\n\"amount\": \"1800\",\n\"currency\": \"RUB\"\n},\n\"max_action_price\": \n{\n\"amount\": \"62\",\n\"currency\": \"RUB\"\n},\n\"min_stock\": 1,\n\"recommended_stock\": 2,\n\"marketplace_seller_price\": \n{\n\"amount\": \"70\",\n\"currency\": \"RUB\"\n},\n\"alert_max_action_price_failed\": false,\n\"alert_max_action_price\": \n{\n\"amount\": \"30\",\n\"currency\": \"RUB\"\n},\n\"current_boost\": 15,\n\"price_min_elastic\": \n{\n\"amount\": \"62\",\n\"currency\": \"RUB\"\n},\n\"price_max_elastic\": \n{\n\"amount\": \"53\",\n\"currency\": \"RUB\"\n},\n\"min_boost\": 15,\n\"max_boost\": 55,\n\"website_prices\": \n{\n\"price\": \n{\n\"amount\": \"54\",\n\"currency\": \"RUB\"\n},\n\"prices_by_schema\": { }\n},\n\"min_seller_price\": \n{\n\"amount\": \"1\",\n\"currency\": \"RUB\"\n},\n\"is_quarantined\": false\n}\n],\n\"total\": 219176,\n\"last_id\": \"81881\"\n}\nКопировать\nСвернуть всё"
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "action_id",
+              "required": false,
+              "material": "integer <uint64>",
+              "children": [],
+              "description": "integer <uint64>\n\nИдентификатор акции. Получите методом /v1/actions."
+            },
+            {
+              "name": "last_id",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nИдентификатор последнего значения на странице. При первом запросе оставьте пустым."
+            },
+            {
+              "name": "limit",
+              "required": false,
+              "material": "integer <uint64> <= 100",
+              "children": [],
+              "description": "integer <uint64> <= 100\n\nКоличество значений на странице."
+            }
+          ]
+        }
+      ],
+      "text": "Получить список товаров, которые могут участвовать в акции\nPOST\n/v2/actions/candidates\nОписание и примерыКонсоль\nДо 13 октября 2026 года метод работает аналогично /v1/actions/candidates.\nHEADER PARAMETERS\nClient-Id\nrequired\n\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\naction_id\ninteger <uint64>\n\nИдентификатор акции. Получите методом /v1/actions.\n\n\nlast_id\nstring\n\nИдентификатор последнего значения на странице. При первом запросе оставьте пустым.\n\n\nlimit\ninteger <uint64> <= 100\n\nКоличество значений на странице.\n\nОтветы\n200\n\nСписок товаров, которые могут участвовать в акции\n\nRESPONSE SCHEMA: application/json\nlast_id\nstring\n\nИдентификатор последнего значения на странице. Чтобы получить следующие значения, передайте полученное значение в следующем запросе в параметре last_id.\n\n\nproducts\nArray of objects\n\nСписок товаров.\n\n\n\nArray ()\naction_price\nobject\n\nЦена товара по акции.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nalert_max_action_price\nobject\n\nРекомендуемая цена товара по акции.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nalert_max_action_price_failed\nboolean\n\ntrue, если цена товара выше рекомендуемой. Товар может быть исключён из акции.\n\n\ncurrent_boost\nnumber <double>\n\nРазмер бустинга товара.\n\n\nid\ninteger <uint64>\n\nИдентификатор товара в системе Ozon — product_id.\n\n\nis_quarantined\nboolean\n\ntrue, если товар в карантине.\n\n\nmarketplace_seller_price\nobject\n\nЦена товара с учётом акций, кроме акций за счёт Ozon.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nmax_action_price\nobject\n\nМаксимальная цена товара по акции.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nmax_boost\nnumber <double>\n\nМаксимальный размер бустинга в процентах.\n\n\nmin_boost\nnumber <double>\n\nМинимальный размер бустинга в процентах.\n\n\nmin_seller_price\nobject\n\nМинимальная цена товара после применения акций.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nmin_stock\ninteger <uint64>\n\nМинимальное число единиц товара в акции типа «Скидка на сток».\n\n\nprice\nobject\n\nЦена товара без скидки.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nprice_max_elastic\nobject\n\nЦена товара для максимального размера бустинга.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nprice_min_elastic\nobject\n\nЦена товара для минимального размера бустинга.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nrecommended_stock\ninteger <uint64>\n\nРекомендуемое количество товара для участия в акции.\n\n\nwebsite_prices\nobject\n\nЦены товара на сайте.\n\n\n\nprice\nobject\n\nМинимальная средняя цена по схемам доставки на сайте.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nprices_by_schema\nobject\n\nЦены товара по схемам доставки.\n\n\n\nproperty name*\nobject\n\nЦены товара по схеме доставки.\n\n\n\nblack_price\nobject\n\nЦена товара без скидки.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\ngreen_price\nobject\n\nЗелёная цена.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\ntotal\ninteger <uint64>\n\nОбщее количество товаров, которое доступно для акции.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера"
     },
     {
+      "closed_schema_nodes": 0,
       "method_id": "ActionsProducts",
-      "text": "Получить список товаров, которые участвуют в акции\nPOST\n/v2/actions/products\nОписание и примерыКонсоль\nДо 13 октября 2026 года метод работает аналогично /v1/actions/products.\nHEADER PARAMETERS\nClient-Id\nrequired\n\t\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\t\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\naction_id\nrequired\n\t\ninteger <uint64>\n\nИдентификатор акции. Получите методом /v1/actions.\n\n\nlast_id\t\nstring\n\nИдентификатор последнего значения на странице. При первом запросе оставьте пустым.\n\n\nlimit\nrequired\n\t\ninteger <uint64> <= 100\n\nКоличество значений на странице.\n\nОтветы\n200\n\nСписок товаров, которые участвуют в акции\n\nRESPONSE SCHEMA: application/json\nlast_id\t\nstring\n\nИдентификатор последнего значения на странице. Чтобы получить следующие значения, передайте полученное значение в следующем запросе в параметре last_id.\n\n\nproducts\t\nArray of objects\n\nСписок товаров.\n\n\ntotal\t\ninteger <uint64>\n\nКоличество товаров в акции.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\nПримеры запроса\nContent type\napplication/json\n{\n\"action_id\": 213139,\n\"last_id\": \"3262247282\",\n\"limit\": 100\n}\nКопировать\nСвернуть всё\nПримеры ответа\n200400403404409500\nContent type\napplication/json\n{\n\"products\": \n[\n{\n\"id\": 99999,\n\"price\": \n{\n\"amount\": \"4000\",\n\"currency\": \"RUB\"\n},\n\"action_price\": \n{\n\"amount\": \"4000\",\n\"currency\": \"RUB\"\n},\n\"max_action_price\": \n{\n\"amount\": \"3560\",\n\"currency\": \"RUB\"\n},\n\"add_mode\": \"SELLER\",\n\"stock\": 2,\n\"min_stock\": 1,\n\"recommended_stock\": 10,\n\"marketplace_seller_price\": \n{\n\"amount\": \"500\",\n\"currency\": \"RUB\"\n},\n\"alert_max_action_price_failed\": false,\n\"alert_max_action_price\": \n{\n\"amount\": \"4000\",\n\"currency\": \"RUB\"\n},\n\"current_boost\": 12,\n\"price_min_elastic\": \n{\n\"amount\": \"3560\",\n\"currency\": \"RUB\"\n},\n\"price_max_elastic\": \n{\n\"amount\": \"3560\",\n\"currency\": \"RUB\"\n},\n\"min_boost\": 1,\n\"max_boost\": 12,\n\"website_prices\": \n{\n\"price\": \n{\n\"amount\": \"382\",\n\"currency\": \"RUB\"\n},\n\"prices_by_schema\": { }\n},\n\"min_seller_price\": \n{\n\"amount\": \"4000\",\n\"currency\": \"RUB\"\n},\n\"is_quarantined\": true\n}\n],\n\"total\": 44,\n\"last_id\": \"28743\"\n}\nКопировать\nСвернуть всё"
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "action_id",
+              "required": true,
+              "material": "integer <uint64>",
+              "children": [],
+              "description": "integer <uint64>\n\nИдентификатор акции. Получите методом /v1/actions."
+            },
+            {
+              "name": "last_id",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nИдентификатор последнего значения на странице. При первом запросе оставьте пустым."
+            },
+            {
+              "name": "limit",
+              "required": true,
+              "material": "integer <uint64> <= 100",
+              "children": [],
+              "description": "integer <uint64> <= 100\n\nКоличество значений на странице."
+            }
+          ]
+        }
+      ],
+      "text": "Получить список товаров, которые участвуют в акции\nPOST\n/v2/actions/products\nОписание и примерыКонсоль\nДо 13 октября 2026 года метод работает аналогично /v1/actions/products.\nHEADER PARAMETERS\nClient-Id\nrequired\n\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\naction_id\nrequired\n\ninteger <uint64>\n\nИдентификатор акции. Получите методом /v1/actions.\n\n\nlast_id\nstring\n\nИдентификатор последнего значения на странице. При первом запросе оставьте пустым.\n\n\nlimit\nrequired\n\ninteger <uint64> <= 100\n\nКоличество значений на странице.\n\nОтветы\n200\n\nСписок товаров, которые участвуют в акции\n\nRESPONSE SCHEMA: application/json\nlast_id\nstring\n\nИдентификатор последнего значения на странице. Чтобы получить следующие значения, передайте полученное значение в следующем запросе в параметре last_id.\n\n\nproducts\nArray of objects\n\nСписок товаров.\n\n\n\nArray ()\naction_price\nobject\n\nЦена товара по акции.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nadd_mode\nstring\nEnum: \"SELLER\" \"AUTO\"\n\nТип добавления товара в акцию:\n\nAUTO — автоматически;\nSELLER — вручную продавцом.\n\nalert_max_action_price\nobject\n\nРекомендуемая цена товара по акции.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nalert_max_action_price_failed\nboolean\n\ntrue, если цена товара выше рекомендуемой. Товар может быть исключён из акции.\n\n\ncurrent_boost\nnumber <double>\n\nРазмер бустинга товара.\n\n\nid\ninteger <uint64>\n\nИдентификатор товара в системе Ozon — product_id.\n\n\nis_quarantined\nboolean\n\ntrue, если товар в карантине.\n\n\nmarketplace_seller_price\nobject\n\nЦена товара с учётом акций, кроме акций за счёт Ozon.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nmax_action_price\nobject\n\nМаксимальная цена товара по акции.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nmax_boost\nnumber <double>\n\nМаксимальный размер бустинга в процентах.\n\n\nmin_boost\nnumber <double>\n\nМинимальный размер бустинга в процентах.\n\n\nmin_seller_price\nobject\n\nМинимальная цена товара после применения акций.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nmin_stock\ninteger <uint64>\n\nМинимальное число единиц товара в акции типа «Скидка на сток».\n\n\nprice\nobject\n\nЦена товара без скидки.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nprice_max_elastic\nobject\n\nЦена товара для максимального размера бустинга.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nprice_min_elastic\nobject\n\nЦена товара для минимального размера бустинга.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nrecommended_stock\ninteger <uint64>\n\nРекомендуемое количество товара для участия в акции.\n\n\nstock\ninteger <uint64>\n\nЧисло единиц товара в акции типа «Скидка на сток».\n\n\nwebsite_prices\nobject\n\nЦены товара на сайте.\n\n\n\nprice\nobject\n\nМинимальная средняя цена по схемам доставки на сайте.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nprices_by_schema\nobject\n\nЦены товара по схемам доставки.\n\n\n\nproperty name*\nobject\n\nЦены товара по схеме доставки.\n\n\n\nblack_price\nobject\n\nЦена товара без скидки.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\ngreen_price\nobject\n\nЗелёная цена.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\ntotal\ninteger <uint64>\n\nКоличество товаров в акции.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера"
     },
     {
+      "closed_schema_nodes": 0,
       "method_id": "ActionsProductsUpdate",
-      "text": "Добавить или обновить товар в акции\nPOST\n/v1/actions/products/update\nОписание и примерыКонсоль\nДо 13 октября 2026 года метод работает аналогично /v1/actions/products/activate, изменить цену на карточке товара с помощью метода не получится.\nHEADER PARAMETERS\nClient-Id\nrequired\n\t\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\t\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\naction_id\nrequired\n\t\ninteger <uint64>\n\nИдентификатор акции. Получите методом /v1/actions.\n\n\nproducts\nrequired\n\t\nArray of objects <= 1000 items\n\nСписок товаров.\n\nОтветы\n200\n\nТовары добавлены или обновлены\n\nRESPONSE SCHEMA: application/json\nactive_product_ids\t\nArray of strings <uint64>\n\nСписок идентификаторов товаров, которые добавлены в акцию.\n\n\ndeactivated_product_ids\t\nArray of strings <uint64>\n\nСписок идентификаторов товаров, которые удалены из акции.\n\n\nrejected\t\nArray of objects\n\nСписок товаров, которые не удалось добавить в акцию.\n\n\nwarnings\t\nArray of objects\n\nИнформация о причинах, из-за которых товары удалены из акции.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\nПримеры запроса\nContent type\napplication/json\n{\n\"action_id\": 258568,\n\"products\": \n[\n{\n\"action_price\": \n{\n\"amount\": \"88\",\n\"currency\": \"RUB\"\n},\n\"product_id\": 88888,\n\"stock\": \"8\"\n}\n]\n}\nКопировать\nСвернуть всё\nПримеры ответа\n200400403404409500\nContent type\napplication/json\n{\n\"active_product_ids\": \n[\n88888\n],\n\"deactivated_product_ids\": [ ],\n\"rejected\": [ ],\n\"warnings\": [ ]\n}\nКопировать\nСвернуть всё"
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "action_id",
+              "required": true,
+              "material": "integer <uint64>",
+              "children": [],
+              "description": "integer <uint64>\n\nИдентификатор акции. Получите методом /v1/actions."
+            },
+            {
+              "name": "products",
+              "required": true,
+              "material": "Array of objects <= 1000 items",
+              "children": [
+                {
+                  "name": "action_price",
+                  "required": true,
+                  "material": "object",
+                  "children": [
+                    {
+                      "name": "amount",
+                      "required": false,
+                      "material": "string",
+                      "children": [],
+                      "description": "string\n\nСумма."
+                    },
+                    {
+                      "name": "currency",
+                      "required": false,
+                      "material": "string",
+                      "children": [],
+                      "description": "string\n\nВалюта."
+                    }
+                  ],
+                  "description": "object\n\nПредельная цена товара.\n\nЕсли добавляете товар вне акции «Промокоды», изменим предельную цену в карточке товара, даже если она была установлена ранее.\n\nЕсли значение меньше или равно лимиту акции «Эластичный бустинг» или «Максимальный бустинг» — добавим товар в акцию, если больше — удалим товар из акции."
+                },
+                {
+                  "name": "product_id",
+                  "required": true,
+                  "material": "integer <uint64>",
+                  "children": [],
+                  "description": "integer <uint64>\n\nИдентификатор товара в системе Ozon — product_id."
+                },
+                {
+                  "name": "stock",
+                  "required": false,
+                  "material": "integer <uint64>",
+                  "children": [],
+                  "description": "integer <uint64>\n\nКоличество единиц товара в акции «Промокоды». Не передавайте параметр для акций «Эластичный бустинг» и «Максимальный бустинг»."
+                }
+              ],
+              "description": "Array of objects <= 1000 items\n\nСписок товаров."
+            }
+          ]
+        }
+      ],
+      "text": "Добавить или обновить товар в акции\nPOST\n/v1/actions/products/update\nОписание и примерыКонсоль\nДо 13 октября 2026 года метод работает аналогично /v1/actions/products/activate, изменить цену на карточке товара с помощью метода не получится.\nHEADER PARAMETERS\nClient-Id\nrequired\n\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\naction_id\nrequired\n\ninteger <uint64>\n\nИдентификатор акции. Получите методом /v1/actions.\n\n\nproducts\nrequired\n\nArray of objects <= 1000 items\n\nСписок товаров.\n\n\n\nArray ()\naction_price\nrequired\n\nobject\n\nПредельная цена товара.\n\nЕсли добавляете товар вне акции «Промокоды», изменим предельную цену в карточке товара, даже если она была установлена ранее.\n\nЕсли значение меньше или равно лимиту акции «Эластичный бустинг» или «Максимальный бустинг» — добавим товар в акцию, если больше — удалим товар из акции.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nproduct_id\nrequired\n\ninteger <uint64>\n\nИдентификатор товара в системе Ozon — product_id.\n\n\nstock\ninteger <uint64>\n\nКоличество единиц товара в акции «Промокоды». Не передавайте параметр для акций «Эластичный бустинг» и «Максимальный бустинг».\n\nОтветы\n200\n\nТовары добавлены или обновлены\n\nRESPONSE SCHEMA: application/json\nactive_product_ids\nArray of strings <uint64>\n\nСписок идентификаторов товаров, которые добавлены в акцию.\n\n\ndeactivated_product_ids\nArray of strings <uint64>\n\nСписок идентификаторов товаров, которые удалены из акции.\n\n\nrejected\nArray of objects\n\nСписок товаров, которые не удалось добавить в акцию.\n\n\n\nArray ()\nproduct_id\ninteger <uint64>\n\nИдентификатор товара в системе Ozon — product_id.\n\n\nreason\nstring\n\nПричина, по которой товар не добавлен в акцию.\n\n\nwarnings\nArray of objects\n\nИнформация о причинах, из-за которых товары удалены из акции.\n\n\n\nArray ()\nproduct_id\ninteger <uint64>\n\nИдентификатор товара в системе Ozon — product_id.\n\n\nreason\nstring\n\nПричина, по которой товар удалён из акции.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера"
     },
     {
+      "closed_schema_nodes": 0,
       "method_id": "ActionsProductsDeactivate",
-      "text": "Удалить товары из акции «Промокоды»\nPOST\n/v2/actions/products/deactivate\nОписание и примерыКонсоль\n\nЧтобы удалить товары из акций «Эластичный бустинг» или «Максимальный бустинг», используйте метод /v1/actions/products/update и измените цену товара action_price на значение меньше или равное лимиту акции.\n\nДо 13 октября 2026 года метод работает аналогично /v1/actions/products/deactivate.\nHEADER PARAMETERS\nClient-Id\nrequired\n\t\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\t\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\naction_id\nrequired\n\t\ninteger <uint64>\n\nИдентификатор акции. Получите методом /v1/actions.\n\n\nproduct_ids\nrequired\n\t\nArray of strings <uint64> <= 1000 items\n\nСписок идентификаторов товаров в системе Ozon — product_id.\n\nОтветы\n200\n\nТовары удалены из акции\n\nRESPONSE SCHEMA: application/json\nproduct_ids\t\nArray of strings <uint64>\n\nСписок идентификаторов товаров, которые удалены из акции.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\nПримеры запроса\nContent type\napplication/json\n{\n\"action_id\": 213139,\n\"product_ids\": \n[\n999999\n]\n}\nКопировать\nСвернуть всё\nПримеры ответа\n200400403404409500\nContent type\napplication/json\n{\n\"product_ids\": \n[\n999999\n]\n}\nКопировать\nСвернуть всё"
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "action_id",
+              "required": true,
+              "material": "integer <uint64>",
+              "children": [],
+              "description": "integer <uint64>\n\nИдентификатор акции. Получите методом /v1/actions."
+            },
+            {
+              "name": "product_ids",
+              "required": true,
+              "material": "Array of strings <uint64> <= 1000 items",
+              "children": [],
+              "description": "Array of strings <uint64> <= 1000 items\n\nСписок идентификаторов товаров в системе Ozon — product_id."
+            }
+          ]
+        }
+      ],
+      "text": "Удалить товары из акции «Промокоды»\nPOST\n/v2/actions/products/deactivate\nОписание и примерыКонсоль\n\nЧтобы удалить товары из акций «Эластичный бустинг» или «Максимальный бустинг», используйте метод /v1/actions/products/update и измените цену товара action_price на значение меньше или равное лимиту акции.\n\nДо 13 октября 2026 года метод работает аналогично /v1/actions/products/deactivate.\nHEADER PARAMETERS\nClient-Id\nrequired\n\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\naction_id\nrequired\n\ninteger <uint64>\n\nИдентификатор акции. Получите методом /v1/actions.\n\n\nproduct_ids\nrequired\n\nArray of strings <uint64> <= 1000 items\n\nСписок идентификаторов товаров в системе Ozon — product_id.\n\nОтветы\n200\n\nТовары удалены из акции\n\nRESPONSE SCHEMA: application/json\nproduct_ids\nArray of strings <uint64>\n\nСписок идентификаторов товаров, которые удалены из акции.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера"
     },
     {
+      "closed_schema_nodes": 0,
       "method_id": "ActionsAutoAddProductsListV2",
-      "text": "Получить список товаров из автодобавления в акцию\nPOST\n/v2/actions/auto-add/products/list\nОписание и примерыКонсоль\nДо 13 октября 2026 года метод работает аналогично /v1/actions/auto-add/products/list.\nHEADER PARAMETERS\nClient-Id\nrequired\n\t\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\t\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\naction_id\nrequired\n\t\ninteger <uint64>\n\nИдентификатор акции.\n\n\nauto_add_date\nrequired\n\t\nstring <date-time>\n\nДата и время автодобавления товаров в акцию из параметра result.auto_add_dates в ответе метода /v1/actions.\n\n\nlimit\nrequired\n\t\ninteger <uint64> [ 1 .. 100 ]\n\nКоличество значений в ответе.\n\n\noffset\t\ninteger <uint64>\nDefault: 0\n\nКоличество элементов, которое будет пропущено в ответе. Например, если offset = 10, ответ начнётся с 11-го найденного элемента.\n\nОтветы\n200\n\nСписок товаров с автодобавлением\n\nRESPONSE SCHEMA: application/json\nproducts\t\nArray of objects\n\nСписок товаров с автодобавлением.\n\n\ntotal\t\ninteger <uint64>\n\nКоличество товаров.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\nПримеры запроса\nContent type\napplication/json\n{\n\"action_id\": 0,\n\"auto_add_date\": \"2025-01-01T00:00:00Z\",\n\"offset\": 0,\n\"limit\": 0\n}\nКопировать\nСвернуть всё\nПримеры ответа\n200400403404409500\nContent type\napplication/json\n{\n\"products\": \n[\n{\n\"action_price_to_auto_add\": \n{\n\"amount\": \"1800\",\n\"currency\": \"RUB\"\n},\n\"add_mode\": true,\n\"base_price\": \n{\n\"amount\": \"1827\",\n\"currency\": \"RUB\"\n},\n\"currency\": \"RUB\",\n\"has_expired_min_seller_price\": true,\n\"marketplace_seller_price\": \n{\n\"amount\": \"70\",\n\"currency\": \"RUB\"\n},\n\"max_discount_price\": \n{\n\"amount\": \"62\",\n\"currency\": \"RUB\"\n},\n\"min_action_quantity\": 1,\n\"min_seller_price\": \n{\n\"amount\": \"1\",\n\"currency\": \"RUB\"\n},\n\"name\": \"Ароматизатор / Масло для бани / Эфирное масло \\\"Пихта\\\", 250 мл\",\n\"offer_id\": \"SR0000\",\n\"price\": \n{\n\"amount\": \"1827\",\n\"currency\": \"RUB\"\n},\n\"product_id\": 8888888,\n\"quantity_to_auto_add\": 2,\n\"sku\": 8888888,\n\"website_prices\": \n{\n\"price\": \n{\n\"amount\": \"54\",\n\"currency\": \"RUB\"\n},\n\"prices_by_schema\": \n{\n\"additionalProp1\": \n{\n\"black_price\": \n{\n\"amount\": \"111\",\n\"currency\": \"RUB\"\n},\n\"green_price\": \n{\n\"amount\": \"222\",\n\"currency\": \"RUB\"\n}\n},\n\"additionalProp2\": \n{\n\"black_price\": \n{\n\"amount\": \"333\",\n\"currency\": \"RUB\"\n},\n\"green_price\": \n{\n\"amount\": \"444\",\n\"currency\": \"RUB\"\n}\n},\n\"additionalProp3\": \n{\n\"black_price\": \n{\n\"amount\": \"555\",\n\"currency\": \"RUB\"\n},\n\"green_price\": \n{\n\"amount\": \"666\",\n\"currency\": \"RUB\"\n}\n}\n}\n},\n\"will_be_quarantined\": false\n}\n],\n\"total\": 219176\n}\nКопировать\nСвернуть всё"
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "action_id",
+              "required": true,
+              "material": "integer <uint64>",
+              "children": [],
+              "description": "integer <uint64>\n\nИдентификатор акции."
+            },
+            {
+              "name": "auto_add_date",
+              "required": true,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nДата и время автодобавления товаров в акцию из параметра result.auto_add_dates в ответе метода /v1/actions."
+            },
+            {
+              "name": "limit",
+              "required": true,
+              "material": "integer <uint64> [ 1 .. 100 ]",
+              "children": [],
+              "description": "integer <uint64> [ 1 .. 100 ]\n\nКоличество значений в ответе."
+            },
+            {
+              "name": "offset",
+              "required": false,
+              "material": "integer <uint64>\nDefault: 0",
+              "children": [],
+              "description": "integer <uint64>\nDefault: 0\n\nКоличество элементов, которое будет пропущено в ответе. Например, если offset = 10, ответ начнётся с 11-го найденного элемента."
+            }
+          ]
+        }
+      ],
+      "text": "Получить список товаров из автодобавления в акцию\nPOST\n/v2/actions/auto-add/products/list\nОписание и примерыКонсоль\nДо 13 октября 2026 года метод работает аналогично /v1/actions/auto-add/products/list.\nHEADER PARAMETERS\nClient-Id\nrequired\n\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\naction_id\nrequired\n\ninteger <uint64>\n\nИдентификатор акции.\n\n\nauto_add_date\nrequired\n\nstring <date-time>\n\nДата и время автодобавления товаров в акцию из параметра result.auto_add_dates в ответе метода /v1/actions.\n\n\nlimit\nrequired\n\ninteger <uint64> [ 1 .. 100 ]\n\nКоличество значений в ответе.\n\n\noffset\ninteger <uint64>\nDefault: 0\n\nКоличество элементов, которое будет пропущено в ответе. Например, если offset = 10, ответ начнётся с 11-го найденного элемента.\n\nОтветы\n200\n\nСписок товаров с автодобавлением\n\nRESPONSE SCHEMA: application/json\nproducts\nArray of objects\n\nСписок товаров с автодобавлением.\n\n\n\nArray ()\naction_price_to_auto_add\nobject\n\nЦена товара по акции.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nadd_mode\nboolean\n\ntrue, если продавец добавил товар вручную.\n\n\nbase_price\nobject\n\nЦена товара до скидки.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\ncurrency\nstring\n\nВалюта цен.\n\n\nhas_expired_min_seller_price\nboolean\n\ntrue, если истёк срок действия ограничения для акции.\n\n\nmarketplace_seller_price\nobject\n\nЦена товара с учётом акций, кроме акций за счёт Ozon.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nmax_discount_price\nobject\n\nМаксимальная цена товара для автодобавления в акцию.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nmin_action_quantity\ninteger <uint64>\n\nМинимальное число единиц товара в акции типа «Скидка на сток».\n\n\nmin_seller_price\nobject\n\nМинимальная цена товара после применения акций.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nname\nstring\n\nНазвание товара.\n\n\noffer_id\nstring\n\nИдентификатор товара в системе продавца — артикул.\n\n\nprice\nobject\n\nЦена товара без скидки.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nproduct_id\ninteger <uint64>\n\nИдентификатор товара в системе Ozon — product_id.\n\n\nquantity_to_auto_add\ninteger <uint64>\n\nКоличество товара в акции.\n\n\nsku\ninteger <uint64>\n\nИдентификатор товара в системе Ozon — SKU.\n\n\nwebsite_prices\nobject\n\nЦены товара на сайте.\n\n\n\nprice\nobject\n\nМинимальная средняя цена по схемам доставки на сайте.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nprices_by_schema\nobject\n\nЦены товара по схемам доставки.\n\n\n\nproperty name*\nobject\n\nЦены товара по схеме доставки.\n\n\n\nblack_price\nobject\n\nЦена товара без скидки.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\ngreen_price\nobject\n\nЗелёная цена.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nwill_be_quarantined\nboolean\n\ntrue, если товар попадает в карантин после автодобавления.\n\n\ntotal\ninteger <uint64>\n\nКоличество товаров.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера"
     },
     {
+      "closed_schema_nodes": 0,
       "method_id": "ActionsAutoAddProductsCandidatesV2",
-      "text": "Получить список доступных товаров для автодобавления в акцию\nPOST\n/v2/actions/auto-add/products/candidates\nОписание и примерыКонсоль\nДо 13 октября 2026 года метод работает аналогично /v1/actions/auto-add/products/candidates.\nHEADER PARAMETERS\nClient-Id\nrequired\n\t\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\t\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\naction_id\nrequired\n\t\ninteger <uint64>\n\nИдентификатор акции.\n\n\nauto_add_date\nrequired\n\t\nstring <date-time>\n\nДата и время автодобавления товаров в акцию из параметра result.auto_add_dates в ответе метода /v1/actions.\n\n\nlimit\nrequired\n\t\ninteger <uint64> [ 1 .. 100 ]\n\nКоличество значений в ответе.\n\n\noffset\t\ninteger <uint64>\nDefault: 0\n\nКоличество элементов, которое будет пропущено в ответе. Например, если offset = 10, ответ начнётся с 11-го найденного элемента.\n\nОтветы\n200\n\nСписок доступных товаров для автодобавления в акцию\n\nRESPONSE SCHEMA: application/json\nproducts\t\nArray of objects\n\nСписок доступных товаров для автодобавления.\n\n\ntotal\t\ninteger <uint64>\n\nКоличество товаров.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\nПримеры запроса\nContent type\napplication/json\n{\n\"action_id\": 250204,\n\"auto_add_date\": \"2025-01-01T00:00:00Z\",\n\"offset\": 5,\n\"limit\": 100\n}\nКопировать\nСвернуть всё\nПримеры ответа\n200400403404409500\nContent type\napplication/json\n{\n\"products\": \n[\n{\n\"action_price_to_auto_add\": \n{\n\"amount\": \"1800\",\n\"currency\": \"RUB\"\n},\n\"base_price\": \n{\n\"amount\": \"1827\",\n\"currency\": \"RUB\"\n},\n\"currency\": \"RUB\",\n\"has_expired_min_seller_price\": true,\n\"id\": 8888888,\n\"is_manually_added\": true,\n\"marketplace_seller_price\": \n{\n\"amount\": \"70\",\n\"currency\": \"RUB\"\n},\n\"max_discount_price\": \n{\n\"amount\": \"62\",\n\"currency\": \"RUB\"\n},\n\"min_action_quantity\": 1,\n\"min_seller_price\": \n{\n\"amount\": \"1\",\n\"currency\": \"RUB\"\n},\n\"name\": \"Ароматизатор / Масло для бани / Эфирное масло \\\"Пихта\\\", 250 мл\",\n\"offer_id\": \"PS0000\",\n\"price\": \n{\n\"amount\": \"1827\",\n\"currency\": \"RUB\"\n},\n\"quantity_to_auto_add\": 2,\n\"sku\": 8888888,\n\"website_prices\": \n{\n\"price\": \n{\n\"amount\": \"54\",\n\"currency\": \"RUB\"\n},\n\"prices_by_schema\": \n{\n\"additionalProp1\": \n{\n\"black_price\": \n{\n\"amount\": \"1400\",\n\"currency\": \"RUB\"\n},\n\"green_price\": \n{\n\"amount\": \"18888\",\n\"currency\": \"RUB\"\n}\n},\n\"additionalProp2\": \n{\n\"black_price\": \n{\n\"amount\": \"1500\",\n\"currency\": \"RUB\"\n},\n\"green_price\": \n{\n\"amount\": \"1600\",\n\"currency\": \"RUB\"\n}\n},\n\"additionalProp3\": \n{\n\"black_price\": \n{\n\"amount\": \"1700\",\n\"currency\": \"RUB\"\n},\n\"green_price\": \n{\n\"amount\": \"1800\",\n\"currency\": \"RUB\"\n}\n}\n}\n},\n\"will_be_quarantined\": false\n}\n],\n\"total\": 219176\n}\nКопировать\nСвернуть всё"
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "action_id",
+              "required": true,
+              "material": "integer <uint64>",
+              "children": [],
+              "description": "integer <uint64>\n\nИдентификатор акции."
+            },
+            {
+              "name": "auto_add_date",
+              "required": true,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nДата и время автодобавления товаров в акцию из параметра result.auto_add_dates в ответе метода /v1/actions."
+            },
+            {
+              "name": "limit",
+              "required": true,
+              "material": "integer <uint64> [ 1 .. 100 ]",
+              "children": [],
+              "description": "integer <uint64> [ 1 .. 100 ]\n\nКоличество значений в ответе."
+            },
+            {
+              "name": "offset",
+              "required": false,
+              "material": "integer <uint64>\nDefault: 0",
+              "children": [],
+              "description": "integer <uint64>\nDefault: 0\n\nКоличество элементов, которое будет пропущено в ответе. Например, если offset = 10, ответ начнётся с 11-го найденного элемента."
+            }
+          ]
+        }
+      ],
+      "text": "Получить список доступных товаров для автодобавления в акцию\nPOST\n/v2/actions/auto-add/products/candidates\nОписание и примерыКонсоль\nДо 13 октября 2026 года метод работает аналогично /v1/actions/auto-add/products/candidates.\nHEADER PARAMETERS\nClient-Id\nrequired\n\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\naction_id\nrequired\n\ninteger <uint64>\n\nИдентификатор акции.\n\n\nauto_add_date\nrequired\n\nstring <date-time>\n\nДата и время автодобавления товаров в акцию из параметра result.auto_add_dates в ответе метода /v1/actions.\n\n\nlimit\nrequired\n\ninteger <uint64> [ 1 .. 100 ]\n\nКоличество значений в ответе.\n\n\noffset\ninteger <uint64>\nDefault: 0\n\nКоличество элементов, которое будет пропущено в ответе. Например, если offset = 10, ответ начнётся с 11-го найденного элемента.\n\nОтветы\n200\n\nСписок доступных товаров для автодобавления в акцию\n\nRESPONSE SCHEMA: application/json\nproducts\nArray of objects\n\nСписок доступных товаров для автодобавления.\n\n\n\nArray ()\naction_price_to_auto_add\nobject\n\nЦена товара по акции.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nbase_price\nobject\n\nЦена товара до скидки.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\ncurrency\nstring\n\nВалюта цен.\n\n\nhas_expired_min_seller_price\nboolean\n\ntrue, если истёк срок действия ограничения для акции.\n\n\nid\ninteger <uint64>\n\nИдентификатор товара в системе Ozon — product_id.\n\n\nis_manually_added\nboolean\n\ntrue, если товар добавлен вручную.\n\n\nmarketplace_seller_price\nobject\n\nЦена товара с учётом акций, кроме акций за счёт Ozon.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nmax_discount_price\nobject\n\nМаксимальная цена товара для автодобавления в акцию.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nmin_action_quantity\ninteger <uint64>\n\nМинимальное число единиц товара в акции типа «Скидка на сток».\n\n\nmin_seller_price\nobject\n\nМинимальная цена товара после применения акций.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nname\nstring\n\nНазвание товара.\n\n\noffer_id\nstring\n\nИдентификатор товара в системе продавца — артикул.\n\n\nprice\nobject\n\nЦена товара без скидки.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nquantity_to_auto_add\ninteger <uint64>\n\nКоличество товара в акции.\n\n\nsku\ninteger <uint64>\n\nИдентификатор товара в системе Ozon — SKU.\n\n\nwebsite_prices\nobject\n\nЦены товара на сайте.\n\n\n\nprice\nobject\n\nМинимальная средняя цена по схемам доставки на сайте.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nprices_by_schema\nobject\n\nЦены товара по схемам доставки.\n\n\n\nproperty name*\nobject\n\nЦены товара по схеме доставки.\n\n\n\nblack_price\nobject\n\nЦена товара без скидки.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\ngreen_price\nobject\n\nЗелёная цена.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nwill_be_quarantined\nboolean\n\ntrue, если товар попадает в карантин после автодобавления.\n\n\ntotal\ninteger <uint64>\n\nКоличество товаров.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера"
     },
     {
+      "closed_schema_nodes": 0,
       "method_id": "ActionsAutoAddProductsDeleteV2",
-      "text": "Удалить товары из автодобавления в акцию\nPOST\n/v2/actions/auto-add/products/delete\nОписание и примерыКонсоль\nДо 13 октября 2026 года метод работает аналогично /v1/actions/auto-add/products/delete.\nHEADER PARAMETERS\nClient-Id\nrequired\n\t\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\t\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\naction_id\nrequired\n\t\ninteger <uint64>\n\nИдентификатор акции.\n\n\nauto_add_date\nrequired\n\t\nstring <date-time>\n\nДата и время автодобавления товаров в акцию из параметра result.auto_add_dates в ответе метода /v1/actions.\n\n\nproduct_ids\nrequired\n\t\nArray of strings <uint64> <= 1000 items\n\nИдентификаторы товаров в системе Ozon — product_id.\n\nОтветы\n200\n\nТовары удалены из автодобавления\n\nRESPONSE SCHEMA: application/json\nproduct_ids\t\nArray of strings <uint64>\n\nИдентификаторы товаров, которые удалены из автодобавления.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\nПримеры запроса\nContent type\napplication/json\n{\n\"action_id\": 250204,\n\"product_ids\": \n[\n88888\n],\n\"auto_add_date\": \"2025-01-01T00:00:00Z\"\n}\nКопировать\nСвернуть всё\nПримеры ответа\n200400403404409500\nContent type\napplication/json\n{\n\"product_ids\": \n[\n88888\n]\n}\nКопировать\nСвернуть всё"
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "action_id",
+              "required": true,
+              "material": "integer <uint64>",
+              "children": [],
+              "description": "integer <uint64>\n\nИдентификатор акции."
+            },
+            {
+              "name": "auto_add_date",
+              "required": true,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nДата и время автодобавления товаров в акцию из параметра result.auto_add_dates в ответе метода /v1/actions."
+            },
+            {
+              "name": "product_ids",
+              "required": true,
+              "material": "Array of strings <uint64> <= 1000 items",
+              "children": [],
+              "description": "Array of strings <uint64> <= 1000 items\n\nИдентификаторы товаров в системе Ozon — product_id."
+            }
+          ]
+        }
+      ],
+      "text": "Удалить товары из автодобавления в акцию\nPOST\n/v2/actions/auto-add/products/delete\nОписание и примерыКонсоль\nДо 13 октября 2026 года метод работает аналогично /v1/actions/auto-add/products/delete.\nHEADER PARAMETERS\nClient-Id\nrequired\n\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\naction_id\nrequired\n\ninteger <uint64>\n\nИдентификатор акции.\n\n\nauto_add_date\nrequired\n\nstring <date-time>\n\nДата и время автодобавления товаров в акцию из параметра result.auto_add_dates в ответе метода /v1/actions.\n\n\nproduct_ids\nrequired\n\nArray of strings <uint64> <= 1000 items\n\nИдентификаторы товаров в системе Ozon — product_id.\n\nОтветы\n200\n\nТовары удалены из автодобавления\n\nRESPONSE SCHEMA: application/json\nproduct_ids\nArray of strings <uint64>\n\nИдентификаторы товаров, которые удалены из автодобавления.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера"
     },
     {
+      "closed_schema_nodes": 0,
       "method_id": "ActionsAutoAddProductsUpdateV2",
-      "text": "Добавить или обновить товары в автодобавлении в акцию\nPOST\n/v2/actions/auto-add/products/update\nОписание и примерыКонсоль\nДо 13 октября 2026 года метод работает аналогично /v1/actions/auto-add/products/update, изменить цену на карточке товара с помощью метода не получится.\nHEADER PARAMETERS\nClient-Id\nrequired\n\t\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\t\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\naction_id\nrequired\n\t\ninteger <uint64>\n\nИдентификатор акции.\n\n\nauto_add_date\nrequired\n\t\nstring <date-time>\n\nДата и время автодобавления товаров в акцию из параметра result.auto_add_dates в ответе метода /v1/actions.\n\n\nproducts\nrequired\n\t\nArray of objects [ 1 .. 1000 ] items\n\nСписок товаров, которые нужно добавить или обновить в автодобавлении.\n\nОтветы\n200\n\nТовары добавлены или обновлены в автодобавлении\n\nRESPONSE SCHEMA: application/json\nbelow_min_price\t\nArray of objects\n\nСписок товаров с ценой ниже минимальной.\n\n\ndeactivated_ids\t\nArray of strings <uint64>\n\nИдентификаторы товаров, которые удалены из акции.\n\n\nextremely_low_price\t\nArray of objects\n\nСписок товаров со скидкой больше 70%.\n\n\nfailed_price\t\nArray of objects\n\nСписок товаров, которые не прошли валидацию по цене.\n\n\nproduct_ids\t\nArray of strings <uint64>\n\nИдентификаторы товаров, которые получилось добавить или обновить.\n\n\nrejected\t\nArray of objects\n\nИдентификаторы товаров, которые не получилось добавить или обновить.\n\n\nwarnings\t\nArray of objects\n\nСписок предупреждений по товарам.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\nПримеры запроса\nContent type\napplication/json\n{\n\"action_id\": 250204,\n\"auto_add_date\": \"2026-09-22T11:37:38.940Z\",\n\"products\": \n[\n{\n\"action_price\": \n{\n\"amount\": \"1000\",\n\"currency\": \"RUB\"\n},\n\"id\": 88888,\n\"stock\": 10\n}\n]\n}\nКопировать\nСвернуть всё\nПримеры ответа\n200400403404409500\nContent type\napplication/json\n{\n\"product_ids\": \n[\n\"    88888  \"\n],\n\"deactivated_ids\": \n[\n0\n],\n\"rejected\": \n[\n{\n\"product_id\": 0,\n\"reason\": \"\"\n}\n],\n\"warnings\": \n[\n{\n\"product_id\": 0,\n\"reason\": \"\"\n}\n],\n\"below_min_price\": \n{\n\"key\": 0,\n\"value\": \"\"\n},\n\"extremely_low_price\": \n{\n\"key\": 0,\n\"value\": \"\"\n},\n\"failed_price\": \n{\n\"key\": 0,\n\"value\": \"\"\n}\n}\nКопировать\nСвернуть всё"
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "action_id",
+              "required": true,
+              "material": "integer <uint64>",
+              "children": [],
+              "description": "integer <uint64>\n\nИдентификатор акции."
+            },
+            {
+              "name": "auto_add_date",
+              "required": true,
+              "material": "string <date-time>",
+              "children": [],
+              "description": "string <date-time>\n\nДата и время автодобавления товаров в акцию из параметра result.auto_add_dates в ответе метода /v1/actions."
+            },
+            {
+              "name": "products",
+              "required": true,
+              "material": "Array of objects [ 1 .. 1000 ] items",
+              "children": [
+                {
+                  "name": "action_price",
+                  "required": false,
+                  "material": "object",
+                  "children": [
+                    {
+                      "name": "amount",
+                      "required": false,
+                      "material": "string",
+                      "children": [],
+                      "description": "string\n\nСумма."
+                    },
+                    {
+                      "name": "currency",
+                      "required": false,
+                      "material": "string",
+                      "children": [],
+                      "description": "string\n\nВалюта."
+                    }
+                  ],
+                  "description": "object\n\nПредельная цена товара.\n\nИзменим предельную цену в карточке товара в дату auto_add_date, даже если предельная цена была установлена ранее.\n\nЕсли значение меньше или равно лимиту акции «Эластичный бустинг» или «Максимальный бустинг» — добавим товар в акцию, если больше — удалим товар из акции."
+                },
+                {
+                  "name": "id",
+                  "required": false,
+                  "material": "integer <uint64>",
+                  "children": [],
+                  "description": "integer <uint64>\n\nИдентификатор товара."
+                },
+                {
+                  "name": "stock",
+                  "required": false,
+                  "material": "integer <uint64>",
+                  "children": [],
+                  "description": "integer <uint64>\n\nКоличество единиц товара в акции для акции «Промокоды». Не указывайте для акций «Эластичный бустинг» и «Максимальный бустинг»."
+                }
+              ],
+              "description": "Array of objects [ 1 .. 1000 ] items\n\nСписок товаров, которые нужно добавить или обновить в автодобавлении."
+            }
+          ]
+        }
+      ],
+      "text": "Добавить или обновить товары в автодобавлении в акцию\nPOST\n/v2/actions/auto-add/products/update\nОписание и примерыКонсоль\nДо 13 октября 2026 года метод работает аналогично /v1/actions/auto-add/products/update, изменить цену на карточке товара с помощью метода не получится.\nHEADER PARAMETERS\nClient-Id\nrequired\n\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\naction_id\nrequired\n\ninteger <uint64>\n\nИдентификатор акции.\n\n\nauto_add_date\nrequired\n\nstring <date-time>\n\nДата и время автодобавления товаров в акцию из параметра result.auto_add_dates в ответе метода /v1/actions.\n\n\nproducts\nrequired\n\nArray of objects [ 1 .. 1000 ] items\n\nСписок товаров, которые нужно добавить или обновить в автодобавлении.\n\n\n\nArray ()\naction_price\nobject\n\nПредельная цена товара.\n\nИзменим предельную цену в карточке товара в дату auto_add_date, даже если предельная цена была установлена ранее.\n\nЕсли значение меньше или равно лимиту акции «Эластичный бустинг» или «Максимальный бустинг» — добавим товар в акцию, если больше — удалим товар из акции.\n\n\n\namount\nstring\n\nСумма.\n\n\ncurrency\nstring\n\nВалюта.\n\n\nid\ninteger <uint64>\n\nИдентификатор товара.\n\n\nstock\ninteger <uint64>\n\nКоличество единиц товара в акции для акции «Промокоды». Не указывайте для акций «Эластичный бустинг» и «Максимальный бустинг».\n\nОтветы\n200\n\nТовары добавлены или обновлены в автодобавлении\n\nRESPONSE SCHEMA: application/json\nbelow_min_price\nArray of objects\n\nСписок товаров с ценой ниже минимальной.\n\n\n\nArray ()\nkey\ninteger <uint64>\n\nИдентификатор товара в системе Ozon — product_id.\n\n\nvalue\nnumber <double>\n\nЦена товара.\n\n\ndeactivated_ids\nArray of strings <uint64>\n\nИдентификаторы товаров, которые удалены из акции.\n\n\nextremely_low_price\nArray of objects\n\nСписок товаров со скидкой больше 70%.\n\n\n\nArray ()\nkey\ninteger <uint64>\n\nИдентификатор товара в системе Ozon — product_id.\n\n\nvalue\nnumber <double>\n\nЦена товара.\n\n\nfailed_price\nArray of objects\n\nСписок товаров, которые не прошли валидацию по цене.\n\n\n\nArray ()\nkey\ninteger <uint64>\n\nИдентификатор товара в системе Ozon — product_id.\n\n\nvalue\nnumber <double>\n\nЗначение проблемной цены:\n\nмаксимальная цена товара для автодобавления в акцию, если цена товара её превышает;\nцена со скидкой 95%, если скидка на товар больше 95%.\n\nproduct_ids\nArray of strings <uint64>\n\nИдентификаторы товаров, которые получилось добавить или обновить.\n\n\nrejected\nArray of objects\n\nИдентификаторы товаров, которые не получилось добавить или обновить.\n\n\n\nArray ()\nproduct_id\ninteger <uint64>\n\nИдентификатор товара в системе Ozon — product_id.\n\n\nreason\nstring\n\nПричина, по которой не получилось добавить или обновить товар.\n\n\nwarnings\nArray of objects\n\nСписок предупреждений по товарам.\n\n\n\nArray ()\nproduct_id\ninteger <uint64>\n\nИдентификатор товара в системе Ozon — product_id.\n\n\nreason\nstring\n\nПредупреждение.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера"
     },
     {
+      "closed_schema_nodes": 0,
       "method_id": "PostingFbsPackageLabelCreate",
-      "text": "Создать задание на формирование этикеток\nPOST\n/v3/posting/fbs/package-label/create\nОписание и примерыКонсоль\nЕсли вы работаете по схеме rFBS или rFBS Express, изучите процесс печати этикетки в Базе знаний продавца.\n\nСоздаёт задания на асинхронное формирование этикеток для отправлений в статусе «Ожидает отгрузки» — awaiting_deliver. Рекомендуем запрашивать этикетки через 45–60 секунд после сборки заказа.\n\nЧтобы получить созданные этикетки, используйте /v2/posting/fbs/package-label/get.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\t\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\t\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\nposting_numbers\nrequired\n\t\nArray of strings [ 1 .. 1000 ] items\n\nНомера отправлений, для которых нужны этикетки.\n\nОтветы\n200\n\nЗадания на формирование этикеток\n\nRESPONSE SCHEMA: application/json\ntasks\t\nArray of objects\n\nСписок заданий.\n\n\n\nArray ()\ntask_id\t\ninteger <int64>\n\nИдентификатор задания. Получите файл с этикетками методом /v2/posting/fbs/package-label/get.\n\n\ntask_type\t\nstring\n\nТип задания:\n\nbig_label — для обычной этикетки;\nsmall_label — для маленькой этикетки.\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\nПримеры запроса\nContent type\napplication/json\n{\n\"posting_numbers\": \n[\n\"string\"\n]\n}\nКопировать\nСвернуть всё\nПримеры ответа\n200400403404409500\nContent type\napplication/json\n{\n\"tasks\": \n[\n{\n\"task_id\": 0,\n\"task_type\": \"string\"\n}\n]\n}\nКопировать\nСвернуть всё"
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "posting_numbers",
+              "required": true,
+              "material": "Array of strings [ 1 .. 1000 ] items",
+              "children": [],
+              "description": "Array of strings [ 1 .. 1000 ] items\n\nНомера отправлений, для которых нужны этикетки."
+            }
+          ]
+        }
+      ],
+      "text": "Создать задание на формирование этикеток\nPOST\n/v3/posting/fbs/package-label/create\nОписание и примерыКонсоль\nЕсли вы работаете по схеме rFBS или rFBS Express, изучите процесс печати этикетки в Базе знаний продавца.\n\nСоздаёт задания на асинхронное формирование этикеток для отправлений в статусе «Ожидает отгрузки» — awaiting_deliver. Рекомендуем запрашивать этикетки через 45–60 секунд после сборки заказа.\n\nЧтобы получить созданные этикетки, используйте /v2/posting/fbs/package-label/get.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\nposting_numbers\nrequired\n\nArray of strings [ 1 .. 1000 ] items\n\nНомера отправлений, для которых нужны этикетки.\n\nОтветы\n200\n\nЗадания на формирование этикеток\n\nRESPONSE SCHEMA: application/json\ntasks\nArray of objects\n\nСписок заданий.\n\n\n\nArray ()\ntask_id\ninteger <int64>\n\nИдентификатор задания. Получите файл с этикетками методом /v2/posting/fbs/package-label/get.\n\n\ntask_type\nstring\n\nТип задания:\n\nbig_label — для обычной этикетки;\nsmall_label — для маленькой этикетки.\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера"
     },
     {
+      "closed_schema_nodes": 0,
       "method_id": "PostingFbsPackageLabelGet",
-      "text": "Получить файл с этикетками\nPOST\n/v2/posting/fbs/package-label/get\nОписание и примерыКонсоль\nHEADER PARAMETERS\nClient-Id\nrequired\n\t\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\t\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\ntask_id\nrequired\n\t\ninteger <int64>\n\nИдентификатор задания из ответа метода /v3/posting/fbs/package-label/create.\n\nОтветы\n200\n\nСтатус формирования этикеток или файл с ними\n\nRESPONSE SCHEMA: application/json\nerror\t\nobject\n\nОшибка, которая возникла при формировании этикеток.\n\n\nfile_url\t\nstring\n\nСсылка на файл с этикетками.\n\n\nstatus\t\nobject\n\nСтатус задания.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\nПримеры запроса\nContent type\napplication/json\n{\n\"task_id\": 0\n}\nКопировать\nСвернуть всё\nПримеры ответа\n200400403404409500\nContent type\napplication/json\n{\n\"error\": \n{\n\"code\": \"string\",\n\"message\": \"string\"\n},\n\"file_url\": \"string\",\n\"status\": \n{\n\"code\": \"string\",\n\"postings_count\": 0,\n\"printed_postings_count\": 0,\n\"unprinted_postings\": \n[\n{\n\"message\": \"string\",\n\"posting_number\": \"string\"\n}\n]\n}\n}\nКопировать\nСвернуть всё"
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "task_id",
+              "required": true,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nИдентификатор задания из ответа метода /v3/posting/fbs/package-label/create."
+            }
+          ]
+        }
+      ],
+      "text": "Получить файл с этикетками\nPOST\n/v2/posting/fbs/package-label/get\nОписание и примерыКонсоль\nHEADER PARAMETERS\nClient-Id\nrequired\n\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\ntask_id\nrequired\n\ninteger <int64>\n\nИдентификатор задания из ответа метода /v3/posting/fbs/package-label/create.\n\nОтветы\n200\n\nСтатус формирования этикеток или файл с ними\n\nRESPONSE SCHEMA: application/json\nerror\nobject\n\nОшибка, которая возникла при формировании этикеток.\n\n\n\ncode\nstring\n\nКод ошибки.\n\n\nmessage\nstring\n\nОписание ошибки.\n\n\nfile_url\nstring\n\nСсылка на файл с этикетками.\n\n\nstatus\nobject\n\nСтатус задания.\n\n\n\ncode\nstring\n\nСтатус формирования этикеток:\n\npending — задание в очереди;\nin_progress — формируются;\ncompleted — файл с этикетками готов;\nerror — ошибка при создании файла.\n\npostings_count\ninteger <int32>\n\nКоличество отправлений, по которым запрашивались этикетки.\n\n\nprinted_postings_count\ninteger <int32>\n\nКоличество отправлений, по которым получилось сгенерировать этикетки.\n\n\nunprinted_postings\nArray of objects\n\nИнформация об ошибках, из-за которых не получилось сгенерировать этикетки.\n\n\n\nArray ()\nmessage\nstring\n\nОписание ошибки.\n\n\nposting_number\nstring\n\nНомер отправления.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера"
     },
     {
+      "closed_schema_nodes": 0,
       "method_id": "AnalyticsDecommissionedGoods",
-      "text": "Получить отчёт о списанных товарах\nPOST\n/v1/analytics/decommissioned-goods\nОписание и примерыКонсоль\n\nСоответствует разделу FBO → Списанные товары в личном кабинете.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\t\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\t\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\nfilter\nrequired\n\t\nobject\n\nФильтры.\n\n\npage\nrequired\n\t\ninteger <int32>\n\nНомер страницы, возвращаемой в запросе.\n\n\npage_size\nrequired\n\t\ninteger <int32> [ 1 .. 99 ]\n\nКоличество элементов на странице.\n\n\nsort_by\t\nstring\nEnum: \"DATE\" \"DISPOSAL_FEE\"\n\nТип сортировки:\n\nDATE — по дате;\nDISPOSAL_FEE — по начислению.\n\nsort_dir\t\nstring\nEnum: \"ASC\" \"DESC\"\n\nНаправление сортировки:\n\nASC — по возрастанию,\nDESC — по убыванию.\nОтветы\n200\n\nОтчёт о списанных товарах\n\nRESPONSE SCHEMA: application/json\nitems\t\nArray of objects\n\nИнформация о товарах.\n\n\ntotal_count\t\ninteger <int32>\n\nКоличество оставшихся товаров, которые можно получить в ответе.\n\ndefault\n\nОшибка\n\nПримеры запроса\nContent type\napplication/json\n{\n\"filter\": \n{\n\"compensation\": \n[\n\"NO_COMPENSATION\"\n],\n\"date_from\": \"2019-08-24T14:15:22Z\",\n\"date_to\": \"2019-08-24T14:15:22Z\",\n\"delivery_schema\": \"FBO\",\n\"dispose_reasons\": \n[\n\"ECONOM_UTILIZATION\"\n],\n\"posting_number\": \"string\",\n\"skus\": \n[\n\"string\"\n],\n\"supply_id\": 0\n},\n\"page\": 0,\n\"page_size\": 1,\n\"sort_by\": \"DATE\",\n\"sort_dir\": \"ASC\"\n}\nКопировать\nСвернуть всё\nПримеры ответа\n200default\nContent type\napplication/json\n{\n\"items\": \n[\n{\n\"compensation_price\": 0,\n\"compensation_type\": \"NO_COMPENSATION\",\n\"date\": \"2019-08-24T14:15:22Z\",\n\"delivery_schema\": \"FBO\",\n\"disposal_fee\": 0,\n\"dispose_reason\": \"ECONOM_UTILIZATION\",\n\"posting_number\": \"string\",\n\"quantity\": 0,\n\"sku\": 0,\n\"supply_id\": 0\n}\n],\n\"total_count\": 0\n}\nКопировать\nСвернуть всё"
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "filter",
+              "required": true,
+              "material": "object",
+              "children": [
+                {
+                  "name": "compensation",
+                  "required": false,
+                  "material": "Array of strings\nItems Enum: \"NO_COMPENSATION\" \"PRELIMINARY_COMPENSATION\" \"CLOSED_COMPENSATION\"",
+                  "children": [],
+                  "description": "Array of strings\nItems Enum: \"NO_COMPENSATION\" \"PRELIMINARY_COMPENSATION\" \"CLOSED_COMPENSATION\"\n\nТип компенсации:\n\nNO_COMPENSATION — без компенсации;\nPRELIMINARY_COMPENSATION — предварительная компенсация;\nCLOSED_COMPENSATION — выплаченная компенсация."
+                },
+                {
+                  "name": "date_from",
+                  "required": true,
+                  "material": "string <date-time>",
+                  "children": [],
+                  "description": "string <date-time>\n\nДата, с которой данные отображаются в отчёте."
+                },
+                {
+                  "name": "date_to",
+                  "required": true,
+                  "material": "string <date-time>",
+                  "children": [],
+                  "description": "string <date-time>\n\nДата, по которую данные отображаются в отчёте."
+                },
+                {
+                  "name": "delivery_schema",
+                  "required": true,
+                  "material": "string\nEnum: \"FBO\" \"FBS\"",
+                  "children": [],
+                  "description": "string\nEnum: \"FBO\" \"FBS\"\n\nСхема доставки:\n\nFBO — доставка со склада Ozon;\nFBS — доставка со своего склада."
+                },
+                {
+                  "name": "dispose_reasons",
+                  "required": false,
+                  "material": "Array of strings\nItems Enum: \"ECONOM_UTILIZATION\" \"SELLER_UTILIZATION\" \"MISSED_DEADLINE\" \"MISSED_COURIER_DELIVERY\" \"PROHIBITED_FOR_SALE\" \"EXPIRED\" \"DAMAGED_DUE_TO_PACKAGING\" \"DAMAGED_BY_CUSTOMER\" \"SPILLED_DUE_TO_PACKAGING\" \"OZON_DEFECT\" \"OZON_LOSS\" \"OTHER\" \"REZON\" \"AUTODISPOSAL_STOCK\" \"RETURNS_AUTO_INVALID\" \"RETURNS_AUTO_VALID\" \"TRUSTBASED_ACCEPTANCE\"",
+                  "children": [],
+                  "description": "Array of strings\nItems Enum: \"ECONOM_UTILIZATION\" \"SELLER_UTILIZATION\" \"MISSED_DEADLINE\" \"MISSED_COURIER_DELIVERY\" \"PROHIBITED_FOR_SALE\" \"EXPIRED\" \"DAMAGED_DUE_TO_PACKAGING\" \"DAMAGED_BY_CUSTOMER\" \"SPILLED_DUE_TO_PACKAGING\" \"OZON_DEFECT\" \"OZON_LOSS\" \"OTHER\" \"REZON\" \"AUTODISPOSAL_STOCK\" \"RETURNS_AUTO_INVALID\" \"RETURNS_AUTO_VALID\" \"TRUSTBASED_ACCEPTANCE\"\n\nПричина списания:\n\nECONOM_UTILIZATION — возвраты по тарифу «Эконом»;\nSELLER_UTILIZATION — вы заказали утилизацию;\nMISSED_DEADLINE — вы не забрали возврат в срок;\nMISSED_COURIER_DELIVERY — вы не приняли возврат у курьера;\nPROHIBITED_FOR_SALE — товар запрещён к продаже;\nEXPIRED — истёк срок годности товара;\nDAMAGED_DUE_TO_PACKAGING — товар повреждён во время упаковки;\nDAMAGED_BY_CUSTOMER — товар повреждён покупателем;\nSPILLED_DUE_TO_PACKAGING — товар пролился или просыпался во время упаковки;\nOZON_DEFECT — брак по вине Ozon;\nOZON_LOSS — потеря по вине Ozon;\nOTHER — прочие причины;\nREZON — не определена;\nAUTODISPOSAL_STOCK — автоутилизация со стока;\nRETURNS_AUTO_INVALID — автоутилизация возвратов и отмен невалидных товаров;\nRETURNS_AUTO_VALID — автоутилизация возвратов и отмен валидных товаров;\nTRUSTBASED_ACCEPTANCE — списание по доверительной приёмке."
+                },
+                {
+                  "name": "posting_number",
+                  "required": false,
+                  "material": "string",
+                  "children": [],
+                  "description": "string\n\nНомер отправления."
+                },
+                {
+                  "name": "skus",
+                  "required": false,
+                  "material": "Array of strings <int64> <= 100 items",
+                  "children": [],
+                  "description": "Array of strings <int64> <= 100 items\n\nИдентификаторы товаров в системе Ozon — SKU."
+                },
+                {
+                  "name": "supply_id",
+                  "required": false,
+                  "material": "integer <int64>",
+                  "children": [],
+                  "description": "integer <int64>\n\nИдентификатор поставки."
+                }
+              ],
+              "description": "object\n\nФильтры."
+            },
+            {
+              "name": "page",
+              "required": true,
+              "material": "integer <int32>",
+              "children": [],
+              "description": "integer <int32>\n\nНомер страницы, возвращаемой в запросе."
+            },
+            {
+              "name": "page_size",
+              "required": true,
+              "material": "integer <int32> [ 1 .. 99 ]",
+              "children": [],
+              "description": "integer <int32> [ 1 .. 99 ]\n\nКоличество элементов на странице."
+            },
+            {
+              "name": "sort_by",
+              "required": false,
+              "material": "string\nEnum: \"DATE\" \"DISPOSAL_FEE\"",
+              "children": [],
+              "description": "string\nEnum: \"DATE\" \"DISPOSAL_FEE\"\n\nТип сортировки:\n\nDATE — по дате;\nDISPOSAL_FEE — по начислению."
+            },
+            {
+              "name": "sort_dir",
+              "required": false,
+              "material": "string\nEnum: \"ASC\" \"DESC\"",
+              "children": [],
+              "description": "string\nEnum: \"ASC\" \"DESC\"\n\nНаправление сортировки:\n\nASC — по возрастанию,\nDESC — по убыванию."
+            }
+          ]
+        }
+      ],
+      "text": "Получить отчёт о списанных товарах\nPOST\n/v1/analytics/decommissioned-goods\nОписание и примерыКонсоль\n\nСоответствует разделу FBO → Списанные товары в личном кабинете.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\nfilter\nrequired\n\nobject\n\nФильтры.\n\n\n\ncompensation\nArray of strings\nItems Enum: \"NO_COMPENSATION\" \"PRELIMINARY_COMPENSATION\" \"CLOSED_COMPENSATION\"\n\nТип компенсации:\n\nNO_COMPENSATION — без компенсации;\nPRELIMINARY_COMPENSATION — предварительная компенсация;\nCLOSED_COMPENSATION — выплаченная компенсация.\n\ndate_from\nrequired\n\nstring <date-time>\n\nДата, с которой данные отображаются в отчёте.\n\n\ndate_to\nrequired\n\nstring <date-time>\n\nДата, по которую данные отображаются в отчёте.\n\n\ndelivery_schema\nrequired\n\nstring\nEnum: \"FBO\" \"FBS\"\n\nСхема доставки:\n\nFBO — доставка со склада Ozon;\nFBS — доставка со своего склада.\n\ndispose_reasons\nArray of strings\nItems Enum: \"ECONOM_UTILIZATION\" \"SELLER_UTILIZATION\" \"MISSED_DEADLINE\" \"MISSED_COURIER_DELIVERY\" \"PROHIBITED_FOR_SALE\" \"EXPIRED\" \"DAMAGED_DUE_TO_PACKAGING\" \"DAMAGED_BY_CUSTOMER\" \"SPILLED_DUE_TO_PACKAGING\" \"OZON_DEFECT\" \"OZON_LOSS\" \"OTHER\" \"REZON\" \"AUTODISPOSAL_STOCK\" \"RETURNS_AUTO_INVALID\" \"RETURNS_AUTO_VALID\" \"TRUSTBASED_ACCEPTANCE\"\n\nПричина списания:\n\nECONOM_UTILIZATION — возвраты по тарифу «Эконом»;\nSELLER_UTILIZATION — вы заказали утилизацию;\nMISSED_DEADLINE — вы не забрали возврат в срок;\nMISSED_COURIER_DELIVERY — вы не приняли возврат у курьера;\nPROHIBITED_FOR_SALE — товар запрещён к продаже;\nEXPIRED — истёк срок годности товара;\nDAMAGED_DUE_TO_PACKAGING — товар повреждён во время упаковки;\nDAMAGED_BY_CUSTOMER — товар повреждён покупателем;\nSPILLED_DUE_TO_PACKAGING — товар пролился или просыпался во время упаковки;\nOZON_DEFECT — брак по вине Ozon;\nOZON_LOSS — потеря по вине Ozon;\nOTHER — прочие причины;\nREZON — не определена;\nAUTODISPOSAL_STOCK — автоутилизация со стока;\nRETURNS_AUTO_INVALID — автоутилизация возвратов и отмен невалидных товаров;\nRETURNS_AUTO_VALID — автоутилизация возвратов и отмен валидных товаров;\nTRUSTBASED_ACCEPTANCE — списание по доверительной приёмке.\n\nposting_number\nstring\n\nНомер отправления.\n\n\nskus\nArray of strings <int64> <= 100 items\n\nИдентификаторы товаров в системе Ozon — SKU.\n\n\nsupply_id\ninteger <int64>\n\nИдентификатор поставки.\n\n\npage\nrequired\n\ninteger <int32>\n\nНомер страницы, возвращаемой в запросе.\n\n\npage_size\nrequired\n\ninteger <int32> [ 1 .. 99 ]\n\nКоличество элементов на странице.\n\n\nsort_by\nstring\nEnum: \"DATE\" \"DISPOSAL_FEE\"\n\nТип сортировки:\n\nDATE — по дате;\nDISPOSAL_FEE — по начислению.\n\nsort_dir\nstring\nEnum: \"ASC\" \"DESC\"\n\nНаправление сортировки:\n\nASC — по возрастанию,\nDESC — по убыванию.\nОтветы\n200\n\nОтчёт о списанных товарах\n\nRESPONSE SCHEMA: application/json\nitems\nArray of objects\n\nИнформация о товарах.\n\n\n\nArray ()\ncompensation_price\nnumber <double>\n\nСумма выплаченной компенсации.\n\n\ncompensation_type\nstring\nEnum: \"NO_COMPENSATION\" \"PRELIMINARY_COMPENSATION\" \"CLOSED_COMPENSATION\"\n\nТип компенсации:\n\nNO_COMPENSATION — без компенсации;\nPRELIMINARY_COMPENSATION — предварительная компенсация;\nCLOSED_COMPENSATION — выплаченная компенсация.\n\ndate\nstring <date-time>\n\nДата списания товара.\n\n\ndelivery_schema\nstring\nEnum: \"FBO\" \"FBS\"\n\nСхема доставки:\n\nFBO — доставка со склада Ozon;\nFBS — доставка со своего склада.\n\ndisposal_fee\nnumber <double>\n\nНачисление за утилизацию товара.\n\n\ndispose_reason\nstring\nEnum: \"ECONOM_UTILIZATION\" \"SELLER_UTILIZATION\" \"MISSED_DEADLINE\" \"MISSED_COURIER_DELIVERY\" \"PROHIBITED_FOR_SALE\" \"EXPIRED\" \"DAMAGED_DUE_TO_PACKAGING\" \"DAMAGED_BY_CUSTOMER\" \"SPILLED_DUE_TO_PACKAGING\" \"OZON_DEFECT\" \"OZON_LOSS\" \"OTHER\" \"REZON\" \"AUTODISPOSAL_STOCK\" \"RETURNS_AUTO_INVALID\" \"RETURNS_AUTO_VALID\" \"TRUSTBASED_ACCEPTANCE\"\n\nПричина списания:\n\nECONOM_UTILIZATION — возвраты по тарифу «Эконом»;\nSELLER_UTILIZATION — вы заказали утилизацию;\nMISSED_DEADLINE — вы не забрали возврат в срок;\nMISSED_COURIER_DELIVERY — вы не приняли возврат у курьера;\nPROHIBITED_FOR_SALE — товар запрещён к продаже;\nEXPIRED — истёк срок годности товара;\nDAMAGED_DUE_TO_PACKAGING — товар повреждён во время упаковки;\nDAMAGED_BY_CUSTOMER — товар повреждён покупателем;\nSPILLED_DUE_TO_PACKAGING — товар пролился или просыпался во время упаковки;\nOZON_DEFECT — брак по вине Ozon;\nOZON_LOSS — потеря по вине Ozon;\nOTHER — прочие причины;\nREZON — не определена;\nAUTODISPOSAL_STOCK — автоутилизация со стока;\nRETURNS_AUTO_INVALID — автоутилизация возвратов и отмен невалидных товаров;\nRETURNS_AUTO_VALID — автоутилизация возвратов и отмен валидных товаров;\nTRUSTBASED_ACCEPTANCE — списание по доверительной приёмке.\n\nposting_number\nstring\n\nНомер отправления.\n\n\nquantity\ninteger <int32>\n\nКоличество товаров в списании.\n\n\nsku\ninteger <int64>\n\nИдентификатор товара в системе Ozon — SKU.\n\n\nsupply_id\ninteger <int64>\n\nИдентификатор поставки.\n\n\ntotal_count\ninteger <int32>\n\nКоличество оставшихся товаров, которые можно получить в ответе.\n\ndefault\n\nОшибка"
     },
     {
+      "closed_schema_nodes": 0,
       "method_id": "AnalyticsCategoryComparison",
-      "text": "Получить информацию о сравнении категорий\nPOST\n/v1/analytics/category/comparison\nОписание и примерыКонсоль\n\nСоответствует разделу Аналитика → Категории в личном кабинете.\n\nМетод доступен продавцам с подпиской Premium Pro.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\t\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\t\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\nfilter\t\nobject\n\nФильтр.\n\n\ngroup\t\nstring\nDefault: \"CATEGORY_3\"\nEnum: \"CATEGORY_3\" \"SOURCE\" \"SELLER\" \"BRAND\" \"CLUSTER\" \"PRICE_BOUNDARY\"\n\nГруппировка данных в ответе:\n\nCATEGORY_3 — по категории 3-го уровня;\nSOURCE — по источнику продаж;\nSELLER — по продавцу;\nBRAND — по бренду;\nCLUSTER — по кластеру отгрузки;\nPRICE_BOUNDARY — по ценовому сегменту.\n\nlimit\t\ninteger <uint64> <= 100\n\nКоличество значений в ответе.\n\n\nmetric\t\nstring\nDefault: \"GMV\"\nEnum: \"GMV\" \"GMV_GROWTH\" \"ITEMS\" \"AIV\" \"AIV_GROWTH\" \"SELLERS\" \"BRANDS\" \"CLUSTERS\" \"CATEGORY_SHARE\" \"LEADER_SHARE\" \"BUYOUT\"\n\nФильтр по метрикам:\n\nGMV — объём продаж в денежном выражении;\nGMV_GROWTH — объём продаж в процентах по сравнению с предыдущим периодом;\nITEMS — количество проданных товаров;\nAIV — средняя стоимость одного проданного товара;\nAIV_GROWTH — рост средней стоимости товара в процентах;\nSELLERS — количество уникальных продавцов в категории или сегменте;\nBRANDS — количество уникальных брендов в категории или сегменте;\nCLUSTERS — кластры, регионы или города с похожими характеристиками продаж;\nCATEGORY_SHARE — доля категории в общем объёме продаж;\nLEADER_SHARE — доля лидера по продажам;\nBUYOUT — процент выкупа товаров.\n\noffset\t\ninteger <uint64>\n\nКоличество элементов, которое будет пропущено в ответе. Например, если offset = 10, то ответ начнётся с 11-го найденного элемента.\n\n\nperiod\nrequired\n\t\nstring\nEnum: \"WEEK\" \"MONTH\" \"QUARTER\" \"YEAR\"\n\nПериод:\n\nWEEK — неделя,\nMONTH — месяц,\nQUARTER — квартал,\nYEAR — год.\n\nsort\nrequired\n\t\nstring\nEnum: \"ASC\" \"DESC\"\n\nНаправление сортировки:\n\nASC — по возрастанию,\nDESC — по убыванию.\nОтветы\n200\n\nИнформация о сравнении категорий\n\nRESPONSE SCHEMA: application/json\nhas_next\t\nboolean\n\ntrue, если в ответе вернулись не все значения.\n\n\nitems\t\nArray of objects\n\nМассив данных.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\nПримеры запроса\nContent type\napplication/json\n{\n\"filter\": \n{\n\"brand_ids\": \n[\n\"string\"\n],\n\"category\": \n{\n\"category_id\": 0,\n\"category_type\": \"CATEGORY_3\",\n\"is_own\": true\n},\n\"clothing_for\": \n[\n\"MALE\"\n],\n\"price_segment\": \n{\n\"from\": 1,\n\"to\": 1\n},\n\"seller_ids\": \n[\n\"string\"\n]\n},\n\"group\": \"CATEGORY_3\",\n\"limit\": 0,\n\"metric\": \"GMV\",\n\"offset\": 0,\n\"period\": \"WEEK\",\n\"sort\": \"ASC\"\n}\nКопировать\nСвернуть всё\nПримеры ответа\n200400403404409500\nContent type\napplication/json\n{\n\"has_next\": true,\n\"items\": \n[\n{\n\"id\": \"string\",\n\"label\": \"string\",\n\"max_rating\": 0,\n\"metric_aiv\": 0,\n\"metric_aiv_growth\": 0,\n\"metric_brands\": 0,\n\"metric_buyout\": 0,\n\"metric_category_share\": 0,\n\"metric_clusters\": 0,\n\"metric_gmv\": 0,\n\"metric_gmv_growth\": 0,\n\"metric_items\": 0,\n\"metric_leader_share\": 0,\n\"metric_sellers\": 0,\n\"rating\": 0\n}\n]\n}\nКопировать\nСвернуть всё"
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "filter",
+              "required": false,
+              "material": "object",
+              "children": [
+                {
+                  "name": "brand_ids",
+                  "required": false,
+                  "material": "Array of strings <int64> <= 100 items",
+                  "children": [],
+                  "description": "Array of strings <int64> <= 100 items\n\nСписок идентификаторов бренда. Вернётся информация только по обороту указанных брендов."
+                },
+                {
+                  "name": "category",
+                  "required": false,
+                  "material": "object",
+                  "children": [
+                    {
+                      "name": "category_id",
+                      "required": true,
+                      "material": "integer <int32>",
+                      "children": [],
+                      "description": "integer <int32>\n\nИдентификатор категории."
+                    },
+                    {
+                      "name": "category_type",
+                      "required": true,
+                      "material": "string\nDefault: \"CATEGORY_3\"\nEnum: \"CATEGORY_3\" \"CATEGORY_2\" \"CATEGORY_1\"\nCATEGORY_3 — категория 3-го уровня.\nCATEGORY_2 — категория 2-го уровня. В ответе вернётся информация по подкатегориям внутри категории.\nCATEGORY_1 — категория 1-го уровня.",
+                      "children": [],
+                      "description": "string\nDefault: \"CATEGORY_3\"\nEnum: \"CATEGORY_3\" \"CATEGORY_2\" \"CATEGORY_1\"\nCATEGORY_3 — категория 3-го уровня.\nCATEGORY_2 — категория 2-го уровня. В ответе вернётся информация по подкатегориям внутри категории.\nCATEGORY_1 — категория 1-го уровня."
+                    },
+                    {
+                      "name": "is_own",
+                      "required": false,
+                      "material": "boolean",
+                      "children": [],
+                      "description": "boolean\n\ntrue, чтобы получить только категории, по которым были продажи."
+                    }
+                  ],
+                  "description": "object\n\nСписок категорий."
+                },
+                {
+                  "name": "clothing_for",
+                  "required": false,
+                  "material": "Array of strings\nItems Enum: \"MALE\" \"FEMALE\" \"BOYS\" \"GIRLS\"",
+                  "children": [],
+                  "description": "Array of strings\nItems Enum: \"MALE\" \"FEMALE\" \"BOYS\" \"GIRLS\"\n\nПол:\n\nMALE — мужской;\nFEMALE — женский;\nBOYS — мальчики, детская одежда;\nGIRLS — девочки, детская одежда.\n\nУказывайте параметр для категорий «Обувь», «Одежда», «Галантерея и аксессуары» и «Ювелирные изделия»."
+                },
+                {
+                  "name": "price_segment",
+                  "required": false,
+                  "material": "object",
+                  "children": [
+                    {
+                      "name": "from",
+                      "required": false,
+                      "material": "integer <int32> [ 1 .. 30 ]",
+                      "children": [],
+                      "description": "integer <int32> [ 1 .. 30 ]\n\nНачало диапазона."
+                    },
+                    {
+                      "name": "to",
+                      "required": false,
+                      "material": "integer <int32> [ 1 .. 30 ]",
+                      "children": [],
+                      "description": "integer <int32> [ 1 .. 30 ]\n\nКонец диапазона."
+                    }
+                  ],
+                  "description": "object\n\nДиапазон цены."
+                },
+                {
+                  "name": "seller_ids",
+                  "required": false,
+                  "material": "Array of strings <int64>",
+                  "children": [],
+                  "description": "Array of strings <int64>\n\nСписок идентификаторов продавца. Вернётся информация только по обороту указанных продавцов."
+                }
+              ],
+              "description": "object\n\nФильтр."
+            },
+            {
+              "name": "group",
+              "required": false,
+              "material": "string\nDefault: \"CATEGORY_3\"\nEnum: \"CATEGORY_3\" \"SOURCE\" \"SELLER\" \"BRAND\" \"CLUSTER\" \"PRICE_BOUNDARY\"",
+              "children": [],
+              "description": "string\nDefault: \"CATEGORY_3\"\nEnum: \"CATEGORY_3\" \"SOURCE\" \"SELLER\" \"BRAND\" \"CLUSTER\" \"PRICE_BOUNDARY\"\n\nГруппировка данных в ответе:\n\nCATEGORY_3 — по категории 3-го уровня;\nSOURCE — по источнику продаж;\nSELLER — по продавцу;\nBRAND — по бренду;\nCLUSTER — по кластеру отгрузки;\nPRICE_BOUNDARY — по ценовому сегменту."
+            },
+            {
+              "name": "limit",
+              "required": false,
+              "material": "integer <uint64> <= 100",
+              "children": [],
+              "description": "integer <uint64> <= 100\n\nКоличество значений в ответе."
+            },
+            {
+              "name": "metric",
+              "required": false,
+              "material": "string\nDefault: \"GMV\"\nEnum: \"GMV\" \"GMV_GROWTH\" \"ITEMS\" \"AIV\" \"AIV_GROWTH\" \"SELLERS\" \"BRANDS\" \"CLUSTERS\" \"CATEGORY_SHARE\" \"LEADER_SHARE\" \"BUYOUT\"",
+              "children": [],
+              "description": "string\nDefault: \"GMV\"\nEnum: \"GMV\" \"GMV_GROWTH\" \"ITEMS\" \"AIV\" \"AIV_GROWTH\" \"SELLERS\" \"BRANDS\" \"CLUSTERS\" \"CATEGORY_SHARE\" \"LEADER_SHARE\" \"BUYOUT\"\n\nФильтр по метрикам:\n\nGMV — объём продаж в денежном выражении;\nGMV_GROWTH — объём продаж в процентах по сравнению с предыдущим периодом;\nITEMS — количество проданных товаров;\nAIV — средняя стоимость одного проданного товара;\nAIV_GROWTH — рост средней стоимости товара в процентах;\nSELLERS — количество уникальных продавцов в категории или сегменте;\nBRANDS — количество уникальных брендов в категории или сегменте;\nCLUSTERS — кластры, регионы или города с похожими характеристиками продаж;\nCATEGORY_SHARE — доля категории в общем объёме продаж;\nLEADER_SHARE — доля лидера по продажам;\nBUYOUT — процент выкупа товаров."
+            },
+            {
+              "name": "offset",
+              "required": false,
+              "material": "integer <uint64>",
+              "children": [],
+              "description": "integer <uint64>\n\nКоличество элементов, которое будет пропущено в ответе. Например, если offset = 10, то ответ начнётся с 11-го найденного элемента."
+            },
+            {
+              "name": "period",
+              "required": true,
+              "material": "string\nEnum: \"WEEK\" \"MONTH\" \"QUARTER\" \"YEAR\"",
+              "children": [],
+              "description": "string\nEnum: \"WEEK\" \"MONTH\" \"QUARTER\" \"YEAR\"\n\nПериод:\n\nWEEK — неделя,\nMONTH — месяц,\nQUARTER — квартал,\nYEAR — год."
+            },
+            {
+              "name": "sort",
+              "required": true,
+              "material": "string\nEnum: \"ASC\" \"DESC\"",
+              "children": [],
+              "description": "string\nEnum: \"ASC\" \"DESC\"\n\nНаправление сортировки:\n\nASC — по возрастанию,\nDESC — по убыванию."
+            }
+          ]
+        }
+      ],
+      "text": "Получить информацию о сравнении категорий\nPOST\n/v1/analytics/category/comparison\nОписание и примерыКонсоль\n\nСоответствует разделу Аналитика → Категории в личном кабинете.\n\nМетод доступен продавцам с подпиской Premium Pro.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\nfilter\nobject\n\nФильтр.\n\n\n\nbrand_ids\nArray of strings <int64> <= 100 items\n\nСписок идентификаторов бренда. Вернётся информация только по обороту указанных брендов.\n\n\ncategory\nobject\n\nСписок категорий.\n\n\n\ncategory_id\nrequired\n\ninteger <int32>\n\nИдентификатор категории.\n\n\ncategory_type\nrequired\n\nstring\nDefault: \"CATEGORY_3\"\nEnum: \"CATEGORY_3\" \"CATEGORY_2\" \"CATEGORY_1\"\nCATEGORY_3 — категория 3-го уровня.\nCATEGORY_2 — категория 2-го уровня. В ответе вернётся информация по подкатегориям внутри категории.\nCATEGORY_1 — категория 1-го уровня.\n\nis_own\nboolean\n\ntrue, чтобы получить только категории, по которым были продажи.\n\n\nclothing_for\nArray of strings\nItems Enum: \"MALE\" \"FEMALE\" \"BOYS\" \"GIRLS\"\n\nПол:\n\nMALE — мужской;\nFEMALE — женский;\nBOYS — мальчики, детская одежда;\nGIRLS — девочки, детская одежда.\n\nУказывайте параметр для категорий «Обувь», «Одежда», «Галантерея и аксессуары» и «Ювелирные изделия».\n\n\nprice_segment\nobject\n\nДиапазон цены.\n\n\n\nfrom\ninteger <int32> [ 1 .. 30 ]\n\nНачало диапазона.\n\n\nto\ninteger <int32> [ 1 .. 30 ]\n\nКонец диапазона.\n\n\nseller_ids\nArray of strings <int64>\n\nСписок идентификаторов продавца. Вернётся информация только по обороту указанных продавцов.\n\n\ngroup\nstring\nDefault: \"CATEGORY_3\"\nEnum: \"CATEGORY_3\" \"SOURCE\" \"SELLER\" \"BRAND\" \"CLUSTER\" \"PRICE_BOUNDARY\"\n\nГруппировка данных в ответе:\n\nCATEGORY_3 — по категории 3-го уровня;\nSOURCE — по источнику продаж;\nSELLER — по продавцу;\nBRAND — по бренду;\nCLUSTER — по кластеру отгрузки;\nPRICE_BOUNDARY — по ценовому сегменту.\n\nlimit\ninteger <uint64> <= 100\n\nКоличество значений в ответе.\n\n\nmetric\nstring\nDefault: \"GMV\"\nEnum: \"GMV\" \"GMV_GROWTH\" \"ITEMS\" \"AIV\" \"AIV_GROWTH\" \"SELLERS\" \"BRANDS\" \"CLUSTERS\" \"CATEGORY_SHARE\" \"LEADER_SHARE\" \"BUYOUT\"\n\nФильтр по метрикам:\n\nGMV — объём продаж в денежном выражении;\nGMV_GROWTH — объём продаж в процентах по сравнению с предыдущим периодом;\nITEMS — количество проданных товаров;\nAIV — средняя стоимость одного проданного товара;\nAIV_GROWTH — рост средней стоимости товара в процентах;\nSELLERS — количество уникальных продавцов в категории или сегменте;\nBRANDS — количество уникальных брендов в категории или сегменте;\nCLUSTERS — кластры, регионы или города с похожими характеристиками продаж;\nCATEGORY_SHARE — доля категории в общем объёме продаж;\nLEADER_SHARE — доля лидера по продажам;\nBUYOUT — процент выкупа товаров.\n\noffset\ninteger <uint64>\n\nКоличество элементов, которое будет пропущено в ответе. Например, если offset = 10, то ответ начнётся с 11-го найденного элемента.\n\n\nperiod\nrequired\n\nstring\nEnum: \"WEEK\" \"MONTH\" \"QUARTER\" \"YEAR\"\n\nПериод:\n\nWEEK — неделя,\nMONTH — месяц,\nQUARTER — квартал,\nYEAR — год.\n\nsort\nrequired\n\nstring\nEnum: \"ASC\" \"DESC\"\n\nНаправление сортировки:\n\nASC — по возрастанию,\nDESC — по убыванию.\nОтветы\n200\n\nИнформация о сравнении категорий\n\nRESPONSE SCHEMA: application/json\nhas_next\nboolean\n\ntrue, если в ответе вернулись не все значения.\n\n\nitems\nArray of objects\n\nМассив данных.\n\n\n\nArray ()\nid\nstring\n\nИдентификатор продавца, бренда или категории.\n\n\nlabel\nstring\n\nНазвание продавца, бренда или категории.\n\n\nmax_rating\ninteger <uint64>\n\nМаксимальный рейтинг.\n\n\nmetric_aiv\nnumber <double>\n\nСредняя цена.\n\n\nmetric_aiv_growth\nnumber <double>\n\nДинамика средней цены.\n\n\nmetric_brands\ninteger <uint64>\n\nКоличество брендов.\n\n\nmetric_buyout\nnumber <double>\n\nДоля выкупа.\n\n\nmetric_category_share\nnumber <double>\n\nДоля в категории.\n\n\nmetric_clusters\ninteger <uint64>\n\nКоличество кластеров доставки.\n\n\nmetric_gmv\nnumber <double>\n\nСумма заказов.\n\n\nmetric_gmv_growth\nnumber <double>\n\nДинамика суммы заказов.\n\n\nmetric_items\ninteger <uint64>\n\nКоличество заказанных товаров.\n\n\nmetric_leader_share\nnumber <double>\n\nДоля топ-5 продавцов.\n\n\nmetric_sellers\ninteger <uint64>\n\nКоличество продавцов.\n\n\nrating\ninteger <uint64>\n\nПозиция продавца в рейтинге.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера"
     },
     {
+      "closed_schema_nodes": 0,
       "method_id": "DescriptionCategoryDependentAttributes",
-      "text": "Получить зависимые характеристики\nPOST\n/v1/description-category/dependent-attributes\nОписание и примерыКонсоль\n\nВозвращает пары идентификаторов родительской и дочерней характеристик. Получите возможные значения дочерней характеристики для значений родительской методом /v1/description-category/dependent-attributes/values.\n\nХарактеристика с parent_attribute_id = 8229 — это идентификатор типа товара type_id. Не указывайте её в параметре items.attributes.id в запросах к методам /v3/product/import и /v1/product/attributes/update.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\t\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\t\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\ndescription_category_id\nrequired\n\t\ninteger <int64>\n\nИдентификатор категории из метода /v1/description-category/tree.\n\n\ntype_id\t\ninteger <int64>\n\nИдентификатор типа товара из метода /v1/description-category/tree.\n\nОтветы\n200\n\nЗависимые характеристики\n\nRESPONSE SCHEMA: application/json\nresult\t\nArray of objects\n\nИнформация о зависимых характеристиках.\n\n\n\nArray ()\nchild_attribute_id\t\ninteger <int64>\n\nИдентификатор дочерней характеристики.\n\n\nparent_attribute_id\t\ninteger <int64>\n\nИдентификатор родительской характеристики.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\nПримеры запроса\nContent type\napplication/json\n{\n\"description_category_id\": 234123,\n\"type_id\": 123123\n}\nКопировать\nСвернуть всё\nПримеры ответа\n200400403404409500\nContent type\napplication/json\n{\n\"result\": \n[\n{\n\"child_attribute_id\": 4812,\n\"parent_attribute_id\": 8229\n}\n]\n}\nКопировать\nСвернуть всё"
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "description_category_id",
+              "required": true,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nИдентификатор категории из метода /v1/description-category/tree."
+            },
+            {
+              "name": "type_id",
+              "required": false,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nИдентификатор типа товара из метода /v1/description-category/tree."
+            }
+          ]
+        }
+      ],
+      "text": "Получить зависимые характеристики\nPOST\n/v1/description-category/dependent-attributes\nОписание и примерыКонсоль\n\nВозвращает пары идентификаторов родительской и дочерней характеристик. Получите возможные значения дочерней характеристики для значений родительской методом /v1/description-category/dependent-attributes/values.\n\nХарактеристика с parent_attribute_id = 8229 — это идентификатор типа товара type_id. Не указывайте её в параметре items.attributes.id в запросах к методам /v3/product/import и /v1/product/attributes/update.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\ndescription_category_id\nrequired\n\ninteger <int64>\n\nИдентификатор категории из метода /v1/description-category/tree.\n\n\ntype_id\ninteger <int64>\n\nИдентификатор типа товара из метода /v1/description-category/tree.\n\nОтветы\n200\n\nЗависимые характеристики\n\nRESPONSE SCHEMA: application/json\nresult\nArray of objects\n\nИнформация о зависимых характеристиках.\n\n\n\nArray ()\nchild_attribute_id\ninteger <int64>\n\nИдентификатор дочерней характеристики.\n\n\nparent_attribute_id\ninteger <int64>\n\nИдентификатор родительской характеристики.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера"
     },
     {
+      "closed_schema_nodes": 0,
       "method_id": "DescriptionCategoryDependentAttributesValues",
-      "text": "Получить возможные значения дочерней характеристики\nPOST\n/v1/description-category/dependent-attributes/values\nОписание и примерыКонсоль\n\nВозвращает возможные значения дочерней характеристики для значений родительской.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\t\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\t\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\nchild_attribute_id\nrequired\n\t\ninteger <int64>\n\nИдентификатор дочерней характеристики.\n\n\ncursor\t\nstring\n\nУказатель для выборки следующих данных.\n\n\ndescription_category_id\t\ninteger <int64>\n\nИдентификатор категории из метода /v1/description-category/tree.\n\n\nlimit\t\ninteger <int64> [ 1 .. 1000 ]\nDefault: 100\n\nКоличество значений в ответе.\n\n\nparent_attribute_id\nrequired\n\t\ninteger <int64>\n\nИдентификатор родительской характеристики.\n\n\ntype_id\t\ninteger <int64>\n\nИдентификатор типа товара из метода /v1/description-category/tree.\n\nОтветы\n200\n\nВозможные значения дочерней характеристики\n\nRESPONSE SCHEMA: application/json\ncursor\t\nstring\n\nУказатель для выборки следующих данных.\n\n\nresult\t\nArray of objects\n\nИнформация о зависимых характеристиках.\n\n\n\nArray ()\nchildren\t\nArray of objects\n\nИнформация о дочерних характеристиках.\n\n\nparent_value\t\nstring\n\nЗначение родительской характеристики.\n\n\nparent_value_id\t\ninteger <int64>\n\nИдентификатор значения родительской характеристики.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\nПримеры запроса\nContent type\napplication/json\n{\n\"parent_attribute_id\": 8229,\n\"child_attribute_id\": 23348,\n\"description_category_id\": 234123,\n\"type_id\": 123123,\n\"limit\": 4,\n\"cursor\": \"\"\n}\nКопировать\nСвернуть всё\nПримеры ответа\n200400403404409500\nContent type\napplication/json\n{\n\"cursor\": \"eyJwYXJlbnRfdmFsdWVfaWQiOjEwMDIsImNoaWxkX2luZGV4IjowfQ==\",\n\"result\": \n[\n{\n\"parent_value_id\": 1001,\n\"parent_value\": \"Лада\",\n\"children\": \n[\n{\n\"child_value_id\": 2001,\n\"child_value\": \"Гранта\"\n},\n{\n\"child_value_id\": 2002,\n\"child_value\": \"Приора\"\n},\n{\n\"child_value_id\": 2003,\n\"child_value\": \"Веста\"\n}\n]\n},\n{\n\"parent_value_id\": 1002,\n\"parent_value\": \"Тойота\",\n\"children\": \n[\n{\n\"child_value_id\": 2004,\n\"child_value\": \"Королла\"\n}\n]\n}\n]\n}\nКопировать\nСвернуть всё"
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "child_attribute_id",
+              "required": true,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nИдентификатор дочерней характеристики."
+            },
+            {
+              "name": "cursor",
+              "required": false,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nУказатель для выборки следующих данных."
+            },
+            {
+              "name": "description_category_id",
+              "required": false,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nИдентификатор категории из метода /v1/description-category/tree."
+            },
+            {
+              "name": "limit",
+              "required": false,
+              "material": "integer <int64> [ 1 .. 1000 ]\nDefault: 100",
+              "children": [],
+              "description": "integer <int64> [ 1 .. 1000 ]\nDefault: 100\n\nКоличество значений в ответе."
+            },
+            {
+              "name": "parent_attribute_id",
+              "required": true,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nИдентификатор родительской характеристики."
+            },
+            {
+              "name": "type_id",
+              "required": false,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nИдентификатор типа товара из метода /v1/description-category/tree."
+            }
+          ]
+        }
+      ],
+      "text": "Получить возможные значения дочерней характеристики\nPOST\n/v1/description-category/dependent-attributes/values\nОписание и примерыКонсоль\n\nВозвращает возможные значения дочерней характеристики для значений родительской.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\nchild_attribute_id\nrequired\n\ninteger <int64>\n\nИдентификатор дочерней характеристики.\n\n\ncursor\nstring\n\nУказатель для выборки следующих данных.\n\n\ndescription_category_id\ninteger <int64>\n\nИдентификатор категории из метода /v1/description-category/tree.\n\n\nlimit\ninteger <int64> [ 1 .. 1000 ]\nDefault: 100\n\nКоличество значений в ответе.\n\n\nparent_attribute_id\nrequired\n\ninteger <int64>\n\nИдентификатор родительской характеристики.\n\n\ntype_id\ninteger <int64>\n\nИдентификатор типа товара из метода /v1/description-category/tree.\n\nОтветы\n200\n\nВозможные значения дочерней характеристики\n\nRESPONSE SCHEMA: application/json\ncursor\nstring\n\nУказатель для выборки следующих данных.\n\n\nresult\nArray of objects\n\nИнформация о зависимых характеристиках.\n\n\n\nArray ()\nchildren\nArray of objects\n\nИнформация о дочерних характеристиках.\n\n\n\nArray ()\nchild_value\nstring\n\nЗначение дочерней характеристики.\n\n\nchild_value_id\ninteger <int64>\n\nИдентификатор значения дочерней характеристики.\n\n\nparent_value\nstring\n\nЗначение родительской характеристики.\n\n\nparent_value_id\ninteger <int64>\n\nИдентификатор значения родительской характеристики.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера"
     },
     {
+      "closed_schema_nodes": 0,
       "method_id": "AnalyticsLocalSaleTotal",
-      "text": "Получить общую информацию о локальности продаж\nPOST\n/v1/analytics/local-sale/total\nОписание и примерыКонсоль\n\nМетод соответствует разделу Аналитика → Планирование поставок → Локальность продаж.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\t\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\t\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\noverpayment_items\t\nobject\n\nТовары с наибольшей переплатой.\n\n\nperiod\t\nobject\n\nПериод.\n\nОтветы\n200\n\nИнформация о локальности продаж\n\nRESPONSE SCHEMA: application/json\nfbo_quantity\t\ninteger <int64>\n\nКоличество товаров, которые продаются по схеме FBO.\n\n\nlocal_data\t\nobject\n\nИнформация о локальных продажах.\n\n\noverpayment\t\nobject\n\nИнформация о переплате по логистике.\n\n\noverpayment_items\t\nArray of objects\n\nТовары с наибольшей переплатой.\n\n\noverpayment_reasons\t\nArray of objects\n\nПричины переплат за логистику.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\nПримеры запроса\nContent type\napplication/json\n{\n\"overpayment_items\": \n{\n\"count\": 0,\n\"with_top_overpayment_items\": true\n},\n\"period\": \n{\n\"from\": \"string\",\n\"to\": \"string\"\n}\n}\nКопировать\nСвернуть всё\nПримеры ответа\n200400403404409500\nContent type\napplication/json\n{\n\"fbo_quantity\": 0,\n\"local_data\": \n{\n\"index\": 0,\n\"local_quantity\": 0,\n\"total_quantity\": 0\n},\n\"overpayment\": \n{\n\"delta\": 0,\n\"non_local_delivery\": 0,\n\"total\": 0\n},\n\"overpayment_items\": \n[\n{\n\"delivery_schema\": \n[\n\"FBO\"\n],\n\"image\": \"string\",\n\"name\": \"string\",\n\"offer_id\": \"string\",\n\"sku\": 0,\n\"total_overpayment\": 0\n}\n],\n\"overpayment_reasons\": \n[\n{\n\"amount\": 0,\n\"quantity\": 0,\n\"reason\": \"NO_SUPPLIES_TO_CLUSTER\"\n}\n]\n}\nКопировать\nСвернуть всё"
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "overpayment_items",
+              "required": false,
+              "material": "object",
+              "children": [
+                {
+                  "name": "count",
+                  "required": false,
+                  "material": "integer <int32>",
+                  "children": [],
+                  "description": "integer <int32>\n\nКоличество товаров в ответе."
+                },
+                {
+                  "name": "with_top_overpayment_items",
+                  "required": false,
+                  "material": "boolean",
+                  "children": [],
+                  "description": "boolean\n\ntrue, чтобы получить товары с наибольшей переплатой."
+                }
+              ],
+              "description": "object\n\nТовары с наибольшей переплатой."
+            },
+            {
+              "name": "period",
+              "required": false,
+              "material": "object",
+              "children": [
+                {
+                  "name": "from",
+                  "required": true,
+                  "material": "string < YYYY-MM-DD>",
+                  "children": [],
+                  "description": "string < YYYY-MM-DD>\n\nНачало периода."
+                },
+                {
+                  "name": "to",
+                  "required": true,
+                  "material": "string < YYYY-MM-DD>",
+                  "children": [],
+                  "description": "string < YYYY-MM-DD>\n\nКонец периода."
+                }
+              ],
+              "description": "object\n\nПериод."
+            }
+          ]
+        }
+      ],
+      "text": "Получить общую информацию о локальности продаж\nPOST\n/v1/analytics/local-sale/total\nОписание и примерыКонсоль\n\nМетод соответствует разделу Аналитика → Планирование поставок → Локальность продаж.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\noverpayment_items\nobject\n\nТовары с наибольшей переплатой.\n\n\n\ncount\ninteger <int32>\n\nКоличество товаров в ответе.\n\n\nwith_top_overpayment_items\nboolean\n\ntrue, чтобы получить товары с наибольшей переплатой.\n\n\nperiod\nobject\n\nПериод.\n\n\n\nfrom\nrequired\n\nstring < YYYY-MM-DD>\n\nНачало периода.\n\n\nto\nrequired\n\nstring < YYYY-MM-DD>\n\nКонец периода.\n\nОтветы\n200\n\nИнформация о локальности продаж\n\nRESPONSE SCHEMA: application/json\nfbo_quantity\ninteger <int64>\n\nКоличество товаров, которые продаются по схеме FBO.\n\n\nlocal_data\nobject\n\nИнформация о локальных продажах.\n\n\n\nindex\nnumber <double>\n\nИндекс локальных продаж в процентах.\n\n\nlocal_quantity\ninteger <int64>\n\nКоличество товаров, которые доставили локально.\n\n\ntotal_quantity\ninteger <int64>\n\nОбщее количество товаров.\n\n\noverpayment\nobject\n\nИнформация о переплате по логистике.\n\n\n\ndelta\nnumber <double>\n\nРазница с тарифом для локальной продажи.\n\n\nnon_local_delivery\nnumber <double>\n\nНаценка за нелокальную продажу.\n\n\ntotal\nnumber <double>\n\nОбщая переплата.\n\n\noverpayment_items\nArray of objects\n\nТовары с наибольшей переплатой.\n\n\n\nArray ()\ndelivery_schema\nArray of strings\nItems Enum: \"FBO\" \"FBS\"\n\nСхема продажи:\n\nFBO,\nFBS.\n\nimage\nstring\n\nСсылка на изображение товара.\n\n\nname\nstring\n\nНазвание товара.\n\n\noffer_id\nstring\n\nИдентификатор товара в системе продавца — артикул.\n\n\nsku\ninteger <int64>\n\nИдентификатор товара в системе Ozon — SKU.\n\n\ntotal_overpayment\nnumber <double>\n\nОбщая переплата по всем товарам.\n\n\noverpayment_reasons\nArray of objects\n\nПричины переплат за логистику.\n\n\n\nArray ()\namount\nnumber <double>\n\nСумма переплаты.\n\n\nquantity\ninteger <int64>\n\nКоличество товаров.\n\n\nreason\nstring\nEnum: \"NO_SUPPLIES_TO_CLUSTER\" \"MISSING_ITEMS_IN_CLUSTER\" \"FREQUENT_OUT_OF_STOCK\"\n\nПричина переплаты:\n\nNO_SUPPLIES_TO_CLUSTER — не было поставок в кластер;\nMISSING_ITEMS_IN_CLUSTER — не все товары поставлялись в кластер;\nFREQUENT_OUT_OF_STOCK — часто заканчиваются товары.\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера"
     },
     {
+      "closed_schema_nodes": 0,
       "method_id": "AnalyticsLocalSaleClustersItemsInfo",
-      "text": "Получить информацию о локальности продаж по кластерам\nPOST\n/v1/analytics/local-sale/clusters-items/info\nОписание и примерыКонсоль\n\nМетод соответствует разделу Аналитика → Планирование поставок → Локальность продаж.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\t\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\t\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\nfilter\nrequired\n\t\nobject\n\nФильтр.\n\n\nlimit\nrequired\n\t\ninteger <int64> [ 1 .. 1000 ]\n\nКоличество товаров в ответе.\n\n\noffset\t\ninteger <int64>\n\nКоличество элементов, которое будет пропущено в ответе. Например, если offset = 10, то ответ начнётся с 11-го найденного элемента.\n\n\nsort_by\t\nstring\nEnum: \"IMPACT_SHARE\" \"LOCALITY\" \"OVERPAYMENT_TOTAL\" \"OVERPAYMENT_NON_LOCAL\" \"OVERPAYMENT_DELTA\"\n\nПараметр, по которому будут отсортированы товары:\n\nIMPACT_SHARE — доля влияния на переплату;\nLOCALITY — доля локальных продаж;\nOVERPAYMENT_TOTAL — общая переплата за логистику;\nOVERPAYMENT_NON_LOCAL — наценка за нелокальную продажу;\nOVERPAYMENT_DELTA — разница с тарифом для локальной продажи.\n\nsort_dir\t\nstring\nEnum: \"ASC\" \"DESC\"\n\nНаправление сортировки:\n\nASC — во возрастанию;\nDESC — по убыванию.\nОтветы\n200\n\nИнформация о локальности продаж по кластерам\n\nRESPONSE SCHEMA: application/json\nitems\t\nArray of objects\n\nСписок товаров.\n\n\ntotal\t\ninteger <int64>\n\nОбщее количество товаров.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\nПримеры запроса\nContent type\napplication/json\n{\n\"filter\": \n{\n\"delivery_schema\": \"ALL\",\n\"description_categories\": \n[\n{\n\"category_id\": 0,\n\"children_category_id\": 0,\n\"type_id\": 0\n}\n],\n\"macrolocal_cluster_from_ids\": \n[\n\"string\"\n],\n\"macrolocal_cluster_to_ids\": \n[\n\"string\"\n],\n\"overpayment_reasons\": \n[\n\"NO_SUPPLIES_TO_CLUSTER\"\n],\n\"period\": \n{\n\"from\": \"string\",\n\"to\": \"string\"\n},\n\"skus\": \n[\n\"string\"\n],\n\"supply_period\": \"ONE_WEEK\"\n},\n\"limit\": 1,\n\"offset\": 0,\n\"sort_by\": \"IMPACT_SHARE\",\n\"sort_dir\": \"ASC\"\n}\nКопировать\nСвернуть всё\nПримеры ответа\n200400403404409500\nContent type\napplication/json\n{\n\"items\": \n[\n{\n\"cluster_to_id\": 0,\n\"item\": \n{\n\"delivery_schemas\": \n[\n\"FBO\"\n],\n\"image\": \"string\",\n\"name\": \"string\",\n\"offer_id\": \"string\",\n\"sku\": 0\n},\n\"metrics\": \n{\n\"attention_level\": \"LOW\",\n\"impact_share\": 0,\n\"local_data\": \n{\n\"index\": 0,\n\"local_quantity\": 0,\n\"total_quantity\": 0\n},\n\"overpayment\": \n{\n\"delta\": 0,\n\"non_local_delivery\": 0,\n\"total\": 0\n},\n\"overpayment_reasons\": \n[\n{\n\"amount\": 0,\n\"quantity\": 0,\n\"reason\": \"NO_SUPPLIES_TO_CLUSTER\"\n}\n],\n\"price\": 0,\n\"recommended_supply\": 0\n}\n}\n],\n\"total\": 0\n}\nКопировать\nСвернуть всё"
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "filter",
+              "required": true,
+              "material": "object",
+              "children": [
+                {
+                  "name": "delivery_schema",
+                  "required": false,
+                  "material": "string\nEnum: \"ALL\" \"FBO\" \"FBS\"",
+                  "children": [],
+                  "description": "string\nEnum: \"ALL\" \"FBO\" \"FBS\"\n\nСхема продажи:\n\nALL — все схемы;\nFBO;\nFBS."
+                },
+                {
+                  "name": "description_categories",
+                  "required": false,
+                  "material": "Array of objects <= 100 items",
+                  "children": [
+                    {
+                      "name": "category_id",
+                      "required": true,
+                      "material": "integer <int64>",
+                      "children": [],
+                      "description": "integer <int64>\n\nИдентификатор родительской категории. Получите методом /v1/description-category/tree."
+                    },
+                    {
+                      "name": "children_category_id",
+                      "required": false,
+                      "material": "integer <int64>",
+                      "children": [],
+                      "description": "integer <int64>\n\nИдентификатор дочерней категории. Получите методом /v1/description-category/tree."
+                    },
+                    {
+                      "name": "type_id",
+                      "required": false,
+                      "material": "integer <int64>",
+                      "children": [],
+                      "description": "integer <int64>\n\nИдентификатор типа товара. Получите методом /v1/description-category/tree."
+                    }
+                  ],
+                  "description": "Array of objects <= 100 items\n\nКатегория товара."
+                },
+                {
+                  "name": "macrolocal_cluster_from_ids",
+                  "required": false,
+                  "material": "Array of strings <int64> <= 100 items",
+                  "children": [],
+                  "description": "Array of strings <int64> <= 100 items\n\nИдентификатор кластера отгрузки. Получите методом /v2/cluster/list."
+                },
+                {
+                  "name": "macrolocal_cluster_to_ids",
+                  "required": true,
+                  "material": "Array of strings <int64> [ 1 .. 100 ] items",
+                  "children": [],
+                  "description": "Array of strings <int64> [ 1 .. 100 ] items\n\nИдентификатор кластера доставки. Получите методом /v2/cluster/list."
+                },
+                {
+                  "name": "overpayment_reasons",
+                  "required": false,
+                  "material": "Array of strings <= 3 items\nItems Enum: \"NO_SUPPLIES_TO_CLUSTER\" \"MISSING_ITEMS_IN_CLUSTER\" \"FREQUENT_OUT_OF_STOCK\"",
+                  "children": [],
+                  "description": "Array of strings <= 3 items\nItems Enum: \"NO_SUPPLIES_TO_CLUSTER\" \"MISSING_ITEMS_IN_CLUSTER\" \"FREQUENT_OUT_OF_STOCK\"\n\nПричина переплаты:\n\nNO_SUPPLIES_TO_CLUSTER — не было поставок в кластер;\nMISSING_ITEMS_IN_CLUSTER — не все товары поставлялись в кластер;\nFREQUENT_OUT_OF_STOCK — часто заканчиваются товары."
+                },
+                {
+                  "name": "period",
+                  "required": true,
+                  "material": "object",
+                  "children": [
+                    {
+                      "name": "from",
+                      "required": true,
+                      "material": "string < YYYY-MM-DD>",
+                      "children": [],
+                      "description": "string < YYYY-MM-DD>\n\nНачало периода."
+                    },
+                    {
+                      "name": "to",
+                      "required": true,
+                      "material": "string < YYYY-MM-DD>",
+                      "children": [],
+                      "description": "string < YYYY-MM-DD>\n\nКонец периода."
+                    }
+                  ],
+                  "description": "object\n\nПериод."
+                },
+                {
+                  "name": "skus",
+                  "required": false,
+                  "material": "Array of strings <= 100 items",
+                  "children": [],
+                  "description": "Array of strings <= 100 items\n\nИдентификатор товара в системе Ozon — SKU."
+                },
+                {
+                  "name": "supply_period",
+                  "required": false,
+                  "material": "string\nEnum: \"ONE_WEEK\" \"TWO_WEEKS\" \"FOUR_WEEKS\" \"EIGHT_WEEKS\"",
+                  "children": [],
+                  "description": "string\nEnum: \"ONE_WEEK\" \"TWO_WEEKS\" \"FOUR_WEEKS\" \"EIGHT_WEEKS\"\n\nЧастота поставки:\n\nONE_WEEK — раз в одну неделю;\nTWO_WEEKS — раз в две недели;\nFOUR_WEEKS — раз в четыре недели;\nEIGHT_WEEKS — раз в восемь недель."
+                }
+              ],
+              "description": "object\n\nФильтр."
+            },
+            {
+              "name": "limit",
+              "required": true,
+              "material": "integer <int64> [ 1 .. 1000 ]",
+              "children": [],
+              "description": "integer <int64> [ 1 .. 1000 ]\n\nКоличество товаров в ответе."
+            },
+            {
+              "name": "offset",
+              "required": false,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nКоличество элементов, которое будет пропущено в ответе. Например, если offset = 10, то ответ начнётся с 11-го найденного элемента."
+            },
+            {
+              "name": "sort_by",
+              "required": false,
+              "material": "string\nEnum: \"IMPACT_SHARE\" \"LOCALITY\" \"OVERPAYMENT_TOTAL\" \"OVERPAYMENT_NON_LOCAL\" \"OVERPAYMENT_DELTA\"",
+              "children": [],
+              "description": "string\nEnum: \"IMPACT_SHARE\" \"LOCALITY\" \"OVERPAYMENT_TOTAL\" \"OVERPAYMENT_NON_LOCAL\" \"OVERPAYMENT_DELTA\"\n\nПараметр, по которому будут отсортированы товары:\n\nIMPACT_SHARE — доля влияния на переплату;\nLOCALITY — доля локальных продаж;\nOVERPAYMENT_TOTAL — общая переплата за логистику;\nOVERPAYMENT_NON_LOCAL — наценка за нелокальную продажу;\nOVERPAYMENT_DELTA — разница с тарифом для локальной продажи."
+            },
+            {
+              "name": "sort_dir",
+              "required": false,
+              "material": "string\nEnum: \"ASC\" \"DESC\"",
+              "children": [],
+              "description": "string\nEnum: \"ASC\" \"DESC\"\n\nНаправление сортировки:\n\nASC — во возрастанию;\nDESC — по убыванию."
+            }
+          ]
+        }
+      ],
+      "text": "Получить информацию о локальности продаж по кластерам\nPOST\n/v1/analytics/local-sale/clusters-items/info\nОписание и примерыКонсоль\n\nМетод соответствует разделу Аналитика → Планирование поставок → Локальность продаж.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\nfilter\nrequired\n\nobject\n\nФильтр.\n\n\n\ndelivery_schema\nstring\nEnum: \"ALL\" \"FBO\" \"FBS\"\n\nСхема продажи:\n\nALL — все схемы;\nFBO;\nFBS.\n\ndescription_categories\nArray of objects <= 100 items\n\nКатегория товара.\n\n\n\nArray ()\ncategory_id\nrequired\n\ninteger <int64>\n\nИдентификатор родительской категории. Получите методом /v1/description-category/tree.\n\n\nchildren_category_id\ninteger <int64>\n\nИдентификатор дочерней категории. Получите методом /v1/description-category/tree.\n\n\ntype_id\ninteger <int64>\n\nИдентификатор типа товара. Получите методом /v1/description-category/tree.\n\n\nmacrolocal_cluster_from_ids\nArray of strings <int64> <= 100 items\n\nИдентификатор кластера отгрузки. Получите методом /v2/cluster/list.\n\n\nmacrolocal_cluster_to_ids\nrequired\n\nArray of strings <int64> [ 1 .. 100 ] items\n\nИдентификатор кластера доставки. Получите методом /v2/cluster/list.\n\n\noverpayment_reasons\nArray of strings <= 3 items\nItems Enum: \"NO_SUPPLIES_TO_CLUSTER\" \"MISSING_ITEMS_IN_CLUSTER\" \"FREQUENT_OUT_OF_STOCK\"\n\nПричина переплаты:\n\nNO_SUPPLIES_TO_CLUSTER — не было поставок в кластер;\nMISSING_ITEMS_IN_CLUSTER — не все товары поставлялись в кластер;\nFREQUENT_OUT_OF_STOCK — часто заканчиваются товары.\n\nperiod\nrequired\n\nobject\n\nПериод.\n\n\n\nfrom\nrequired\n\nstring < YYYY-MM-DD>\n\nНачало периода.\n\n\nto\nrequired\n\nstring < YYYY-MM-DD>\n\nКонец периода.\n\n\nskus\nArray of strings <= 100 items\n\nИдентификатор товара в системе Ozon — SKU.\n\n\nsupply_period\nstring\nEnum: \"ONE_WEEK\" \"TWO_WEEKS\" \"FOUR_WEEKS\" \"EIGHT_WEEKS\"\n\nЧастота поставки:\n\nONE_WEEK — раз в одну неделю;\nTWO_WEEKS — раз в две недели;\nFOUR_WEEKS — раз в четыре недели;\nEIGHT_WEEKS — раз в восемь недель.\n\nlimit\nrequired\n\ninteger <int64> [ 1 .. 1000 ]\n\nКоличество товаров в ответе.\n\n\noffset\ninteger <int64>\n\nКоличество элементов, которое будет пропущено в ответе. Например, если offset = 10, то ответ начнётся с 11-го найденного элемента.\n\n\nsort_by\nstring\nEnum: \"IMPACT_SHARE\" \"LOCALITY\" \"OVERPAYMENT_TOTAL\" \"OVERPAYMENT_NON_LOCAL\" \"OVERPAYMENT_DELTA\"\n\nПараметр, по которому будут отсортированы товары:\n\nIMPACT_SHARE — доля влияния на переплату;\nLOCALITY — доля локальных продаж;\nOVERPAYMENT_TOTAL — общая переплата за логистику;\nOVERPAYMENT_NON_LOCAL — наценка за нелокальную продажу;\nOVERPAYMENT_DELTA — разница с тарифом для локальной продажи.\n\nsort_dir\nstring\nEnum: \"ASC\" \"DESC\"\n\nНаправление сортировки:\n\nASC — во возрастанию;\nDESC — по убыванию.\nОтветы\n200\n\nИнформация о локальности продаж по кластерам\n\nRESPONSE SCHEMA: application/json\nitems\nArray of objects\n\nСписок товаров.\n\n\n\nArray ()\ncluster_to_id\ninteger <int64>\n\nИдентификатор кластера.\n\n\nitem\nobject\n\nИнформация о товаре.\n\n\n\ndelivery_schemas\nArray of strings\nItems Enum: \"FBO\" \"FBS\"\n\nСхема продажи:\n\nFBO,\nFBS.\n\nimage\nstring\n\nСсылка на изображение товара.\n\n\nname\nstring\n\nНазвание товара.\n\n\noffer_id\nstring\n\nИдентификатор товара в системе продавца — артикул.\n\n\nsku\ninteger <int64>\n\nИдентификатор товара в системе Ozon — SKU.\n\n\nmetrics\nobject\n\nИнформация о метриках локальности продаж.\n\n\n\nattention_level\nstring\nEnum: \"LOW\" \"MEDIUM\" \"HIGH\"\n\nУровень влияния на переплату:\n\nLOW — низкий;\nMEDIUM — средний;\nHIGH — высокий.\n\nimpact_share\nnumber <double>\n\nДоля влияния на переплату в процентах.\n\n\nlocal_data\nobject\n\nИнформация о локальных продажах.\n\n\n\nindex\nnumber <double>\n\nИндекс локальных продаж в процентах.\n\n\nlocal_quantity\ninteger <int64>\n\nКоличество товаров, которые доставили локально.\n\n\ntotal_quantity\ninteger <int64>\n\nОбщее количество товаров.\n\n\noverpayment\nobject\n\nИнформация о переплате по логистике.\n\n\n\ndelta\nnumber <double>\n\nРазница с тарифом для локальной продажи.\n\n\nnon_local_delivery\nnumber <double>\n\nНаценка за нелокальную продажу.\n\n\ntotal\nnumber <double>\n\nОбщая переплата.\n\n\noverpayment_reasons\nArray of objects\n\nПричины переплат за логистику.\n\n\n\nArray ()\namount\nnumber <double>\n\nСумма переплаты.\n\n\nquantity\ninteger <int64>\n\nКоличество товаров.\n\n\nreason\nstring\nEnum: \"NO_SUPPLIES_TO_CLUSTER\" \"MISSING_ITEMS_IN_CLUSTER\" \"FREQUENT_OUT_OF_STOCK\"\n\nПричина переплаты:\n\nNO_SUPPLIES_TO_CLUSTER — не было поставок в кластер;\nMISSING_ITEMS_IN_CLUSTER — не все товары поставлялись в кластер;\nFREQUENT_OUT_OF_STOCK — часто заканчиваются товары.\n\nprice\nnumber <double>\n\nСтоимость товаров, которые рекомендуются к поставке.\n\n\nrecommended_supply\ninteger <int32>\n\nРекомендуемое количество товаров к поставке.\n\n\ntotal\ninteger <int64>\n\nОбщее количество товаров.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера"
     },
     {
+      "closed_schema_nodes": 0,
       "method_id": "AnalyticsLocalSaleItemsClustersInfo",
-      "text": "Получить информацию о локальности продаж товара по кластерам\nPOST\n/v1/analytics/local-sale/items-clusters/info\nОписание и примерыКонсоль\n\nМетод соответствует разделу Аналитика → Планирование поставок → Локальность продаж.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\t\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\t\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\nfilter\nrequired\n\t\nobject\n\nФильтр.\n\n\nlimit\nrequired\n\t\ninteger <int64> [ 1 .. 1000 ]\n\nКоличество товаров в ответе.\n\n\noffset\t\ninteger <int64>\n\nКоличество элементов, которое будет пропущено в ответе. Например, если offset = 10, то ответ начнётся с 11-го найденного элемента.\n\n\nsort_by\t\nstring\nEnum: \"IMPACT_SHARE\" \"LOCALITY\" \"OVERPAYMENT_TOTAL\" \"OVERPAYMENT_NON_LOCAL\" \"OVERPAYMENT_DELTA\"\n\nПараметр, по которому будут отсортированы товары:\n\nIMPACT_SHARE — доля влияния на переплату;\nLOCALITY — доля локальных продаж;\nOVERPAYMENT_TOTAL — общая переплата за логистику;\nOVERPAYMENT_NON_LOCAL — наценка за нелокальную продажу;\nOVERPAYMENT_DELTA — разница с тарифом для локальной продажи.\n\nsort_dir\t\nstring\nEnum: \"ASC\" \"DESC\"\n\nНаправление сортировки:\n\nASC — во возрастанию;\nDESC — по убыванию.\nОтветы\n200\n\nИнформация о локальности продаж товара\n\nRESPONSE SCHEMA: application/json\nitems\t\nArray of objects\n\nСписок товаров.\n\n\ntotal\t\ninteger <int64>\n\nОбщее количество товаров.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\nПримеры запроса\nContent type\napplication/json\n{\n\"filter\": \n{\n\"delivery_schema\": \"ALL\",\n\"description_categories\": \n[\n{\n\"category_id\": 0,\n\"children_category_id\": 0,\n\"type_id\": 0\n}\n],\n\"macrolocal_cluster_from_ids\": \n[\n\"string\"\n],\n\"macrolocal_cluster_to_ids\": \n[\n\"string\"\n],\n\"overpayment_reasons\": \n[\n\"NO_SUPPLIES_TO_CLUSTER\"\n],\n\"period\": \n{\n\"from\": \"string\",\n\"to\": \"string\"\n},\n\"skus\": \n[\n\"string\"\n],\n\"supply_period\": \"ONE_WEEK\"\n},\n\"limit\": 1,\n\"offset\": 0,\n\"sort_by\": \"IMPACT_SHARE\",\n\"sort_dir\": \"ASC\"\n}\nКопировать\nСвернуть всё\nПримеры ответа\n200400403404409500\nContent type\napplication/json\n{\n\"items\": \n[\n{\n\"macrolocal_cluster_to_id\": 0,\n\"metrics\": \n{\n\"attention_level\": \"LOW\",\n\"impact_share\": 0,\n\"local_data\": \n{\n\"index\": 0,\n\"local_quantity\": 0,\n\"total_quantity\": 0\n},\n\"overpayment\": \n{\n\"delta\": 0,\n\"non_local_delivery\": 0,\n\"total\": 0\n},\n\"overpayment_reasons\": \n[\n{\n\"amount\": 0,\n\"quantity\": 0,\n\"reason\": \"NO_SUPPLIES_TO_CLUSTER\"\n}\n],\n\"price\": 0,\n\"recommended_supply\": 0\n},\n\"sku\": 0\n}\n],\n\"total\": 0\n}\nКопировать\nСвернуть всё"
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "filter",
+              "required": true,
+              "material": "object",
+              "children": [
+                {
+                  "name": "delivery_schema",
+                  "required": false,
+                  "material": "string\nEnum: \"ALL\" \"FBO\" \"FBS\"",
+                  "children": [],
+                  "description": "string\nEnum: \"ALL\" \"FBO\" \"FBS\"\n\nСхема продажи:\n\nALL — все схемы;\nFBO;\nFBS."
+                },
+                {
+                  "name": "description_categories",
+                  "required": false,
+                  "material": "Array of objects <= 100 items",
+                  "children": [
+                    {
+                      "name": "category_id",
+                      "required": true,
+                      "material": "integer <int64>",
+                      "children": [],
+                      "description": "integer <int64>\n\nИдентификатор родительской категории. Получите методом /v1/description-category/tree."
+                    },
+                    {
+                      "name": "children_category_id",
+                      "required": false,
+                      "material": "integer <int64>",
+                      "children": [],
+                      "description": "integer <int64>\n\nИдентификатор дочерней категории. Получите методом /v1/description-category/tree."
+                    },
+                    {
+                      "name": "type_id",
+                      "required": false,
+                      "material": "integer <int64>",
+                      "children": [],
+                      "description": "integer <int64>\n\nИдентификатор типа товара. Получите методом /v1/description-category/tree."
+                    }
+                  ],
+                  "description": "Array of objects <= 100 items\n\nКатегория товара."
+                },
+                {
+                  "name": "macrolocal_cluster_from_ids",
+                  "required": false,
+                  "material": "Array of strings <int64> <= 100 items",
+                  "children": [],
+                  "description": "Array of strings <int64> <= 100 items\n\nИдентификатор кластера отгрузки. Получите методом /v2/cluster/list."
+                },
+                {
+                  "name": "macrolocal_cluster_to_ids",
+                  "required": false,
+                  "material": "Array of strings <int64> <= 100 items",
+                  "children": [],
+                  "description": "Array of strings <int64> <= 100 items\n\nИдентификатор кластера доставки. Получите методом /v2/cluster/list."
+                },
+                {
+                  "name": "overpayment_reasons",
+                  "required": false,
+                  "material": "Array of strings\nItems Enum: \"NO_SUPPLIES_TO_CLUSTER\" \"MISSING_ITEMS_IN_CLUSTER\" \"FREQUENT_OUT_OF_STOCK\"",
+                  "children": [],
+                  "description": "Array of strings\nItems Enum: \"NO_SUPPLIES_TO_CLUSTER\" \"MISSING_ITEMS_IN_CLUSTER\" \"FREQUENT_OUT_OF_STOCK\"\n\nПричина переплаты:\n\nNO_SUPPLIES_TO_CLUSTER — не было поставок в кластер;\nMISSING_ITEMS_IN_CLUSTER — не все товары поставлялись в кластер;\nFREQUENT_OUT_OF_STOCK — часто заканчиваются товары."
+                },
+                {
+                  "name": "period",
+                  "required": true,
+                  "material": "object",
+                  "children": [
+                    {
+                      "name": "from",
+                      "required": true,
+                      "material": "string < YYYY-MM-DD>",
+                      "children": [],
+                      "description": "string < YYYY-MM-DD>\n\nНачало периода."
+                    },
+                    {
+                      "name": "to",
+                      "required": true,
+                      "material": "string < YYYY-MM-DD>",
+                      "children": [],
+                      "description": "string < YYYY-MM-DD>\n\nКонец периода."
+                    }
+                  ],
+                  "description": "object\n\nПериод."
+                },
+                {
+                  "name": "skus",
+                  "required": true,
+                  "material": "Array of strings <= 100 items",
+                  "children": [],
+                  "description": "Array of strings <= 100 items\n\nИдентификатор товара в системе Ozon — SKU."
+                },
+                {
+                  "name": "supply_period",
+                  "required": false,
+                  "material": "string\nEnum: \"ONE_WEEK\" \"TWO_WEEKS\" \"FOUR_WEEKS\" \"EIGHT_WEEKS\"",
+                  "children": [],
+                  "description": "string\nEnum: \"ONE_WEEK\" \"TWO_WEEKS\" \"FOUR_WEEKS\" \"EIGHT_WEEKS\"\n\nЧастота поставки:\n\nONE_WEEK — раз в одну неделю;\nTWO_WEEKS — раз в две недели;\nFOUR_WEEKS — раз в четыре недели;\nEIGHT_WEEKS — раз в восемь недель."
+                }
+              ],
+              "description": "object\n\nФильтр."
+            },
+            {
+              "name": "limit",
+              "required": true,
+              "material": "integer <int64> [ 1 .. 1000 ]",
+              "children": [],
+              "description": "integer <int64> [ 1 .. 1000 ]\n\nКоличество товаров в ответе."
+            },
+            {
+              "name": "offset",
+              "required": false,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nКоличество элементов, которое будет пропущено в ответе. Например, если offset = 10, то ответ начнётся с 11-го найденного элемента."
+            },
+            {
+              "name": "sort_by",
+              "required": false,
+              "material": "string\nEnum: \"IMPACT_SHARE\" \"LOCALITY\" \"OVERPAYMENT_TOTAL\" \"OVERPAYMENT_NON_LOCAL\" \"OVERPAYMENT_DELTA\"",
+              "children": [],
+              "description": "string\nEnum: \"IMPACT_SHARE\" \"LOCALITY\" \"OVERPAYMENT_TOTAL\" \"OVERPAYMENT_NON_LOCAL\" \"OVERPAYMENT_DELTA\"\n\nПараметр, по которому будут отсортированы товары:\n\nIMPACT_SHARE — доля влияния на переплату;\nLOCALITY — доля локальных продаж;\nOVERPAYMENT_TOTAL — общая переплата за логистику;\nOVERPAYMENT_NON_LOCAL — наценка за нелокальную продажу;\nOVERPAYMENT_DELTA — разница с тарифом для локальной продажи."
+            },
+            {
+              "name": "sort_dir",
+              "required": false,
+              "material": "string\nEnum: \"ASC\" \"DESC\"",
+              "children": [],
+              "description": "string\nEnum: \"ASC\" \"DESC\"\n\nНаправление сортировки:\n\nASC — во возрастанию;\nDESC — по убыванию."
+            }
+          ]
+        }
+      ],
+      "text": "Получить информацию о локальности продаж товара по кластерам\nPOST\n/v1/analytics/local-sale/items-clusters/info\nОписание и примерыКонсоль\n\nМетод соответствует разделу Аналитика → Планирование поставок → Локальность продаж.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\nfilter\nrequired\n\nobject\n\nФильтр.\n\n\n\ndelivery_schema\nstring\nEnum: \"ALL\" \"FBO\" \"FBS\"\n\nСхема продажи:\n\nALL — все схемы;\nFBO;\nFBS.\n\ndescription_categories\nArray of objects <= 100 items\n\nКатегория товара.\n\n\n\nArray ()\ncategory_id\nrequired\n\ninteger <int64>\n\nИдентификатор родительской категории. Получите методом /v1/description-category/tree.\n\n\nchildren_category_id\ninteger <int64>\n\nИдентификатор дочерней категории. Получите методом /v1/description-category/tree.\n\n\ntype_id\ninteger <int64>\n\nИдентификатор типа товара. Получите методом /v1/description-category/tree.\n\n\nmacrolocal_cluster_from_ids\nArray of strings <int64> <= 100 items\n\nИдентификатор кластера отгрузки. Получите методом /v2/cluster/list.\n\n\nmacrolocal_cluster_to_ids\nArray of strings <int64> <= 100 items\n\nИдентификатор кластера доставки. Получите методом /v2/cluster/list.\n\n\noverpayment_reasons\nArray of strings\nItems Enum: \"NO_SUPPLIES_TO_CLUSTER\" \"MISSING_ITEMS_IN_CLUSTER\" \"FREQUENT_OUT_OF_STOCK\"\n\nПричина переплаты:\n\nNO_SUPPLIES_TO_CLUSTER — не было поставок в кластер;\nMISSING_ITEMS_IN_CLUSTER — не все товары поставлялись в кластер;\nFREQUENT_OUT_OF_STOCK — часто заканчиваются товары.\n\nperiod\nrequired\n\nobject\n\nПериод.\n\n\n\nfrom\nrequired\n\nstring < YYYY-MM-DD>\n\nНачало периода.\n\n\nto\nrequired\n\nstring < YYYY-MM-DD>\n\nКонец периода.\n\n\nskus\nrequired\n\nArray of strings <= 100 items\n\nИдентификатор товара в системе Ozon — SKU.\n\n\nsupply_period\nstring\nEnum: \"ONE_WEEK\" \"TWO_WEEKS\" \"FOUR_WEEKS\" \"EIGHT_WEEKS\"\n\nЧастота поставки:\n\nONE_WEEK — раз в одну неделю;\nTWO_WEEKS — раз в две недели;\nFOUR_WEEKS — раз в четыре недели;\nEIGHT_WEEKS — раз в восемь недель.\n\nlimit\nrequired\n\ninteger <int64> [ 1 .. 1000 ]\n\nКоличество товаров в ответе.\n\n\noffset\ninteger <int64>\n\nКоличество элементов, которое будет пропущено в ответе. Например, если offset = 10, то ответ начнётся с 11-го найденного элемента.\n\n\nsort_by\nstring\nEnum: \"IMPACT_SHARE\" \"LOCALITY\" \"OVERPAYMENT_TOTAL\" \"OVERPAYMENT_NON_LOCAL\" \"OVERPAYMENT_DELTA\"\n\nПараметр, по которому будут отсортированы товары:\n\nIMPACT_SHARE — доля влияния на переплату;\nLOCALITY — доля локальных продаж;\nOVERPAYMENT_TOTAL — общая переплата за логистику;\nOVERPAYMENT_NON_LOCAL — наценка за нелокальную продажу;\nOVERPAYMENT_DELTA — разница с тарифом для локальной продажи.\n\nsort_dir\nstring\nEnum: \"ASC\" \"DESC\"\n\nНаправление сортировки:\n\nASC — во возрастанию;\nDESC — по убыванию.\nОтветы\n200\n\nИнформация о локальности продаж товара\n\nRESPONSE SCHEMA: application/json\nitems\nArray of objects\n\nСписок товаров.\n\n\n\nArray ()\nmacrolocal_cluster_to_id\ninteger <int64>\n\nКластер доставки.\n\n\nmetrics\nobject\n\nИнформация о метриках локальности продаж.\n\n\n\nattention_level\nstring\nEnum: \"LOW\" \"MEDIUM\" \"HIGH\"\n\nУровень влияния на переплату:\n\nLOW — низкий;\nMEDIUM — средний;\nHIGH — высокий.\n\nimpact_share\nnumber <double>\n\nДоля влияния на переплату в процентах.\n\n\nlocal_data\nobject\n\nИнформация о локальных продажах.\n\n\n\nindex\nnumber <double>\n\nИндекс локальных продаж в процентах.\n\n\nlocal_quantity\ninteger <int64>\n\nКоличество товаров, которые доставили локально.\n\n\ntotal_quantity\ninteger <int64>\n\nОбщее количество товаров.\n\n\noverpayment\nobject\n\nИнформация о переплате по логистике.\n\n\n\ndelta\nnumber <double>\n\nРазница с тарифом для локальной продажи.\n\n\nnon_local_delivery\nnumber <double>\n\nНаценка за нелокальную продажу.\n\n\ntotal\nnumber <double>\n\nОбщая переплата.\n\n\noverpayment_reasons\nArray of objects\n\nПричины переплат за логистику.\n\n\n\nArray ()\namount\nnumber <double>\n\nСумма переплаты.\n\n\nquantity\ninteger <int64>\n\nКоличество товаров.\n\n\nreason\nstring\nEnum: \"NO_SUPPLIES_TO_CLUSTER\" \"MISSING_ITEMS_IN_CLUSTER\" \"FREQUENT_OUT_OF_STOCK\"\n\nПричина переплаты:\n\nNO_SUPPLIES_TO_CLUSTER — не было поставок в кластер;\nMISSING_ITEMS_IN_CLUSTER — не все товары поставлялись в кластер;\nFREQUENT_OUT_OF_STOCK — часто заканчиваются товары.\n\nprice\nnumber <double>\n\nСтоимость товаров, которые рекомендуются к поставке.\n\n\nrecommended_supply\ninteger <int32>\n\nРекомендуемое количество товаров к поставке.\n\n\nsku\ninteger <int64>\n\nИдентификатор товара в системе Ozon — SKU.\n\n\ntotal\ninteger <int64>\n\nОбщее количество товаров.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера"
     },
     {
+      "closed_schema_nodes": 0,
       "method_id": "WarehouseRfbsReturnPointList",
-      "text": "Получить список пунктов возврата для склада rFBS\nPOST\n/v1/warehouse/rfbs/return-point/list\nОписание и примерыКонсоль\n\nИспользуйте метод при создании и обновлении складов rFBS и rFBS Express.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\t\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\t\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\nfilters\nrequired\n\t\nobject\n\nФильтры для поиска пунктов возврата.\n\n\nlast_id\t\ninteger <int64>\n\nИдентификатор последнего значения на странице.\n\n\nlimit\nrequired\n\t\ninteger <int32> [ 1 .. 1000 ]\n\nКоличество значений в ответе.\n\nОтветы\n200\n\nСписок пунктов возврата\n\nRESPONSE SCHEMA: application/json\npoints\t\nArray of objects\n\nСписок пунктов возврата.\n\n\n\nArray ()\naddress\t\nstring\n\nАдрес пункта возврата.\n\n\ncoordinates\t\nobject\n\nКоординаты пункта возврата.\n\n\nid\t\ninteger <int64>\n\nИдентификатор пункта возврата.\n\n\nname\t\nstring\n\nНазвание пункта возврата.\n\n\ntype\t\nstring\nDefault: \"PVZ\"\nEnum: \"PVZ\" \"PPZ\"\n\nТип пункта возврата:\n\nPVZ — пункт выдачи заказов;\nPPZ — пункт приёма заказов.\n\nutc_offset\t\ninteger <int32>\n\nСмещение часового пояса от UTC-0 в минутах.\n\n\nworking_days\t\nArray of objects\n\nРабочие дни пункта возврата.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\nПримеры запроса\nContent type\napplication/json\n{\n\"filters\": \n{\n\"address\": \"Россия\",\n\"coordinates\": \n{\n\"latitude\": 0,\n\"longitude\": 0\n},\n\"country_code\": \"RU\",\n\"ids\": \n[\n\"1020001267468000\"\n],\n\"types\": \n[\n\"PVZ\"\n],\n\"warehouse_id\": 920819\n},\n\"last_id\": 12,\n\"limit\": 10\n}\nКопировать\nСвернуть всё\nПримеры ответа\n200400403404409500\nContent type\napplication/json\n{\n\"points\": \n[\n{\n\"address\": \"Россия, Москва, 2-я Фрунзенская улица, 10\",\n\"coordinates\": \n{\n\"latitude\": 0,\n\"longitude\": 0\n},\n\"id\": 1020001267468000,\n\"name\": \"МОСКВА_5259\",\n\"type\": \"PVZ\",\n\"utc_offset\": 180,\n\"working_days\": \n[\n{\n\"date\": \"2026-07-27\",\n\"day\": \"MONDAY\",\n\"from\": \"10:00\",\n\"to\": \"20:00\"\n},\n{\n\"date\": \"2026-07-28\",\n\"day\": \"TUESDAY\",\n\"from\": \"10:00\",\n\"to\": \"20:00\"\n},\n{\n\"date\": \"2026-07-29\",\n\"day\": \"WEDNESDAY\",\n\"from\": \"10:00\",\n\"to\": \"20:00\"\n},\n{\n\"date\": \"2026-07-30\",\n\"day\": \"THURSDAY\",\n\"from\": \"10:00\",\n\"to\": \"20:00\"\n},\n{\n\"date\": \"2026-07-31\",\n\"day\": \"FRIDAY\",\n\"from\": \"10:00\",\n\"to\": \"20:00\"\n},\n{\n\"date\": \"2026-08-01\",\n\"day\": \"SATURDAY\",\n\"from\": \"10:00\",\n\"to\": \"20:00\"\n},\n{\n\"date\": \"2026-08-02\",\n\"day\": \"SUNDAY\",\n\"from\": \"10:00\",\n\"to\": \"20:00\"\n}\n]\n}\n]\n}\nКопировать\nСвернуть всё"
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "filters",
+              "required": true,
+              "material": "object",
+              "children": [
+                {
+                  "name": "address",
+                  "required": false,
+                  "material": "string <= 150 characters",
+                  "children": [],
+                  "description": "string <= 150 characters\n\nАдрес пункта возврата."
+                },
+                {
+                  "name": "coordinates",
+                  "required": true,
+                  "material": "object",
+                  "children": [
+                    {
+                      "name": "latitude",
+                      "required": true,
+                      "material": "number <double>",
+                      "children": [],
+                      "description": "number <double>\n\nШирота."
+                    },
+                    {
+                      "name": "longitude",
+                      "required": true,
+                      "material": "number <double>",
+                      "children": [],
+                      "description": "number <double>\n\nДолгота."
+                    }
+                  ],
+                  "description": "object\n\nКоординаты склада."
+                },
+                {
+                  "name": "country_code",
+                  "required": true,
+                  "material": "string <= 2 characters",
+                  "children": [],
+                  "description": "string <= 2 characters\n\nКод страны в формате ISO 2."
+                },
+                {
+                  "name": "ids",
+                  "required": false,
+                  "material": "Array of strings <int64> <= 1000 items",
+                  "children": [],
+                  "description": "Array of strings <int64> <= 1000 items\n\nИдентификаторы пунктов возврата."
+                },
+                {
+                  "name": "types",
+                  "required": false,
+                  "material": "Array of strings\nItems Enum: \"PVZ\" \"PPZ\"",
+                  "children": [],
+                  "description": "Array of strings\nItems Enum: \"PVZ\" \"PPZ\"\n\nТип пункта возврата:\n\nPVZ — пункт выдачи заказов;\nPPZ — пункт приёма заказов."
+                },
+                {
+                  "name": "warehouse_id",
+                  "required": false,
+                  "material": "integer <int64>",
+                  "children": [],
+                  "description": "integer <int64>\n\nИдентификатор склада. Передайте его, если нужно получить пункты возврата для обновления склада. Для нового склада передавать не нужно."
+                }
+              ],
+              "description": "object\n\nФильтры для поиска пунктов возврата."
+            },
+            {
+              "name": "last_id",
+              "required": false,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nИдентификатор последнего значения на странице."
+            },
+            {
+              "name": "limit",
+              "required": true,
+              "material": "integer <int32> [ 1 .. 1000 ]",
+              "children": [],
+              "description": "integer <int32> [ 1 .. 1000 ]\n\nКоличество значений в ответе."
+            }
+          ]
+        }
+      ],
+      "text": "Получить список пунктов возврата для склада rFBS\nPOST\n/v1/warehouse/rfbs/return-point/list\nОписание и примерыКонсоль\n\nИспользуйте метод при создании и обновлении складов rFBS и rFBS Express.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\nfilters\nrequired\n\nobject\n\nФильтры для поиска пунктов возврата.\n\n\n\naddress\nstring <= 150 characters\n\nАдрес пункта возврата.\n\n\ncoordinates\nrequired\n\nobject\n\nКоординаты склада.\n\n\n\nlatitude\nrequired\n\nnumber <double>\n\nШирота.\n\n\nlongitude\nrequired\n\nnumber <double>\n\nДолгота.\n\n\ncountry_code\nrequired\n\nstring <= 2 characters\n\nКод страны в формате ISO 2.\n\n\nids\nArray of strings <int64> <= 1000 items\n\nИдентификаторы пунктов возврата.\n\n\ntypes\nArray of strings\nItems Enum: \"PVZ\" \"PPZ\"\n\nТип пункта возврата:\n\nPVZ — пункт выдачи заказов;\nPPZ — пункт приёма заказов.\n\nwarehouse_id\ninteger <int64>\n\nИдентификатор склада. Передайте его, если нужно получить пункты возврата для обновления склада. Для нового склада передавать не нужно.\n\n\nlast_id\ninteger <int64>\n\nИдентификатор последнего значения на странице.\n\n\nlimit\nrequired\n\ninteger <int32> [ 1 .. 1000 ]\n\nКоличество значений в ответе.\n\nОтветы\n200\n\nСписок пунктов возврата\n\nRESPONSE SCHEMA: application/json\npoints\nArray of objects\n\nСписок пунктов возврата.\n\n\n\nArray ()\naddress\nstring\n\nАдрес пункта возврата.\n\n\ncoordinates\nobject\n\nКоординаты пункта возврата.\n\n\n\nlatitude\nnumber <double>\n\nШирота.\n\n\nlongitude\nnumber <double>\n\nДолгота.\n\n\nid\ninteger <int64>\n\nИдентификатор пункта возврата.\n\n\nname\nstring\n\nНазвание пункта возврата.\n\n\ntype\nstring\nDefault: \"PVZ\"\nEnum: \"PVZ\" \"PPZ\"\n\nТип пункта возврата:\n\nPVZ — пункт выдачи заказов;\nPPZ — пункт приёма заказов.\n\nutc_offset\ninteger <int32>\n\nСмещение часового пояса от UTC-0 в минутах.\n\n\nworking_days\nArray of objects\n\nРабочие дни пункта возврата.\n\n\n\nArray ()\ndate\nstring YYYY-MM-DD\n\nДата рабочего дня.\n\n\nday\nstring\nDefault: \"UNSPECIFIED\"\nEnum: \"UNSPECIFIED\" \"MONDAY\" \"TUESDAY\" \"WEDNESDAY\" \"THURSDAY\" \"FRIDAY\" \"SATURDAY\" \"SUNDAY\"\n\nДень недели:\n\nUNSPECIFIED — не определён;\nMONDAY — понедельник;\nTUESDAY — вторник;\nWEDNESDAY — среда;\nTHURSDAY — четверг;\nFRIDAY — пятница;\nSATURDAY — суббота;\nSUNDAY — воскресенье.\n\nfrom\nstring HH:MM\n\nВремя начала рабочего дня.\n\n\nto\nstring HH:MM\n\nВремя окончания рабочего дня.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера"
     },
     {
+      "closed_schema_nodes": 0,
       "method_id": "FbpOrderDirectTplDlvEdit",
-      "text": "Обновить информацию о доставке сторонней транспортной компанией\nPOST\n/v1/fbp/order/direct/tpl-dlv/edit\nОписание и примерыКонсоль\n\nВы можете оставить обратную связь по этому методу в комментариях к обсуждению в сообществе разработчиков Ozon for dev.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\t\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\t\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\nrow_version\nrequired\n\t\ninteger <int64>\n\nИдентификатор актуальной версии черновика.\n\n\nsupply_id\nrequired\n\t\nstring\n\nИдентификатор заявки на поставку.\n\n\ntracking_number\nrequired\n\t\nstring\n\nТрек-номер отправления.\n\n\ntransport_company_name\nrequired\n\t\nstring\n\nНазвание транспортной компании.\n\nОтветы\n200\n\nИнформация обновлена\n\nRESPONSE SCHEMA: application/json\nerror\t\nobject\n\nИнформация об ошибке.\n\n\nis_error\t\nboolean\n\ntrue, если есть ошибка.\n\n\nrow_version\t\ninteger <int64>\n\nИдентификатор актуальной версии черновика.\n\ndefault\n\nОшибка\n\nПримеры запроса\nContent type\napplication/json\n{\n\"row_version\": 0,\n\"supply_id\": \"string\",\n\"tracking_number\": \"string\",\n\"transport_company_name\": \"string\"\n}\nКопировать\nСвернуть всё\nПримеры ответа\n200default\nContent type\napplication/json\n{\n\"error\": \n{\n\"order_errors\": \n[\n\"DELIVERY_DRIVER_NAME_LENGTH_MAXIMUM_REACHED\"\n]\n},\n\"is_error\": true,\n\"row_version\": 0\n}\nКопировать\nСвернуть всё"
+      "request_closed_schema_nodes": 0,
+      "request_tables": [
+        {
+          "label": "REQUEST BODY SCHEMA: application/json",
+          "fields": [
+            {
+              "name": "row_version",
+              "required": true,
+              "material": "integer <int64>",
+              "children": [],
+              "description": "integer <int64>\n\nИдентификатор актуальной версии черновика."
+            },
+            {
+              "name": "supply_id",
+              "required": true,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nИдентификатор заявки на поставку."
+            },
+            {
+              "name": "tracking_number",
+              "required": true,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nТрек-номер отправления."
+            },
+            {
+              "name": "transport_company_name",
+              "required": true,
+              "material": "string",
+              "children": [],
+              "description": "string\n\nНазвание транспортной компании."
+            }
+          ]
+        }
+      ],
+      "text": "Обновить информацию о доставке сторонней транспортной компанией\nPOST\n/v1/fbp/order/direct/tpl-dlv/edit\nОписание и примерыКонсоль\n\nВы можете оставить обратную связь по этому методу в комментариях к обсуждению в сообществе разработчиков Ozon for dev.\n\nHEADER PARAMETERS\nClient-Id\nrequired\n\nstring\n\nИдентификатор клиента.\n\n\nApi-Key\nrequired\n\nstring\n\nAPI-ключ.\n\nREQUEST BODY SCHEMA: application/json\nrow_version\nrequired\n\ninteger <int64>\n\nИдентификатор актуальной версии черновика.\n\n\nsupply_id\nrequired\n\nstring\n\nИдентификатор заявки на поставку.\n\n\ntracking_number\nrequired\n\nstring\n\nТрек-номер отправления.\n\n\ntransport_company_name\nrequired\n\nstring\n\nНазвание транспортной компании.\n\nОтветы\n200\n\nИнформация обновлена\n\nRESPONSE SCHEMA: application/json\nerror\nobject\n\nИнформация об ошибке.\n\n\n\norder_errors\nArray of strings\nItems Enum: \"DELIVERY_DRIVER_NAME_LENGTH_MAXIMUM_REACHED\" \"DELIVERY_VEHICLE_GENRE_LENGTH_MAXIMUM_REACHED\" \"DELIVERY_VEHICLE_REGISTRATION_PLATE_LENGTH_MAXIMUM_REACHED\" \"DELIVERY_TPL_NAME_LENGTH_MAXIMUM_REACHED\" \"DELIVERY_TRACKING_NUMBER_LENGTH_MAXIMUM_REACHED\" \"DELIVERY_DRIVER_NAME_EMPTY\" \"DELIVERY_VEHICLE_GENRE_EMPTY\" \"DELIVERY_VEHICLE_REGISTRATION_PLATE_EMPTY\" \"DELIVERY_TPL_NAME_EMPTY\" \"DELIVERY_TRACKING_NUMBER_EMPTY\" \"DELIVERY_BY_SELLER_EMPTY\" \"DELIVERY_BY_TPL_EMPTY\" \"RECEIVE_DATE_NOT_SET\" \"SUPPLY_TYPE_NOT_SUPPORTED\" \"INVALID_BUSINESS_FLOW\" \"ORDER_LOCKED\" \"INVALID_TIMESLOT\" \"DROP_OFF_DETAILS_EMPTY\" \"PICK_UP_ADDRESS_IS_EMPTY\" \"PICK_UP_SENDER_NAME_IS_EMPTY\" \"PICK_UP_SENDER_PHONE_IS_EMPTY\" \"PICK_UP_ADDRESS_IS_TOO_LARGE\" \"PICK_UP_SENDER_NAME_IS_TOO_LARGE\" \"PICK_UP_SENDER_PHONE_IS_TOO_LARGE\" \"PICK_UP_COMMENT_IS_TOO_LARGE\" \"PICK_UP_DETAILS_EMPTY\" \"DROP_OFF_ADDRESS_NOT_SET\" \"INVALID_DECLINE_REASON_FOR_WAREHOUSE_TYPE\" \"PICK_UP_SENDER_PHONE_HAS_NOT_ALLOWED_CHARS\" \"TIMESLOT_EMPTY\" \"TIMESLOT_EXPIRED\" \"BUNDLE_UPDATE_ALREADY_IN_PROGRESS\" \"INVALID_STATE\"\n\nТип ошибки:\n\nDELIVERY_DRIVER_NAME_LENGTH_MAXIMUM_REACHED — превышена длина ФИО водителя;\nDELIVERY_VEHICLE_GENRE_LENGTH_MAXIMUM_REACHED — превышена длина типа автомобиля;\nDELIVERY_VEHICLE_REGISTRATION_PLATE_LENGTH_MAXIMUM_REACHED — превышена длина номера автомобиля;\nDELIVERY_TPL_NAME_LENGTH_MAXIMUM_REACHED — превышена длина названия сторонней транспортной компании;\nDELIVERY_TRACKING_NUMBER_LENGTH_MAXIMUM_REACHED — превышена длина трек-номера;\nDELIVERY_DRIVER_NAME_EMPTY — ФИО водителя не указано;\nDELIVERY_VEHICLE_GENRE_EMPTY — тип автомобиля не указан;\nDELIVERY_VEHICLE_REGISTRATION_PLATE_EMPTY — номер автомобиля не указан;\nDELIVERY_TPL_NAME_EMPTY — название сторонней транспортной компании не указано;\nDELIVERY_TRACKING_NUMBER_EMPTY — трек-номер не указан;\nDELIVERY_BY_SELLER_EMPTY — информация о доставке продавцом не указана;\nDELIVERY_BY_TPL_EMPTY — информация о доставке сторонней транспортной компанией не указана;\nRECEIVE_DATE_NOT_SET — дата получения не указана;\nSUPPLY_TYPE_NOT_SUPPORTED — тип поставки не поддерживается;\nINVALID_BUSINESS_FLOW — неверный бизнес-поток;\nORDER_LOCKED — нельзя редактировать товарный состав;\nINVALID_TIMESLOT — таймслот указан неверно;\nDROP_OFF_DETAILS_EMPTY — детали drop-off пункта не указаны;\nPICK_UP_ADDRESS_IS_EMPTY — адрес pick-up точки не указан;\nPICK_UP_SENDER_NAME_IS_EMPTY — ФИО отправителя не указано;\nPICK_UP_SENDER_PHONE_IS_EMPTY — номер телефона отправителя не указан;\nPICK_UP_ADDRESS_IS_TOO_LARGE — превышена длина адреса pick-up точки;\nPICK_UP_SENDER_NAME_IS_TOO_LARGE — превышена длина ФИО отправителя;\nPICK_UP_SENDER_PHONE_IS_TOO_LARGE — превышена длина номера телефона отправителя;\nPICK_UP_COMMENT_IS_TOO_LARGE — превышена длина комментария к поставке;\nPICK_UP_DETAILS_EMPTY — детали pick-up точки не указаны;\nDROP_OFF_ADDRESS_NOT_SET — адрес drop-off пункта не указан;\nINVALID_DECLINE_REASON_FOR_WAREHOUSE_TYPE — причина отмены не подходит для типа склада;\nPICK_UP_SENDER_PHONE_HAS_NOT_ALLOWED_CHARS — запрещённые символы в номере телефона отправителя;\nTIMESLOT_EMPTY — таймслот не указан;\nTIMESLOT_EXPIRED — поставка не доставлена в указанный таймслот;\nBUNDLE_UPDATE_ALREADY_IN_PROGRESS — обновление информации о поставке уже запущено;\nINVALID_STATE — неверное состояние.\n\nis_error\nboolean\n\ntrue, если есть ошибка.\n\n\nrow_version\ninteger <int64>\n\nИдентификатор актуальной версии черновика.\n\ndefault\n\nОшибка"
     }
   ]
 }
