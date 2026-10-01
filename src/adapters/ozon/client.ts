@@ -13,6 +13,8 @@
 import { MpError } from "../../core/errors.js";
 import { rateLimiter, withRetries } from "../../core/rateLimiter.js";
 import type { LimitRule } from "../../core/rateLimiter.js";
+import { readOzonResponse } from './boundedResponse.js';
+import { MAX_RESPONSE_BYTES } from '../../core/readPolicy.js';
 
 const HOST = "https://api-seller.ozon.ru";
 
@@ -96,7 +98,7 @@ export class OzonClient {
       }
 
       if (res.status === 204) return null as T;
-      return (await res.json()) as T;
+      return JSON.parse((await readOzonResponse(res,MAX_RESPONSE_BYTES)).toString('utf8')) as T;
     }, {respectRetryAfter:true});
   }
 

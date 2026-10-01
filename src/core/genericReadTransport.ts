@@ -2,6 +2,8 @@ import { MpError } from "./errors.js";
 import { rateLimiter, withRetries, type LimitRule } from "./rateLimiter.js";
 import type { ReadMethod, ReadTransport } from "./readPolicy.js";
 import type { Marketplace } from "./store.js";
+import { readOzonResponse } from '../adapters/ozon/boundedResponse.js';
+import { MAX_RESPONSE_BYTES } from './readPolicy.js';
 
 const hosts: Record<Marketplace, Record<string, string>> = {
   ozon: { default: "https://api-seller.ozon.ru", performance: "https://api-performance.ozon.ru" },
@@ -85,10 +87,10 @@ export class MarketplaceReadTransport implements ReadTransport {
       if (response.status === 204) return null;
       const contentType = response.headers.get("content-type") ?? "";
       if (!/json/i.test(contentType)) {
-        const bytes = Buffer.from(await response.arrayBuffer());
+        const bytes = marketplace==='ozon' ? await readOzonResponse(response,50*1024*1024) : Buffer.from(await response.arrayBuffer());
         return { __download: true, bytes, mime_type: contentType.split(";")[0] || "application/octet-stream" };
       }
-      return response.json();
+      return marketplace==='ozon' ? JSON.parse((await readOzonResponse(response,MAX_RESPONSE_BYTES)).toString('utf8')) : response.json();
     }, { ...(marketplace==='ozon'?{respectRetryAfter:true}:{}), ...(marketplace==='ozon'&&method.report_job?{retries:0}:{}) });
   }
 }

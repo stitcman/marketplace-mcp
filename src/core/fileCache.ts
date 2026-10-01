@@ -4,6 +4,7 @@ import crypto from "node:crypto";
 import { randomUUID } from "node:crypto";
 import { MpError } from "./errors.js";
 import type { Marketplace } from "./store.js";
+import { downloadOzonFile } from '../adapters/ozon/download.js';
 
 const ROOT = process.env.MARKETPLACE_MCP_CACHE_DIR ?? "/opt/marketplace-mcp/data/cache";
 const TTL_MS = 72 * 60 * 60 * 1000;
@@ -13,7 +14,7 @@ const QUOTA_BYTES = 1024 ** 3;
 const names: Record<Marketplace, string> = { ozon: "ozon", wildberries: "wildberries", yandex_market: "yandex-market" };
 
 export async function cacheArtifact(input: { marketplace: Marketplace; methodId: string; payload: unknown }) {
-  const downloaded = findDownload(input.payload);
+  const downloaded = findDownload(input.payload,input.marketplace==='ozon');
   if (!downloaded) throw new MpError("FEATURE_NOT_AVAILABLE_FOR_ACCOUNT", "The marketplace response did not contain a downloadable artifact", { marketplace: input.marketplace });
   const dir = path.join(ROOT, names[input.marketplace]);
   await fs.mkdir(dir, { recursive: true });
@@ -30,10 +31,15 @@ export async function cacheArtifact(input: { marketplace: Marketplace; methodId:
   } else {
     const url = new URL(downloaded.url!);
     if (!allowedDownloadHost(input.marketplace, url.hostname)) throw new MpError("LOCAL_DENY", "Artifact URL host is not allowed", { marketplace: input.marketplace });
-    const response = await fetch(url, { redirect: "error", signal: AbortSignal.timeout(30_000) });
-    if (!response.ok) throw new MpError("MARKETPLACE_UNAVAILABLE", `Artifact download returned ${response.status}`, { marketplace: input.marketplace });
-    bytes = Buffer.from(await response.arrayBuffer());
-    mimeType = (response.headers.get("content-type") ?? "application/octet-stream").split(";")[0];
+    if(input.marketplace==='ozon') {
+      const artifact=await downloadOzonFile(url,MAX_FILE_BYTES);
+      bytes=artifact.bytes;mimeType=artifact.mimeType;
+    } else {
+      const response = await fetch(url, { redirect: "error", signal: AbortSignal.timeout(30_000) });
+      if (!response.ok) throw new MpError("MARKETPLACE_UNAVAILABLE", `Artifact download returned ${response.status}`, { marketplace: input.marketplace });
+      bytes = Buffer.from(await response.arrayBuffer());
+      mimeType = (response.headers.get("content-type") ?? "application/octet-stream").split(";")[0];
+    }
   }
   if (bytes.length > MAX_FILE_BYTES || used + bytes.length > QUOTA_BYTES) throw new MpError("LOCAL_DENY", "Artifact exceeds cache size/quota limits", { marketplace: input.marketplace });
   if (!/^(application\/(pdf|zip|json|octet-stream|vnd\.|csv)|text\/(csv|plain))/i.test(mimeType)) throw new MpError("LOCAL_DENY", `Unsupported artifact MIME type: ${mimeType}`, { marketplace: input.marketplace });
@@ -46,12 +52,12 @@ export async function cacheArtifact(input: { marketplace: Marketplace; methodId:
     sha256: crypto.createHash("sha256").update(bytes).digest("hex"), created_at: created.toISOString(), expires_at: new Date(created.getTime() + TTL_MS).toISOString(), server_path: file };
 }
 
-function findDownload(value: any): { url?: string; bytes?: Buffer; mime_type?: string } | null {
+export function findDownload(value: any,ozon=false): { url?: string; bytes?: Buffer; mime_type?: string } | null {
   if (value?.__download && Buffer.isBuffer(value.bytes)) return value;
   if (!value || typeof value !== "object") return null;
   for (const [key, child] of Object.entries(value)) {
-    if (/^(url|download_url|file_url)$/i.test(key) && typeof child === "string" && /^https:\/\//.test(child)) return { url: child };
-    const nested = findDownload(child);
+    if ((/^(url|download_url|file_url)$/i.test(key)||ozon&&key==='file') && typeof child === "string" && /^https:\/\//.test(child)) return { url: child };
+    const nested = findDownload(child,ozon);
     if (nested) return nested;
   }
   return null;
