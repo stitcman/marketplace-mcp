@@ -4,6 +4,7 @@ import crypto from "node:crypto";
 import YAML from "yaml";
 import { execFileSync } from "node:child_process";
 import { applyOzonOverrides } from './apply-ozon-contract-overrides.mjs';
+import { renderedAdditions, officialCurrentKeys } from './ozon-rendered-contracts.mjs';
 
 const root = path.resolve(import.meta.dirname, "..");
 const refs = process.env.MARKETPLACE_MCP_REFERENCE_ROOT ?? "C:/marketplace-mcp-references";
@@ -160,6 +161,7 @@ function writeMarketplace(name, records) {
   const approvedIds = fs.existsSync(policyFile) && !process.argv.includes("--approve-reviewed")
     ? new Set(JSON.parse(fs.readFileSync(policyFile, "utf8")).map((method) => method.method_id))
     : null;
+  if(name==='ozon'&&approvedIds)for(const r of renderedAdditions())if(r.admission==='reviewed')approvedIds.add(r.method_id);
   if (!approvedIds && !process.argv.includes("--approve-reviewed")) throw new Error(`${name}: initial allowlist creation requires --approve-reviewed after semantic review`);
   const allow = inventory.filter((r) => r.admission !== 'denied' && (r.classification === "READ" || r.classification === "SEMANTIC_READ_JOB") && (!approvedIds || approvedIds.has(r.method_id)))
     .map(({ classification, ...r }) => r);
@@ -189,8 +191,18 @@ function generateOzon() {
       }
     }
   }
-  writeMarketplace("ozon", applyOzonOverrides(records));
+  const additions=renderedAdditions();
+  const current=officialCurrentKeys();
+  const reviewed=applyOzonOverrides([...records,...additions]);
+  const absent=reviewed.filter(r=>!current.has(`${r.endpoint_group==='performance'?'performance':'seller'}|${r.method_id}|${r.http_method}|${r.path}`));
+  if(absent.length!==2||absent.some(r=>!['QuantProductList','QuantGetInfo'].includes(r.method_id)))throw Error('Unexplained official inventory absence');
+  fs.writeFileSync(path.join(outInventory,'ozon-tombstones.json'),JSON.stringify(absent.map(r=>({...r,admission:'denied',lifecycle:{status:'absent_from_current_official_docs',observed_at:snapshotDate(),replacement:[],formal_removal_not_inferred:true}})),null,2)+'\n');
+  const active=reviewed.filter(r=>current.has(`${r.endpoint_group==='performance'?'performance':'seller'}|${r.method_id}|${r.http_method}|${r.path}`));
+  if(active.length!==529||new Set(active.map(r=>r.method_id)).size!==529)throw Error('Official inventory must be exactly 529 unique methods');
+  writeMarketplace("ozon", active);
 }
+
+function snapshotDate(){return '2026-10-01';}
 
 function generateYm() {
   const repo = path.join(refs, "yandex-official");

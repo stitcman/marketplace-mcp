@@ -7135,6 +7135,46 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
+    "method_id": "GetFinanceAccrualPostings",
+    "domain": "betamethod",
+    "path": "/v1/finance/accrual/postings",
+    "http_method": "POST",
+    "safety": "read",
+    "reason": "Official finance accrual retrieval for 1..200 posting numbers; no seller-state mutation",
+    "permission": "finance.read",
+    "endpoint_group": "betamethod",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить начисления по отправлениям",
+    "description": "Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2008-Novye-beta-metody-dlia-polucheniia-nachislenii/) в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "required": [
+        "posting_numbers"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "posting_numbers": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 200,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/GetFinanceAccrualPostings",
+      "retrieved_at_utc": "2026-10-01T07:38:39.204Z"
+    }
+  },
+  {
     "method_id": "GetFinanceAccrualTypes",
     "domain": "betamethod",
     "path": "/v1/finance/accrual/types",
@@ -7936,101 +7976,6 @@
       "required": [
         "delivery_method_id",
         "warehouse_id"
-      ],
-      "additionalProperties": false
-    },
-    "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
-  },
-  {
-    "method_id": "QuantProductList",
-    "domain": "quants",
-    "path": "/v1/product/quant/list",
-    "http_method": "POST",
-    "safety": "read",
-    "reason": "Explicitly classified data retrieval",
-    "permission": "catalog.read",
-    "endpoint_group": "quants",
-    "pagination": "bounded",
-    "file_download": false,
-    "report_job": false,
-    "sensitive_data": false,
-    "summary": "Список эконом-товаров",
-    "description": "Вы можете оставить обратную связь по этому методу в комментариях к [обсуждению](https://dev.ozon.ru/community/1084-Metody-po-tarifu-Ekonom) в сообществе разработчиков Ozon for dev.",
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "cursor": {
-          "type": "string"
-        },
-        "limit": {
-          "type": "integer"
-        },
-        "visibility": {
-          "type": "string",
-          "enum": [
-            "ALL",
-            "VISIBLE",
-            "INVISIBLE",
-            "EMPTY_STOCK",
-            "NOT_MODERATED",
-            "MODERATED",
-            "DISABLED",
-            "STATE_FAILED",
-            "READY_TO_SUPPLY",
-            "VALIDATION_STATE_PENDING",
-            "VALIDATION_STATE_FAIL",
-            "VALIDATION_STATE_SUCCESS",
-            "TO_SUPPLY",
-            "IN_SALE",
-            "REMOVED_FROM_SALE",
-            "OVERPRICED",
-            "CRITICALLY_OVERPRICED",
-            "EMPTY_BARCODE",
-            "BARCODE_EXISTS",
-            "QUARANTINE",
-            "ARCHIVED",
-            "OVERPRICED_WITH_STOCK",
-            "PARTIAL_APPROVED"
-          ]
-        }
-      },
-      "required": [
-        "limit"
-      ],
-      "additionalProperties": false
-    },
-    "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
-  },
-  {
-    "method_id": "QuantGetInfo",
-    "domain": "quants",
-    "path": "/v1/product/quant/info",
-    "http_method": "POST",
-    "safety": "read",
-    "reason": "Explicitly classified data retrieval",
-    "permission": "catalog.read",
-    "endpoint_group": "quants",
-    "pagination": "none",
-    "file_download": false,
-    "report_job": false,
-    "sensitive_data": false,
-    "summary": "Информация об эконом-товаре",
-    "description": "Вы можете оставить обратную связь по этому методу в комментариях к [обсуждению](https://dev.ozon.ru/community/1084-Metody-po-tarifu-Ekonom) в сообществе разработчиков Ozon for dev.",
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "quant_code": {
-          "minItems": 1,
-          "maxItems": 1000,
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": [
-        "quant_code"
       ],
       "additionalProperties": false
     },
@@ -11057,5 +11002,725 @@
     },
     "source_version": "2.0;ozon-performance-openapi.json",
     "source_hash": "8777c163b9179532af0a7dcf1ec303b62caa552e112dc482c5330ea6767e9866"
+  },
+  {
+    "method_id": "ActionsCandidates",
+    "path": "/v2/actions/candidates",
+    "http_method": "POST",
+    "domain": "advertising",
+    "endpoint_group": "advertising",
+    "safety": "read",
+    "reason": "Reviewed official data retrieval",
+    "permission": "advertising.read",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список товаров, которые могут участвовать в акции",
+    "description": "До 13 октября 2026 года метод работает аналогично /v1/actions/candidates.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action_id": {
+          "type": "integer"
+        },
+        "last_id": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "maximum": 100
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "source_version": "OFFICIAL_RENDERED_DOCS;2026-10-01",
+    "source_hash": "9eefb1a855c742570e952df28dc145f0785437fbb3056cdfac1af2cb8876d26e",
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/ActionsCandidates",
+      "retrieved_at_utc": "2026-10-01T07:41:12.959Z"
+    },
+    "response_schema_material": "last_id\t\nstring\n\nИдентификатор последнего значения на странице. Чтобы получить следующие значения, передайте полученное значение в следующем запросе в параметре last_id.\n\n\nproducts\t\nArray of objects\n\nСписок товаров.\n\n\ntotal\t\ninteger <uint64>\n\nОбщее количество товаров, которое доступно для акции.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\n",
+    "credential_family": "seller",
+    "admission": "reviewed"
+  },
+  {
+    "method_id": "ActionsProducts",
+    "path": "/v2/actions/products",
+    "http_method": "POST",
+    "domain": "advertising",
+    "endpoint_group": "advertising",
+    "safety": "read",
+    "reason": "Reviewed official data retrieval",
+    "permission": "advertising.read",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список товаров, которые участвуют в акции",
+    "description": "До 13 октября 2026 года метод работает аналогично /v1/actions/products.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action_id": {
+          "type": "integer"
+        },
+        "last_id": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "maximum": 100
+        }
+      },
+      "required": [
+        "action_id",
+        "limit"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "OFFICIAL_RENDERED_DOCS;2026-10-01",
+    "source_hash": "69ecf6c1ea56188244ffca1c676f74d97437163471933a792ce1e82f73ee5460",
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/ActionsProducts",
+      "retrieved_at_utc": "2026-10-01T07:41:12.959Z"
+    },
+    "response_schema_material": "last_id\t\nstring\n\nИдентификатор последнего значения на странице. Чтобы получить следующие значения, передайте полученное значение в следующем запросе в параметре last_id.\n\n\nproducts\t\nArray of objects\n\nСписок товаров.\n\n\ntotal\t\ninteger <uint64>\n\nКоличество товаров в акции.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\n",
+    "credential_family": "seller",
+    "admission": "reviewed"
+  },
+  {
+    "method_id": "ActionsAutoAddProductsListV2",
+    "path": "/v2/actions/auto-add/products/list",
+    "http_method": "POST",
+    "domain": "advertising",
+    "endpoint_group": "advertising",
+    "safety": "read",
+    "reason": "Reviewed official data retrieval",
+    "permission": "advertising.read",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список товаров из автодобавления в акцию",
+    "description": "До 13 октября 2026 года метод работает аналогично /v1/actions/auto-add/products/list.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action_id": {
+          "type": "integer"
+        },
+        "auto_add_date": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "offset": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "action_id",
+        "auto_add_date",
+        "limit"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "OFFICIAL_RENDERED_DOCS;2026-10-01",
+    "source_hash": "d2ca07101045d80ea9707cefa462e786ae758abed08ede0a3558533ee10f02f5",
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/ActionsAutoAddProductsListV2",
+      "retrieved_at_utc": "2026-10-01T07:41:12.959Z"
+    },
+    "response_schema_material": "products\t\nArray of objects\n\nСписок товаров с автодобавлением.\n\n\ntotal\t\ninteger <uint64>\n\nКоличество товаров.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\n",
+    "credential_family": "seller",
+    "admission": "reviewed"
+  },
+  {
+    "method_id": "ActionsAutoAddProductsCandidatesV2",
+    "path": "/v2/actions/auto-add/products/candidates",
+    "http_method": "POST",
+    "domain": "advertising",
+    "endpoint_group": "advertising",
+    "safety": "read",
+    "reason": "Reviewed official data retrieval",
+    "permission": "advertising.read",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список доступных товаров для автодобавления в акцию",
+    "description": "До 13 октября 2026 года метод работает аналогично /v1/actions/auto-add/products/candidates.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action_id": {
+          "type": "integer"
+        },
+        "auto_add_date": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "offset": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "action_id",
+        "auto_add_date",
+        "limit"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "OFFICIAL_RENDERED_DOCS;2026-10-01",
+    "source_hash": "1f81d6cba2eb8e441c3ec32c1ba121b440a146cc9e6dbf7cfa4c629bae819346",
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/ActionsAutoAddProductsCandidatesV2",
+      "retrieved_at_utc": "2026-10-01T07:41:12.959Z"
+    },
+    "response_schema_material": "products\t\nArray of objects\n\nСписок доступных товаров для автодобавления.\n\n\ntotal\t\ninteger <uint64>\n\nКоличество товаров.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\n",
+    "credential_family": "seller",
+    "admission": "reviewed"
+  },
+  {
+    "method_id": "PostingFbsPackageLabelCreate",
+    "path": "/v3/posting/fbs/package-label/create",
+    "http_method": "POST",
+    "domain": "reports",
+    "endpoint_group": "reports",
+    "safety": "read",
+    "reason": "Official asynchronous label generation; no order status mutation",
+    "permission": "reports.read",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": true,
+    "sensitive_data": false,
+    "summary": "Создать задание на формирование этикеток",
+    "description": "Если вы работаете по схеме rFBS или rFBS Express, изучите процесс печати этикетки в Базе знаний продавца.\n\nСоздаёт задания на асинхронное формирование этикеток для отправлений в статусе «Ожидает отгрузки» — awaiting_deliver. Рекомендуем запрашивать этикетки через 45–60 секунд после сборки заказа.\n\nЧтобы получить созданные этикетки, используйте /v2/posting/fbs/package-label/get.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "posting_numbers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "maxItems": 1000
+        }
+      },
+      "required": [
+        "posting_numbers"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "OFFICIAL_RENDERED_DOCS;2026-10-01",
+    "source_hash": "5ac528a78fef769090116e3b4545149dc5102afb6cc963595266cb8edb56a33a",
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/PostingFbsPackageLabelCreate",
+      "retrieved_at_utc": "2026-10-01T07:41:12.959Z"
+    },
+    "response_schema_material": "tasks\t\nArray of objects\n\nСписок заданий.\n\n\n\nArray ()\ntask_id\t\ninteger <int64>\n\nИдентификатор задания. Получите файл с этикетками методом /v2/posting/fbs/package-label/get.\n\n\ntask_type\t\nstring\n\nТип задания:\n\nbig_label — для обычной этикетки;\nsmall_label — для маленькой этикетки.\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\n",
+    "credential_family": "seller",
+    "admission": "reviewed"
+  },
+  {
+    "method_id": "PostingFbsPackageLabelGet",
+    "path": "/v2/posting/fbs/package-label/get",
+    "http_method": "POST",
+    "domain": "reports",
+    "endpoint_group": "reports",
+    "safety": "read",
+    "reason": "Reviewed official data retrieval",
+    "permission": "reports.read",
+    "pagination": "none",
+    "file_download": true,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить файл с этикетками",
+    "description": "",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "task_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "task_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "OFFICIAL_RENDERED_DOCS;2026-10-01",
+    "source_hash": "064264e810e1c5bff01340f13c85918ce4672f382085e5a00d298f96339f48f1",
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/PostingFbsPackageLabelGet",
+      "retrieved_at_utc": "2026-10-01T07:41:12.959Z"
+    },
+    "response_schema_material": "error\t\nobject\n\nОшибка, которая возникла при формировании этикеток.\n\n\nfile_url\t\nstring\n\nСсылка на файл с этикетками.\n\n\nstatus\t\nobject\n\nСтатус задания.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\n",
+    "credential_family": "seller",
+    "admission": "reviewed"
+  },
+  {
+    "method_id": "AnalyticsDecommissionedGoods",
+    "path": "/v1/analytics/decommissioned-goods",
+    "http_method": "POST",
+    "domain": "analytics",
+    "endpoint_group": "analytics",
+    "safety": "read",
+    "reason": "Reviewed official data retrieval",
+    "permission": "analytics.read",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить отчёт о списанных товарах",
+    "description": "Соответствует разделу FBO → Списанные товары в личном кабинете.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "object"
+        },
+        "page": {
+          "type": "integer"
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "sort_by": {
+          "type": "string",
+          "enum": [
+            "DATE",
+            "DISPOSAL_FEE"
+          ]
+        },
+        "sort_dir": {
+          "type": "string",
+          "enum": [
+            "ASC",
+            "DESC"
+          ]
+        }
+      },
+      "required": [
+        "filter",
+        "page",
+        "page_size"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "OFFICIAL_RENDERED_DOCS;2026-10-01",
+    "source_hash": "905eb4ede195963d1f90c99f8b000eccd6d571410dff31b588996e98bb491e3c",
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/AnalyticsDecommissionedGoods",
+      "retrieved_at_utc": "2026-10-01T07:41:12.959Z"
+    },
+    "response_schema_material": "items\t\nArray of objects\n\nИнформация о товарах.\n\n\ntotal_count\t\ninteger <int32>\n\nКоличество оставшихся товаров, которые можно получить в ответе.\n\ndefault\n\nОшибка\n\n",
+    "credential_family": "seller",
+    "admission": "reviewed"
+  },
+  {
+    "method_id": "AnalyticsCategoryComparison",
+    "path": "/v1/analytics/category/comparison",
+    "http_method": "POST",
+    "domain": "analytics",
+    "endpoint_group": "analytics",
+    "safety": "read",
+    "reason": "Reviewed official data retrieval",
+    "permission": "analytics.read",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить информацию о сравнении категорий",
+    "description": "Соответствует разделу Аналитика → Категории в личном кабинете.\n\nМетод доступен продавцам с подпиской Premium Pro.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "object"
+        },
+        "group": {
+          "type": "string",
+          "enum": [
+            "CATEGORY_3",
+            "SOURCE",
+            "SELLER",
+            "BRAND",
+            "CLUSTER",
+            "PRICE_BOUNDARY"
+          ]
+        },
+        "limit": {
+          "type": "integer",
+          "maximum": 100
+        },
+        "metric": {
+          "type": "string",
+          "enum": [
+            "GMV",
+            "GMV_GROWTH",
+            "ITEMS",
+            "AIV",
+            "AIV_GROWTH",
+            "SELLERS",
+            "BRANDS",
+            "CLUSTERS",
+            "CATEGORY_SHARE",
+            "LEADER_SHARE",
+            "BUYOUT"
+          ]
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "period": {
+          "type": "string",
+          "enum": [
+            "WEEK",
+            "MONTH",
+            "QUARTER",
+            "YEAR"
+          ]
+        },
+        "sort": {
+          "type": "string",
+          "enum": [
+            "ASC",
+            "DESC"
+          ]
+        }
+      },
+      "required": [
+        "period",
+        "sort"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "OFFICIAL_RENDERED_DOCS;2026-10-01",
+    "source_hash": "ba33362f4a7647aca6c1371acf8b2298e8cd235ac4d77a4c6c388400d631a9dd",
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/AnalyticsCategoryComparison",
+      "retrieved_at_utc": "2026-10-01T07:41:12.959Z"
+    },
+    "response_schema_material": "has_next\t\nboolean\n\ntrue, если в ответе вернулись не все значения.\n\n\nitems\t\nArray of objects\n\nМассив данных.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\n",
+    "credential_family": "seller",
+    "admission": "reviewed"
+  },
+  {
+    "method_id": "DescriptionCategoryDependentAttributes",
+    "path": "/v1/description-category/dependent-attributes",
+    "http_method": "POST",
+    "domain": "catalog",
+    "endpoint_group": "catalog",
+    "safety": "read",
+    "reason": "Reviewed official data retrieval",
+    "permission": "catalog.read",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить зависимые характеристики",
+    "description": "Возвращает пары идентификаторов родительской и дочерней характеристик. Получите возможные значения дочерней характеристики для значений родительской методом /v1/description-category/dependent-attributes/values.\n\nХарактеристика с parent_attribute_id = 8229 — это идентификатор типа товара type_id. Не указывайте её в параметре items.attributes.id в запросах к методам /v3/product/import и /v1/product/attributes/update.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "description_category_id": {
+          "type": "integer"
+        },
+        "type_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "description_category_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "OFFICIAL_RENDERED_DOCS;2026-10-01",
+    "source_hash": "e78ecfa293f2bbe38aed721d6015a7f9e54aa046182fa9e4e35730f3cf4445ae",
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/DescriptionCategoryDependentAttributes",
+      "retrieved_at_utc": "2026-10-01T07:41:12.959Z"
+    },
+    "response_schema_material": "result\t\nArray of objects\n\nИнформация о зависимых характеристиках.\n\n\n\nArray ()\nchild_attribute_id\t\ninteger <int64>\n\nИдентификатор дочерней характеристики.\n\n\nparent_attribute_id\t\ninteger <int64>\n\nИдентификатор родительской характеристики.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\n",
+    "credential_family": "seller",
+    "admission": "reviewed"
+  },
+  {
+    "method_id": "DescriptionCategoryDependentAttributesValues",
+    "path": "/v1/description-category/dependent-attributes/values",
+    "http_method": "POST",
+    "domain": "catalog",
+    "endpoint_group": "catalog",
+    "safety": "read",
+    "reason": "Reviewed official data retrieval",
+    "permission": "catalog.read",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить возможные значения дочерней характеристики",
+    "description": "Возвращает возможные значения дочерней характеристики для значений родительской.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "child_attribute_id": {
+          "type": "integer"
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "description_category_id": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "parent_attribute_id": {
+          "type": "integer"
+        },
+        "type_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "child_attribute_id",
+        "parent_attribute_id"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "OFFICIAL_RENDERED_DOCS;2026-10-01",
+    "source_hash": "42b35bfa847baa0f8a24c13bb4d002825c7997b778fd054ab9e516a760782524",
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/DescriptionCategoryDependentAttributesValues",
+      "retrieved_at_utc": "2026-10-01T07:41:12.959Z"
+    },
+    "response_schema_material": "cursor\t\nstring\n\nУказатель для выборки следующих данных.\n\n\nresult\t\nArray of objects\n\nИнформация о зависимых характеристиках.\n\n\n\nArray ()\nchildren\t\nArray of objects\n\nИнформация о дочерних характеристиках.\n\n\nparent_value\t\nstring\n\nЗначение родительской характеристики.\n\n\nparent_value_id\t\ninteger <int64>\n\nИдентификатор значения родительской характеристики.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\n",
+    "credential_family": "seller",
+    "admission": "reviewed"
+  },
+  {
+    "method_id": "AnalyticsLocalSaleTotal",
+    "path": "/v1/analytics/local-sale/total",
+    "http_method": "POST",
+    "domain": "analytics",
+    "endpoint_group": "analytics",
+    "safety": "read",
+    "reason": "Reviewed official data retrieval",
+    "permission": "analytics.read",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить общую информацию о локальности продаж",
+    "description": "Метод соответствует разделу Аналитика → Планирование поставок → Локальность продаж.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "overpayment_items": {
+          "type": "object"
+        },
+        "period": {
+          "type": "object"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "source_version": "OFFICIAL_RENDERED_DOCS;2026-10-01",
+    "source_hash": "223987b803b5554c7e88d7c66b4d37653b5563e4bb08b6fe7857a8c897bc7795",
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/AnalyticsLocalSaleTotal",
+      "retrieved_at_utc": "2026-10-01T07:41:12.959Z"
+    },
+    "response_schema_material": "fbo_quantity\t\ninteger <int64>\n\nКоличество товаров, которые продаются по схеме FBO.\n\n\nlocal_data\t\nobject\n\nИнформация о локальных продажах.\n\n\noverpayment\t\nobject\n\nИнформация о переплате по логистике.\n\n\noverpayment_items\t\nArray of objects\n\nТовары с наибольшей переплатой.\n\n\noverpayment_reasons\t\nArray of objects\n\nПричины переплат за логистику.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\n",
+    "credential_family": "seller",
+    "admission": "reviewed"
+  },
+  {
+    "method_id": "AnalyticsLocalSaleClustersItemsInfo",
+    "path": "/v1/analytics/local-sale/clusters-items/info",
+    "http_method": "POST",
+    "domain": "analytics",
+    "endpoint_group": "analytics",
+    "safety": "read",
+    "reason": "Reviewed official data retrieval",
+    "permission": "analytics.read",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить информацию о локальности продаж по кластерам",
+    "description": "Метод соответствует разделу Аналитика → Планирование поставок → Локальность продаж.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "object"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "sort_by": {
+          "type": "string",
+          "enum": [
+            "IMPACT_SHARE",
+            "LOCALITY",
+            "OVERPAYMENT_TOTAL",
+            "OVERPAYMENT_NON_LOCAL",
+            "OVERPAYMENT_DELTA"
+          ]
+        },
+        "sort_dir": {
+          "type": "string",
+          "enum": [
+            "ASC",
+            "DESC"
+          ]
+        }
+      },
+      "required": [
+        "filter",
+        "limit"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "OFFICIAL_RENDERED_DOCS;2026-10-01",
+    "source_hash": "0638a11d36d226de6735cc18733b106625260609e273548aaa12d8f2651f08bb",
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/AnalyticsLocalSaleClustersItemsInfo",
+      "retrieved_at_utc": "2026-10-01T07:41:12.959Z"
+    },
+    "response_schema_material": "items\t\nArray of objects\n\nСписок товаров.\n\n\ntotal\t\ninteger <int64>\n\nОбщее количество товаров.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\n",
+    "credential_family": "seller",
+    "admission": "reviewed"
+  },
+  {
+    "method_id": "AnalyticsLocalSaleItemsClustersInfo",
+    "path": "/v1/analytics/local-sale/items-clusters/info",
+    "http_method": "POST",
+    "domain": "analytics",
+    "endpoint_group": "analytics",
+    "safety": "read",
+    "reason": "Reviewed official data retrieval",
+    "permission": "analytics.read",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить информацию о локальности продаж товара по кластерам",
+    "description": "Метод соответствует разделу Аналитика → Планирование поставок → Локальность продаж.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "object"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "sort_by": {
+          "type": "string",
+          "enum": [
+            "IMPACT_SHARE",
+            "LOCALITY",
+            "OVERPAYMENT_TOTAL",
+            "OVERPAYMENT_NON_LOCAL",
+            "OVERPAYMENT_DELTA"
+          ]
+        },
+        "sort_dir": {
+          "type": "string",
+          "enum": [
+            "ASC",
+            "DESC"
+          ]
+        }
+      },
+      "required": [
+        "filter",
+        "limit"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "OFFICIAL_RENDERED_DOCS;2026-10-01",
+    "source_hash": "9da0bf161c32e4f966580aa491c9b85e41bd5a95c4e7faf5461276523a9074ce",
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/AnalyticsLocalSaleItemsClustersInfo",
+      "retrieved_at_utc": "2026-10-01T07:41:12.959Z"
+    },
+    "response_schema_material": "items\t\nArray of objects\n\nСписок товаров.\n\n\ntotal\t\ninteger <int64>\n\nОбщее количество товаров.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\n",
+    "credential_family": "seller",
+    "admission": "reviewed"
+  },
+  {
+    "method_id": "WarehouseRfbsReturnPointList",
+    "path": "/v1/warehouse/rfbs/return-point/list",
+    "http_method": "POST",
+    "domain": "warehouses",
+    "endpoint_group": "warehouses",
+    "safety": "read",
+    "reason": "Reviewed official data retrieval",
+    "permission": "warehouses.read",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Получить список пунктов возврата для склада rFBS",
+    "description": "Используйте метод при создании и обновлении складов rFBS и rFBS Express.\n\nВы можете оставить обратную связь о работе метода в комментариях в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "filters": {
+          "type": "object"
+        },
+        "last_id": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        }
+      },
+      "required": [
+        "filters",
+        "limit"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "OFFICIAL_RENDERED_DOCS;2026-10-01",
+    "source_hash": "d342ab809ac34e16ee98b82886922042650e5f53368f497c1d4daf4a6828dbd3",
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/WarehouseRfbsReturnPointList",
+      "retrieved_at_utc": "2026-10-01T07:41:12.959Z"
+    },
+    "response_schema_material": "points\t\nArray of objects\n\nСписок пунктов возврата.\n\n\n\nArray ()\naddress\t\nstring\n\nАдрес пункта возврата.\n\n\ncoordinates\t\nobject\n\nКоординаты пункта возврата.\n\n\nid\t\ninteger <int64>\n\nИдентификатор пункта возврата.\n\n\nname\t\nstring\n\nНазвание пункта возврата.\n\n\ntype\t\nstring\nDefault: \"PVZ\"\nEnum: \"PVZ\" \"PPZ\"\n\nТип пункта возврата:\n\nPVZ — пункт выдачи заказов;\nPPZ — пункт приёма заказов.\n\nutc_offset\t\ninteger <int32>\n\nСмещение часового пояса от UTC-0 в минутах.\n\n\nworking_days\t\nArray of objects\n\nРабочие дни пункта возврата.\n\n400\n\nНеверный параметр\n\n403\n\nДоступ запрещён\n\n404\n\nОтвет не найден\n\n409\n\nКонфликт запроса\n\n500\n\nВнутренняя ошибка сервера\n\n",
+    "credential_family": "seller",
+    "admission": "reviewed"
   }
 ]

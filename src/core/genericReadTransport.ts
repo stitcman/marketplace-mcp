@@ -4,6 +4,7 @@ import type { ReadMethod, ReadTransport } from "./readPolicy.js";
 import type { Marketplace } from "./store.js";
 import { readOzonResponse } from '../adapters/ozon/boundedResponse.js';
 import { MAX_RESPONSE_BYTES } from './readPolicy.js';
+import { MAX_FINANCE_UPSTREAM_BYTES } from './ozonFinanceChunks.js';
 
 const hosts: Record<Marketplace, Record<string, string>> = {
   ozon: { default: "https://api-seller.ozon.ru", performance: "https://api-performance.ozon.ru" },
@@ -90,7 +91,16 @@ export class MarketplaceReadTransport implements ReadTransport {
         const bytes = marketplace==='ozon' ? await readOzonResponse(response,50*1024*1024) : Buffer.from(await response.arrayBuffer());
         return { __download: true, bytes, mime_type: contentType.split(";")[0] || "application/octet-stream" };
       }
-      return marketplace==='ozon' ? JSON.parse((await readOzonResponse(response,MAX_RESPONSE_BYTES)).toString('utf8')) : response.json();
+      if(marketplace!=='ozon')return response.json();
+      const text=(await readOzonResponse(response,method.method_id==='GetFinanceAccrualByDay'?MAX_FINANCE_UPSTREAM_BYTES:MAX_RESPONSE_BYTES)).toString('utf8');
+      if(['GetFinanceAccrualByDay','GetFinanceAccrualPostings'].includes(method.method_id))return JSON.parse(text,(_key,value,context?:{source?:string})=>{
+        if(typeof value==='number'&&Number.isInteger(value)&&!Number.isSafeInteger(value)) {
+          if(!context?.source||! /^-?\d+$/.test(context.source))throw new MpError('INVALID_ARGUMENT','Finance integer cannot be represented losslessly by this runtime');
+          return context.source;
+        }
+        return value;
+      });
+      return JSON.parse(text);
     }, { ...(marketplace==='ozon'?{respectRetryAfter:true}:{}), ...(marketplace==='ozon'&&method.report_job?{retries:0}:{}) });
   }
 }

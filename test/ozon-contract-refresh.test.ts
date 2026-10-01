@@ -25,7 +25,7 @@ await check('certificate products uses last product_id, not removed page/page_si
 await check('finance by-day continuation follows last_id and preserves date',async()=>{
   payload={accruals:[{total_amount:{amount:'-1.25',currency:'RUB'}}],last_id:'next'};
   const result=await page('GetFinanceAccrualByDay',{date:'2026-09-30',last_id:''});
-  assert.deepEqual(result.continuation,{kind:'last_id',has_more:true,request_patch:{last_id:'next'}});
+  assert.deepEqual(result.continuation,{kind:'last_id',phase:'UPSTREAM_LAST_ID',has_more:true,request_patch:{date:'2026-09-30',last_id:'next',mcp_cursor:null}});
 });
 await check('documented retired finance and logistics are absent from execution',async()=>{
   for(const id of ['FinanceAPI_FinanceTransactionListV3','SupplyOrderAPI_GetSupplyOrderTimeslots','PostingAPI_GetCarriageAvailableList']) assert.equal(findReadMethod('ozon',id),null,id);

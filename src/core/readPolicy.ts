@@ -1,6 +1,7 @@
 import { resolveConnection, requirePermission } from "./connections.js";
 import { MpError } from "./errors.js";
 import type { Marketplace, Store } from "./store.js";
+import { ozonFinanceChunks } from './ozonFinanceChunks.js';
 
 export interface JsonSchema {
   type?: string | string[];
@@ -14,6 +15,7 @@ export interface JsonSchema {
   minLength?: number;
   maxLength?: number;
   maxItems?: number;
+  minItems?: number;
 }
 
 export interface ReadMethod {
@@ -51,7 +53,8 @@ export const MAX_REQUEST_BYTES = 64 * 1024;
 export const MAX_RESPONSE_BYTES = 256 * 1024;
 
 export interface ReadContinuation {
-  kind: "none" | "cursor" | "offset" | "last_id";
+  kind: "none" | "cursor" | "offset" | "last_id" | "local_chunk";
+  phase?: 'LOCAL_CHUNK' | 'UPSTREAM_LAST_ID';
   has_more: boolean;
   request_patch: Record<string, unknown> | null;
 }
@@ -85,6 +88,22 @@ export async function executeApprovedReadPage(input: {
   params: Record<string, unknown>;
   transport: ReadTransport;
 }): Promise<ApprovedReadPage> {
+  if(input.marketplace==='ozon'&&input.method.method_id==='GetFinanceAccrualByDay') {
+    const {mcp_cursor,...params}=input.params;
+    const conn=await resolveConnection(input.store,input.marketplace,input.connectionId);
+    if(input.method.safety!=='read')deny('Method is not READ');
+    requirePermission(conn,input.method.permission);
+    rejectTransportOverrides(params);
+    const error=validate(params,input.method.input_schema??{type:'object'},'params');
+    if(error)deny(error);
+    if(Buffer.byteLength(JSON.stringify(params))>MAX_REQUEST_BYTES)deny('Input exceeds request limit');
+    const binding=ozonFinanceChunks.binding(conn.connection_id,input.method.method_id,params);
+    if(mcp_cursor!==undefined&&mcp_cursor!==null)return ozonFinanceChunks.resume(mcp_cursor,binding);
+    const payload=await performApprovedRead({...input,params});
+    const base=continuationFor(input.method,params,payload);
+    const continuation:ReadContinuation={...base,phase:'UPSTREAM_LAST_ID',request_patch:base.has_more?{date:params.date,...base.request_patch,mcp_cursor:null}:null};
+    return ozonFinanceChunks.split(payload,continuation,binding,conn.connection_id,params);
+  }
   const payload = await performApprovedRead(input);
   requireBoundedRawPage(payload);
   return { payload, continuation: continuationFor(input.method, input.params, payload) };
@@ -140,6 +159,7 @@ function validate(value: unknown, schema: JsonSchema, at: string): string | null
     if (schema.maximum !== undefined && value > schema.maximum) return `${at} exceeds maximum`;
   }
   if (Array.isArray(value)) {
+    if (schema.minItems !== undefined && value.length < schema.minItems) return `${at} has too few items`;
     if (schema.maxItems !== undefined && value.length > schema.maxItems) return `${at} has too many items`;
     if (schema.items) for (let i = 0; i < value.length; i++) {
       const error = validate(value[i], schema.items, `${at}[${i}]`);
@@ -240,7 +260,7 @@ function recordCount(payload: unknown): number {
   if (!root) return 0;
   const resultValue = root.result;
   const result = object(resultValue);
-  for (const value of [root.items, root.postings, root.returns, root.warehouses, result?.items, result?.postings, result?.returns, result?.warehouses, resultValue]) {
+  for (const value of [root.accruals, root.items, root.postings, root.returns, root.warehouses, result?.items, result?.postings, result?.returns, result?.warehouses, resultValue]) {
     if (Array.isArray(value)) return value.length;
   }
   return 0;

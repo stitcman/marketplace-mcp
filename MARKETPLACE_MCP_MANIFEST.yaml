@@ -1,9 +1,9 @@
 schema_version: "1.0"
-mcp_version: "1.1.0-alpha.1"
-production_commit: "0acd8026f0bf688f2cc6bca1e5f9633997117b51"
+mcp_version: "1.1.0-rc.1"
+production_commit: "ffc7ef2465e3df84d6be6fb5aba4015d170b2d61"
 candidate_commit: "321478fcd02b2dd779aa0ca2e3fa7bc599026d3b"
 candidate_commit_basis: "Historical source baseline metadata only; not runtime release binding."
-production_commit_basis: "origin/main repository baseline; deployed revision is not evidenced"
+production_commit_basis: "Observed production runtime baseline; release-closure host evidence; not the candidate deployment"
 production_mode: READ_ONLY
 controlled_write_architecture: true
 write_runtime_enabled: false

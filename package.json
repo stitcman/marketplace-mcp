@@ -1,6 +1,6 @@
 {
   "name": "marketplace-mcp",
-  "version": "1.1.0-alpha.1",
+  "version": "1.1.0-rc.1",
   "description": "MCP server for Wildberries / Ozon / Yandex Market seller cabinets (read-only, multi-account)",
   "type": "module",
   "main": "dist/index.js",
@@ -9,7 +9,7 @@
     "dev": "tsx src/index.ts",
     "start": "node dist/index.js",
     "start:http": "node dist/index.js --http",
-    "test": "tsx test/runtime-identity.test.ts && tsx test/startup-order.test.ts && tsx test/runtime-identity-tool.test.ts && tsx test/tool-visibility.test.ts && tsx test/read-policy.test.ts && tsx test/ozon-parity.test.ts && tsx test/wb-stocks-boundedness.test.ts && tsx test/wb-orders-continuation.test.ts && tsx test/ym-campaigns-pagination.test.ts && tsx test/ym-product-price-pagination.test.ts && tsx test/ym-stocks-contract.test.ts && tsx test/ym-orders-contract.test.ts && tsx test/smoke.test.ts && tsx test/ozon-refresh.test.ts && tsx test/ozon-contract-refresh.test.ts && tsx test/ozon-transport-refresh.test.ts && tsx test/ozon-safety-refresh.test.ts && tsx test/ozon-file-refresh.test.ts && tsx test/ozon-spec-diff.test.ts",
+    "test": "tsx test/runtime-identity.test.ts && tsx test/startup-order.test.ts && tsx test/runtime-identity-tool.test.ts && tsx test/tool-visibility.test.ts && tsx test/read-policy.test.ts && tsx test/ozon-parity.test.ts && tsx test/wb-stocks-boundedness.test.ts && tsx test/wb-orders-continuation.test.ts && tsx test/ym-campaigns-pagination.test.ts && tsx test/ym-product-price-pagination.test.ts && tsx test/ym-stocks-contract.test.ts && tsx test/ym-orders-contract.test.ts && tsx test/smoke.test.ts && tsx test/ozon-refresh.test.ts && tsx test/ozon-contract-refresh.test.ts && tsx test/ozon-transport-refresh.test.ts && tsx test/ozon-safety-refresh.test.ts && tsx test/ozon-file-refresh.test.ts && tsx test/ozon-spec-diff.test.ts && tsx test/ozon-finance-chunks.test.ts && tsx test/ozon-finance-integer.test.ts",
     "ozon:specs:fetch": "node scripts/fetch-ozon-specs.mjs",
     "ozon:specs:diff": "node scripts/ozon-spec-diff.mjs",
     "policies:ozon:generate": "node scripts/generate-read-policies.mjs --ozon-only",

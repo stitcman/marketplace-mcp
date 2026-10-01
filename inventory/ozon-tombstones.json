@@ -1,0 +1,113 @@
+[
+  {
+    "method_id": "QuantProductList",
+    "domain": "quants",
+    "path": "/v1/product/quant/list",
+    "http_method": "POST",
+    "classification": "READ",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "catalog.read",
+    "endpoint_group": "quants",
+    "pagination": "bounded",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Список эконом-товаров",
+    "description": "Вы можете оставить обратную связь по этому методу в комментариях к [обсуждению](https://dev.ozon.ru/community/1084-Metody-po-tarifu-Ekonom) в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "ALL",
+            "VISIBLE",
+            "INVISIBLE",
+            "EMPTY_STOCK",
+            "NOT_MODERATED",
+            "MODERATED",
+            "DISABLED",
+            "STATE_FAILED",
+            "READY_TO_SUPPLY",
+            "VALIDATION_STATE_PENDING",
+            "VALIDATION_STATE_FAIL",
+            "VALIDATION_STATE_SUCCESS",
+            "TO_SUPPLY",
+            "IN_SALE",
+            "REMOVED_FROM_SALE",
+            "OVERPRICED",
+            "CRITICALLY_OVERPRICED",
+            "EMPTY_BARCODE",
+            "BARCODE_EXISTS",
+            "QUARANTINE",
+            "ARCHIVED",
+            "OVERPRICED_WITH_STOCK",
+            "PARTIAL_APPROVED"
+          ]
+        }
+      },
+      "required": [
+        "limit"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "admission": "denied",
+    "lifecycle": {
+      "status": "absent_from_current_official_docs",
+      "observed_at": "2026-10-01",
+      "replacement": [],
+      "formal_removal_not_inferred": true
+    }
+  },
+  {
+    "method_id": "QuantGetInfo",
+    "domain": "quants",
+    "path": "/v1/product/quant/info",
+    "http_method": "POST",
+    "classification": "READ",
+    "safety": "read",
+    "reason": "Explicitly classified data retrieval",
+    "permission": "catalog.read",
+    "endpoint_group": "quants",
+    "pagination": "none",
+    "file_download": false,
+    "report_job": false,
+    "sensitive_data": false,
+    "summary": "Информация об эконом-товаре",
+    "description": "Вы можете оставить обратную связь по этому методу в комментариях к [обсуждению](https://dev.ozon.ru/community/1084-Metody-po-tarifu-Ekonom) в сообществе разработчиков Ozon for dev.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "quant_code": {
+          "minItems": 1,
+          "maxItems": 1000,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "quant_code"
+      ],
+      "additionalProperties": false
+    },
+    "source_version": "2.1;ozon-seller-openapi.json",
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "admission": "denied",
+    "lifecycle": {
+      "status": "absent_from_current_official_docs",
+      "observed_at": "2026-10-01",
+      "replacement": [],
+      "formal_removal_not_inferred": true
+    }
+  }
+]

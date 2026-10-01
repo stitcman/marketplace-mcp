@@ -312,5 +312,35 @@
       "report_job": false,
       "reason": "Creates a product barcode in Ozon; commercial product mutation, not a report job"
     }
+  },
+  {
+    "method_id": "GetFinanceAccrualPostings",
+    "path": "/v1/finance/accrual/postings",
+    "source": "https://docs.ozon.ru/api/seller/#operation/GetFinanceAccrualPostings",
+    "retrieved_at_utc": "2026-10-01T07:38:39.204Z",
+    "patch": {
+      "classification": "READ",
+      "safety": "read",
+      "reason": "Official finance accrual retrieval for 1..200 posting numbers; no seller-state mutation",
+      "permission": "finance.read",
+      "input_schema": {
+        "type": "object",
+        "required": [
+          "posting_numbers"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "posting_numbers": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 200,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    }
   }
 ]
