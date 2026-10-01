@@ -15,8 +15,11 @@ for (const marketplace of ["ozon", "wb", "ym"] as const) {
   assert(allowlist.every((m: any) => m.input_schema?.type === "object"), `${marketplace}: every allowed method has a request schema`);
   assert(allowlist.every((m: any) => !Object.keys(m.input_schema?.properties ?? {}).some((key) => /^(client-id|api-key|authorization|token)$/i.test(key))), `${marketplace}: credentials are absent from MCP input schemas`);
   if (marketplace === "ozon") {
-    assert.equal(inventory.length, 511, "ozon: full classified upstream inventory remains present");
-    assert.equal(allowlist.length, 282, "ozon: reviewed safe READ inventory remains available through generic execution");
+    const key = (m: any) => `${m.endpoint_group === 'performance' ? 'performance https://api-performance.ozon.ru' : 'seller https://api-seller.ozon.ru'} ${m.http_method} ${m.path}`;
+    assert.equal(new Set(inventory.map(key)).size,inventory.length,'ozon: family/host/verb/path identities unique');
+    assert(allowlist.every((m:any)=>m.admission!=='denied' && m.lifecycle?.status!=='removed'),'ozon: retired/denied methods absent');
+    assert.equal(new Set(inventory.map((m:any)=>m.method_id)).size,inventory.length,'ozon: aliases require explicit resolution, no collisions');
+    assert(inventory.filter((m:any)=>m.admission==='denied').every((m:any)=>!allowlist.some((a:any)=>a.method_id===m.method_id)),'ozon: all explicit denials enforced');
   }
   console.log(`${marketplace}: inventory=${inventory.length}, allowed=${allowlist.length}, unclassified=0`);
 }

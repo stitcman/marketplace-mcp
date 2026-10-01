@@ -3,13 +3,17 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { Marketplace } from "./store.js";
 import type { ReadMethod } from "./readPolicy.js";
+import { MpError } from './errors.js';
 
 const names: Record<Marketplace, string> = { ozon: "ozon", wildberries: "wb", yandex_market: "ym" };
 const cache = new Map<Marketplace, ReadMethod[]>();
+export function isOzonMethodActive(method: ReadMethod & {lifecycle?: {status: string; removed_at: string}}, at = new Date()): boolean {
+  return !method.lifecycle || method.lifecycle.status !== 'removed' && at.toISOString().slice(0,10) < method.lifecycle.removed_at;
+}
 
 export function getReadPolicy(marketplace: Marketplace): ReadMethod[] {
   const found = cache.get(marketplace);
-  if (found) return found;
+  if (found) return marketplace === 'ozon' ? found.filter(m=>isOzonMethodActive(m)) : found;
   const fileName = `${names[marketplace]}-read-allowlist.json`;
   const candidates = [
     path.resolve(process.cwd(), "policies", fileName),
@@ -25,9 +29,20 @@ export function getReadPolicy(marketplace: Marketplace): ReadMethod[] {
     ids.add(method.method_id);
   }
   cache.set(marketplace, methods);
-  return methods;
+  return marketplace === 'ozon' ? methods.filter(m=>isOzonMethodActive(m)) : methods;
 }
 
 export function findReadMethod(marketplace: Marketplace, methodId: string): ReadMethod | null {
   return getReadPolicy(marketplace).find((method) => method.method_id === methodId) ?? null;
+}
+
+export function requireReadMethod(marketplace: Marketplace, methodId: string): ReadMethod {
+  const method=findReadMethod(marketplace,methodId);
+  if(method) return method;
+  if(marketplace==='ozon') {
+    const decisions=JSON.parse(fs.readFileSync(new URL('../../policies/ozon-contract-overrides.json',import.meta.url),'utf8'));
+    const lifecycle=decisions.find((d:any)=>d.method_id===methodId)?.patch?.lifecycle;
+    if(lifecycle) throw new MpError('LOCAL_DENY',`Ozon method retired on ${lifecycle.removed_at}; restart with ${lifecycle.replacement.join(', ')}`,{marketplace});
+  }
+  throw new MpError('LOCAL_DENY','Unknown or non-READ method_id',{marketplace});
 }

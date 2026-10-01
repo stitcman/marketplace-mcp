@@ -26,6 +26,7 @@ export interface ReadMethod {
   permission: string;
   endpoint_group: string;
   pagination: "none" | "bounded" | string;
+  pagination_contract?: {kind: 'cursor' | 'last_id'; response_field?: string; items_path?: string; last_item_field?: string};
   file_download: boolean;
   report_job: boolean;
   sensitive_data: boolean;
@@ -166,6 +167,22 @@ export function redactForEvidence(value: unknown): unknown {
 }
 
 function continuationFor(method: ReadMethod, params: Record<string, unknown>, payload: unknown): ReadContinuation {
+  if (method.pagination_contract) {
+    const contract = method.pagination_contract;
+    const kind = contract.kind;
+    let next = field(payload, contract.response_field ?? kind);
+    if (contract.last_item_field) {
+      const items = (contract.items_path ?? '').split('.').reduce<any>((v, key) => v?.[key], payload);
+      const limit = typeof params.limit === 'number' ? params.limit : 0;
+      if (!Array.isArray(items) || limit <= 0 || items.length < limit) return {kind, has_more:false, request_patch:null};
+      next = items.at(-1)?.[contract.last_item_field];
+    }
+    const explicit = booleanField(payload, 'has_next');
+    const terminal = next === undefined || next === null || next === '' || (kind === 'last_id' && next === 0);
+    if (explicit === true && terminal) throw new MpError('INVALID_ARGUMENT', 'Upstream has_next=true without a continuation token');
+    const has_more = explicit !== false && !terminal && next !== params[kind];
+    return {kind, has_more, request_patch:has_more ? {[kind]:next} : null};
+  }
   const properties = method.input_schema?.properties ?? {};
   if ("cursor" in properties) return tokenContinuation("cursor", params.cursor, payload);
   if ("offset" in properties && "limit" in properties) return offsetContinuation(params, payload);

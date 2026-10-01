@@ -3,7 +3,7 @@ import type { Marketplace, Store } from "../../core/store.js";
 import type { ToolRegistrar } from "../../core/toolVisibility.js";
 import { audited } from "../../core/audit.js";
 import { envelope } from "../../core/respond.js";
-import { findReadMethod, getReadPolicy } from "../../core/readPolicies.js";
+import { findReadMethod, getReadPolicy, requireReadMethod } from "../../core/readPolicies.js";
 import { executeApprovedRead, executeApprovedReadPage } from "../../core/readPolicy.js";
 import { MarketplaceReadTransport } from "../../core/genericReadTransport.js";
 import { resolveConnection } from "../../core/connections.js";
@@ -33,8 +33,7 @@ export function registerReadTools(server: ToolRegistrar, store: Store, marketpla
 
   server.registerTool(`${prefix}_read_describe`, { title: `${prefix.toUpperCase()} approved READ describe`, description: "Describes one locally approved READ method, including its request schema and source binding.", inputSchema: { method_id: z.string().min(1).max(200) }, outputSchema },
     audited(store, `${prefix}_read_describe`, async (args) => {
-      const method = findReadMethod(marketplace, args.method_id);
-      if (!method) throw new MpError("LOCAL_DENY", "Unknown or non-READ method_id", { marketplace });
+      const method = requireReadMethod(marketplace, args.method_id);
       return envelope(method, { marketplace, source: "internal" });
     }));
 
@@ -52,8 +51,7 @@ export function registerReadTools(server: ToolRegistrar, store: Store, marketpla
   server.registerTool(`${prefix}_read_execute`, { title: `${prefix.toUpperCase()} approved READ execute`, description: "Executes one allowlisted READ page and returns its lossless marketplace payload plus generic continuation metadata. Evidence and audit representations are redacted separately.", inputSchema: executeSchema, outputSchema },
     audited(store, `${prefix}_read_execute`, async (args, setCtx) => {
       setCtx({ marketplace, connectionId: args.connection_id });
-      const method = findReadMethod(marketplace, args.method_id);
-      if (!method) throw new MpError("LOCAL_DENY", "Unknown or non-READ method_id", { marketplace });
+      const method = requireReadMethod(marketplace, args.method_id);
       const connection = await resolveConnection(store, marketplace, args.connection_id);
       if (connection.mock) {
         const data = { mock: true, method_id: method.method_id, params: args.params };

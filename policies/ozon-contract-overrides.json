@@ -1,0 +1,316 @@
+[
+  {
+    "method_id": "ProductAPI_GetProductInfoPrices",
+    "path": "/v5/product/info/prices",
+    "source": "https://docs.ozon.ru/api/seller/#operation/ProductAPI_GetProductInfoPrices",
+    "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+    "effective_at": "2026-10-01",
+    "deny": false,
+    "patch": {
+      "permission": "prices.read",
+      "pagination_contract": {
+        "kind": "cursor"
+      }
+    }
+  },
+  {
+    "method_id": "ProductAPI_GetProductInfoStocks",
+    "path": "/v4/product/info/stocks",
+    "source": "https://docs.ozon.ru/api/seller/#operation/ProductAPI_GetProductInfoStocks",
+    "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+    "effective_at": "2026-10-01",
+    "deny": false,
+    "patch": {
+      "permission": "stocks.read",
+      "pagination_contract": {
+        "kind": "cursor"
+      }
+    }
+  },
+  {
+    "method_id": "PostingFbsList",
+    "path": "/v4/posting/fbs/list",
+    "source": "https://docs.ozon.ru/api/seller/#operation/PostingFbsList",
+    "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+    "effective_at": "2026-10-01",
+    "deny": false,
+    "patch": {
+      "permission": "orders.read",
+      "pagination_contract": {
+        "kind": "cursor"
+      }
+    }
+  },
+  {
+    "method_id": "PostingFboList",
+    "path": "/v3/posting/fbo/list",
+    "source": "https://docs.ozon.ru/api/seller/#operation/PostingFboList",
+    "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+    "effective_at": "2026-10-01",
+    "deny": false,
+    "patch": {
+      "permission": "orders.read",
+      "pagination_contract": {
+        "kind": "cursor"
+      }
+    }
+  },
+  {
+    "method_id": "CertificateProductsList",
+    "path": "/v1/product/certificate/products/list",
+    "source": "https://docs.ozon.ru/api/seller/#operation/CertificateProductsList",
+    "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+    "effective_at": "2026-09-28",
+    "deny": false,
+    "patch": {
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "certificate_id": {
+            "type": "integer"
+          },
+          "last_id": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000
+          },
+          "product_status_code": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "certificate_id",
+          "limit"
+        ],
+        "additionalProperties": false
+      },
+      "pagination_contract": {
+        "kind": "last_id",
+        "items_path": "result.items",
+        "last_item_field": "product_id"
+      }
+    }
+  },
+  {
+    "method_id": "GetFinanceAccrualByDay",
+    "path": "/v1/finance/accrual/by-day",
+    "source": "https://docs.ozon.ru/api/seller/#operation/GetFinanceAccrualByDay",
+    "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+    "effective_at": "2026-10-01",
+    "deny": false,
+    "patch": {
+      "pagination": "bounded",
+      "pagination_contract": {
+        "kind": "last_id"
+      }
+    }
+  },
+  {
+    "method_id": "FinanceAPI_FinanceTransactionListV3",
+    "path": "/v3/finance/transaction/list",
+    "source": "https://docs.ozon.ru/api/seller/#operation/FinanceAPI_FinanceTransactionListV3",
+    "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+    "effective_at": "2026-09-08",
+    "deny": true,
+    "patch": {
+      "lifecycle": {
+        "status": "removed",
+        "removed_at": "2026-09-08",
+        "replacement": [
+          "/v1/finance/accrual/by-day",
+          "/v1/finance/accrual/postings",
+          "/v1/finance/accrual/types"
+        ]
+      }
+    }
+  },
+  {
+    "method_id": "FinanceAPI_FinanceTransactionTotalV3",
+    "path": "/v3/finance/transaction/totals",
+    "source": "https://docs.ozon.ru/api/seller/#operation/FinanceAPI_FinanceTransactionTotalV3",
+    "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+    "effective_at": "2026-09-08",
+    "deny": true,
+    "patch": {
+      "lifecycle": {
+        "status": "removed",
+        "removed_at": "2026-09-08",
+        "replacement": [
+          "/v1/finance/accrual/by-day",
+          "/v1/finance/accrual/postings",
+          "/v1/finance/accrual/types"
+        ]
+      }
+    }
+  },
+  {
+    "method_id": "SupplyOrderAPI_GetSupplyOrderTimeslots",
+    "path": "/v1/supply-order/timeslot/get",
+    "source": "https://docs.ozon.ru/api/seller/#operation/SupplyOrderAPI_GetSupplyOrderTimeslots",
+    "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+    "effective_at": "2026-08-19",
+    "deny": true,
+    "patch": {
+      "lifecycle": {
+        "status": "removed",
+        "removed_at": "2026-08-19",
+        "replacement": [
+          "/v2/supply-order/timeslot/list"
+        ]
+      }
+    }
+  },
+  {
+    "method_id": "PostingAPI_GetCarriageAvailableList",
+    "path": "/v1/posting/carriage-available/list",
+    "source": "https://docs.ozon.ru/api/seller/#operation/PostingAPI_GetCarriageAvailableList",
+    "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+    "effective_at": "2026-03-20",
+    "deny": true,
+    "patch": {
+      "lifecycle": {
+        "status": "removed",
+        "removed_at": "2026-03-20",
+        "replacement": [
+          "/v2/carriage/delivery/list"
+        ]
+      }
+    }
+  },
+  {
+    "method_id": "PostingAPI_GetFboPostingList",
+    "path": "/v2/posting/fbo/list",
+    "source": "https://docs.ozon.ru/api/seller/#operation/PostingAPI_GetFboPostingList",
+    "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+    "effective_at": "2026-08-31",
+    "deny": true,
+    "patch": {
+      "lifecycle": {
+        "status": "removed",
+        "removed_at": "2026-08-31",
+        "replacement": [
+          "/v3/posting/fbo/list"
+        ]
+      }
+    }
+  },
+  {
+    "method_id": "WarehouseAPI_WarehouseList",
+    "path": "/v1/warehouse/list",
+    "source": "https://docs.ozon.ru/api/seller/#operation/WarehouseAPI_WarehouseList",
+    "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+    "effective_at": "2026-04-07",
+    "deny": true,
+    "patch": {
+      "lifecycle": {
+        "status": "removed",
+        "removed_at": "2026-04-07",
+        "replacement": [
+          "/v2/warehouse/list"
+        ]
+      }
+    }
+  },
+  {
+    "method_id": "WarehouseAPI_DeliveryMethodList",
+    "path": "/v1/delivery-method/list",
+    "source": "https://docs.ozon.ru/api/seller/#operation/WarehouseAPI_DeliveryMethodList",
+    "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+    "effective_at": "2026-04-07",
+    "deny": true,
+    "patch": {
+      "lifecycle": {
+        "status": "removed",
+        "removed_at": "2026-04-07",
+        "replacement": [
+          "/v2/delivery-method/list"
+        ]
+      }
+    }
+  },
+  {
+    "method_id": "PromosCandidates",
+    "path": "/v1/actions/candidates",
+    "source": "https://docs.ozon.ru/api/seller/#operation/PromosCandidates",
+    "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+    "effective_at": "2026-10-13",
+    "deny": false,
+    "patch": {
+      "lifecycle": {
+        "status": "scheduled_removal",
+        "removed_at": "2026-10-13",
+        "replacement": [
+          "/v2/actions/candidates"
+        ]
+      }
+    }
+  },
+  {
+    "method_id": "PromosProducts",
+    "path": "/v1/actions/products",
+    "source": "https://docs.ozon.ru/api/seller/#operation/PromosProducts",
+    "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+    "effective_at": "2026-10-13",
+    "deny": false,
+    "patch": {
+      "lifecycle": {
+        "status": "scheduled_removal",
+        "removed_at": "2026-10-13",
+        "replacement": [
+          "/v2/actions/products"
+        ]
+      }
+    }
+  },
+  {
+    "method_id": "PostingAPI_PostingFBSDigitalActCheckStatus",
+    "path": "/v2/posting/fbs/digital/act/check-status",
+    "source": "https://docs.ozon.ru/api/seller/#operation/PostingAPI_PostingFBSDigitalActCheckStatus",
+    "retrieved_at_utc": "2026-10-01T05:06:44.746Z",
+    "effective_at": "2026-03-22",
+    "deny": true,
+    "patch": {
+      "lifecycle": {
+        "status": "removed",
+        "removed_at": "2026-03-22",
+        "replacement": [
+          "/v2/posting/fbs/act/check-status"
+        ]
+      }
+    }
+  },
+  {
+    "method_id": "PostingAPI_PostingFBSGetDigitalAct",
+    "path": "/v2/posting/fbs/digital/act/get-pdf",
+    "source": "https://docs.ozon.ru/api/seller/#operation/PostingAPI_PostingFBSGetDigitalAct",
+    "retrieved_at_utc": "2026-10-01T05:06:44.746Z",
+    "effective_at": "2026-03-22",
+    "deny": true,
+    "patch": {
+      "lifecycle": {
+        "status": "removed",
+        "removed_at": "2026-03-22",
+        "replacement": [
+          "/v2/posting/fbs/act/get-pdf"
+        ]
+      }
+    }
+  },
+  {
+    "method_id": "generate-barcode",
+    "path": "/v1/barcode/generate",
+    "source": "https://docs.ozon.ru/api/seller/#operation/generate-barcode",
+    "retrieved_at_utc": "2026-10-01T05:06:44.746Z",
+    "effective_at": "2026-10-01",
+    "deny": true,
+    "patch": {
+      "classification": "WRITE",
+      "safety": "write",
+      "report_job": false,
+      "reason": "Creates a product barcode in Ozon; commercial product mutation, not a report job"
+    }
+  }
+]

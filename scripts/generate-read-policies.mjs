@@ -3,6 +3,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import YAML from "yaml";
 import { execFileSync } from "node:child_process";
+import { applyOzonOverrides } from './apply-ozon-contract-overrides.mjs';
 
 const root = path.resolve(import.meta.dirname, "..");
 const refs = process.env.MARKETPLACE_MCP_REFERENCE_ROOT ?? "C:/marketplace-mcp-references";
@@ -160,7 +161,7 @@ function writeMarketplace(name, records) {
     ? new Set(JSON.parse(fs.readFileSync(policyFile, "utf8")).map((method) => method.method_id))
     : null;
   if (!approvedIds && !process.argv.includes("--approve-reviewed")) throw new Error(`${name}: initial allowlist creation requires --approve-reviewed after semantic review`);
-  const allow = inventory.filter((r) => (r.classification === "READ" || r.classification === "SEMANTIC_READ_JOB") && (!approvedIds || approvedIds.has(r.method_id)))
+  const allow = inventory.filter((r) => r.admission !== 'denied' && (r.classification === "READ" || r.classification === "SEMANTIC_READ_JOB") && (!approvedIds || approvedIds.has(r.method_id)))
     .map(({ classification, ...r }) => r);
   fs.writeFileSync(path.join(outInventory, `${name}-operations.json`), JSON.stringify(inventory, null, 2) + "\n");
   fs.writeFileSync(policyFile, JSON.stringify(allow, null, 2) + "\n");
@@ -185,7 +186,7 @@ function generateOzon() {
       }
     }
   }
-  writeMarketplace("ozon", records);
+  writeMarketplace("ozon", applyOzonOverrides(records));
 }
 
 function generateYm() {
@@ -273,5 +274,4 @@ function generateWb() {
 }
 
 generateOzon();
-generateWb();
-generateYm();
+if (!process.argv.includes('--ozon-only')) { generateWb(); generateYm(); }

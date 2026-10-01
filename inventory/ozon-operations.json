@@ -1303,14 +1303,14 @@
     "domain": "barcodeapi",
     "path": "/v1/barcode/generate",
     "http_method": "POST",
-    "classification": "SEMANTIC_READ_JOB",
-    "safety": "read",
-    "reason": "Explicitly classified report/file generation with no seller-state mutation",
+    "classification": "WRITE",
+    "safety": "write",
+    "reason": "Creates a product barcode in Ozon; commercial product mutation, not a report job",
     "permission": "reports.read",
     "endpoint_group": "barcodeapi",
     "pagination": "none",
     "file_download": true,
-    "report_job": true,
+    "report_job": false,
     "sensitive_data": false,
     "summary": "Создать штрихкод для товара",
     "description": "Если у товара нет штрихкода, вы можете создать его с помощью этого метода.\nЕсли штрихкод уже есть, но он не указан в системе Ozon, вы можете привязать его через метод [/v1/barcode/add](#operation/add-barcode).\n\nЗа один запрос вы можете создать штрихкоды не больше чем для 100 товаров.\nС одного аккаунта продавца можно использовать метод не больше 20 раз в минуту.",
@@ -1330,7 +1330,13 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/generate-barcode",
+      "retrieved_at_utc": "2026-10-01T05:06:44.746Z",
+      "effective_at": "2026-10-01"
+    },
+    "admission": "denied"
   },
   {
     "method_id": "ProductAPI_ProductsStocksV2",
@@ -1393,7 +1399,7 @@
     "classification": "READ",
     "safety": "read",
     "reason": "Explicitly classified data retrieval",
-    "permission": "warehouses.read",
+    "permission": "stocks.read",
     "endpoint_group": "prices_stocksapi",
     "pagination": "bounded",
     "file_download": false,
@@ -1479,7 +1485,15 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "pagination_contract": {
+      "kind": "cursor"
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/ProductAPI_GetProductInfoStocks",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-10-01"
+    }
   },
   {
     "method_id": "ProductInfoWarehouseStocks",
@@ -1765,7 +1779,7 @@
     "classification": "READ",
     "safety": "read",
     "reason": "Explicitly classified data retrieval",
-    "permission": "warehouses.read",
+    "permission": "prices.read",
     "endpoint_group": "prices_stocksapi",
     "pagination": "bounded",
     "file_download": false,
@@ -1839,7 +1853,15 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "pagination_contract": {
+      "kind": "cursor"
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/ProductAPI_GetProductInfoPrices",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-10-01"
+    }
   },
   {
     "method_id": "ProductAPI_GetProductInfoDiscounted",
@@ -1967,7 +1989,19 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "lifecycle": {
+      "status": "scheduled_removal",
+      "removed_at": "2026-10-13",
+      "replacement": [
+        "/v2/actions/candidates"
+      ]
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/PromosCandidates",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-10-13"
+    }
   },
   {
     "method_id": "PromosProducts",
@@ -2004,7 +2038,19 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "lifecycle": {
+      "status": "scheduled_removal",
+      "removed_at": "2026-10-13",
+      "replacement": [
+        "/v2/actions/products"
+      ]
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/PromosProducts",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-10-13"
+    }
   },
   {
     "method_id": "PromosProductsActivate",
@@ -3464,23 +3510,26 @@
         },
         "product_status_code": {
           "type": "string"
-        },
-        "page": {
-          "type": "integer"
-        },
-        "page_size": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 100
         }
       },
       "required": [
-        "certificate_id"
+        "certificate_id",
+        "limit"
       ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "pagination_contract": {
+      "kind": "last_id",
+      "items_path": "result.items",
+      "last_item_field": "product_id"
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/CertificateProductsList",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-09-28"
+    }
   },
   {
     "method_id": "CertificateUnbind",
@@ -3614,7 +3663,20 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "lifecycle": {
+      "status": "removed",
+      "removed_at": "2026-04-07",
+      "replacement": [
+        "/v2/warehouse/list"
+      ]
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/WarehouseAPI_WarehouseList",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-04-07"
+    },
+    "admission": "denied"
   },
   {
     "method_id": "WarehouseAPI_DeliveryMethodList",
@@ -3662,7 +3724,20 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "lifecycle": {
+      "status": "removed",
+      "removed_at": "2026-04-07",
+      "replacement": [
+        "/v2/delivery-method/list"
+      ]
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/WarehouseAPI_DeliveryMethodList",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-04-07"
+    },
+    "admission": "denied"
   },
   {
     "method_id": "WarehouseAPI_DeliveryMethodListV2",
@@ -4192,7 +4267,20 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "lifecycle": {
+      "status": "removed",
+      "removed_at": "2026-08-31",
+      "replacement": [
+        "/v3/posting/fbo/list"
+      ]
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/PostingAPI_GetFboPostingList",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-08-31"
+    },
+    "admission": "denied"
   },
   {
     "method_id": "PostingFboList",
@@ -4280,7 +4368,15 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "pagination_contract": {
+      "kind": "cursor"
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/PostingFboList",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-10-01"
+    }
   },
   {
     "method_id": "PostingAPI_GetFboPosting",
@@ -4628,7 +4724,20 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "lifecycle": {
+      "status": "removed",
+      "removed_at": "2026-08-19",
+      "replacement": [
+        "/v2/supply-order/timeslot/list"
+      ]
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/SupplyOrderAPI_GetSupplyOrderTimeslots",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-08-19"
+    },
+    "admission": "denied"
   },
   {
     "method_id": "SupplyOrderTimeslotList",
@@ -6673,7 +6782,20 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "lifecycle": {
+      "status": "removed",
+      "removed_at": "2026-03-20",
+      "replacement": [
+        "/v2/carriage/delivery/list"
+      ]
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/PostingAPI_GetCarriageAvailableList",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-03-20"
+    },
+    "admission": "denied"
   },
   {
     "method_id": "CarriageGet",
@@ -6954,7 +7076,20 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "lifecycle": {
+      "status": "removed",
+      "removed_at": "2026-03-22",
+      "replacement": [
+        "/v2/posting/fbs/act/check-status"
+      ]
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/PostingAPI_PostingFBSDigitalActCheckStatus",
+      "retrieved_at_utc": "2026-10-01T05:06:44.746Z",
+      "effective_at": "2026-03-22"
+    },
+    "admission": "denied"
   },
   {
     "method_id": "PostingAPI_PostingFBSGetAct",
@@ -7104,7 +7239,20 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "lifecycle": {
+      "status": "removed",
+      "removed_at": "2026-03-22",
+      "replacement": [
+        "/v2/posting/fbs/act/get-pdf"
+      ]
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/PostingAPI_PostingFBSGetDigitalAct",
+      "retrieved_at_utc": "2026-10-01T05:06:44.746Z",
+      "effective_at": "2026-03-22"
+    },
+    "admission": "denied"
   },
   {
     "method_id": "PostingAPI_PostingFBSActCheckStatus",
@@ -8205,7 +8353,15 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "pagination_contract": {
+      "kind": "cursor"
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/PostingFbsList",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-10-01"
+    }
   },
   {
     "method_id": "PostingAPI_GetFbsPostingV3",
@@ -10813,7 +10969,22 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "lifecycle": {
+      "status": "removed",
+      "removed_at": "2026-09-08",
+      "replacement": [
+        "/v1/finance/accrual/by-day",
+        "/v1/finance/accrual/postings",
+        "/v1/finance/accrual/types"
+      ]
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/FinanceAPI_FinanceTransactionListV3",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-09-08"
+    },
+    "admission": "denied"
   },
   {
     "method_id": "FinanceAPI_FinanceTransactionTotalV3",
@@ -10854,7 +11025,22 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "lifecycle": {
+      "status": "removed",
+      "removed_at": "2026-09-08",
+      "replacement": [
+        "/v1/finance/accrual/by-day",
+        "/v1/finance/accrual/postings",
+        "/v1/finance/accrual/types"
+      ]
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/FinanceAPI_FinanceTransactionTotalV3",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-09-08"
+    },
+    "admission": "denied"
   },
   {
     "method_id": "ReportAPI_CreateDocumentB2BSalesReport",
@@ -12766,7 +12952,7 @@
     "reason": "Explicitly classified data retrieval",
     "permission": "finance.read",
     "endpoint_group": "betamethod",
-    "pagination": "none",
+    "pagination": "bounded",
     "file_download": false,
     "report_job": false,
     "sensitive_data": false,
@@ -12789,7 +12975,15 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "pagination_contract": {
+      "kind": "last_id"
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/GetFinanceAccrualByDay",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-10-01"
+    }
   },
   {
     "method_id": "ProductVisibilityInfo",

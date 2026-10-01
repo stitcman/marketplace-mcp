@@ -696,46 +696,13 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
-    "method_id": "generate-barcode",
-    "domain": "barcodeapi",
-    "path": "/v1/barcode/generate",
-    "http_method": "POST",
-    "safety": "read",
-    "reason": "Explicitly classified report/file generation with no seller-state mutation",
-    "permission": "reports.read",
-    "endpoint_group": "barcodeapi",
-    "pagination": "none",
-    "file_download": true,
-    "report_job": true,
-    "sensitive_data": false,
-    "summary": "Создать штрихкод для товара",
-    "description": "Если у товара нет штрихкода, вы можете создать его с помощью этого метода.\nЕсли штрихкод уже есть, но он не указан в системе Ozon, вы можете привязать его через метод [/v1/barcode/add](#operation/add-barcode).\n\nЗа один запрос вы можете создать штрихкоды не больше чем для 100 товаров.\nС одного аккаунта продавца можно использовать метод не больше 20 раз в минуту.",
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "product_ids": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": [
-        "product_ids"
-      ],
-      "additionalProperties": false
-    },
-    "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
-  },
-  {
     "method_id": "ProductAPI_GetProductInfoStocks",
     "domain": "prices_stocksapi",
     "path": "/v4/product/info/stocks",
     "http_method": "POST",
     "safety": "read",
     "reason": "Explicitly classified data retrieval",
-    "permission": "warehouses.read",
+    "permission": "stocks.read",
     "endpoint_group": "prices_stocksapi",
     "pagination": "bounded",
     "file_download": false,
@@ -821,7 +788,15 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "pagination_contract": {
+      "kind": "cursor"
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/ProductAPI_GetProductInfoStocks",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-10-01"
+    }
   },
   {
     "method_id": "ProductInfoWarehouseStocks",
@@ -981,7 +956,7 @@
     "http_method": "POST",
     "safety": "read",
     "reason": "Explicitly classified data retrieval",
-    "permission": "warehouses.read",
+    "permission": "prices.read",
     "endpoint_group": "prices_stocksapi",
     "pagination": "bounded",
     "file_download": false,
@@ -1055,7 +1030,15 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "pagination_contract": {
+      "kind": "cursor"
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/ProductAPI_GetProductInfoPrices",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-10-01"
+    }
   },
   {
     "method_id": "ProductAPI_GetProductInfoDiscounted",
@@ -1146,7 +1129,19 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "lifecycle": {
+      "status": "scheduled_removal",
+      "removed_at": "2026-10-13",
+      "replacement": [
+        "/v2/actions/candidates"
+      ]
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/PromosCandidates",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-10-13"
+    }
   },
   {
     "method_id": "PromosProducts",
@@ -1182,7 +1177,19 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "lifecycle": {
+      "status": "scheduled_removal",
+      "removed_at": "2026-10-13",
+      "replacement": [
+        "/v2/actions/products"
+      ]
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/PromosProducts",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-10-13"
+    }
   },
   {
     "method_id": "promos_task_list",
@@ -1761,23 +1768,26 @@
         },
         "product_status_code": {
           "type": "string"
-        },
-        "page": {
-          "type": "integer"
-        },
-        "page_size": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 100
         }
       },
       "required": [
-        "certificate_id"
+        "certificate_id",
+        "limit"
       ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "pagination_contract": {
+      "kind": "last_id",
+      "items_path": "result.items",
+      "last_item_field": "product_id"
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/CertificateProductsList",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-09-28"
+    }
   },
   {
     "method_id": "RejectionReasonsList",
@@ -1820,95 +1830,6 @@
     "input_schema": {
       "type": "object",
       "properties": {},
-      "additionalProperties": false
-    },
-    "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
-  },
-  {
-    "method_id": "WarehouseAPI_WarehouseList",
-    "domain": "warehouseapi",
-    "path": "/v1/warehouse/list",
-    "http_method": "POST",
-    "safety": "read",
-    "reason": "Explicitly classified data retrieval",
-    "permission": "warehouses.read",
-    "endpoint_group": "warehouseapi",
-    "pagination": "bounded",
-    "file_download": false,
-    "report_job": false,
-    "sensitive_data": false,
-    "summary": "Список складов",
-    "description": "<aside class=\"warning\">\nМетод устаревает и будет отключён 7 апреля 2026 года. Переключитесь на <a href=\"#operation/WarehouseListV2\">/v2/warehouse/list</a>.\n</aside>\n\nВозвращает список складов FBS и rFBS. Чтобы получить список складов FBO, используйте метод [/v1/cluster/list](#operation/SupplyDraftAPI_DraftClusterList).\n\nМетод можно использовать 1 раз в минуту.",
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "limit": {
-          "type": "integer",
-          "maximum": 200
-        },
-        "offset": {
-          "type": "integer"
-        },
-        "with": {
-          "type": "object",
-          "properties": {
-            "able_to_set_price": {
-              "type": "boolean"
-            }
-          }
-        }
-      },
-      "required": [
-        "limit"
-      ],
-      "additionalProperties": false
-    },
-    "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
-  },
-  {
-    "method_id": "WarehouseAPI_DeliveryMethodList",
-    "domain": "warehouseapi",
-    "path": "/v1/delivery-method/list",
-    "http_method": "POST",
-    "safety": "read",
-    "reason": "Explicitly classified data retrieval",
-    "permission": "logistics.read",
-    "endpoint_group": "warehouseapi",
-    "pagination": "bounded",
-    "file_download": false,
-    "report_job": false,
-    "sensitive_data": false,
-    "summary": "Список методов доставки склада",
-    "description": "<aside class=\"warning\">\n  Метод устаревает и будет отключён 7 апреля 2026 года. Переключитесь на <a href=\"#operation/WarehouseAPI_DeliveryMethodListV2\">/v2/delivery-method/list</a>.\n</aside>",
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "filter": {
-          "type": "object",
-          "properties": {
-            "provider_id": {
-              "type": "integer"
-            },
-            "status": {
-              "type": "string"
-            },
-            "warehouse_id": {
-              "type": "integer"
-            }
-          }
-        },
-        "limit": {
-          "type": "integer"
-        },
-        "offset": {
-          "type": "integer"
-        }
-      },
-      "required": [
-        "limit"
-      ],
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
@@ -2199,78 +2120,6 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
-    "method_id": "PostingAPI_GetFboPostingList",
-    "domain": "fbo",
-    "path": "/v2/posting/fbo/list",
-    "http_method": "POST",
-    "safety": "read",
-    "reason": "Explicitly classified data retrieval",
-    "permission": "orders.read",
-    "endpoint_group": "fbo",
-    "pagination": "bounded",
-    "file_download": false,
-    "report_job": false,
-    "sensitive_data": false,
-    "summary": "Список отправлений",
-    "description": "<aside class=\"warning\">\nС 31 августа 2026 года метод будет отключён. Переключитесь на <a href=\"#operation/PostingFboList\">/v3/posting/fbo/list</a>.\n</aside>\n\nВозвращает список отправлений за указанный период времени.\nЕсли период больше года, вернётся ошибка `PERIOD_IS_TOO_LONG`.\n\nДополнительно можно отфильтровать отправления по их статусу.",
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "dir": {
-          "type": "string"
-        },
-        "filter": {
-          "type": "object",
-          "properties": {
-            "since": {
-              "type": "string"
-            },
-            "status": {
-              "type": "string"
-            },
-            "to": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "since",
-            "to"
-          ]
-        },
-        "limit": {
-          "type": "integer"
-        },
-        "offset": {
-          "type": "integer"
-        },
-        "translit": {
-          "type": "boolean"
-        },
-        "with": {
-          "type": "object",
-          "properties": {
-            "analytics_data": {
-              "type": "boolean"
-            },
-            "financial_data": {
-              "type": "boolean"
-            },
-            "legal_info": {
-              "type": "boolean"
-            }
-          }
-        }
-      },
-      "required": [
-        "limit",
-        "filter"
-      ],
-      "additionalProperties": false
-    },
-    "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
-  },
-  {
     "method_id": "PostingFboList",
     "domain": "fbo",
     "path": "/v3/posting/fbo/list",
@@ -2355,7 +2204,15 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "pagination_contract": {
+      "kind": "cursor"
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/PostingFboList",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-10-01"
+    }
   },
   {
     "method_id": "PostingAPI_GetFboPosting",
@@ -2586,36 +2443,6 @@
       },
       "required": [
         "order_ids"
-      ],
-      "additionalProperties": false
-    },
-    "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
-  },
-  {
-    "method_id": "SupplyOrderAPI_GetSupplyOrderTimeslots",
-    "domain": "fbo",
-    "path": "/v1/supply-order/timeslot/get",
-    "http_method": "POST",
-    "safety": "read",
-    "reason": "Explicitly classified data retrieval",
-    "permission": "logistics.read",
-    "endpoint_group": "fbo",
-    "pagination": "none",
-    "file_download": false,
-    "report_job": false,
-    "sensitive_data": false,
-    "summary": "Интервалы поставки",
-    "description": "<aside class=\"warning\"> Метод устаревает и будет отключён 19 августа 2026 года. Переключитесь на <a href=\"#operation/SupplyOrderTimeslotList\">/v2/supply-order/timeslot/list</a>. </aside>",
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "supply_order_id": {
-          "type": "integer"
-        }
-      },
-      "required": [
-        "supply_order_id"
       ],
       "additionalProperties": false
     },
@@ -3440,39 +3267,6 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
-    "method_id": "PostingAPI_GetCarriageAvailableList",
-    "domain": "deliveryfbs",
-    "path": "/v1/posting/carriage-available/list",
-    "http_method": "POST",
-    "safety": "read",
-    "reason": "Explicitly classified data retrieval",
-    "permission": "logistics.read",
-    "endpoint_group": "deliveryfbs",
-    "pagination": "none",
-    "file_download": false,
-    "report_job": false,
-    "sensitive_data": false,
-    "summary": "Список доступных перевозок",
-    "description": "<aside class=\"warning\">\n  20 марта 2026 года отключим метод. Переключитесь на <a href=\"#operation/CarriageAPI_CarriageDeliveryListV2\">/v2/carriage/delivery/list</a>.\n</aside>\n\nМетод для получения перевозок, по которым нужно распечатать штрихкод для отгрузки и документы:\n- для продацов из России — лист отгрузки и транспортную накладную;\n- для продавцов из СНГ — акт и транспортную накладную.",
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "delivery_method_id": {
-          "type": "integer"
-        },
-        "departure_date": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "delivery_method_id"
-      ],
-      "additionalProperties": false
-    },
-    "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
-  },
-  {
     "method_id": "CarriageGet",
     "domain": "deliveryfbs",
     "path": "/v1/carriage/get",
@@ -3577,36 +3371,6 @@
     "sensitive_data": false,
     "summary": "Этикетки для грузового места",
     "description": "Метод создает этикетки для грузового места.",
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        }
-      },
-      "required": [
-        "id"
-      ],
-      "additionalProperties": false
-    },
-    "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
-  },
-  {
-    "method_id": "PostingAPI_PostingFBSDigitalActCheckStatus",
-    "domain": "deliveryfbs",
-    "path": "/v2/posting/fbs/digital/act/check-status",
-    "http_method": "POST",
-    "safety": "read",
-    "reason": "Explicitly classified data retrieval",
-    "permission": "logistics.read",
-    "endpoint_group": "deliveryfbs",
-    "pagination": "none",
-    "file_download": false,
-    "report_job": false,
-    "sensitive_data": false,
-    "summary": "Статус формирования накладной",
-    "description": "<aside class=\"warning\">\nМетод устаревает и будет отключён 22 марта 2026 года. Переключитесь на <a href=\"#operation/PostingAPI_PostingFBSActCheckStatus\">/v2/posting/fbs/act/check-status</a>.\n</aside>",
     "input_schema": {
       "type": "object",
       "properties": {
@@ -3731,37 +3495,6 @@
       },
       "required": [
         "limit"
-      ],
-      "additionalProperties": false
-    },
-    "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
-  },
-  {
-    "method_id": "PostingAPI_PostingFBSGetDigitalAct",
-    "domain": "deliveryfbs",
-    "path": "/v2/posting/fbs/digital/act/get-pdf",
-    "http_method": "POST",
-    "safety": "read",
-    "reason": "Explicitly classified data retrieval",
-    "permission": "logistics.read",
-    "endpoint_group": "deliveryfbs",
-    "pagination": "none",
-    "file_download": true,
-    "report_job": false,
-    "sensitive_data": false,
-    "summary": "Получить лист отгрузки по перевозке",
-    "description": "<aside class=\"warning\">\nМетод устаревает и будет отключён 22 марта 2026 года. Переключитесь на <a href=\"#operation/PostingAPI_PostingFBSGetAct\">/v2/posting/fbs/act/get-pdf</a>.\n</aside>\n\nВы можете получить документы, если в ответе метода [/v2/posting/fbs/digital/act/check-status](#operation/PostingAPI_PostingFBSDigitalActCheckStatus) был один из статусов:\n- `FORMED` — перевозка сформирована успешно,\n- `CONFIRMED` — перевозка подтверждена Ozon,\n- `CONFIRMED_WITH_MISMATCH` — перевозка принята Ozon с расхождениями.",
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "doc_type": {}
-      },
-      "required": [
-        "id"
       ],
       "additionalProperties": false
     },
@@ -4572,7 +4305,15 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "pagination_contract": {
+      "kind": "cursor"
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/PostingFbsList",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-10-01"
+    }
   },
   {
     "method_id": "PostingAPI_GetFbsPostingV3",
@@ -6186,69 +5927,6 @@
     "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
   },
   {
-    "method_id": "FinanceAPI_FinanceTransactionListV3",
-    "domain": "financeapi",
-    "path": "/v3/finance/transaction/list",
-    "http_method": "POST",
-    "safety": "read",
-    "reason": "Explicitly classified data retrieval",
-    "permission": "finance.read",
-    "endpoint_group": "financeapi",
-    "pagination": "none",
-    "file_download": false,
-    "report_job": false,
-    "sensitive_data": false,
-    "summary": "Список транзакций",
-    "description": "<aside class=\"warning\">\nМетод устаревает и будет отключён 8 сентября 2026 года. Переключитесь на <a href=\"#operation/GetFinanceAccrualPostings\">/v1/finance/accrual/postings</a>, <a href=\"#operation/GetFinanceAccrualTypes\">/v1/finance/accrual/types</a>, <a href=\"#operation/GetFinanceAccrualByDay\">/v1/finance/accrual/by-day</a>.\n<br><br>\nИспользуйте метод с последовательной отправкой запросов.<br>\nДанные могут не соответствовать информации в личном кабинете.\n</aside>\n\nВозвращает подробную информацию по всем начислениям. Максимальный период, за который можно получить информацию в одном запросе — 1 месяц.\n\nЕсли в запросе не указывать `posting_number`, то в ответе будут все отправления за указанный период или отправления определённого типа.",
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "filter": {
-          "type": "object",
-          "properties": {
-            "date": {
-              "type": "object",
-              "properties": {
-                "from": {
-                  "type": "string"
-                },
-                "to": {
-                  "type": "string"
-                }
-              }
-            },
-            "operation_type": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "posting_number": {
-              "type": "string"
-            },
-            "transaction_type": {
-              "type": "string"
-            }
-          }
-        },
-        "page": {
-          "type": "integer"
-        },
-        "page_size": {
-          "type": "integer",
-          "maximum": 1000
-        }
-      },
-      "required": [
-        "page",
-        "page_size"
-      ],
-      "additionalProperties": false
-    },
-    "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
-  },
-  {
     "method_id": "ReportAPI_CreateDocumentB2BSalesReport",
     "domain": "financeapi",
     "path": "/v1/finance/document-b2b-sales",
@@ -7488,7 +7166,7 @@
     "reason": "Explicitly classified data retrieval",
     "permission": "finance.read",
     "endpoint_group": "betamethod",
-    "pagination": "none",
+    "pagination": "bounded",
     "file_download": false,
     "report_job": false,
     "sensitive_data": false,
@@ -7511,7 +7189,15 @@
       "additionalProperties": false
     },
     "source_version": "2.1;ozon-seller-openapi.json",
-    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+    "pagination_contract": {
+      "kind": "last_id"
+    },
+    "contract_review": {
+      "source": "https://docs.ozon.ru/api/seller/#operation/GetFinanceAccrualByDay",
+      "retrieved_at_utc": "2026-10-01T05:05:32.227Z",
+      "effective_at": "2026-10-01"
+    }
   },
   {
     "method_id": "ProductVisibilityInfo",
