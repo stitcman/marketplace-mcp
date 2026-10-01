@@ -78,7 +78,7 @@ export function sleep(ms: number) {
 /** Exponential backoff + jitter (spec §27–28) for network errors, 429s and 5xx. READ only. */
 export async function withRetries<T>(
   fn: () => Promise<T>,
-  opts: { retries?: number; baseMs?: number; retryOn?: (e: unknown) => boolean } = {},
+  opts: { retries?: number; baseMs?: number; retryOn?: (e: unknown) => boolean; respectRetryAfter?: boolean } = {},
 ): Promise<T> {
   const retries = opts.retries ?? 3;
   const baseMs = opts.baseMs ?? 1_000;
@@ -91,7 +91,10 @@ export async function withRetries<T>(
       const retryable =
         opts.retryOn?.(e) ?? (e instanceof MpError ? e.opts.retryable === true : true);
       if (!retryable || attempt === retries) break;
-      const delay = baseMs * 2 ** attempt + Math.random() * baseMs;
+      const retryAfter=opts.respectRetryAfter && e instanceof MpError ? Number((e.opts.details as any)?.retry_after_ms ?? 0) : 0;
+      // Return the required wait to the client rather than holding a tool call indefinitely.
+      if(retryAfter>30_000) break;
+      const delay = Math.max(baseMs * 2 ** attempt + Math.random() * baseMs, Number.isFinite(retryAfter)?retryAfter:0);
       await sleep(delay);
     }
   }

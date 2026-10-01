@@ -33,12 +33,14 @@ export class OzonClient {
   ) {}
 
   async request<T>(path: string, body: unknown = {}): Promise<T> {
-    await rateLimiter.acquire(`ozon:${this.connectionId}:default`, OZON_LIMITS.default);
+    const url = new URL(path, HOST);
+    if(url.origin!==HOST || url.username || url.password) throw new MpError('LOCAL_DENY','Ozon method cannot override its pinned host');
+    await rateLimiter.acquire(`ozon:${this.connectionId}:seller`, OZON_LIMITS.default);
 
     return withRetries(async () => {
       let res: Response;
       try {
-        res = await fetch(new URL(path, HOST), {
+        res = await fetch(url, {
           method: "POST",
           headers: {
             "Client-Id": this.clientId, // secret: never log it
@@ -47,6 +49,7 @@ export class OzonClient {
           },
           body: JSON.stringify(body),
           signal: AbortSignal.timeout(30_000),
+          redirect: 'error',
         });
       } catch (e) {
         if (e instanceof Error && e.name === "TimeoutError")
@@ -94,7 +97,7 @@ export class OzonClient {
 
       if (res.status === 204) return null as T;
       return (await res.json()) as T;
-    });
+    }, {respectRetryAfter:true});
   }
 
   /**
