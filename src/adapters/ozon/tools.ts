@@ -40,7 +40,9 @@ const OzonStockV2Schema = StockSchema.extend({
   source_type: z.string(), source_sku: z.string().nullable(),
 });
 const OzonPriceSchema = PriceSchema.extend({ declared_price: MoneySchema.nullable().optional() });
+const OzonOrderSchema = OrderSchema.extend({ source_sku: z.string().nullable().optional() });
 type OzonStockV2 = z.infer<typeof OzonStockV2Schema>;
+type OzonOrder = z.infer<typeof OzonOrderSchema>;
 
 function cursorBinding(connection: string, tool: string, filter: unknown): string {
   return createHash("sha256").update(JSON.stringify([connection, tool, filter])).digest("hex");
@@ -61,6 +63,15 @@ function cursorPage(raw: any, current: string, binding: string) {
   }
   const has_more = explicit !== false && typeof next === "string" && next !== "" && next !== current;
   return { has_more, next_cursor: has_more ? encodeCursor({ v: 2, binding, upstream: next }) : null };
+}
+
+function lineAmount(value: unknown, quantity: number): string {
+  const match = /^(\d+)(?:\.(\d+))?$/.exec(String(value));
+  if (!match || !Number.isSafeInteger(quantity) || quantity < 0) throw new MpError('INVALID_ARGUMENT', 'Invalid Ozon price/quantity contract');
+  const scale = Math.max(2, match[2]?.length ?? 0);
+  const digits = BigInt(match[1] + (match[2] ?? '').padEnd(scale, '0')) * BigInt(quantity);
+  const result = digits.toString().padStart(scale + 1, '0');
+  return result.slice(0, -scale) + '.' + result.slice(-scale);
 }
 
 const connectionArg = {
@@ -319,10 +330,10 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
         ...connectionArg,
         fulfillment_model: z.enum(["FBO", "FBS", "all"]).default("all"),
         date_from: z.string().optional().describe("ISO start date (defaults to −30 days)"),
-        limit: z.number().int().min(1).max(1000).default(100),
+        limit: z.number().int().min(1).max(100).default(100),
         cursor: z.string().optional(),
       },
-      outputSchema: listEnvelopeSchema(OrderSchema).shape,
+      outputSchema: listEnvelopeSchema(OzonOrderSchema).shape,
     },
     audited(store, "ozon_orders_list", async (args, setCtx) => {
       const conn = await resolveConnection(store, "ozon", args.connection_id);
@@ -330,10 +341,15 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
       requirePermission(conn, "orders.read");
       const model: "FBO" | "FBS" | "all" = args.fulfillment_model ?? "all";
       const limit = args.limit ?? 100;
-      const since = args.date_from
+      const binding = cursorBinding(conn.connection_id, 'ozon_orders_list', [model, args.date_from ?? null]);
+      const state = args.cursor && !conn.mock ? decodeCursor<any>(args.cursor, null) : null;
+      if (args.cursor && !conn.mock && (state?.v !== 2 || state.binding !== binding || typeof state.since !== 'string' || typeof state.to !== 'string' || !Number.isSafeInteger(state.fbo_offset) || state.fbo_offset < 0 || typeof state.fbs_cursor !== 'string' || typeof state.fbo_done !== 'boolean' || typeof state.fbs_done !== 'boolean')) {
+        throw new MpError('INVALID_ARGUMENT', 'Incompatible Ozon order cursor; restart without cursor');
+      }
+      const since = state?.since ?? (args.date_from
         ? new Date(args.date_from).toISOString()
-        : new Date(Date.now() - 30 * 86_400_000).toISOString();
-      const to = new Date().toISOString();
+        : new Date(Date.now() - 30 * 86_400_000).toISOString());
+      const to = state?.to ?? new Date().toISOString();
 
       if (conn.mock) {
         const page = paginate(mockOrders.filter((o) => (o.created_at ?? "") >= since), limit, args.cursor);
@@ -341,12 +357,16 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
       }
 
       const client = await ozonClientFor(store, conn.connection_id);
-      const offset = decodeCursor<number>(args.cursor, 0);
+      const offset = state?.fbo_offset ?? 0;
+      let fboDone = state?.fbo_done ?? model === 'FBS';
+      let fbsDone = state?.fbs_done ?? model === 'FBO';
+      let fboOffset = offset;
+      let fbsCursor = state?.fbs_cursor ?? '';
 
       // A posting contains several items; we normalize to one row per item so the shape
       // matches WB (1 row = 1 unit of goods in an order).
-      const flatten = (postings: any[], fulfillment: "FBO" | "FBS"): Order[] => {
-        const out: Order[] = [];
+      const flatten = (postings: any[], fulfillment: "FBO" | "FBS"): OzonOrder[] => {
+        const out: OzonOrder[] = [];
         for (const p of postings ?? []) {
           const products = p.products ?? [];
           const status = String(p.status ?? "").toLowerCase();
@@ -361,15 +381,17 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
           }
           for (const it of products) {
             const qty = Number(it.quantity ?? 1);
-            const unit = Number(it.price ?? 0);
+            const price = typeof it.price === 'object' && it.price !== null ? it.price.amount : it.price;
+            const currency = typeof it.price === 'object' && it.price !== null ? it.price.currency : it.currency_code;
             out.push({
               marketplace: "ozon",
               order_id: p.posting_number ?? String(p.order_id ?? ""),
               created_at: p.created_at ?? p.in_process_at ?? null,
-              marketplace_product_id: it.sku != null ? String(it.sku) : null,
+              marketplace_product_id: it.product_id != null ? String(it.product_id) : null,
+              source_sku: it.sku != null ? String(it.sku) : null,
               seller_sku: it.offer_id ?? null,
               quantity: qty,
-              amount: { amount: (unit * qty).toFixed(2), currency: it.currency_code ?? "RUB" },
+              amount: { amount: lineAmount(price ?? '0', qty), currency: currency ?? "RUB" },
               warehouse: p.analytics_data?.warehouse_name ?? null,
               status,
               is_cancelled: status.includes("cancel"),
@@ -379,23 +401,30 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
         return out;
       };
 
-      const collected: Order[] = [];
-      if (model === "FBO" || model === "all") {
+      const collected: OzonOrder[] = [];
+      if (!fboDone) {
         const fbo = await client.request<any>("/v2/posting/fbo/list", {
           dir: "DESC", filter: { since, to }, limit, offset, with: { analytics_data: true },
         });
         collected.push(...flatten(fbo?.result ?? [], "FBO"));
+        const count = (fbo?.result ?? []).length;
+        fboDone = fbo?.has_next === false || (fbo?.has_next !== true && count < limit);
+        fboOffset += count;
       }
-      if (model === "FBS" || model === "all") {
-        const fbs = await client.request<any>("/v3/posting/fbs/list", {
-          dir: "DESC", filter: { since, to }, limit, offset, with: { analytics_data: true },
+      if (!fbsDone) {
+        const fbs = await client.request<any>("/v4/posting/fbs/list", {
+          sort_dir: "DESC", filter: { since, to }, limit, cursor: fbsCursor, with: { analytics_data: true },
         });
-        collected.push(...flatten(fbs?.result?.postings ?? [], "FBS"));
+        if (!Array.isArray(fbs?.postings)) throw new MpError('INVALID_ARGUMENT', 'Ozon FBS v4 response is missing postings');
+        collected.push(...flatten(fbs.postings, "FBS"));
+        const page = cursorPage(fbs, fbsCursor, binding);
+        fbsDone = !page.has_more;
+        fbsCursor = fbs?.cursor ?? '';
       }
 
       // Exactly `limit` postings came back — assume there is another page.
-      const hasMore = collected.length >= limit;
-      const nextCursor = hasMore ? encodeCursor(offset + limit) : null;
+      const hasMore = !fboDone || !fbsDone;
+      const nextCursor = hasMore ? encodeCursor({v: 2, binding, since, to, fbo_offset: fboOffset, fbs_cursor: fbsCursor, fbo_done: fboDone, fbs_done: fbsDone}) : null;
       return envelope(
         { items: collected, has_more: hasMore, next_cursor: nextCursor },
         { marketplace: "ozon", connectionId: conn.connection_id, nextCursor },

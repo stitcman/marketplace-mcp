@@ -71,5 +71,29 @@ try {
       assert.deepEqual(result.data.items[0].declared_price, value === undefined ? undefined : value === null ? null : {amount: value, currency: 'RUB'});
     }
   });
+  await check('orders: FBS v4 root response, exact money, independent terminal streams and fixed window', async () => {
+    reply = (path) => path === '/v2/posting/fbo/list' ? {result: [{posting_number: 'FBO-SYNTH', products: [{sku: 555, quantity: 1, price: '1.00'}]}]}
+      : {postings: [{posting_number: 'FBS-SYNTH', products: [{sku: 777, offer_id: 'synthetic', quantity: 3, price: {amount: '90071992547409.93', currency: 'RUB'}}]}], cursor: 'fbs-next', has_next: true};
+    const first = await call('ozon_orders_list', {fulfillment_model: 'all', date_from: '2026-09-30T00:00:00Z'});
+    assert.equal(first.success, true);
+    assert.equal(calls[1].path, '/v4/posting/fbs/list');
+    assert.equal(calls[1].body.sort_dir, 'DESC');
+    assert.equal(calls[1].body.cursor, '');
+    assert.equal(first.data.items[1].amount.amount, '270215977642229.79');
+    assert.equal(first.data.items[1].amount.currency, 'RUB');
+    assert.equal(first.data.items[1].marketplace_product_id, null, 'sku is not product_id');
+    assert.equal(first.data.items[1].source_sku, '777');
+    const end = calls[1].body.filter.to;
+    reply = (path) => path === '/v2/posting/fbo/list' ? {result: []} : {postings: [], cursor: '', has_next: false};
+    const second = await call('ozon_orders_list', {fulfillment_model: 'all', date_from: '2026-09-30T00:00:00Z', cursor: first.data.next_cursor});
+    assert.equal(second.success, true);
+    assert.equal(calls[3].body.cursor, 'fbs-next');
+    assert.equal(calls[3].body.filter.to, end);
+    assert.equal(second.data.has_more, false);
+    const count = calls.length;
+    const mismatch = await call('ozon_orders_list', {fulfillment_model: 'FBS', cursor: first.data.next_cursor});
+    assert.equal(mismatch.success, false);
+    assert.equal(calls.length, count, 'incompatible cursor sends no HTTP');
+  });
 } finally { OzonClient.prototype.request = original; }
 if (failures) process.exitCode = 1;
