@@ -170,11 +170,14 @@ function writeMarketplace(name, records) {
 }
 
 function generateOzon() {
+  if(process.argv.includes('--approve-reviewed')) throw new Error('Ozon bulk approval is disabled: review explicit contract decisions instead');
   const files = ["ozon-seller-openapi.json", "ozon-performance-openapi.json"];
+  const pinned=readJson(path.join(root,'policies','ozon-source-pins.json'));
   const records = [];
   for (const fileName of files) {
     const file = path.join(refs, "ozon-api", "references", fileName);
     const bytes = fs.readFileSync(file);
+    if(sha256(bytes)!==pinned[fileName]) throw new Error(`Ozon source drift: ${fileName}; prepare full official diff and semantic review before repinning`);
     const spec = JSON.parse(bytes);
     for (const [apiPath, item] of Object.entries(spec.paths ?? {})) {
       for (const method of ["get", "post", "put", "patch", "delete"]) {
