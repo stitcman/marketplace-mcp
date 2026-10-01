@@ -9,6 +9,7 @@
  *  - orders come from two independent methods (FBO and FBS) with different shapes.
  */
 import { z } from "zod";
+import { createHash } from "node:crypto";
 import type { ToolRegistrar } from "../../core/toolVisibility.js";
 import type { Store } from "../../core/store.js";
 import { resolveConnection, requirePermission } from "../../core/connections.js";
@@ -25,11 +26,42 @@ import {
   PriceSchema,
   ProductSchema,
   StockSchema,
+  MoneySchema,
   type Order,
   type Price,
   type Product,
   type Stock,
 } from "../common/schema.js";
+
+// Ozon v2 is opt-in: the shared FBO/FBS schema consumed by MOS is unchanged.
+const OzonStockV2Schema = StockSchema.extend({
+  fulfillment_model: z.enum(["FBO", "FBS", "rFBS", "FBP", "UNKNOWN"]),
+  available: z.number().nullable(), reserved: z.number().nullable(),
+  source_type: z.string(), source_sku: z.string().nullable(),
+});
+const OzonPriceSchema = PriceSchema.extend({ declared_price: MoneySchema.nullable().optional() });
+type OzonStockV2 = z.infer<typeof OzonStockV2Schema>;
+
+function cursorBinding(connection: string, tool: string, filter: unknown): string {
+  return createHash("sha256").update(JSON.stringify([connection, tool, filter])).digest("hex");
+}
+function upstreamCursor(cursor: string | undefined, binding: string): string {
+  if (!cursor) return "";
+  const state = decodeCursor<any>(cursor, null);
+  if (state?.v !== 2 || state.binding !== binding || typeof state.upstream !== "string") {
+    throw new MpError("INVALID_ARGUMENT", "Incompatible Ozon cursor or account/filter mismatch; restart without cursor");
+  }
+  return state.upstream;
+}
+function cursorPage(raw: any, current: string, binding: string) {
+  const next = raw?.cursor ?? raw?.result?.cursor;
+  const explicit = raw?.has_next ?? raw?.result?.has_next;
+  if (explicit === true && (typeof next !== "string" || !next)) {
+    throw new MpError("INVALID_ARGUMENT", "Ozon response has_next=true without a continuation cursor");
+  }
+  const has_more = explicit !== false && typeof next === "string" && next !== "" && next !== current;
+  return { has_more, next_cursor: has_more ? encodeCursor({ v: 2, binding, upstream: next }) : null };
+}
 
 const connectionArg = {
   connection_id: z
@@ -166,10 +198,11 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
       }
 
       const client = await ozonClientFor(store, conn.connection_id);
-      const lastId = decodeCursor<string>(args.cursor, "");
+      const binding = cursorBinding(conn.connection_id, "ozon_stocks_get", [model, args.seller_sku ?? null, args.contract_version ?? "v1"]);
+      const current = upstreamCursor(args.cursor, binding);
       const raw = await client.request<any>("/v4/product/info/stocks", {
         filter: { visibility: "ALL" },
-        last_id: lastId,
+        cursor: current,
         limit,
       });
       const rows: any[] = raw?.items ?? raw?.result?.items ?? [];
@@ -198,11 +231,10 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
         }
       }
 
-      const nextId = raw?.last_id ?? raw?.result?.last_id ?? "";
-      const hasMore = Boolean(nextId) && rows.length >= limit;
+      const page = cursorPage(raw, current, binding);
       return envelope(
-        { items: applyFilters(items), has_more: hasMore, next_cursor: hasMore ? encodeCursor(nextId) : null },
-        { marketplace: "ozon", connectionId: conn.connection_id, nextCursor: hasMore ? encodeCursor(nextId) : null },
+        { items: applyFilters(items), ...page },
+        { marketplace: "ozon", connectionId: conn.connection_id, nextCursor: page.next_cursor },
       );
     }),
   );
@@ -219,7 +251,7 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
         limit: z.number().int().min(1).max(1000).default(100),
         cursor: z.string().optional(),
       },
-      outputSchema: listEnvelopeSchema(PriceSchema).shape,
+      outputSchema: listEnvelopeSchema(OzonPriceSchema).shape,
     },
     audited(store, "ozon_prices_get", async (args, setCtx) => {
       const conn = await resolveConnection(store, "ozon", args.connection_id);
@@ -233,11 +265,12 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
       }
 
       const client = await ozonClientFor(store, conn.connection_id);
-      const lastId = decodeCursor<string>(args.cursor, "");
+      const binding = cursorBinding(conn.connection_id, "ozon_prices_get", null);
+      const current = upstreamCursor(args.cursor, binding);
       // v4 is deprecated; v5 is the current version.
       const raw = await client.request<any>("/v5/product/info/prices", {
         filter: { visibility: "ALL" },
-        last_id: lastId,
+        cursor: current,
         limit,
       });
       const rows: any[] = raw?.items ?? raw?.result?.items ?? [];
@@ -257,11 +290,10 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
         };
       });
 
-      const nextId = raw?.last_id ?? raw?.result?.last_id ?? "";
-      const hasMore = Boolean(nextId) && rows.length >= limit;
+      const page = cursorPage(raw, current, binding);
       return envelope(
-        { items, has_more: hasMore, next_cursor: hasMore ? encodeCursor(nextId) : null },
-        { marketplace: "ozon", connectionId: conn.connection_id, nextCursor: hasMore ? encodeCursor(nextId) : null },
+        { items, ...page },
+        { marketplace: "ozon", connectionId: conn.connection_id, nextCursor: page.next_cursor },
       );
     }),
   );
