@@ -22517,6 +22517,10 @@
     "safety": "read",
     "reason": "Reviewed official data retrieval",
     "permission": "advertising.read",
+    "pagination_contract": {
+      "kind": "last_id",
+      "response_field": "last_id"
+    },
     "pagination": "bounded",
     "file_download": false,
     "report_job": false,
@@ -22560,6 +22564,10 @@
     "safety": "read",
     "reason": "Reviewed official data retrieval",
     "permission": "advertising.read",
+    "pagination_contract": {
+      "kind": "last_id",
+      "response_field": "last_id"
+    },
     "pagination": "bounded",
     "file_download": false,
     "report_job": false,
@@ -22978,6 +22986,9 @@
     "safety": "read",
     "reason": "Reviewed official data retrieval",
     "permission": "analytics.read",
+    "pagination_contract": {
+      "kind": "page"
+    },
     "pagination": "bounded",
     "file_download": false,
     "report_job": false,
@@ -23393,6 +23404,11 @@
     "safety": "read",
     "reason": "Reviewed official data retrieval",
     "permission": "warehouses.read",
+    "pagination_contract": {
+      "kind": "last_id",
+      "items_path": "points",
+      "last_item_field": "id"
+    },
     "pagination": "bounded",
     "file_download": false,
     "report_job": false,

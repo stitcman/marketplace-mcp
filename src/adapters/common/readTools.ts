@@ -17,7 +17,7 @@ const outputSchema = {
   success: z.literal(true), marketplace: z.string(), connection_id: z.string().nullable(), data: z.unknown(),
   meta: z.object({
     fetched_at: z.string(), source: z.enum(["official_api", "mock", "cache", "internal"]), cached: z.boolean(), next_cursor: z.string().nullable(),
-    continuation: z.object({ kind: z.enum(["none", "cursor", "offset", "last_id", "local_chunk"]), phase:z.enum(['LOCAL_CHUNK','UPSTREAM_LAST_ID']).optional(), has_more: z.boolean(), request_patch: z.record(z.unknown()).nullable() }).optional(),
+    continuation: z.object({ kind: z.enum(["none", "cursor", "offset", "last_id", "local_chunk", "page"]), phase:z.enum(['LOCAL_CHUNK','UPSTREAM_LAST_ID']).optional(), has_more: z.boolean(), request_patch: z.record(z.unknown()).nullable() }).optional(),
   }),
 };
 

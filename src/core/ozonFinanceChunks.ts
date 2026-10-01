@@ -25,12 +25,12 @@ export class OzonFinanceChunks {
     if(entry.binding!==binding||!entry.pages[index])throw new MpError('LOCAL_DENY','Local finance cursor binding or index mismatch');
     return structuredClone(entry.pages[index]);
   }
-  split(payload:unknown,continuation:ReadContinuation,binding:string,connectionId:string,params:Record<string,unknown>):ApprovedReadPage {
+  split(payload:unknown,continuation:ReadContinuation,binding:string,connectionId:string,params:Record<string,unknown>,itemsKey: "accruals" | "posting_accruals" = "accruals"):ApprovedReadPage {
     const fits=(page:ApprovedReadPage)=>Buffer.byteLength(JSON.stringify({jsonrpc:'2.0',id:'x'.repeat(256),result:asToolResult(envelope(page.payload,{marketplace:'ozon',connectionId,continuation:page.continuation}))}))<=MCP_BYTES-8192;
     const normal={payload,continuation};
     if(fits(normal))return normal;
     const source=payload as any;
-    if(!source||!Array.isArray(source.accruals))throw new MpError('BULK_LIMIT_EXCEEDED','Finance response is not a chunkable accrual list');
+    if(!source||!Array.isArray(source[itemsKey]))throw new MpError('BULK_LIMIT_EXCEEDED','Finance response is not a chunkable accrual list');
     const bytes=Buffer.byteLength(JSON.stringify(payload));
     if(bytes>MAX_FINANCE_UPSTREAM_BYTES)throw new MpError('BULK_LIMIT_EXCEEDED','Finance upstream response exceeds the finite 16 MiB limit');
     this.prune();
@@ -38,15 +38,15 @@ export class OzonFinanceChunks {
     const key='ofc_'+randomBytes(24).toString('hex');
     const pages:ApprovedReadPage[]=[];
     let start=0;
-    while(start<source.accruals.length){
+    while(start<source[itemsKey].length){
       const local:ReadContinuation={kind:'local_chunk',has_more:true,request_patch:{mcp_cursor:`${key}_${pages.length+1}`},phase:'LOCAL_CHUNK'};
-      let low=start,high=source.accruals.length;
-      while(low<high){const mid=Math.ceil((low+high)/2);if(fits({payload:{...source,accruals:source.accruals.slice(start,mid)},continuation:local}))low=mid;else high=mid-1;}
+      let low=start,high=source[itemsKey].length;
+      while(low<high){const mid=Math.ceil((low+high)/2);if(fits({payload:{...source,[itemsKey]:source[itemsKey].slice(start,mid)},continuation:local}))low=mid;else high=mid-1;}
       if(low===start)throw new MpError('BULK_LIMIT_EXCEEDED','One accrual record exceeds the complete MCP response ceiling');
-      pages.push({payload:{...source,accruals:source.accruals.slice(start,low)},continuation:local});start=low;
+      pages.push({payload:{...source,[itemsKey]:source[itemsKey].slice(start,low)},continuation:local});start=low;
     }
     if(!pages.length)throw new MpError('BULK_LIMIT_EXCEEDED','Finance metadata exceeds the complete MCP response ceiling');
-    pages.at(-1)!.continuation={...continuation,phase:'UPSTREAM_LAST_ID',request_patch:continuation.has_more?{date:params.date,...continuation.request_patch,mcp_cursor:null}:null};
+    pages.at(-1)!.continuation={...continuation,request_patch:continuation.has_more?{...continuation.request_patch,mcp_cursor:null}:null};
     if(!pages.every(fits))throw new MpError('BULK_LIMIT_EXCEEDED','Finance continuation exceeds the MCP ceiling');
     const cost=Buffer.byteLength(JSON.stringify(pages))*3;
     if([...this.entries.values()].reduce((n,e)=>n+e.bytes,0)+cost>CACHE_BYTES)throw new MpError('BULK_LIMIT_EXCEEDED','Local finance cache byte ceiling exceeded',{retryable:true});

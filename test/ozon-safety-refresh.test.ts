@@ -12,6 +12,7 @@ globalThis.fetch=async()=>{requests++;throw Error('Forbidden transport reached')
 try {
   const inventory=JSON.parse(fs.readFileSync(new URL('../inventory/ozon-operations.json',import.meta.url),'utf8'));
   let denials=0;
+  for(const method_id of ['QuantProductList','QuantGetInfo']) {const result=await handlers.get('ozon_read_execute')({connection_id:conn.connection_id,method_id,params:{}});assert.equal(JSON.parse(result.content[0].text).error.code,'LOCAL_DENY');}
   for(const method of inventory.filter((x:any)=>['WRITE','DESTRUCTIVE'].includes(x.classification)||x.admission==='denied')) {
     const result=await handlers.get('ozon_read_execute')({connection_id:conn.connection_id,method_id:method.method_id,params:{}});
     assert.equal(JSON.parse(result.content[0].text).error.code,'LOCAL_DENY',method.method_id);denials++;

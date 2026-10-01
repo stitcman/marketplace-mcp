@@ -8,5 +8,7 @@ Baseline: 091dadb7f09af2104d171291e5ad63f325bc8a16; production independently obs
 - D: full 529 normalized schema capture/review is pending. Do not report full_official_contract PASS or ALL_METHODS_CURRENT YES based solely on inventory equality. HTTP source extraction still redirects; rendered docs remain the accepted source, not a permanent Swagger requirement.
 - E–K: new isolated runtime, real finance reconciliation, compatibility, security revalidation and deployment gates pending. Production deployment prohibited until all required gates pass.
 
-Ruling: upstream finance cap is separate and finite; only by-day gets 16 MiB — fixes an endpoint with no page-size parameter without enlarging the global MCP cap — oversized single records remain explicit errors.
+Ruling: upstream finance cap is separate and finite; by-day and postings get 16 MiB — fixes an endpoint with no page-size parameter without enlarging the global MCP cap — oversized single records remain explicit errors.
 Ruling: preserve historical audit scripts/evidence; new stage artifacts use this directory — prior release results remain immutable — new candidate must have its own identity and checks.
+
+Review 091dadb7..662e941: CHANGES_REQUIRED, three findings. One correction pass: explicit new pagination contracts with two-page RED/GREEN; postings packed ceiling RED/GREEN with lossless local chunks; cross-endpoint reconciliation rejects absent posting-day coverage, compares exact currency/decimal totals by posting and date, reports observed differences and blocks PASS. Single-posting real control mandatory. Direct 429 finite retries (4 attempts, <=60 seconds each), sanitized progress survives failures. Runtime rc.2 staged; full contract gate remains pending.

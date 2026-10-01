@@ -92,7 +92,7 @@ export class MarketplaceReadTransport implements ReadTransport {
         return { __download: true, bytes, mime_type: contentType.split(";")[0] || "application/octet-stream" };
       }
       if(marketplace!=='ozon')return response.json();
-      const text=(await readOzonResponse(response,method.method_id==='GetFinanceAccrualByDay'?MAX_FINANCE_UPSTREAM_BYTES:MAX_RESPONSE_BYTES)).toString('utf8');
+      const text=(await readOzonResponse(response,['GetFinanceAccrualByDay','GetFinanceAccrualPostings'].includes(method.method_id)?MAX_FINANCE_UPSTREAM_BYTES:MAX_RESPONSE_BYTES)).toString('utf8');
       if(['GetFinanceAccrualByDay','GetFinanceAccrualPostings'].includes(method.method_id))return JSON.parse(text,(_key,value,context?:{source?:string})=>{
         if(typeof value==='number'&&Number.isInteger(value)&&!Number.isSafeInteger(value)) {
           if(!context?.source||! /^-?\d+$/.test(context.source))throw new MpError('INVALID_ARGUMENT','Finance integer cannot be represented losslessly by this runtime');

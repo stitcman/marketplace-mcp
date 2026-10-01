@@ -28,7 +28,7 @@ export interface ReadMethod {
   permission: string;
   endpoint_group: string;
   pagination: "none" | "bounded" | string;
-  pagination_contract?: {kind: 'cursor' | 'last_id'; response_field?: string; items_path?: string; last_item_field?: string};
+  pagination_contract?: {kind: 'cursor' | 'last_id' | 'page'; response_field?: string; items_path?: string; last_item_field?: string};
   file_download: boolean;
   report_job: boolean;
   sensitive_data: boolean;
@@ -53,7 +53,7 @@ export const MAX_REQUEST_BYTES = 64 * 1024;
 export const MAX_RESPONSE_BYTES = 256 * 1024;
 
 export interface ReadContinuation {
-  kind: "none" | "cursor" | "offset" | "last_id" | "local_chunk";
+  kind: "none" | "cursor" | "offset" | "last_id" | "local_chunk" | "page";
   phase?: 'LOCAL_CHUNK' | 'UPSTREAM_LAST_ID';
   has_more: boolean;
   request_patch: Record<string, unknown> | null;
@@ -88,7 +88,7 @@ export async function executeApprovedReadPage(input: {
   params: Record<string, unknown>;
   transport: ReadTransport;
 }): Promise<ApprovedReadPage> {
-  if(input.marketplace==='ozon'&&input.method.method_id==='GetFinanceAccrualByDay') {
+  if(input.marketplace==='ozon'&&['GetFinanceAccrualByDay','GetFinanceAccrualPostings'].includes(input.method.method_id)) {
     const {mcp_cursor,...params}=input.params;
     const conn=await resolveConnection(input.store,input.marketplace,input.connectionId);
     if(input.method.safety!=='read')deny('Method is not READ');
@@ -101,8 +101,8 @@ export async function executeApprovedReadPage(input: {
     if(mcp_cursor!==undefined&&mcp_cursor!==null)return ozonFinanceChunks.resume(mcp_cursor,binding);
     const payload=await performApprovedRead({...input,params});
     const base=continuationFor(input.method,params,payload);
-    const continuation:ReadContinuation={...base,phase:'UPSTREAM_LAST_ID',request_patch:base.has_more?{date:params.date,...base.request_patch,mcp_cursor:null}:null};
-    return ozonFinanceChunks.split(payload,continuation,binding,conn.connection_id,params);
+    const continuation:ReadContinuation=input.method.method_id==='GetFinanceAccrualByDay'?{...base,phase:'UPSTREAM_LAST_ID',request_patch:base.has_more?{date:params.date,...base.request_patch,mcp_cursor:null}:null}:base;
+    return ozonFinanceChunks.split(payload,continuation,binding,conn.connection_id,params,input.method.method_id==='GetFinanceAccrualByDay'?'accruals':'posting_accruals');
   }
   const payload = await performApprovedRead(input);
   requireBoundedRawPage(payload);
@@ -201,6 +201,11 @@ function continuationFor(method: ReadMethod, params: Record<string, unknown>, pa
   if (method.pagination_contract) {
     const contract = method.pagination_contract;
     const kind = contract.kind;
+    if(kind==='page') {
+      const count=recordCount(payload), remaining=field(payload,'total_count');
+      const has_more=count>0 && (typeof remaining==='number'?remaining>0:count>=Number(params.page_size));
+      return {kind,has_more,request_patch:has_more?{page:Number(params.page??0)+1}:null};
+    }
     let next = field(payload, contract.response_field ?? kind);
     if (contract.last_item_field) {
       const items = (contract.items_path ?? '').split('.').reduce<any>((v, key) => v?.[key], payload);
@@ -260,7 +265,7 @@ function recordCount(payload: unknown): number {
   if (!root) return 0;
   const resultValue = root.result;
   const result = object(resultValue);
-  for (const value of [root.accruals, root.items, root.postings, root.returns, root.warehouses, result?.items, result?.postings, result?.returns, result?.warehouses, resultValue]) {
+  for (const value of [root.products, root.points, root.accruals, root.items, root.postings, root.returns, root.warehouses, result?.items, result?.postings, result?.returns, result?.warehouses, resultValue]) {
     if (Array.isArray(value)) return value.length;
   }
   return 0;
