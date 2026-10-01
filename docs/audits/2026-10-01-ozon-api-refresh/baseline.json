@@ -1,0 +1,45 @@
+{
+  "as_of_utc": "2026-10-01T05:31:30.433Z",
+  "repository": "https://github.com/stitcman/marketplace-mcp.git",
+  "remote_default_branch": "codex/task-5-real-yandex-read",
+  "baseline_commit": "ffc7ef2465e3df84d6be6fb5aba4015d170b2d61",
+  "baseline_clean": true,
+  "worktree": "C:\\marketplace-mcp-worktrees\\ozon-api-refresh-20261001",
+  "branch": "codex/ozon-api-refresh-20261001",
+  "baseline_build": "PASS",
+  "baseline_tests": "PASS",
+  "baseline_policies": "PASS",
+  "baseline_passport": "PASS",
+  "runtime_identity": "BASELINE_UNVERIFIED",
+  "runtime_version": null,
+  "runtime_commit": null,
+  "image_id": null,
+  "image_digest": null,
+  "health": "HTTPS /health returned ok=true store=postgres",
+  "ssh": "HOST_KEY_VERIFICATION_FAILED_NO_KEY_ADDED",
+  "real_connection_confirmed": true,
+  "write_tools_visible": 0,
+  "protected_hashes": [
+    {
+      "file": "inventory/wb-operations.json",
+      "sha256": "012cc576c7afd814fce9d29e67e77c47edc36cc3c0b4a2354fc007d8666ed0b8",
+      "unchanged": true
+    },
+    {
+      "file": "inventory/ym-operations.json",
+      "sha256": "a9730342046146cb1d586b178a865afac1b6acda3cc911dda3fb5827a6b10a8e",
+      "unchanged": true
+    },
+    {
+      "file": "policies/wb-read-allowlist.json",
+      "sha256": "0c3b81a1aa1c230690b24cef4ca676fa959e68b8f366c66ecf39ab174562fded",
+      "unchanged": true
+    },
+    {
+      "file": "policies/ym-read-allowlist.json",
+      "sha256": "006cb50a28285df59c86ca737945ef0ac08e1e42870eef49de109bc09bdd1d2b",
+      "unchanged": true
+    }
+  ],
+  "mos_changes": 0
+}

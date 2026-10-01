@@ -1,5 +1,5 @@
 schema_version: "1.0"
-mcp_version: "0.4.0"
+mcp_version: "1.1.0-alpha.1"
 production_commit: "0acd8026f0bf688f2cc6bca1e5f9633997117b51"
 candidate_commit: "321478fcd02b2dd779aa0ca2e3fa7bc599026d3b"
 candidate_commit_basis: "Historical source baseline metadata only; not runtime release binding."

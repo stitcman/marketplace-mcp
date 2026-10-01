@@ -1,0 +1,22 @@
+{
+  "as_of_utc":"2026-10-01T05:32:35Z",
+  "environment":"Windows PowerShell; Node.js 24.18.0; isolated worktree",
+  "network_credentials_required_for_offline_tests":false,
+  "commands":[
+    {"command":"npm run build","exit_code":0,"result":"PASS"},
+    {"command":"npm test","exit_code":0,"result":"PASS","scope":"existing suite and six Ozon refresh test files"},
+    {"command":"npm run policies:check","exit_code":0,"result":"PASS","inventories":{"ozon":511,"wb":181,"ym":169},"allowed":{"ozon":273,"wb":113,"ym":108}},
+    {"command":"npm run baseline:check","exit_code":0,"result":"PASS"},
+    {"command":"node scripts/generate-read-policies.mjs --ozon-only","runs":2,"exit_code":0,"result":"PASS_IDENTICAL_TRACKED_OUTPUT"},
+    {"command":"node scripts/generate-read-policies.mjs --ozon-only --approve-reviewed","exit_code":1,"result":"EXPECTED_LOCAL_DENY_BEFORE_WRITE"},
+    {"command":"npx tsx test/ozon-spec-diff.test.ts","before_fix_exit_code":1,"after_fix_exit_code":0,"result":"RED_TO_GREEN_INHERITED_SECURITY"},
+    {"command":"git diff --check","exit_code":0,"result":"PASS"}
+  ],
+  "forbidden_or_retired_operations_tested":238,
+  "negative_test_http_requests_sent":0,
+  "wb_yandex_inventory_allowlist_hashes_unchanged":true,
+  "independent_review":{"reviewer":"ozon_review","initial_finding":"P2 inherited authorization omitted by spec diff","finding_fixed_and_rechecked":true,"remaining_actionable_findings":0},
+  "full_current_official_contract_test_coverage":false,
+  "mos_consumer_compatibility":"UNVERIFIED",
+  "production_acceptance":"NOT_PASSED"
+}

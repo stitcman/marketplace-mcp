@@ -1,0 +1,16 @@
+[
+  {
+    "family": "seller",
+    "source": "https://docs.ozon.ru/api/seller/swagger.json",
+    "retrieved_at_utc": "2026-10-01T05:19:41.286Z",
+    "status": "UNAVAILABLE",
+    "reason": "REDIRECT_LIMIT"
+  },
+  {
+    "family": "performance",
+    "source": "https://docs.ozon.ru/api/performance/swagger.json",
+    "retrieved_at_utc": "2026-10-01T05:19:41.743Z",
+    "status": "UNAVAILABLE",
+    "reason": "REDIRECT_LIMIT"
+  }
+]

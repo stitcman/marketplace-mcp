@@ -1,0 +1,14 @@
+{
+  "baseline_operations": 511,
+  "current_inventory_operations": 511,
+  "added": 0,
+  "changed": 18,
+  "deprecated": 2,
+  "removed": 9,
+  "allowed": 273,
+  "contract_tested": 11,
+  "baseline_live_methods": 8,
+  "candidate_live_methods": 0,
+  "write_requests_sent": 0,
+  "all_methods_current": false
+}

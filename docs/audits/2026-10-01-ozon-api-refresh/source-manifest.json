@@ -1,0 +1,51 @@
+{
+  "as_of_utc": "2026-10-01T05:31:30.434Z",
+  "all_methods_current": false,
+  "current_official_snapshot_complete": false,
+  "official_rendered_pages": {
+    "seller": {
+      "url": "https://docs.ozon.ru/api/seller/",
+      "unique_endpoints": 481,
+      "method": "Browser DOM read, no complete machine schema snapshot"
+    },
+    "performance": {
+      "url": "https://docs.ozon.ru/api/performance/",
+      "operation_nodes": 48,
+      "method": "Browser DOM read, no complete machine schema snapshot"
+    }
+  },
+  "historical_snapshots": [
+    {
+      "family": "seller",
+      "file": "C:\\marketplace-mcp-references\\ozon-api\\references\\ozon-seller-openapi.json",
+      "sha256": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade",
+      "version": 2.1,
+      "operations": 463,
+      "freshness": "HISTORICAL_NOT_CURRENT"
+    },
+    {
+      "family": "performance",
+      "file": "C:\\marketplace-mcp-references\\ozon-api\\references\\ozon-performance-openapi.json",
+      "sha256": "8777c163b9179532af0a7dcf1ec303b62caa552e112dc482c5330ea6767e9866",
+      "version": "2.0",
+      "operations": 48,
+      "freshness": "HISTORICAL_NOT_CURRENT"
+    }
+  ],
+  "fetch_results": [
+    {
+      "family": "seller",
+      "source": "https://docs.ozon.ru/api/seller/swagger.json",
+      "retrieved_at_utc": "2026-10-01T05:19:41.286Z",
+      "status": "UNAVAILABLE",
+      "reason": "REDIRECT_LIMIT"
+    },
+    {
+      "family": "performance",
+      "source": "https://docs.ozon.ru/api/performance/swagger.json",
+      "retrieved_at_utc": "2026-10-01T05:19:41.743Z",
+      "status": "UNAVAILABLE",
+      "reason": "REDIRECT_LIMIT"
+    }
+  ]
+}

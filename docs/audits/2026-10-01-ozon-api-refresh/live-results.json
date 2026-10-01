@@ -1,0 +1,35 @@
+{
+  "observed_utc_date": "2026-10-01",
+  "per_call_timestamp_not_preserved": true,
+  "transport": "Existing approved Secure Tunnel",
+  "real_active_connection_confirmed": true,
+  "mock": false,
+  "sandbox": false,
+  "runtime_binding": "BASELINE_UNVERIFIED",
+  "candidate_deployed": false,
+  "candidate_live_calls": 0,
+  "business_identifiers_and_payloads_retained": false,
+  "baseline_wrapper_regressions": [
+    "Prices limit=1 has_more=false despite generic upstream continuation",
+    "Stocks limit=1 has_more=false despite generic upstream continuation",
+    "rFBS stock exposed as FBO"
+  ],
+  "generic_reads": [
+    {"method_id":"ProductAPI_GetProductInfoPrices","pages":3,"limit":1,"source":"official_api","result":"VERIFIED_DEPLOYED_SERVER_READ","continuation":true,"declared_price_present":true},
+    {"method_id":"ProductAPI_GetProductInfoStocks","pages":3,"limit":1,"source":"official_api","result":"VERIFIED_DEPLOYED_SERVER_READ","continuation":true,"source_types":["fbo","fbs","rfbs"]},
+    {"method_id":"PostingFbsList","limit":1,"source":"official_api","result":"VERIFIED_DEPLOYED_SERVER_READ","window_utc":["2026-09-30T00:00:00Z","2026-10-01T04:00:00Z"],"postings_count":1,"continuation":true},
+    {"method_id":"PostingFboList","limit":1,"source":"official_api","result":"VERIFIED_DEPLOYED_SERVER_READ","window_utc":["2026-09-30T00:00:00Z","2026-10-01T04:00:00Z"],"postings_count":1,"continuation":true},
+    {"method_id":"WarehouseListV2","limit":1,"source":"official_api","result":"VERIFIED_DEPLOYED_SERVER_READ","continuation":true},
+    {"method_id":"returnsList","limit":1,"source":"official_api","result":"VERIFIED_DEPLOYED_SERVER_READ","continuation":false},
+    {"method_id":"AccessAPI_RolesByToken","source":"official_api","result":"VERIFIED_DEPLOYED_SERVER_READ","expires_at":"2026-12-08T09:54:14.116973Z"},
+    {"method_id":"GetFinanceAccrualTypes","source":"official_api","result":"VERIFIED_DEPLOYED_SERVER_READ"},
+    {"method_id":"GetFinanceAccrualByDay","date":"2026-09-30","result":"UNVERIFIED_UNCLASSIFIED_TOOL_RESPONSE","official_api_success_confirmed":false}
+  ],
+  "finance_reconciliation":"UNVERIFIED",
+  "primary_same_period_source_available":false,
+  "finance_delta":null,
+  "performance_live":"NOT_TESTED_NO_PROVISIONED_ACCESS",
+  "report_jobs_live":"NOT_TESTED",
+  "file_download_live":"NOT_TESTED",
+  "write_requests_sent":0
+}
