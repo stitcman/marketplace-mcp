@@ -1,0 +1,16 @@
+{
+  "status": "BLOCKED_HOST_IDENTITY",
+  "host": "72.56.0.166",
+  "presented_ed25519_fingerprint": "SHA256:nu+Ecpp+ZAkdwsaCdvOCX3Y4TWfpy5GRu9NXDJaXFGo",
+  "strict_host_key_check": "NO_PIN_THEN_HISTORICAL_PIN_MISMATCH",
+  "owner_confirmation": "PENDING",
+  "trust_store_changed": false,
+  "production_commands_executed": 0,
+  "local_docker_daemon": "UNAVAILABLE",
+  "production_commit": null,
+  "production_version": null,
+  "image_id": null,
+  "image_digest": null,
+  "compose_project": null,
+  "rollback_ready": false
+}

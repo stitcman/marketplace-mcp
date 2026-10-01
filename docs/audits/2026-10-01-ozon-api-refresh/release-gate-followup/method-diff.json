@@ -1,0 +1,114 @@
+{
+  "candidate": "4e29543d05fbd9c0b322b756d87226c94edbb463",
+  "baseline": "ffc7ef2465e3df84d6be6fb5aba4015d170b2d61",
+  "added": 0,
+  "changed": 18,
+  "retired": [
+    {
+      "id": "WarehouseAPI_WarehouseList",
+      "path": "/v1/warehouse/list",
+      "replacement": [
+        "/v2/warehouse/list"
+      ]
+    },
+    {
+      "id": "WarehouseAPI_DeliveryMethodList",
+      "path": "/v1/delivery-method/list",
+      "replacement": [
+        "/v2/delivery-method/list"
+      ]
+    },
+    {
+      "id": "PostingAPI_GetFboPostingList",
+      "path": "/v2/posting/fbo/list",
+      "replacement": [
+        "/v3/posting/fbo/list"
+      ]
+    },
+    {
+      "id": "SupplyOrderAPI_GetSupplyOrderTimeslots",
+      "path": "/v1/supply-order/timeslot/get",
+      "replacement": [
+        "/v2/supply-order/timeslot/list"
+      ]
+    },
+    {
+      "id": "PostingAPI_GetCarriageAvailableList",
+      "path": "/v1/posting/carriage-available/list",
+      "replacement": [
+        "/v2/carriage/delivery/list"
+      ]
+    },
+    {
+      "id": "PostingAPI_PostingFBSDigitalActCheckStatus",
+      "path": "/v2/posting/fbs/digital/act/check-status",
+      "replacement": [
+        "/v2/posting/fbs/act/check-status"
+      ]
+    },
+    {
+      "id": "PostingAPI_PostingFBSGetDigitalAct",
+      "path": "/v2/posting/fbs/digital/act/get-pdf",
+      "replacement": [
+        "/v2/posting/fbs/act/get-pdf"
+      ]
+    },
+    {
+      "id": "FinanceAPI_FinanceTransactionListV3",
+      "path": "/v3/finance/transaction/list",
+      "replacement": [
+        "/v1/finance/accrual/by-day",
+        "/v1/finance/accrual/postings",
+        "/v1/finance/accrual/types"
+      ]
+    },
+    {
+      "id": "FinanceAPI_FinanceTransactionTotalV3",
+      "path": "/v3/finance/transaction/totals",
+      "replacement": [
+        "/v1/finance/accrual/by-day",
+        "/v1/finance/accrual/postings",
+        "/v1/finance/accrual/types"
+      ]
+    }
+  ],
+  "removed_from_allowlist": [
+    {
+      "id": "generate-barcode",
+      "path": "/v1/barcode/generate"
+    },
+    {
+      "id": "WarehouseAPI_WarehouseList",
+      "path": "/v1/warehouse/list"
+    },
+    {
+      "id": "WarehouseAPI_DeliveryMethodList",
+      "path": "/v1/delivery-method/list"
+    },
+    {
+      "id": "PostingAPI_GetFboPostingList",
+      "path": "/v2/posting/fbo/list"
+    },
+    {
+      "id": "SupplyOrderAPI_GetSupplyOrderTimeslots",
+      "path": "/v1/supply-order/timeslot/get"
+    },
+    {
+      "id": "PostingAPI_GetCarriageAvailableList",
+      "path": "/v1/posting/carriage-available/list"
+    },
+    {
+      "id": "PostingAPI_PostingFBSDigitalActCheckStatus",
+      "path": "/v2/posting/fbs/digital/act/check-status"
+    },
+    {
+      "id": "PostingAPI_PostingFBSGetDigitalAct",
+      "path": "/v2/posting/fbs/digital/act/get-pdf"
+    },
+    {
+      "id": "FinanceAPI_FinanceTransactionListV3",
+      "path": "/v3/finance/transaction/list"
+    }
+  ],
+  "implementation_changes_this_stage": 0
+}

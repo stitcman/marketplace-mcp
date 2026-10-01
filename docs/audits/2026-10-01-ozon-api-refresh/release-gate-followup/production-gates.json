@@ -1,0 +1,93 @@
+{
+  "as_of_utc": "2026-10-01T06:19:01.214Z",
+  "checks_completed_at_utc": "2026-10-01T06:14:08.681Z",
+  "stage_attestation": "docs/audits/2026-10-01-ozon-api-refresh/release-gate-followup/stage-checks-20261001061408681.json",
+  "stage_attestation_sha256": "829343045c1df8582f247acab49646969a3e65c1c992406789742cc6fa3388dd",
+  "status": "PARTIAL",
+  "deployment": "BLOCKED",
+  "rollback_ready": false,
+  "all_methods_current": false,
+  "post_deploy_smoke": "NOT_RUN",
+  "gates": [
+    {
+      "gate": "build",
+      "result": "PASS",
+      "evidence": null
+    },
+    {
+      "gate": "full_suite",
+      "result": "PASS",
+      "evidence": null
+    },
+    {
+      "gate": "policy",
+      "result": "PASS",
+      "evidence": null
+    },
+    {
+      "gate": "security",
+      "result": "PASS",
+      "evidence": null
+    },
+    {
+      "gate": "write_tools_visible",
+      "result": "PASS",
+      "evidence": 0
+    },
+    {
+      "gate": "write_requests_sent",
+      "result": "PASS",
+      "evidence": 0
+    },
+    {
+      "gate": "prices_candidate_live",
+      "result": "BLOCKED",
+      "evidence": "No isolated real connection available"
+    },
+    {
+      "gate": "stocks_candidate_live",
+      "result": "BLOCKED",
+      "evidence": "No isolated real connection available"
+    },
+    {
+      "gate": "fbs_orders_candidate_live",
+      "result": "BLOCKED",
+      "evidence": "No isolated real connection available"
+    },
+    {
+      "gate": "fbo_orders_candidate_live",
+      "result": "BLOCKED",
+      "evidence": "No isolated real connection available"
+    },
+    {
+      "gate": "finance_reconciliation",
+      "result": "BLOCKED",
+      "evidence": "by-day/postings INVALID_ARGUMENT on current server; control total unavailable"
+    },
+    {
+      "gate": "mos_compatibility",
+      "result": "BLOCKED",
+      "evidence": "Offline boundary PASS; actual production consumer/runtime binding unavailable"
+    },
+    {
+      "gate": "candidate_runtime_identity",
+      "result": "PASS",
+      "evidence": "Loopback process, not container"
+    },
+    {
+      "gate": "production_runtime_identity",
+      "result": "BLOCKED",
+      "evidence": "SSH pinned host key mismatch"
+    },
+    {
+      "gate": "rollback_ready",
+      "result": "BLOCKED",
+      "evidence": "Current production container/image/Compose unavailable"
+    },
+    {
+      "gate": "candidate_publication",
+      "result": "PASS",
+      "evidence": "Independent GitHub MCP readback in pinned stage attestation"
+    }
+  ]
+}

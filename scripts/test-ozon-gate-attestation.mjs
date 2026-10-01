@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {candidate,commands,verifyStage} from './ozon-gate-attestation.mjs';
+const options={fingerprint:'f'.repeat(64),manifestHash:'a'.repeat(64)};
+const evidence={source_commit:candidate,source_fingerprint:options.fingerprint,completed_at_utc:'2026-10-01T06:00:00Z',checks:commands.map(command=>({command,exit_code:0,completed_at_utc:'2026-10-01T06:00:00Z',stdout_sha256:'b'.repeat(64)})),loopback:{runtime_identity:{commit:candidate,version:'1.1.0-alpha.1',manifest_sha256:options.manifestHash,mode:'READ_ONLY',write_runtime_enabled:false}},publication:{observed_sha:candidate,repository:'stitcman/marketplace-mcp',branch:'codex/ozon-api-refresh-20261001',reader:'GitHub MCP get_commit',retrieved_at_utc:'2026-10-01T05:48:17Z'}};
+assert(Object.values(verifyStage(null,options)).every(x=>x==='BLOCKED'));
+assert(Object.values(verifyStage(evidence,options)).every(x=>x==='PASS'));
+assert(Object.values(verifyStage(evidence,{...options,fingerprint:'0'.repeat(64)})).every(x=>x==='BLOCKED'));
+const fail=structuredClone(evidence);fail.checks[1].exit_code=1;
+assert.equal(verifyStage(fail,options).full_suite,'BLOCKED');assert.equal(verifyStage(fail,options).security,'BLOCKED');
+const unpublished=structuredClone(evidence);unpublished.publication.observed_sha='0'.repeat(40);
+assert.equal(verifyStage(unpublished,options).candidate_publication,'BLOCKED');
+const wrongImage=structuredClone(evidence);wrongImage.loopback.runtime_identity.manifest_sha256='0'.repeat(64);
+assert.equal(verifyStage(wrongImage,options).candidate_runtime_identity,'BLOCKED');
+console.log('PASS gate attestation: missing evidence, source drift, failed suite, wrong publication and manifest fail closed');

@@ -1,0 +1,166 @@
+[
+  {
+    "family": "seller",
+    "kind": "spec",
+    "url": "https://docs.ozon.ru/api/seller/swagger.json?1790833747847",
+    "retrieved_at_utc": "2026-10-01T05:55:32.444Z",
+    "status": "UNAVAILABLE",
+    "reason": "REDIRECT_LIMIT",
+    "final_url": "https://docs.ozon.ru/api/seller/swagger.json?1790833747847&__rr=6",
+    "chain": [
+      {
+        "url": "https://docs.ozon.ru/api/seller/swagger.json?1790833747847",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/seller/swagger.json?1790833747847&__rr=1"
+      },
+      {
+        "url": "https://docs.ozon.ru/api/seller/swagger.json?1790833747847&__rr=1",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/seller/swagger.json?1790833747847&__rr=2"
+      },
+      {
+        "url": "https://docs.ozon.ru/api/seller/swagger.json?1790833747847&__rr=2",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/seller/swagger.json?1790833747847&__rr=3"
+      },
+      {
+        "url": "https://docs.ozon.ru/api/seller/swagger.json?1790833747847&__rr=3",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/seller/swagger.json?1790833747847&__rr=4"
+      },
+      {
+        "url": "https://docs.ozon.ru/api/seller/swagger.json?1790833747847&__rr=4",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/seller/swagger.json?1790833747847&__rr=5"
+      },
+      {
+        "url": "https://docs.ozon.ru/api/seller/swagger.json?1790833747847&__rr=5",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/seller/swagger.json?1790833747847&__rr=6"
+      }
+    ]
+  },
+  {
+    "family": "performance",
+    "kind": "spec",
+    "url": "https://docs.ozon.ru/api/performance/swagger.json",
+    "retrieved_at_utc": "2026-10-01T05:55:32.890Z",
+    "status": "UNAVAILABLE",
+    "reason": "REDIRECT_LIMIT",
+    "final_url": "https://docs.ozon.ru/api/performance/swagger.json?__rr=6",
+    "chain": [
+      {
+        "url": "https://docs.ozon.ru/api/performance/swagger.json",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/performance/swagger.json?__rr=1"
+      },
+      {
+        "url": "https://docs.ozon.ru/api/performance/swagger.json?__rr=1",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/performance/swagger.json?__rr=2"
+      },
+      {
+        "url": "https://docs.ozon.ru/api/performance/swagger.json?__rr=2",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/performance/swagger.json?__rr=3"
+      },
+      {
+        "url": "https://docs.ozon.ru/api/performance/swagger.json?__rr=3",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/performance/swagger.json?__rr=4"
+      },
+      {
+        "url": "https://docs.ozon.ru/api/performance/swagger.json?__rr=4",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/performance/swagger.json?__rr=5"
+      },
+      {
+        "url": "https://docs.ozon.ru/api/performance/swagger.json?__rr=5",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/performance/swagger.json?__rr=6"
+      }
+    ]
+  },
+  {
+    "family": "seller",
+    "kind": "loader",
+    "url": "https://docs.ozon.ru/api/seller/scripts/loadSwagger.js",
+    "retrieved_at_utc": "2026-10-01T05:55:32.981Z",
+    "status": "UNAVAILABLE",
+    "reason": "REDIRECT_LIMIT",
+    "final_url": "https://docs.ozon.ru/api/seller/scripts/loadSwagger.js?__rr=6",
+    "chain": [
+      {
+        "url": "https://docs.ozon.ru/api/seller/scripts/loadSwagger.js",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/seller/scripts/loadSwagger.js?__rr=1"
+      },
+      {
+        "url": "https://docs.ozon.ru/api/seller/scripts/loadSwagger.js?__rr=1",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/seller/scripts/loadSwagger.js?__rr=2"
+      },
+      {
+        "url": "https://docs.ozon.ru/api/seller/scripts/loadSwagger.js?__rr=2",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/seller/scripts/loadSwagger.js?__rr=3"
+      },
+      {
+        "url": "https://docs.ozon.ru/api/seller/scripts/loadSwagger.js?__rr=3",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/seller/scripts/loadSwagger.js?__rr=4"
+      },
+      {
+        "url": "https://docs.ozon.ru/api/seller/scripts/loadSwagger.js?__rr=4",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/seller/scripts/loadSwagger.js?__rr=5"
+      },
+      {
+        "url": "https://docs.ozon.ru/api/seller/scripts/loadSwagger.js?__rr=5",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/seller/scripts/loadSwagger.js?__rr=6"
+      }
+    ]
+  },
+  {
+    "family": "seller",
+    "kind": "loader",
+    "url": "https://docs.ozon.ru/api/seller/scripts/initRedoc.js",
+    "retrieved_at_utc": "2026-10-01T05:55:33.074Z",
+    "status": "UNAVAILABLE",
+    "reason": "REDIRECT_LIMIT",
+    "final_url": "https://docs.ozon.ru/api/seller/scripts/initRedoc.js?__rr=6",
+    "chain": [
+      {
+        "url": "https://docs.ozon.ru/api/seller/scripts/initRedoc.js",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/seller/scripts/initRedoc.js?__rr=1"
+      },
+      {
+        "url": "https://docs.ozon.ru/api/seller/scripts/initRedoc.js?__rr=1",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/seller/scripts/initRedoc.js?__rr=2"
+      },
+      {
+        "url": "https://docs.ozon.ru/api/seller/scripts/initRedoc.js?__rr=2",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/seller/scripts/initRedoc.js?__rr=3"
+      },
+      {
+        "url": "https://docs.ozon.ru/api/seller/scripts/initRedoc.js?__rr=3",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/seller/scripts/initRedoc.js?__rr=4"
+      },
+      {
+        "url": "https://docs.ozon.ru/api/seller/scripts/initRedoc.js?__rr=4",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/seller/scripts/initRedoc.js?__rr=5"
+      },
+      {
+        "url": "https://docs.ozon.ru/api/seller/scripts/initRedoc.js?__rr=5",
+        "status": 307,
+        "location": "https://docs.ozon.ru/api/seller/scripts/initRedoc.js?__rr=6"
+      }
+    ]
+  }
+]

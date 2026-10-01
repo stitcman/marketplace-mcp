@@ -1,0 +1,123 @@
+{
+  "source_commit": "4e29543d05fbd9c0b322b756d87226c94edbb463",
+  "source_fingerprint": "93e39aeedd4bc4f92551ad07c6552259d78773973df5db52195aa9c683b27280",
+  "completed_at_utc": "2026-10-01T06:09:17.240Z",
+  "checks": [
+    {
+      "command": "npm run build",
+      "started_at_utc": "2026-10-01T06:09:00.588Z",
+      "completed_at_utc": "2026-10-01T06:09:03.414Z",
+      "exit_code": 0,
+      "stdout_sha256": "ee7fef06db21fdfc4c93ee30f7eff31cd7700f0a6e60334b03a8592b00fcdf70",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "runner_error": null
+    },
+    {
+      "command": "npm test",
+      "started_at_utc": "2026-10-01T06:09:03.417Z",
+      "completed_at_utc": "2026-10-01T06:09:15.680Z",
+      "exit_code": 0,
+      "stdout_sha256": "b9512f7c3964daa0a179b34e20cd334bb54ce4b212ad172c295848404ef879e8",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "runner_error": null
+    },
+    {
+      "command": "npm run policies:check",
+      "started_at_utc": "2026-10-01T06:09:15.680Z",
+      "completed_at_utc": "2026-10-01T06:09:16.408Z",
+      "exit_code": 0,
+      "stdout_sha256": "0dfd27aa3461d4ec66de03c46cb5369aceba81e835921515f77d4c5dc2b0a074",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "runner_error": null
+    },
+    {
+      "command": "npm run baseline:check",
+      "started_at_utc": "2026-10-01T06:09:16.408Z",
+      "completed_at_utc": "2026-10-01T06:09:17.184Z",
+      "exit_code": 0,
+      "stdout_sha256": "4fc3285a480dd01d4b4d65054eb97176e79774e59175cf2b4197024f361ef39f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "runner_error": null
+    }
+  ],
+  "loopback": {
+    "as_of_utc": "2026-10-01T05:54:29.975Z",
+    "result": "PASS_LOOPBACK_PROTOCOL_ONLY",
+    "runtime_identity": {
+      "version": "1.1.0-alpha.1",
+      "commit": "4e29543d05fbd9c0b322b756d87226c94edbb463",
+      "manifest_sha256": "33016fd9096b5305a41ed8ce8527b1ada3daeba10a01cb51aadac702e05fe474",
+      "mode": "READ_ONLY",
+      "write_runtime_enabled": false
+    },
+    "internal_tools": [
+      "marketplace_runtime_identity",
+      "connections_list",
+      "connection_get",
+      "connection_test",
+      "marketplace_capabilities",
+      "wb_products_list",
+      "wb_stocks_get",
+      "wb_prices_get",
+      "wb_orders_list",
+      "ozon_products_list",
+      "ozon_stocks_get",
+      "ozon_prices_get",
+      "ozon_orders_list",
+      "ym_campaigns_list",
+      "ym_products_list",
+      "ym_stocks_get",
+      "ym_prices_get",
+      "ym_orders_list",
+      "ozon_read_search",
+      "ozon_read_describe",
+      "ozon_read_capabilities",
+      "ozon_read_execute",
+      "ozon_read_file",
+      "wb_read_search",
+      "wb_read_describe",
+      "wb_read_capabilities",
+      "wb_read_execute",
+      "wb_read_file",
+      "ym_read_search",
+      "ym_read_describe",
+      "ym_read_capabilities",
+      "ym_read_execute",
+      "ym_read_file"
+    ],
+    "model_visible_tools": [
+      "connections_list",
+      "connection_get",
+      "connection_test",
+      "marketplace_capabilities",
+      "wb_products_list",
+      "wb_stocks_get",
+      "wb_prices_get",
+      "wb_orders_list",
+      "ozon_products_list",
+      "ozon_stocks_get",
+      "ozon_prices_get",
+      "ozon_orders_list",
+      "ym_campaigns_list",
+      "ym_products_list",
+      "ym_stocks_get",
+      "ym_prices_get",
+      "ym_orders_list",
+      "ozon_read_execute"
+    ],
+    "store": "memory",
+    "live_credentials": false,
+    "candidate_live_read": false,
+    "container_identity_verified": false,
+    "image_id": null,
+    "image_digest": null
+  },
+  "publication": {
+    "repository": "stitcman/marketplace-mcp",
+    "branch": "codex/ozon-api-refresh-20261001",
+    "observed_sha": "4e29543d05fbd9c0b322b756d87226c94edbb463",
+    "reader": "GitHub MCP get_commit",
+    "retrieved_at_utc": "2026-10-01T06:08:57.928Z",
+    "url": "https://github.com/stitcman/marketplace-mcp/commit/4e29543d05fbd9c0b322b756d87226c94edbb463"
+  }
+}
