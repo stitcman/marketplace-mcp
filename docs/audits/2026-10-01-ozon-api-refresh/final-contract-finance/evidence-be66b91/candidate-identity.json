@@ -1,0 +1,20 @@
+{
+  "source_archive_sha256": "e490f38fb83cf04c394d3a0f56655eb22dd10dcf3efa139c2f7bd158b2aed085",
+  "commit": "be66b91bd7a3fd6469dd6c4371c5b3be296e84a2",
+  "container": "marketplace-mcp-ozon-final-be66b91bd7a3",
+  "container_id": "24d9859b6eaa5b7b13cb8e323d0568faa233f5ae7ab52d87c0871c399ae435b5",
+  "image_id": "sha256:36c5d34ea01a0a2f001461a4f86a2440580738a2840b519f59da378d1bf7bdf7",
+  "RepoTags": [
+    "marketplace-mcp/ozon-isolated:be66b91bd7a3"
+  ],
+  "RepoDigests": [
+    "marketplace-mcp/ozon-isolated@sha256:36c5d34ea01a0a2f001461a4f86a2440580738a2840b519f59da378d1bf7bdf7"
+  ],
+  "version": "1.1.0-rc.3",
+  "manifest_sha256": "1a9d6ea41e6eeeaec43d94693cf71893d9abcaf20a997801a383036424c46eb1",
+  "port": "127.0.0.1:19275",
+  "rollback": "READY",
+  "production_unchanged": true,
+  "database": "readonly; audit sink memory",
+  "build_log_sha256": "36818a2d937dd5bfba399bb093559bfe731e797d16d888b312a9ba325f0fb0f7"
+}

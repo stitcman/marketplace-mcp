@@ -1,0 +1,38 @@
+{
+  "runtime_commit": "be66b91bd7a3fd6469dd6c4371c5b3be296e84a2",
+  "at_utc": "2026-10-01T09:54:00.438359+00:00",
+  "mandatory_gates": {
+    "production_identity": "PASS",
+    "rollback_ready": "PASS",
+    "prices_v5_two_pages": "PASS",
+    "stocks_v4_two_pages": "PASS",
+    "stocks_rfbs": "PASS",
+    "fbs_v4": "PASS",
+    "fbs_unfulfilled": "PASS",
+    "fbo_v3": "PASS",
+    "finance_accrual_types": "PASS",
+    "finance_accrual_by_day": "PASS",
+    "finance_accrual_postings": "PASS",
+    "finance_reconciliation": "PASS",
+    "mos_compatibility": "PASS",
+    "official_method_inventory_529_of_529": "PASS",
+    "full_official_contract": "PASS",
+    "security": "PASS",
+    "build": "PASS",
+    "tests": "PASS",
+    "policy_check": "PASS",
+    "baseline_check": "PASS"
+  },
+  "performance_live": "NOT_APPLICABLE_NO_CREDENTIALS",
+  "all_methods_current": "YES",
+  "production_deployment_authorized_by_task": true,
+  "production_deployed": false,
+  "evidence_sha256": {
+    "candidate-identity.json": "75b8df08227581bf3995c2d6cab21ca99a68a8ceef18df5c1ef2c1afc561f54b",
+    "final-runtime-attestation.json": "6a7e3e2ebdf95212ea191915ff9ddc42cdd225647532408aff802f9a6c900cfc",
+    "finance-separate-control.json": "452a73c6af331f959cd1acdf74b860c01d029a2596cd0fd329f417ec1fbb2f36",
+    "mos-candidate-live-parser.json": "e535371fe73371b8b2d006c073896249eb14359b02f8cdcd062518730b2b1727",
+    "security-live.json": "3282ac96b8910895f21ca5954811d274ec88ce0e66100c8cfb5f696cd005eae9",
+    "smoke-live.json": "ad854c19e66423ea9e1cc7efc8501c36cd1bda97b8ab23f7d9e94a3a14301bfa"
+  }
+}

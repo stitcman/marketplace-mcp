@@ -1,0 +1,248 @@
+{
+  "started_at_utc": "2026-10-01T09:56:25.404Z",
+  "target": "isolated candidate",
+  "reads": [
+    {
+      "label": "marketplace_runtime_identity",
+      "tool": "marketplace_runtime_identity",
+      "method_id": null,
+      "result": "PASS",
+      "error_code": null,
+      "source": "internal",
+      "count": null,
+      "has_more": false,
+      "data_keys": [
+        "version",
+        "commit",
+        "manifest_sha256",
+        "mode",
+        "write_runtime_enabled"
+      ],
+      "at_utc": "2026-10-01T09:56:27.181Z"
+    },
+    {
+      "label": "connections_list",
+      "tool": "connections_list",
+      "method_id": null,
+      "result": "PASS",
+      "error_code": null,
+      "source": "internal",
+      "count": 6,
+      "has_more": false,
+      "data_keys": [
+        "items"
+      ],
+      "at_utc": "2026-10-01T09:56:27.274Z"
+    },
+    {
+      "label": "prices v5 page 1",
+      "tool": "ozon_prices_get",
+      "method_id": null,
+      "result": "PASS",
+      "error_code": null,
+      "source": "official_api",
+      "count": 1,
+      "has_more": true,
+      "data_keys": [
+        "items",
+        "has_more",
+        "next_cursor"
+      ],
+      "at_utc": "2026-10-01T09:56:27.450Z"
+    },
+    {
+      "label": "prices v5 page 2",
+      "tool": "ozon_prices_get",
+      "method_id": null,
+      "result": "PASS",
+      "error_code": null,
+      "source": "official_api",
+      "count": 1,
+      "has_more": true,
+      "data_keys": [
+        "items",
+        "has_more",
+        "next_cursor"
+      ],
+      "at_utc": "2026-10-01T09:56:27.577Z"
+    },
+    {
+      "label": "stocks v4 page 1",
+      "tool": "ozon_stocks_get",
+      "method_id": null,
+      "result": "PASS",
+      "error_code": null,
+      "source": "official_api",
+      "count": 3,
+      "has_more": true,
+      "data_keys": [
+        "items",
+        "has_more",
+        "next_cursor"
+      ],
+      "at_utc": "2026-10-01T09:56:27.783Z"
+    },
+    {
+      "label": "stocks v4 page 2",
+      "tool": "ozon_stocks_get",
+      "method_id": null,
+      "result": "PASS",
+      "error_code": null,
+      "source": "official_api",
+      "count": 3,
+      "has_more": true,
+      "data_keys": [
+        "items",
+        "has_more",
+        "next_cursor"
+      ],
+      "at_utc": "2026-10-01T09:56:27.914Z"
+    },
+    {
+      "label": "stocks rFBS",
+      "tool": "ozon_stocks_get",
+      "method_id": null,
+      "result": "PASS",
+      "error_code": null,
+      "source": "official_api",
+      "count": 110,
+      "has_more": true,
+      "data_keys": [
+        "items",
+        "has_more",
+        "next_cursor"
+      ],
+      "at_utc": "2026-10-01T09:56:28.011Z"
+    },
+    {
+      "label": "FBS v4",
+      "tool": "ozon_read_execute",
+      "method_id": "PostingFbsList",
+      "result": "PASS",
+      "error_code": null,
+      "source": "official_api",
+      "count": 1,
+      "has_more": true,
+      "data_keys": [
+        "has_next",
+        "cursor",
+        "postings"
+      ],
+      "at_utc": "2026-10-01T09:56:28.187Z"
+    },
+    {
+      "label": "FBS unfulfilled",
+      "tool": "ozon_read_execute",
+      "method_id": "PostingFbsUnfulfilledList",
+      "result": "PASS",
+      "error_code": null,
+      "source": "official_api",
+      "count": 1,
+      "has_more": true,
+      "data_keys": [
+        "has_next",
+        "cursor",
+        "postings",
+        "count"
+      ],
+      "at_utc": "2026-10-01T09:56:28.349Z"
+    },
+    {
+      "label": "FBO v3",
+      "tool": "ozon_read_execute",
+      "method_id": "PostingFboList",
+      "result": "PASS",
+      "error_code": null,
+      "source": "official_api",
+      "count": 1,
+      "has_more": true,
+      "data_keys": [
+        "has_next",
+        "cursor",
+        "postings"
+      ],
+      "at_utc": "2026-10-01T09:56:28.407Z"
+    },
+    {
+      "label": "finance accrual types",
+      "tool": "ozon_read_execute",
+      "method_id": "GetFinanceAccrualTypes",
+      "result": "PASS",
+      "error_code": null,
+      "source": "official_api",
+      "count": null,
+      "has_more": false,
+      "data_keys": [
+        "accrual_types"
+      ],
+      "at_utc": "2026-10-01T09:56:28.481Z"
+    },
+    {
+      "label": "roles",
+      "tool": "ozon_read_execute",
+      "method_id": "AccessAPI_RolesByToken",
+      "result": "PASS",
+      "error_code": null,
+      "source": "official_api",
+      "count": null,
+      "has_more": false,
+      "data_keys": [
+        "roles",
+        "expires_at"
+      ],
+      "at_utc": "2026-10-01T09:56:28.522Z"
+    },
+    {
+      "label": "stocks FBO",
+      "tool": "ozon_stocks_get",
+      "method_id": null,
+      "result": "PASS",
+      "error_code": null,
+      "source": "official_api",
+      "count": 76,
+      "has_more": true,
+      "data_keys": [
+        "items",
+        "has_more",
+        "next_cursor"
+      ],
+      "at_utc": "2026-10-01T09:56:28.643Z"
+    },
+    {
+      "label": "stocks FBS",
+      "tool": "ozon_stocks_get",
+      "method_id": null,
+      "result": "PASS",
+      "error_code": null,
+      "source": "official_api",
+      "count": 131,
+      "has_more": true,
+      "data_keys": [
+        "items",
+        "has_more",
+        "next_cursor"
+      ],
+      "at_utc": "2026-10-01T09:56:28.736Z"
+    }
+  ],
+  "write_requests_sent": 0,
+  "catalog": {
+    "count": 33,
+    "write_tools": []
+  },
+  "identity": {
+    "version": "1.1.0",
+    "commit": "927a00427b67b3bfe1887070b2f0623ca2f74863",
+    "manifest_sha256": "9e51f9ee49db2121c1b77015e2143ce3a46cda60352af28443a453b955f5793d",
+    "mode": "READ_ONLY",
+    "write_runtime_enabled": false
+  },
+  "connection": {
+    "active": true,
+    "mock": false,
+    "sandbox": false
+  },
+  "rfbs_observed": 110,
+  "status": "PASS",
+  "completed_at_utc": "2026-10-01T09:56:28.737Z"
+}

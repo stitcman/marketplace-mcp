@@ -1,6 +1,7 @@
 import json, pathlib, subprocess, hashlib, os, sys
 commit=sys.argv[1]
 assert len(commit)==40 and all(c in '0123456789abcdef' for c in commit)
+assert sys.argv[2] in ['19275','19276']
 base=pathlib.Path('/opt/marketplace-mcp/release-closure-20261001')
 stage=base/'final-contract-finance'/commit[:12]
 stage.mkdir(parents=True,exist_ok=True)
@@ -24,10 +25,10 @@ probe=stage/'probe';probe.mkdir(exist_ok=True);probe.chmod(0o755)
 (probe/'readonly-preload.mjs').write_bytes((base/'probe/readonly-preload.mjs').read_bytes())
 cmd=prod['Config']['Cmd'][0].replace('node dist/index.js --http','node --import /gate/readonly-preload.mjs dist/index.js --http')
 name='marketplace-mcp-ozon-final-'+commit[:12]
-cid=run('docker','run','-d','--name',name,'--network','marketplace-mcp-internal','--read-only','--security-opt','no-new-privileges:true','--cap-drop','ALL','--cap-add','SETUID','--cap-add','SETGID','--memory','256m','--cpus','0.5','--pids-limit','128','--user','0:0','--tmpfs','/tmp:rw,noexec,nosuid,nodev,size=32m','-p','127.0.0.1:19274:3000','-v','/run/credentials/marketplace-mcp.service:/run/secrets:ro','-v',str(probe)+':/gate:ro','--entrypoint','/bin/sh',tag,'-eu','-c',cmd)
+cid=run('docker','run','-d','--name',name,'--network','marketplace-mcp-internal','--read-only','--security-opt','no-new-privileges:true','--cap-drop','ALL','--cap-add','SETUID','--cap-add','SETGID','--memory','256m','--memory-swap','256m','--cpus','0.5','--pids-limit','128','--user','0:0','--tmpfs','/tmp:rw,noexec,nosuid,nodev,size=32m','-p','127.0.0.1:'+sys.argv[2]+':3000','-v','/run/credentials/marketplace-mcp.service:/run/secrets:ro','-v',str(probe)+':/gate:ro','--entrypoint','/bin/sh',tag,'-eu','-c',cmd)
 run('docker','network','connect','marketplace-mcp-egress',cid)
 image=json.loads(run('docker','image','inspect',tag))[0]
 after=json.loads(run('docker','inspect','marketplace-mcp-router-1'))[0]
 assert after['Id']==prod['Id'] and after['Image']==prod['Image']
-result={'source_archive_sha256':archive_sha256,'commit':commit,'container':name,'container_id':cid,'image_id':image['Id'],'RepoTags':image['RepoTags'],'RepoDigests':image.get('RepoDigests',[]),'version':json.loads(run('docker','exec',name,'cat','/app/package.json'))['version'],'manifest_sha256':run('docker','exec',name,'sha256sum','/app/MARKETPLACE_MCP_MANIFEST.yaml').split()[0],'port':'127.0.0.1:19274','rollback':'READY','production_unchanged':True,'database':'readonly; audit sink memory','build_log_sha256':hashlib.file_digest((stage/'build.log').open('rb'),'sha256').hexdigest()}
+result={'source_archive_sha256':archive_sha256,'commit':commit,'container':name,'container_id':cid,'image_id':image['Id'],'RepoTags':image['RepoTags'],'RepoDigests':image.get('RepoDigests',[]),'version':json.loads(run('docker','exec',name,'cat','/app/package.json'))['version'],'manifest_sha256':run('docker','exec',name,'sha256sum','/app/MARKETPLACE_MCP_MANIFEST.yaml').split()[0],'port':'127.0.0.1:'+sys.argv[2],'rollback':'READY','production_unchanged':True,'database':'readonly; audit sink memory','build_log_sha256':hashlib.file_digest((stage/'build.log').open('rb'),'sha256').hexdigest()}
 (stage/'candidate-identity.json').write_text(json.dumps(result,indent=2));print(json.dumps(result))

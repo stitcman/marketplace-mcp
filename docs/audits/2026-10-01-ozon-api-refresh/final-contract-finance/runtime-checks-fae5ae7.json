@@ -1,0 +1,40 @@
+{
+  "at_utc": "2026-10-01T08:42:43.974238+00:00",
+  "runtime_commit": "fae5ae77cd228103c1724b37bc6333d03d12d1c1",
+  "runtime_tree_diff": [],
+  "runtime_source_sha256": "6f4c4a8b9610d8045f4bfd0fa9ea26d97e78d0db6d986ad57553b17431958dcb",
+  "runtime_files": 48,
+  "test_harness_sha256": {
+    "test/ozon-finance-reconciliation.test.mjs": "0e0cbcc7971634a4445ef15c8667532e66842c04c3088f45a648b312a85ae099",
+    "docs/audits/2026-10-01-ozon-api-refresh/final-contract-finance/finance-reconcile.mjs": "c55515a0262e13d3fe84eca94d562008429d397a966da96de1b876f663212ba1",
+    "test/ozon-rendered-snapshot.test.mjs": "250440a3cdc38db978e111ac1e7657db32df065b909d77c7ec98a5cf9e81bf99"
+  },
+  "results": [
+    {
+      "command": "npm run build",
+      "exit_code": 0,
+      "output_sha256": "bc2fbf9a3586c51a3b7bb94aca7b6b210eb6caefe7d6c010be9b74f454071722"
+    },
+    {
+      "command": "npm test",
+      "exit_code": 0,
+      "output_sha256": "ba35899835c8273565c4de93ef8f7c833f01f71389c4f9d9f14a034bf208dc15"
+    },
+    {
+      "command": "npm run policies:check",
+      "exit_code": 0,
+      "output_sha256": "29b08aff1508626a4c17aa526c81338dd6314912a5e8b555672add0a1c6d0c0e"
+    },
+    {
+      "command": "npm run baseline:check",
+      "exit_code": 0,
+      "output_sha256": "296ba93d327915a4c3fac1401611159df02d18beb7cccb85ffab87eb6419cf9b"
+    },
+    {
+      "command": "node test/ozon-rendered-snapshot.test.mjs",
+      "exit_code": 0,
+      "output_sha256": "a4ad1660b27703759827ac6a2bb9970e86889313d323cc7d72b175fbe5a6c91c"
+    }
+  ],
+  "status": "PASS"
+}

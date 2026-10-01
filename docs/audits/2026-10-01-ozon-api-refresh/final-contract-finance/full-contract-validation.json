@@ -1,0 +1,36 @@
+{
+  "counts": {
+    "seller": 481,
+    "performance": 48,
+    "total": 529
+  },
+  "normalized_content_sha256": "6123fa07c1efbac9436d1bfca6a2305b9f6dcc9ea3b2f18a4310bea718d5d71e",
+  "raw_source_sha256": {
+    "official-seller-full-rendered.json": "bbf73be0db7f3d95ae3ff023e8ab425c76cd6d88942b0373ee1888222210dacf",
+    "official-performance-full-rendered.json": "351fb39b0f0d7ffd3e42d5c6dc56a3e10a3242b9a90edcc8cf4df1508c564a8d"
+  },
+  "duplicates": [
+    {
+      "key": "seller|GetProductInfoStocksByWarehouseFbo|POST|/v1/product/info/stocks-by-warehouse/fbo",
+      "identical": true
+    }
+  ],
+  "all_529_source_hash_bound": true,
+  "all_277_admitted_request_schemas_expanded": true,
+  "classification_counts": {
+    "READ": 269,
+    "WRITE": 187,
+    "DESTRUCTIVE": 48,
+    "SEMANTIC_READ_JOB": 25
+  },
+  "unknown_classification": 0,
+  "allowlist_count": 277,
+  "denied_count": 252,
+  "credential_families": {
+    "seller": 481,
+    "performance": 48
+  },
+  "source_role": "official rendered documentation; pinned OpenAPI used only for historical base; current membership/source/allowed request schemas override it",
+  "retirement_rule": "explicit dated method-disconnection announcement; absence alone never invents removal date",
+  "unsafe_admission": 0
+}

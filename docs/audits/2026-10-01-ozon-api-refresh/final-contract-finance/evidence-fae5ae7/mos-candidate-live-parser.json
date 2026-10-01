@@ -1,0 +1,41 @@
+{
+  "source": "actual running MOS API filesystem pure parser; no DB imports/runtime sync",
+  "candidate": "fae5ae77cd228103c1724b37bc6333d03d12d1c1",
+  "payload_source": "candidate real MCP READ, host-only memory pipe",
+  "results": [
+    {
+      "capability": "catalog.prices",
+      "result": "PASS",
+      "records": 1,
+      "next_cursor_present": true
+    },
+    {
+      "capability": "inventory.stock_totals",
+      "result": "PASS",
+      "records": 1,
+      "next_cursor_present": true
+    },
+    {
+      "capability": "commerce.fbs_postings",
+      "result": "PASS",
+      "records": 1,
+      "next_cursor_present": true
+    },
+    {
+      "capability": "commerce.fbo_postings",
+      "result": "PASS",
+      "records": 1,
+      "next_cursor_present": true
+    },
+    {
+      "capability": "commerce.fbs_unfulfilled",
+      "result": "PASS",
+      "records": 1,
+      "next_cursor_present": true
+    }
+  ],
+  "mos_mutations": 0,
+  "mos_container_id": "ffa09b45511bbe1c4e63b5fd1b0bc383c7af34b35056097e1f72ebdcf57cc3cf",
+  "mos_image_id": "sha256:153730e08fdf4f1e7648e9a381103e105ea6e3e115d904292fac92b2879082c3",
+  "status": "PASS"
+}

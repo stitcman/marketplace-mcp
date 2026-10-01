@@ -1,0 +1,165 @@
+{
+  "started_at_utc": "2026-10-01T09:59:55.327Z",
+  "write_requests_sent": 0,
+  "target": "isolated candidate",
+  "date": "2026-09-30",
+  "max_packed_call_bytes": 252436,
+  "runtime_identity": {
+    "version": "1.1.0",
+    "commit": "927a00427b67b3bfe1887070b2f0623ca2f74863",
+    "manifest_sha256": "9e51f9ee49db2121c1b77015e2143ce3a46cda60352af28443a453b955f5793d",
+    "mode": "READ_ONLY",
+    "write_runtime_enabled": false
+  },
+  "write_tools_visible": 0,
+  "database_transaction_readonly": "on",
+  "performance": "NOT_APPLICABLE_NO_CREDENTIALS",
+  "finance_by_day_progress": {
+    "records": 986,
+    "local_chunks": 7,
+    "upstream_pages": 1,
+    "max_mcp_bytes": 253434
+  },
+  "phase": "direct:/v1/finance/accrual/postings",
+  "finance_by_day": {
+    "status": "PASS",
+    "upstream_pages": 1,
+    "local_chunks": 7,
+    "records": 986,
+    "unique_accrual_ids": 986,
+    "posting_linked": 277,
+    "non_posting": 709,
+    "money_totals": {
+      "RUB": "545218.4"
+    },
+    "max_mcp_bytes": 253434
+  },
+  "single_posting": "PASS",
+  "finance_postings_progress": {
+    "batches": 3,
+    "posting_numbers_completed": 233,
+    "total_posting_numbers": 233,
+    "records": 233,
+    "local_chunks": 4
+  },
+  "relevant_accrual_types": [
+    {
+      "id": 3,
+      "name": "BrandCommission",
+      "description": "\u041f\u0440\u043e\u0434\u0432\u0438\u0436\u0435\u043d\u0438\u0435 \u0431\u0440\u0435\u043d\u0434\u0430"
+    },
+    {
+      "id": 17,
+      "name": "Drop-Off Agent",
+      "description": "\u041e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0430 \u043e\u0442\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u044f Drop-off \u043f\u0430\u0440\u0442\u043d\u0451\u0440\u0430\u043c\u0438"
+    },
+    {
+      "id": 29,
+      "name": "LastMileCourier",
+      "description": "\u0414\u043e\u0441\u0442\u0430\u0432\u043a\u0430 \u0434\u043e \u043c\u0435\u0441\u0442\u0430 \u0432\u044b\u0434\u0430\u0447\u0438"
+    },
+    {
+      "id": 32,
+      "name": "Logistic",
+      "description": "\u041b\u043e\u0433\u0438\u0441\u0442\u0438\u043a\u0430"
+    },
+    {
+      "id": 69,
+      "name": "SaleCommission",
+      "description": "\u0412\u043e\u0437\u043d\u0430\u0433\u0440\u0430\u0436\u0434\u0435\u043d\u0438\u0435 \u0437\u0430 \u043f\u0440\u043e\u0434\u0430\u0436\u0443"
+    },
+    {
+      "id": 94,
+      "name": "DefectFineShipmentDelayRate",
+      "description": "\u041e\u0442\u0433\u0440\u0443\u0437\u043a\u0430 \u0432 \u043d\u0435\u0440\u0435\u043a\u043e\u043c\u0435\u043d\u0434\u043e\u0432\u0430\u043d\u043d\u044b\u0439 \u0441\u043b\u043e\u0442"
+    }
+  ],
+  "cross_endpoint": {
+    "status": "PASS",
+    "posting_numbers": 233,
+    "matched_posting_components": 233,
+    "by_day_arithmetic_matched": 233,
+    "common_postings_fee_records": 811,
+    "posting_date_records": 1094,
+    "other_date_history_records": 27,
+    "other_postings_fee_types": [
+      {
+        "type_id": 3,
+        "name": "BrandCommission",
+        "records": 228,
+        "money_totals": {
+          "RUB": "-8949.42"
+        }
+      },
+      {
+        "type_id": 94,
+        "name": "DefectFineShipmentDelayRate",
+        "records": 55,
+        "money_totals": {
+          "RUB": "-4138.64"
+        }
+      }
+    ],
+    "difference_count": 0,
+    "differences": [],
+    "unknown_type_ids": [],
+    "semantic_scope": "By-day POSTING total includes sale_amount, commission and delivery. Compare SaleCommission and explicitly typed delivery services by posting/date/type/currency. Postings fees outside these components are reported separately by official accrual type; all-date history is excluded. Whole endpoint totals are not asserted equal."
+  },
+  "finance_postings": {
+    "status": "PASS",
+    "local_chunks": 4,
+    "posting_numbers": 233,
+    "batches": 3,
+    "records": 233
+  },
+  "finance_reconciliation": {
+    "status": "PASS",
+    "candidate_reconstructed_totals": {
+      "RUB": "545218.4"
+    },
+    "direct_control_totals": {
+      "RUB": "545218.4"
+    },
+    "difference": {
+      "RUB": "0"
+    },
+    "exact_records": true,
+    "exact_ids": true,
+    "exact_cursor_traversal": true,
+    "exact_postings": true,
+    "cross_endpoint": {
+      "status": "PASS",
+      "posting_numbers": 233,
+      "matched_posting_components": 233,
+      "by_day_arithmetic_matched": 233,
+      "common_postings_fee_records": 811,
+      "posting_date_records": 1094,
+      "other_date_history_records": 27,
+      "other_postings_fee_types": [
+        {
+          "type_id": 3,
+          "name": "BrandCommission",
+          "records": 228,
+          "money_totals": {
+            "RUB": "-8949.42"
+          }
+        },
+        {
+          "type_id": 94,
+          "name": "DefectFineShipmentDelayRate",
+          "records": 55,
+          "money_totals": {
+            "RUB": "-4138.64"
+          }
+        }
+      ],
+      "difference_count": 0,
+      "differences": [],
+      "unknown_type_ids": [],
+      "semantic_scope": "By-day POSTING total includes sale_amount, commission and delivery. Compare SaleCommission and explicitly typed delivery services by posting/date/type/currency. Postings fees outside these components are reported separately by official accrual type; all-date history is excluded. Whole endpoint totals are not asserted equal."
+    }
+  },
+  "status": "PASS",
+  "probe_peak_rss_kib": 103812,
+  "completed_at_utc": "2026-10-01T10:00:08.614Z"
+}

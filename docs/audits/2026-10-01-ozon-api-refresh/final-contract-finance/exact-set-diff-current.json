@@ -1,0 +1,338 @@
+{
+  "historical_records": 511,
+  "seller_nodes": 482,
+  "seller_unique": 481,
+  "performance_unique": 48,
+  "current_unique": 529,
+  "historical_matched": 509,
+  "added": [
+    {
+      "family": "seller",
+      "method_id": "ActionsAutoAddProductsCandidatesV2",
+      "http_method": "POST",
+      "path": "/v2/actions/auto-add/products/candidates",
+      "source_url": "https://docs.ozon.ru/api/seller/#operation/ActionsAutoAddProductsCandidatesV2",
+      "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+      "source_sha256": "eb074ddd21c380def9bbad338e98a59735889886e94dccb0700bfb80111537d4",
+      "request_closed_schema_nodes": 0,
+      "closed_schema_nodes": 0
+    },
+    {
+      "family": "seller",
+      "method_id": "ActionsAutoAddProductsDeleteV2",
+      "http_method": "POST",
+      "path": "/v2/actions/auto-add/products/delete",
+      "source_url": "https://docs.ozon.ru/api/seller/#operation/ActionsAutoAddProductsDeleteV2",
+      "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+      "source_sha256": "6dd65e176232316a99aacb6029303ce07d7b72429456b05258a197c8ccc24ad1",
+      "request_closed_schema_nodes": 0,
+      "closed_schema_nodes": 0
+    },
+    {
+      "family": "seller",
+      "method_id": "ActionsAutoAddProductsListV2",
+      "http_method": "POST",
+      "path": "/v2/actions/auto-add/products/list",
+      "source_url": "https://docs.ozon.ru/api/seller/#operation/ActionsAutoAddProductsListV2",
+      "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+      "source_sha256": "faa0ab40af6b42811721fa38a021de3603e2276830c6d2f891a116992cc38f44",
+      "request_closed_schema_nodes": 0,
+      "closed_schema_nodes": 0
+    },
+    {
+      "family": "seller",
+      "method_id": "ActionsAutoAddProductsUpdateV2",
+      "http_method": "POST",
+      "path": "/v2/actions/auto-add/products/update",
+      "source_url": "https://docs.ozon.ru/api/seller/#operation/ActionsAutoAddProductsUpdateV2",
+      "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+      "source_sha256": "056047adecc67b79b90d804b7ed7e590933ee469da9ee16f59d25ed88ee859ae",
+      "request_closed_schema_nodes": 0,
+      "closed_schema_nodes": 0
+    },
+    {
+      "family": "seller",
+      "method_id": "ActionsCandidates",
+      "http_method": "POST",
+      "path": "/v2/actions/candidates",
+      "source_url": "https://docs.ozon.ru/api/seller/#operation/ActionsCandidates",
+      "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+      "source_sha256": "612331dd7638a1ac5a84c1001149848e1758752d8bccc8b77c56eba2a33c752b",
+      "request_closed_schema_nodes": 0,
+      "closed_schema_nodes": 0
+    },
+    {
+      "family": "seller",
+      "method_id": "ActionsProductsDeactivate",
+      "http_method": "POST",
+      "path": "/v2/actions/products/deactivate",
+      "source_url": "https://docs.ozon.ru/api/seller/#operation/ActionsProductsDeactivate",
+      "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+      "source_sha256": "943ae8da5b2fa672c0d53329595b4ced887cdf6dfd3b87307a15d23c53b414e9",
+      "request_closed_schema_nodes": 0,
+      "closed_schema_nodes": 0
+    },
+    {
+      "family": "seller",
+      "method_id": "ActionsProductsUpdate",
+      "http_method": "POST",
+      "path": "/v1/actions/products/update",
+      "source_url": "https://docs.ozon.ru/api/seller/#operation/ActionsProductsUpdate",
+      "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+      "source_sha256": "e2638417d119eb5295186deda9e8d0ee2a6f45219ebae35f3ef98c6b8a712162",
+      "request_closed_schema_nodes": 0,
+      "closed_schema_nodes": 0
+    },
+    {
+      "family": "seller",
+      "method_id": "ActionsProducts",
+      "http_method": "POST",
+      "path": "/v2/actions/products",
+      "source_url": "https://docs.ozon.ru/api/seller/#operation/ActionsProducts",
+      "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+      "source_sha256": "7edb33a5a3bd0138e32b3299cdead734cd8cd71e2bf2e732e79e39c0c77dcc87",
+      "request_closed_schema_nodes": 0,
+      "closed_schema_nodes": 0
+    },
+    {
+      "family": "seller",
+      "method_id": "AnalyticsCategoryComparison",
+      "http_method": "POST",
+      "path": "/v1/analytics/category/comparison",
+      "source_url": "https://docs.ozon.ru/api/seller/#operation/AnalyticsCategoryComparison",
+      "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+      "source_sha256": "7c2ea5e5fc3ebb984883bf13cba8633efdc92e9e560ba4885bee9ac6666e0be3",
+      "request_closed_schema_nodes": 0,
+      "closed_schema_nodes": 0
+    },
+    {
+      "family": "seller",
+      "method_id": "AnalyticsDecommissionedGoods",
+      "http_method": "POST",
+      "path": "/v1/analytics/decommissioned-goods",
+      "source_url": "https://docs.ozon.ru/api/seller/#operation/AnalyticsDecommissionedGoods",
+      "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+      "source_sha256": "e4f0ef44e1388a4b70c4544ec3bb15d49adbc8cb65b767edd06512385b730b38",
+      "request_closed_schema_nodes": 0,
+      "closed_schema_nodes": 0
+    },
+    {
+      "family": "seller",
+      "method_id": "AnalyticsLocalSaleClustersItemsInfo",
+      "http_method": "POST",
+      "path": "/v1/analytics/local-sale/clusters-items/info",
+      "source_url": "https://docs.ozon.ru/api/seller/#operation/AnalyticsLocalSaleClustersItemsInfo",
+      "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+      "source_sha256": "dd32673d93556682f8f8fb699a2b6744a093c203306059851bb45f19c01fd94c",
+      "request_closed_schema_nodes": 0,
+      "closed_schema_nodes": 0
+    },
+    {
+      "family": "seller",
+      "method_id": "AnalyticsLocalSaleItemsClustersInfo",
+      "http_method": "POST",
+      "path": "/v1/analytics/local-sale/items-clusters/info",
+      "source_url": "https://docs.ozon.ru/api/seller/#operation/AnalyticsLocalSaleItemsClustersInfo",
+      "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+      "source_sha256": "9ec806941077722fd862e215557f216aa10ef5bc08853846507af80ef3954779",
+      "request_closed_schema_nodes": 0,
+      "closed_schema_nodes": 0
+    },
+    {
+      "family": "seller",
+      "method_id": "AnalyticsLocalSaleTotal",
+      "http_method": "POST",
+      "path": "/v1/analytics/local-sale/total",
+      "source_url": "https://docs.ozon.ru/api/seller/#operation/AnalyticsLocalSaleTotal",
+      "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+      "source_sha256": "767c6cda3754a49feca5e30e14f8ba5facee18ad6e2f3c68caff8def4f22996e",
+      "request_closed_schema_nodes": 0,
+      "closed_schema_nodes": 0
+    },
+    {
+      "family": "seller",
+      "method_id": "DescriptionCategoryDependentAttributesValues",
+      "http_method": "POST",
+      "path": "/v1/description-category/dependent-attributes/values",
+      "source_url": "https://docs.ozon.ru/api/seller/#operation/DescriptionCategoryDependentAttributesValues",
+      "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+      "source_sha256": "d766a7eec578c8b7653cd0261cff045a90d4d2eba8cd6724dd0a8763794edebe",
+      "request_closed_schema_nodes": 0,
+      "closed_schema_nodes": 0
+    },
+    {
+      "family": "seller",
+      "method_id": "DescriptionCategoryDependentAttributes",
+      "http_method": "POST",
+      "path": "/v1/description-category/dependent-attributes",
+      "source_url": "https://docs.ozon.ru/api/seller/#operation/DescriptionCategoryDependentAttributes",
+      "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+      "source_sha256": "c523239286ba36de6e2bb45bc4f9d98d1d1c4fdc00f046c4a44e163de1a4295a",
+      "request_closed_schema_nodes": 0,
+      "closed_schema_nodes": 0
+    },
+    {
+      "family": "seller",
+      "method_id": "FbpOrderDirectTplDlvEdit",
+      "http_method": "POST",
+      "path": "/v1/fbp/order/direct/tpl-dlv/edit",
+      "source_url": "https://docs.ozon.ru/api/seller/#operation/FbpOrderDirectTplDlvEdit",
+      "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+      "source_sha256": "66c61da0311a9642350ac5dd988eb7ffb7624348c5f97686dc66494e239e327a",
+      "request_closed_schema_nodes": 0,
+      "closed_schema_nodes": 0
+    },
+    {
+      "family": "seller",
+      "method_id": "PostingFbsPackageLabelCreate",
+      "http_method": "POST",
+      "path": "/v3/posting/fbs/package-label/create",
+      "source_url": "https://docs.ozon.ru/api/seller/#operation/PostingFbsPackageLabelCreate",
+      "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+      "source_sha256": "caeab128958d5f0936272afdf325bc4c627e92cf6840c2c76cd369ddbe53f178",
+      "request_closed_schema_nodes": 0,
+      "closed_schema_nodes": 0
+    },
+    {
+      "family": "seller",
+      "method_id": "PostingFbsPackageLabelGet",
+      "http_method": "POST",
+      "path": "/v2/posting/fbs/package-label/get",
+      "source_url": "https://docs.ozon.ru/api/seller/#operation/PostingFbsPackageLabelGet",
+      "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+      "source_sha256": "7ddc92c7272d17abc1adace167f5bef803a58dda6563b1c5a8cf10d18b7428dd",
+      "request_closed_schema_nodes": 0,
+      "closed_schema_nodes": 0
+    },
+    {
+      "family": "seller",
+      "method_id": "ProductImportPicturesV2",
+      "http_method": "POST",
+      "path": "/v2/product/pictures/import",
+      "source_url": "https://docs.ozon.ru/api/seller/#operation/ProductImportPicturesV2",
+      "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+      "source_sha256": "7a88755a4024ac1cc6fb458197b872a9317b71ce72c8ec949e770ce63e48ca1f",
+      "request_closed_schema_nodes": 0,
+      "closed_schema_nodes": 0
+    },
+    {
+      "family": "seller",
+      "method_id": "WarehouseRfbsReturnPointList",
+      "http_method": "POST",
+      "path": "/v1/warehouse/rfbs/return-point/list",
+      "source_url": "https://docs.ozon.ru/api/seller/#operation/WarehouseRfbsReturnPointList",
+      "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+      "source_sha256": "a21e6969e911173df8d5316e12336a93cfef4e4884c784897d600593a1d4c40a",
+      "request_closed_schema_nodes": 0,
+      "closed_schema_nodes": 0
+    }
+  ],
+  "absent": [
+    {
+      "method_id": "QuantGetInfo",
+      "domain": "quants",
+      "path": "/v1/product/quant/info",
+      "http_method": "POST",
+      "classification": "READ",
+      "safety": "read",
+      "reason": "Explicitly classified data retrieval",
+      "permission": "catalog.read",
+      "endpoint_group": "quants",
+      "pagination": "none",
+      "file_download": false,
+      "report_job": false,
+      "sensitive_data": false,
+      "summary": "\u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e\u0431 \u044d\u043a\u043e\u043d\u043e\u043c-\u0442\u043e\u0432\u0430\u0440\u0435",
+      "description": "\u0412\u044b \u043c\u043e\u0436\u0435\u0442\u0435 \u043e\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u043e\u0431\u0440\u0430\u0442\u043d\u0443\u044e \u0441\u0432\u044f\u0437\u044c \u043f\u043e \u044d\u0442\u043e\u043c\u0443 \u043c\u0435\u0442\u043e\u0434\u0443 \u0432 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u044f\u0445 \u043a [\u043e\u0431\u0441\u0443\u0436\u0434\u0435\u043d\u0438\u044e](https://dev.ozon.ru/community/1084-Metody-po-tarifu-Ekonom) \u0432 \u0441\u043e\u043e\u0431\u0449\u0435\u0441\u0442\u0432\u0435 \u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u0447\u0438\u043a\u043e\u0432 Ozon\u00a0for\u00a0dev.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "quant_code": {
+            "minItems": 1,
+            "maxItems": 1000,
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "quant_code"
+        ],
+        "additionalProperties": false
+      },
+      "source_version": "2.1;ozon-seller-openapi.json",
+      "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    },
+    {
+      "method_id": "QuantProductList",
+      "domain": "quants",
+      "path": "/v1/product/quant/list",
+      "http_method": "POST",
+      "classification": "READ",
+      "safety": "read",
+      "reason": "Explicitly classified data retrieval",
+      "permission": "catalog.read",
+      "endpoint_group": "quants",
+      "pagination": "bounded",
+      "file_download": false,
+      "report_job": false,
+      "sensitive_data": false,
+      "summary": "\u0421\u043f\u0438\u0441\u043e\u043a \u044d\u043a\u043e\u043d\u043e\u043c-\u0442\u043e\u0432\u0430\u0440\u043e\u0432",
+      "description": "\u0412\u044b \u043c\u043e\u0436\u0435\u0442\u0435 \u043e\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u043e\u0431\u0440\u0430\u0442\u043d\u0443\u044e \u0441\u0432\u044f\u0437\u044c \u043f\u043e \u044d\u0442\u043e\u043c\u0443 \u043c\u0435\u0442\u043e\u0434\u0443 \u0432 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u044f\u0445 \u043a [\u043e\u0431\u0441\u0443\u0436\u0434\u0435\u043d\u0438\u044e](https://dev.ozon.ru/community/1084-Metody-po-tarifu-Ekonom) \u0432 \u0441\u043e\u043e\u0431\u0449\u0435\u0441\u0442\u0432\u0435 \u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u0447\u0438\u043a\u043e\u0432 Ozon\u00a0for\u00a0dev.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "cursor": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "visibility": {
+            "type": "string",
+            "enum": [
+              "ALL",
+              "VISIBLE",
+              "INVISIBLE",
+              "EMPTY_STOCK",
+              "NOT_MODERATED",
+              "MODERATED",
+              "DISABLED",
+              "STATE_FAILED",
+              "READY_TO_SUPPLY",
+              "VALIDATION_STATE_PENDING",
+              "VALIDATION_STATE_FAIL",
+              "VALIDATION_STATE_SUCCESS",
+              "TO_SUPPLY",
+              "IN_SALE",
+              "REMOVED_FROM_SALE",
+              "OVERPRICED",
+              "CRITICALLY_OVERPRICED",
+              "EMPTY_BARCODE",
+              "BARCODE_EXISTS",
+              "QUARANTINE",
+              "ARCHIVED",
+              "OVERPRICED_WITH_STOCK",
+              "PARTIAL_APPROVED"
+            ]
+          }
+        },
+        "required": [
+          "limit"
+        ],
+        "additionalProperties": false
+      },
+      "source_version": "2.1;ozon-seller-openapi.json",
+      "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+    }
+  ],
+  "duplicates": [
+    {
+      "key": "seller|GetProductInfoStocksByWarehouseFbo|POST|/v1/product/info/stocks-by-warehouse/fbo",
+      "identical": true
+    }
+  ],
+  "current_missing": [],
+  "current_extra": [],
+  "normalized_content_sha256": "6123fa07c1efbac9436d1bfca6a2305b9f6dcc9ea3b2f18a4310bea718d5d71e"
+}

@@ -1,0 +1,28 @@
+{
+  "at_utc": "2026-10-01T08:01:13.565Z",
+  "runtime_commit": "662e941086cdf8f9e5d76eb082481e5416db2b6e",
+  "source_fingerprint_sha256": "e4bb341722c0bee0c75ce98be40adbeb492edc53054e8c73ad9f06a3cca7a741",
+  "source_files": 86,
+  "results": [
+    {
+      "command": "npm run build",
+      "exit_code": 0,
+      "output_sha256": "4fb0ce3c476421d726e56825161893ab340a4f467001fbf972c8e54135e376d5"
+    },
+    {
+      "command": "npm test",
+      "exit_code": 0,
+      "output_sha256": "bf98e21a0da17a06bf1f3532476cfa874dd57d174f31183a69ff0ddc48c51201"
+    },
+    {
+      "command": "npm run policies:check",
+      "exit_code": 0,
+      "output_sha256": "814d28d5cf183f16059b8f27f86f34b2509518ecef03d1cef9ba67162d6a7fbc"
+    },
+    {
+      "command": "npm run baseline:check",
+      "exit_code": 0,
+      "output_sha256": "06e278852c84c50a396058297b326c056a87e5d1a5f37c6d1ff0d5ea5b84cb7a"
+    }
+  ]
+}

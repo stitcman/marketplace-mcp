@@ -1,0 +1,13 @@
+{
+  "scope": "actual running MOS API source modules/apps/packages; production TypeScript excluding tests/generated dependencies",
+  "source_hashes": {
+    "official-ozon-request-contracts.ts": "d8308f499a9f30d31ba3229ebf97931612e5d35a3f5fa97aa81d54f24e5b387e",
+    "ozon-seller-http-transport.ts": "9963f926c4b09988d4d5b0d2f10743156aee58a583fd54f5add26d2ace0e7299",
+    "ozon-control-sync.ts": "c4da051654850cdace439690f037a915703a52038a5f598ebef85e68ebd24487",
+    "ozon-control-sync-acceptance.ts": "491173b30c2b0d8cafc51015400834c2cfb808d4fc457affad3f77b1ef981d2a"
+  },
+  "files_scanned": 182,
+  "finance_endpoint_consumers": [],
+  "finance_consumer": "NONE_DISCOVERED",
+  "mos_mutations": 0
+}

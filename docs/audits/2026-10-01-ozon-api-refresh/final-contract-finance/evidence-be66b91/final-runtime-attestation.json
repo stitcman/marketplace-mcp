@@ -1,0 +1,63 @@
+{
+  "at_utc": "2026-10-01T09:52:39.553411+00:00",
+  "hostname": "msk-1-vm-66nr",
+  "production": {
+    "container_id": "c4c5d9d769cd093753105e3073b3a2e4bade29d5767414368f701b0f2cd777b5",
+    "image_id": "sha256:df5059c568ae3566f14c21e96268792d02496b90ae29646c059b318459cd6c7d",
+    "RepoTags": [
+      "marketplace-mcp/router-upstream:ffc7ef2"
+    ],
+    "RepoDigests": [
+      "marketplace-mcp/router-upstream@sha256:df5059c568ae3566f14c21e96268792d02496b90ae29646c059b318459cd6c7d"
+    ],
+    "compose_project": "marketplace-mcp",
+    "compose_config_path": "/opt/marketplace-mcp/deployment/compose.yaml",
+    "compose_working_dir": "/opt/marketplace-mcp/deployment",
+    "compose_sha256": "3f4a740316dc4e5b1d7fa22f296225004b19a3e1697e795f529c0dac0d79b94d",
+    "embedded_source": {
+      "version": "0.4.0",
+      "commit": "ffc7ef2465e3df84d6be6fb5aba4015d170b2d61"
+    },
+    "manifest_sha256": "857a3c236f8b4229038fdf0da234942ba094cd14e9208fe43a666ea4f9d3e859",
+    "health": "healthy",
+    "baseline": "ffc7ef2 CONFIRMED"
+  },
+  "rollback": {
+    "status": "READY",
+    "archive": "/opt/marketplace-mcp/release-closure-20261001/rollback/router-ffc7ef2.tar",
+    "bytes": 61079040,
+    "sha256": "a27c133b01ed6bb354283c686502dd3a4eab6c66dc8ce9e7630626ab5f491bf1",
+    "image_id": "sha256:df5059c568ae3566f14c21e96268792d02496b90ae29646c059b318459cd6c7d",
+    "RepoDigests": [
+      "marketplace-mcp/router-upstream@sha256:df5059c568ae3566f14c21e96268792d02496b90ae29646c059b318459cd6c7d"
+    ],
+    "image_preserved": true,
+    "compose_restore_dry_run": "PASS"
+  },
+  "candidate": {
+    "container_id": "24d9859b6eaa5b7b13cb8e323d0568faa233f5ae7ab52d87c0871c399ae435b5",
+    "image_id": "sha256:36c5d34ea01a0a2f001461a4f86a2440580738a2840b519f59da378d1bf7bdf7",
+    "state": "running",
+    "health": {
+      "ok": true,
+      "store": "postgres"
+    },
+    "memory_limit": 268435456,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+    "node_reviver": "v22.23.2 lossless reviver PASS",
+    "logs_sha256": "0d6745d22d6a66e00f9e4566e6336eec01d11edface4a47301d63e76b08942be",
+    "log_error_classes": []
+  },
+  "probe_sha256": {
+    "finance-live.mjs": "e9705d6692c22f3a8fbe68e2b2299b888dc245cab5f2029b4e6c53c2e6e994db",
+    "finance-reconcile.mjs": "c55515a0262e13d3fe84eca94d562008429d397a966da96de1b876f663212ba1",
+    "mos-payload.mjs": "39a0d94041bee0f9a5e28b5814fae4e69cadfe1928f6efe2e1af78dc6e9b4725",
+    "readonly-preload.mjs": "a925011d8c8bbdaeb0c5f074d1a054cc2eb5609918431fadb871991954ea0198",
+    "security-live.mjs": "a8121a5b27d331779ba753b6eedf214de3bb69ad12d74249265ec81890a9096b",
+    "smoke-live.mjs": "dbf98485df433275380b9c6184e5f15750e76229d6b2cde3a4cb866997899b8c",
+    "types-read.mjs": "0c861ff8dcffd66b7aafd1491a8ee1bd16c7e6c546fcd793fdf4c1096d6a7de8"
+  },
+  "production_replaced": false,
+  "deployment": "BLOCKED",
+  "post_deploy_smoke": "NOT_RUN"
+}

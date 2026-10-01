@@ -1,0 +1,262 @@
+[
+  {
+    "id": "CalculateDynamicBudget",
+    "allowed": true,
+    "material": "Рассчитать минимальный бюджет кампании Deprecated 1 сентября 2025 года метод будет отключён. Теперь минимальный бюджет рассчитывается по формуле: 2 000 рублей × 1 SKU."
+  },
+  {
+    "id": "ExternalCampaign_BatchDisableCarrots4",
+    "allowed": false,
+    "material": "Отключить продвижение товаров в акции «Морковск»"
+  },
+  {
+    "id": "ExternalCampaign_BatchDisableProducts",
+    "allowed": false,
+    "material": "Отключить продвижение товара в оплате за заказ"
+  },
+  {
+    "id": "ExternalCampaign_GetProductsRecommendedBids",
+    "allowed": false,
+    "material": "Рекомендованные ставки для товаров Deprecated"
+  },
+  {
+    "id": "ExternalCampaign_SetSearchPromoBidsV2",
+    "allowed": false,
+    "material": "Установить ставку на товар Deprecated"
+  },
+  {
+    "id": "ActionsAutoAddProductsCandidates",
+    "allowed": false,
+    "material": "Получить список доступных товаров для автодобавления в акцию Deprecated 13 октября 2026 года отключим метод. Переключитесь на /v2/actions/auto-add/products/candidates."
+  },
+  {
+    "id": "ActionsAutoAddProductsDelete",
+    "allowed": false,
+    "material": "Удалить товары из автодобавления в акцию Deprecated 13 октября 2026 года отключим метод. Переключитесь на /v2/actions/auto-add/products/delete."
+  },
+  {
+    "id": "ActionsAutoAddProductsList",
+    "allowed": true,
+    "material": "Получить список товаров из автодобавления в акцию Deprecated 13 октября 2026 года отключим метод. Переключитесь на /v2/actions/auto-add/products/list."
+  },
+  {
+    "id": "ActionsAutoAddProductsUpdate",
+    "allowed": false,
+    "material": "Добавить или обновить товары в автодобавлении в акцию Deprecated 13 октября 2026 года отключим метод. Переключитесь на /v2/actions/auto-add/products/update."
+  },
+  {
+    "id": "AnalyticsAPI_AnalyticsGetStockOnWarehousesV2",
+    "allowed": true,
+    "material": "В будущем метод будет отключён. Переключитесь на /v1/analytics/stocks."
+  },
+  {
+    "id": "AnalyticsAPI_ManageStocks",
+    "allowed": true,
+    "material": "22 января 2026 года метод будет отключён. Переключитесь на /v1/analytics/stocks."
+  },
+  {
+    "id": "CargoesAPI_CargoesLabelFile",
+    "allowed": true,
+    "material": "10 апреля 2026 года отключим метод. Переключитесь на /v1/cargoes-label/get."
+  },
+  {
+    "id": "CargoesTransportActivate",
+    "allowed": false,
+    "material": "Включить или отключить транспортные грузоместа в поставке Если в поставке создано грузоместо, отключить транспортные грузоместа не получится."
+  },
+  {
+    "id": "CargoesTransportActivateStatus",
+    "allowed": true,
+    "material": "Получить статус включения или отключения транспортных грузомест"
+  },
+  {
+    "id": "CarriageAPI_CarriageDeliveryList",
+    "allowed": true,
+    "material": "20 марта 2026 года отключим метод. Переключитесь на /v2/carriage/delivery/list."
+  },
+  {
+    "id": "CertificateProductsList",
+    "allowed": true,
+    "material": "28 сентября 2026 года отключим параметры page и page_size в запросе метода. Используйте параметры last_id и limit."
+  },
+  {
+    "id": "FinanceAPI_FinanceTransactionListV3",
+    "allowed": false,
+    "material": "Метод устаревает и будет отключён 8 сентября 2026 года. Переключитесь на /v1/finance/accrual/postings, /v1/finance/accrual/types, /v1/finance/accrual/by-day."
+  },
+  {
+    "id": "FinanceAPI_FinanceTransactionTotalV3",
+    "allowed": false,
+    "material": "Метод устаревает и будет отключён 8 сентября 2026 года. Переключитесь на /v1/finance/accrual/postings, /v1/finance/accrual/types, /v1/finance/accrual/by-day."
+  },
+  {
+    "id": "ListPostingCodes",
+    "allowed": true,
+    "material": "Получить список отправлений Deprecated С 31 августа 2026 года метод будет отключён. Переключитесь на /v2/posting/digital/list."
+  },
+  {
+    "id": "PolygonAPI_BindPolygon",
+    "allowed": false,
+    "material": "Метод устаревает и будет отключён в будущем. Переключитесь на /v2/polygon/bind ."
+  },
+  {
+    "id": "PostingAPI_CreateLabelBatch",
+    "allowed": false,
+    "material": "С 2 ноября 2026 года метод будет отключён. Переключитесь на /v3/posting/fbs/package-label/create."
+  },
+  {
+    "id": "PostingAPI_CreateLabelBatchV2",
+    "allowed": false,
+    "material": "С 2 ноября 2026 года метод будет отключён. Переключитесь на /v3/posting/fbs/package-label/create."
+  },
+  {
+    "id": "PostingAPI_GetCarriageAvailableList",
+    "allowed": false,
+    "material": "20 марта 2026 года отключим метод. Переключитесь на /v2/carriage/delivery/list."
+  },
+  {
+    "id": "PostingAPI_GetFboPostingList",
+    "allowed": false,
+    "material": "Список отправлений Deprecated С 31 августа 2026 года метод будет отключён. Переключитесь на /v3/posting/fbo/list."
+  },
+  {
+    "id": "PostingAPI_GetFbsPostingListV3",
+    "allowed": true,
+    "material": "Список отправлений Deprecated С 31 августа 2026 года метод будет отключён. Переключитесь на /v4/posting/fbs/list."
+  },
+  {
+    "id": "PostingAPI_GetFbsPostingUnfulfilledList",
+    "allowed": true,
+    "material": "Список необработанных отправлений Deprecated С 31 августа 2026 года метод будет отключён. Переключитесь на /v4/posting/fbs/unfulfilled/list."
+  },
+  {
+    "id": "PostingAPI_GetLabelBatch",
+    "allowed": true,
+    "material": "С 2 ноября 2026 года метод будет отключён. Переключитесь на /v2/posting/fbs/package-label/get."
+  },
+  {
+    "id": "PostingAPI_PostingFBSActCreate",
+    "allowed": false,
+    "material": "Метод устаревает и будет отключён 7 сентября 2026. Переключитесь на /v1/carriage/create и /v1/carriage/approve."
+  },
+  {
+    "id": "PostingAPI_PostingFBSDigitalActCheckStatus",
+    "allowed": false,
+    "material": "Статус формирования накладной Deprecated Метод устаревает и будет отключён 22 марта 2026 года. Переключитесь на /v2/posting/fbs/act/check-status."
+  },
+  {
+    "id": "PostingAPI_PostingFBSGetDigitalAct",
+    "allowed": false,
+    "material": "Получить лист отгрузки по перевозке Deprecated Метод устаревает и будет отключён 22 марта 2026 года. Переключитесь на /v2/posting/fbs/act/get-pdf."
+  },
+  {
+    "id": "PostingAPI_PostingFBSPackageLabel",
+    "allowed": false,
+    "material": "С 2 ноября 2026 года метод будет отключён. Переключитесь на /v3/posting/fbs/package-label/create и /v2/posting/fbs/package-label/get."
+  },
+  {
+    "id": "ProductAPI_GetProductInfoPrices",
+    "allowed": true,
+    "material": "23 ноября 2026 года отключим параметр total в ответе метода. Переключитесь на total_items."
+  },
+  {
+    "id": "ProductAPI_GetProductInfoStocks",
+    "allowed": true,
+    "material": "23 ноября 2026 года отключим параметр total в ответе метода. Переключитесь на total_items."
+  },
+  {
+    "id": "ProductAPI_GetProductList",
+    "allowed": true,
+    "material": "23 ноября 2026 года отключим параметр result.total в ответе метода. Переключитесь на result.total_items."
+  },
+  {
+    "id": "ProductAPI_ImportProductsPrices",
+    "allowed": false,
+    "material": "Если у товара установлена минимальная цена и включено автоприменение в акции, отключите его и обновите минимальную цену. Иначе вернётся ошибка action_price_enabled_min_price_missing."
+  },
+  {
+    "id": "ProductAPI_ProductCertificateCreate",
+    "allowed": false,
+    "material": "Добавить сертификаты для товаров Deprecated 31 августа 2026 года отключим метод. Переключитесь на методы /v2/product/certification/options, /v2/product/certification/params и /v2/product/certificate/create."
+  },
+  {
+    "id": "ProductAPI_ProductImportPictures",
+    "allowed": false,
+    "material": "Загрузить или обновить изображения товара Deprecated С 1 октября 2026 года метод будет отключён. Переключитесь на /v2/product/pictures/import."
+  },
+  {
+    "id": "ProductAPI_ProductStocksByWarehouseFbs",
+    "allowed": true,
+    "material": "Метод устаревает и будет отключён 7 апреля 2026 года. Переключитесь на /v2/product/info/stocks-by-warehouse/fbs."
+  },
+  {
+    "id": "ProductAPI_V1ProductCertificationList",
+    "allowed": true,
+    "material": "14 апреля 2025 года метод будет отключён. Переключитесь на /v2/product/certification/list."
+  },
+  {
+    "id": "promos_task_list",
+    "allowed": true,
+    "material": "Метод устаревает и будет отключён в будущем. Переключитесь на /v2/actions/discounts-task/list."
+  },
+  {
+    "id": "PromosCandidates",
+    "allowed": true,
+    "material": "Список доступных для акции товаров Deprecated 13 октября 2026 года отключим метод. Переключитесь на /v2/actions/candidates."
+  },
+  {
+    "id": "PromosProducts",
+    "allowed": true,
+    "material": "Список участвующих в акции товаров Deprecated 13 октября 2026 года отключим метод. Переключитесь на /v2/actions/products."
+  },
+  {
+    "id": "PromosProductsActivate",
+    "allowed": false,
+    "material": "Добавить товар в акцию Deprecated 13 октября 2026 года отключим метод. Переключитесь на /v1/actions/products/update."
+  },
+  {
+    "id": "PromosProductsDeactivate",
+    "allowed": false,
+    "material": "Удалить товары из акции Deprecated 13 октября 2026 года отключим метод. Переключитесь на /v2/actions/products/deactivate."
+  },
+  {
+    "id": "ReviewAPI_CommentDelete",
+    "allowed": false,
+    "material": "Удалить комментарий на отзыв Deprecated Метод устаревает. Переключитесь на /v2/review/comment/delete."
+  },
+  {
+    "id": "ReviewAPI_ReviewChangeStatus",
+    "allowed": false,
+    "material": "Изменить статус отзывов Deprecated Метод устаревает. Переключитесь на /v2/review/change-status."
+  },
+  {
+    "id": "ReviewAPI_ReviewCount",
+    "allowed": true,
+    "material": "Количество отзывов по статусам Deprecated Метод устаревает. Переключитесь на /v2/review/count."
+  },
+  {
+    "id": "ReviewAPI_ReviewInfo",
+    "allowed": true,
+    "material": "Получить информацию об отзыве Deprecated Метод устаревает. Переключитесь на /v2/review/info."
+  },
+  {
+    "id": "ReviewAPI_ReviewList",
+    "allowed": true,
+    "material": "Получить список отзывов Deprecated Метод устаревает. Переключитесь на /v2/review/list. Метод не возвращает параметры «Достоинства» и «Недостатки», если они есть в отзывах на товар. Эти параметры устарели, в новых отзывах их нет."
+  },
+  {
+    "id": "SupplyOrderAPI_GetSupplyOrderTimeslots",
+    "allowed": false,
+    "material": "Метод устаревает и будет отключён 19 августа 2026 года. Переключитесь на /v2/supply-order/timeslot/list."
+  },
+  {
+    "id": "WarehouseAPI_DeliveryMethodList",
+    "allowed": false,
+    "material": "Метод устаревает и будет отключён 7 апреля 2026 года. Переключитесь на /v2/delivery-method/list."
+  },
+  {
+    "id": "WarehouseAPI_WarehouseList",
+    "allowed": false,
+    "material": "Метод устаревает и будет отключён 7 апреля 2026 года. Переключитесь на /v2/warehouse/list."
+  }
+]

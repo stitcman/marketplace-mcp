@@ -1,0 +1,2218 @@
+{
+  "comparison_commit": "fae5ae77cd228103c1724b37bc6333d03d12d1c1",
+  "changed_admitted_input_schemas": 275,
+  "changes": [
+    {
+      "method_id": "AccessAPI_RolesByToken",
+      "path": "/v1/roles",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "8b55a48a5621542ddba0028b6be8de149c7d5a69d27c76d0697d5f0d16bb73b5",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SellerAPI_SellerInfo",
+      "path": "/v1/seller/info",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "6ba9a95ddb937d51fbf5a011dcae7a247636f8a5e6659738ae528acc9a01f64c",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SellerAPI_SellerOzonLogisticsInfo",
+      "path": "/v1/seller/ozon-logistics/info",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "3702ce1d7fd386787cbd58ac276f8d5615924b9696768640958fe9c3d4434325",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "DescriptionCategoryAPI_GetTree",
+      "path": "/v1/description-category/tree",
+      "before_sha256": "deaaa5b451e125083fe1d45c5f5067bbd1d31b1217eabc46dbb74c950b156e37",
+      "after_sha256": "0a1f480df4088555a54992b757d4c2dfb262a999d2554f3819f81b604135c37c",
+      "official_source_sha256": "e03d3200a1527862f874620aa9621bcc9900433d45b586fd280e1dba85664a9b",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "DescriptionCategoryAPI_GetAttributes",
+      "path": "/v1/description-category/attribute",
+      "before_sha256": "b2c69bab53b8d1fa3d019b469b399f021d1fd5b600d6008e5bcecfbdb7fa4d0c",
+      "after_sha256": "d0af3264aeeec32d82bc693bad71980a645921ae8776048a4f47ac895c903bec",
+      "official_source_sha256": "638b2e3398ffd5b52d7eef0ae5cffdf1619746338eb82b3ebf7896ddc70a4f37",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "DescriptionCategoryAPI_GetAttributeValues",
+      "path": "/v1/description-category/attribute/values",
+      "before_sha256": "66232e1e42ab275c84d999f3726fb50e0641ec4e5c935f1394fd0f1edd60b298",
+      "after_sha256": "a8a0a230df5b00bbc45f6b9646d074060c8ef0dda740ad83a32f446d4f2ff1cf",
+      "official_source_sha256": "80fc3ff0f707ecd9d9ad1fa7464530fc8dfc59d30ba03aee6c243ba689b1f63c",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "DescriptionCategoryAPI_SearchAttributeValues",
+      "path": "/v1/description-category/attribute/values/search",
+      "before_sha256": "c0f8b1efca0f7f7247ffff06e1746a49ff2792e39247e5274dbdb7029cb4e397",
+      "after_sha256": "9e2875e0b484c51674e72860987dda64eda636e4ddb3402bf334348940917321",
+      "official_source_sha256": "f4e177348e19e18fc9b8d41670d2dfb778e7fced71189f94ec39b79bf8dc9e99",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductAPI_GetProductPlacementZoneInfo",
+      "path": "/v1/product/placement-zone/info",
+      "before_sha256": "68fdf9c8f55a1b6efdbbc8fa7ac8a08344e2dc05ccf77a9ab19defbde2570f94",
+      "after_sha256": "4a40b1b053540d72d7bccd8b815d4c6a2b51f3e02208e04185623ae9bac3a961",
+      "official_source_sha256": "46af732e6f44a6d88f775a76aca58d3b168ac487e6d4c4778a49dc20147f647b",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductAPI_GetImportProductsInfo",
+      "path": "/v1/product/import/info",
+      "before_sha256": "96f9f06139f00a2f5ec914c12fe17ec93a245d89c0db1c91d229a84d1e34cd83",
+      "after_sha256": "a3fa3c1958b8dfb0f93de1a0cc11004ef28be6d205904423790c1f2939822f5e",
+      "official_source_sha256": "b022028f703c33612434f58c6eeffa18cc8cfb72ca65d548ea2b293a72e11301",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductAPI_GetProductList",
+      "path": "/v3/product/list",
+      "before_sha256": "b4837daeef9dba131d0484af494ca38021d239506c02b065089d6a83110cf1ff",
+      "after_sha256": "38476d4faf9cca396c120cf7acf40f97ad11dec7477577726982113a6a2849a7",
+      "official_source_sha256": "f7fb38b76e0eca0cd436fbbdb60b84f87c14f89047edb6809e64054b56e9fd33",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductAPI_GetProductRatingBySku",
+      "path": "/v1/product/rating-by-sku",
+      "before_sha256": "2c0e4cfb20d218f5d67e38bf657cc49452691516a0a7d7aa355f61a938eee8be",
+      "after_sha256": "4e6eaa3ddc81f318fbd71718784c71047350b36f6ac782c25016535881b84c7c",
+      "official_source_sha256": "5489f748eb39599d3d8d52b47980100755492ad0078a45597fd267250a563259",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductAPI_GetProductInfoList",
+      "path": "/v3/product/info/list",
+      "before_sha256": "c875579509f07f28b490ed916a891f5c91b68b60aa65bac2f5ae59e9893dabda",
+      "after_sha256": "a3a75f33c61441692d69c7612702d3db7325e79a6e2060826ac0795ecce8063d",
+      "official_source_sha256": "e27536e52de89ae6d627e11308828475611bdfd06434b25459498c314b0d4477",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductAPI_GetProductAttributesV4",
+      "path": "/v4/product/info/attributes",
+      "before_sha256": "8ab00d519367c0b0ae5ca5be748ad5950dc1764d6d0ee47a8f6153fafec1e182",
+      "after_sha256": "4086dee7f98eb63bdb5791750aff87eb6efafcb5a38821f09fc2800bc0cbddd0",
+      "official_source_sha256": "5ee3d42f9d6429252849b754be336805b0c3fb64f017df286f9ea6242cc38431",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductAPI_GetProductInfoDescription",
+      "path": "/v1/product/info/description",
+      "before_sha256": "6136abfd93038b0b1758cec4f7c6cffe96501deb715c97aae81859c124446150",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "3c27928acb27e28aee07f737627e076586a07b2ceabca98f61ae09448b740b3d",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductAPI_ProductGetRelatedSKU",
+      "path": "/v1/product/related-sku/get",
+      "before_sha256": "d9068f7b02aa2d4b5c2b7f7b10a1d8ed25451e2ede1a42ab61378925512c6bc8",
+      "after_sha256": "afadc8337b76ee8d38871ad440866c3e55acef0c8862c992a39156c1188e6398",
+      "official_source_sha256": "d6481d310ad0955b18bfb744922724b7639dfd5961efcb7937a3da52d153fbd1",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductAPI_ProductInfoPicturesV2",
+      "path": "/v2/product/pictures/info",
+      "before_sha256": "992b6820f0820ccee28b1f62df24d83bdf864f478050ae87cac607d70bcb4715",
+      "after_sha256": "06c986a53d43b8c5b0522c22807eeb42bfa4d8f5cdac7edf1e80fe7f2a36ef13",
+      "official_source_sha256": "7c0b9fe85a413fad984a7f09f06a4742c63ed7bfd96b168c6b8c71bcb2f044ae",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductAPI_ProductInfoWrongVolume",
+      "path": "/v1/product/info/wrong-volume",
+      "before_sha256": "b0ab7658bd339d0d6ad50e587581900a6b644e100090fe6994f826a6d65684ae",
+      "after_sha256": "7ec533ee27f3660072102b2a73c02ddd62284f0c5c278286036e0c9574d55991",
+      "official_source_sha256": "aefac63b4ca35e8fbd2b49ae12cd89cc59c3e7295be93d404d6dda0d0508eb9f",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductAPI_GetProductInfoStocks",
+      "path": "/v4/product/info/stocks",
+      "before_sha256": "ba741a3e334e69d94481bfd735cd21544c0ab4cdcc990870994c98f172d731d7",
+      "after_sha256": "434e65cc95b3a90dde4ff901b8ac3b12cea1e3f3c923edf69d37b32e930f2ddd",
+      "official_source_sha256": "82cae7432c351399469a8a035e7ea5cc3d50c17ba4573c0a90198676c3c9117f",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductInfoWarehouseStocks",
+      "path": "/v1/product/info/warehouse/stocks",
+      "before_sha256": "0e7c04f91ea810756441bc6977f07bc078d3a83ef034c79bd5de7e8d9bd7f8dc",
+      "after_sha256": "42be95d89905c9b7fa5d98d00a9960f0d62ba826bbf8dd64ac66434a327b05d9",
+      "official_source_sha256": "fc7b3d76ccfb5cd9465067a128d024f0def2acc2833f379270ee0d2f28537801",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductAPI_GetProductInfoStocksByWarehouseFbsV2",
+      "path": "/v2/product/info/stocks-by-warehouse/fbs",
+      "before_sha256": "fb5913b453336e0714a3cf1ade08053c9cf696cb5bffe53af3202602bc47144c",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "9981dc4f117c8d64c5988abaa509d4752a1ad810fc542fbee015f7a2700960fd",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductAPI_ActionTimerStatus",
+      "path": "/v1/product/action/timer/status",
+      "before_sha256": "98c796017a1e3389dbeb5f26ae0dd6292b35ce63bf1cb21f41639cac648e1d91",
+      "after_sha256": "c20de4aaeba54cfd0d8fffdb09767a5ee629314a0d1659f0ccf96e5a4118f3c6",
+      "official_source_sha256": "6b27a3b95071fd93fada10007aa502ab6e556097e622794e9a34818905ab73a8",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductAPI_GetProductInfoPrices",
+      "path": "/v5/product/info/prices",
+      "before_sha256": "4a7c140923a8fa3dba113a9e731370e49be170f7651e142dd5ec50d5056a8a54",
+      "after_sha256": "b6a434aa84495e695bd8d9be076d9f7aef0edb054915fd89aeaaf5662e7350b0",
+      "official_source_sha256": "f831ad3fc42a4e41c4d4961e6f57583044303092b2be2126538d6e92c6d7d3b7",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductAPI_GetProductInfoDiscounted",
+      "path": "/v1/product/info/discounted",
+      "before_sha256": "4c5db621fedefb7c1d449cbd78d25709aae2d0c9c8e218fef3104f20709cf28a",
+      "after_sha256": "bceeaffd1b43762d5a2bc708fff19f49d029045a314899b983ee53b94c570dc4",
+      "official_source_sha256": "560b62eb7560d2e9e045161c05c6225d53b04661b6dc628ad5fa854d4070568a",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "Promos",
+      "path": "/v1/actions",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "31fa551b2016cafaa561691c7a8c592b79e512a922fcad0a6ce9008bab011925",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PromosCandidates",
+      "path": "/v1/actions/candidates",
+      "before_sha256": "4eb3ae57dc984566f00d08a528b3584ddca40769ce1490808773782d96666e5c",
+      "after_sha256": "fab6c49987ca3bc7b3ba80976de63289662db25c708023a22cf5ad12ecef04b1",
+      "official_source_sha256": "1299516b062a40cb1ca6fd1fa4af3af1565b4439ca6673ee3a864daeb71ff4d0",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PromosProducts",
+      "path": "/v1/actions/products",
+      "before_sha256": "4eb3ae57dc984566f00d08a528b3584ddca40769ce1490808773782d96666e5c",
+      "after_sha256": "fab6c49987ca3bc7b3ba80976de63289662db25c708023a22cf5ad12ecef04b1",
+      "official_source_sha256": "ec603f074f9a38b7c350d3729fef4a9eb280a7782d4c6b407ae61694aee9fff7",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "promos_task_list",
+      "path": "/v1/actions/discounts-task/list",
+      "before_sha256": "bd51c5d52a452dad1513fd4dadeec835f579ecd54543179631d8e273e1125921",
+      "after_sha256": "fed5de6dd864fe36643e840626a1a8ee8a17b0cc247d3040efd0edc0d1b22829",
+      "official_source_sha256": "42f1200c9e391768b9a8ee41bf9dfa233d5d787f1f92a0cc8f7892ccc7e4f972",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "pricing_competitors",
+      "path": "/v1/pricing-strategy/competitors/list",
+      "before_sha256": "67314df655ad5d63e83d07d1bc8084007624141b7b38fa56acdedac0255bf879",
+      "after_sha256": "c1e40dc316b84a0765b296fd80b6dc0a0f4b2d320f6f338ced95a7e5b4200732",
+      "official_source_sha256": "b54bc5da221d0a149e583230221e3e21fcd88d2a9edb08fb75bcea9fdc84e7bd",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "pricing_list",
+      "path": "/v1/pricing-strategy/list",
+      "before_sha256": "67314df655ad5d63e83d07d1bc8084007624141b7b38fa56acdedac0255bf879",
+      "after_sha256": "8a70a75570a1170ac87027c79b5bacf1476663b2cce64873bbf806d78923fcd1",
+      "official_source_sha256": "e86a95c3905d9cb869b2333c977e82de2a1fd419c7e8c9af24144651bcada0ab",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "pricing_info",
+      "path": "/v1/pricing-strategy/info",
+      "before_sha256": "9c4bb5ac47874dce42060cb999c3b2918ab5985e86562687befa26f156e9f557",
+      "after_sha256": "69264004717eb9e78ba0c23b29966b62aec201f1460a1fa4897cbd232e3e55c9",
+      "official_source_sha256": "7804a6b2cff4b6381d7c9170c1a1b121d9976d03855a236643efb993891aeb49",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "pricing_ids",
+      "path": "/v1/pricing-strategy/strategy-ids-by-product-ids",
+      "before_sha256": "cdefc6bccb087dbe015e5686c85f395951d066ac8879490e49f5e4db533d76de",
+      "after_sha256": "85b7922ec1e68f0bf88c826984a969874b68a00cc746d63f1c98992198cb0d5f",
+      "official_source_sha256": "a28eec9c10710e4a72da42acf575a784d8e92bdd32b944bd10a338f5c72ececf",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "pricing_items-list",
+      "path": "/v1/pricing-strategy/products/list",
+      "before_sha256": "9c4bb5ac47874dce42060cb999c3b2918ab5985e86562687befa26f156e9f557",
+      "after_sha256": "69264004717eb9e78ba0c23b29966b62aec201f1460a1fa4897cbd232e3e55c9",
+      "official_source_sha256": "b7bb4dd5d86636be67d6c6495de2d3d58acb415c0153ad0c53b68ec35f77660c",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "pricing_items-info",
+      "path": "/v1/pricing-strategy/product/info",
+      "before_sha256": "15597cc62de3eaabf25e5370c9a70a3c16788a3f33cc1150fa50c78ce2f56896",
+      "after_sha256": "8cd9b98d6e0454e12f0e0067703d53e0a8335b234aa4c5acad1e345e4d7da910",
+      "official_source_sha256": "af4e8971b7dde4148ebb5f4cbd6dd2961a392e36aa88a241f6051600c05e0a36",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PassList",
+      "path": "/v1/pass/list",
+      "before_sha256": "264f1d0904888d00eecff5bc503c3ec7bb1ed64ad120f580ed9b339d22c9d05b",
+      "after_sha256": "44a1721fae439f0048ab2a063b226439c252184bc995de3101c889ef35ec3819",
+      "official_source_sha256": "ccb4d1a151c4eb3f2e328b32e7e04c9bed0515c39251fe2d1817ac6e74b870f0",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "BrandAPI_BrandCompanyCertificationList",
+      "path": "/v1/brand/company-certification/list",
+      "before_sha256": "3747a04c3707017e5909ac927a9097d58e42e2c77d6585666e36df17700130a2",
+      "after_sha256": "2de8b8e801902a57d177636e1d4fff36ce6306454589a43ead2697d89fc1d61d",
+      "official_source_sha256": "f3d648cbbee751a96b17cb82ab0d9e0b504a17af62b2b84271c2f20879010474",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CertificateAccordanceTypes",
+      "path": "/v2/product/certificate/accordance-types/list",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "94c387d227ff6b0b172da90c6c3c7140950b2a4592aaa0f6d77e5f4e2b13859a",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductAPI_ProductCertificateTypes",
+      "path": "/v1/product/certificate/types",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "50d2f7a53daad55b618a0a7ab50903d3ab2dcd9af67d0c11db2ea664a9c1abb5",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductAPI_ProductCertificationList",
+      "path": "/v2/product/certification/list",
+      "before_sha256": "a081d8961b4bb591ea94b272011e652ef7a12734e3225eda5106ac220a633b75",
+      "after_sha256": "6c629092d7e46138f9e4db9d6a044d217d17c0aa820b522c1846ef277936a946",
+      "official_source_sha256": "f2cc356de72246a5198e52f274d8bb5b301adbe3c26f1b1cf193d6c6507cfaf0",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CertificateInfo",
+      "path": "/v1/product/certificate/info",
+      "before_sha256": "5af9a8693530d19c7e2c52e339b014fef81b1dc8b72dfaccfb81dfd3a3eb0736",
+      "after_sha256": "e2c700fe339c331ab369a78ee5d31bda2e756fff1ac53f640ee8ceea4a4802d7",
+      "official_source_sha256": "3a9808578994513ba8f58cac2e331d9c9481eca6227b948db15c7912f5868398",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CertificateList",
+      "path": "/v1/product/certificate/list",
+      "before_sha256": "3527cac142219ca3951b8c37ac3d7c5b442e86a836dc4a7db76578255f01e6b0",
+      "after_sha256": "2bd48939be86777e359e4c4d8d34d6d251c998872340fabfbcd707fd7b2ead74",
+      "official_source_sha256": "bf8fc868dd50039864a63438483ee4d478d446d64eb83bee03b96bd591dc59d7",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductStatusList",
+      "path": "/v1/product/certificate/product_status/list",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "744a568ec4f056515d1492252f486a2e1a9b863ee7c521b19e14cf14e168dad7",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "RejectionReasonsList",
+      "path": "/v1/product/certificate/rejection_reasons/list",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "633e716a41d8ca1c74af79ae8e36a44197bed8c5ef1f23fe9f325db18b6558b2",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CertificateStatusList",
+      "path": "/v1/product/certificate/status/list",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "41e5c39bedac11f5c007e65f3873b308e4d5c0c26393a111da929c3641765b30",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "WarehouseAPI_DeliveryMethodListV2",
+      "path": "/v2/delivery-method/list",
+      "before_sha256": "5d1edbe3713b768c31b333eacad2594799220d617c75490be7ea8c9c0bb1d21c",
+      "after_sha256": "4c177b6b2e185a084d094de23329969c4be8b97f05dacb005628cede7bafc337",
+      "official_source_sha256": "38bcf265089b965ca5b1c23b30e97f2ba5efbd23171b212883f848b2bead3304",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "GetDeliveryMethodReturnSettingsV1",
+      "path": "/v1/delivery-method/return/settings/get",
+      "before_sha256": "352ff87d185081e98d457ecd2727c83a937545471218ec24851ac80757177876",
+      "after_sha256": "fd6cb776087ca3086613415b64f93a208ae2df9abffa7de1871a944d703f9164",
+      "official_source_sha256": "b243744370c4f02484866b78a04012a9c7ede40c819977b1d4a135e37813beac",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "WarehouseListV2",
+      "path": "/v2/warehouse/list",
+      "before_sha256": "bbf1630833965a5d3fcf4f07290c08aa9387c956d7d3940d4928915784efe741",
+      "after_sha256": "5a93fdbc7810381142bb8b8fc0e04780bde9c96eea5579ffe44c8abb6d8c11e8",
+      "official_source_sha256": "396d61a734ca4805e63cbb867fee40d3150716b7d04bd8b5f7842fec6b8eb10e",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "GetWarehouseFBSOperationStatus",
+      "path": "/v1/warehouse/operation/status",
+      "before_sha256": "2e98c83527a40d67d86bdd76c5e4d71db6de95fc5d3a24411b313a279265bf72",
+      "after_sha256": "b006ab519a37a2f66e5c3be176abb5710433e3dce2f453851899b2c1603841ca",
+      "official_source_sha256": "3d8262102cf08518817303504ddc3a8fe1cb62b032726b55cb2c807d12deeea7",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "WarehouseInvalidProductsGet",
+      "path": "/v1/warehouse/invalid-products/get",
+      "before_sha256": "9e1282f87e42f2fa36e33ada98e25175133efd9c9ce5fe3b12ec78c2403cc9e0",
+      "after_sha256": "c2d3ff4e206200eb168372425e5720fb7783bc7cb0ed70897b4f9da9db23e782",
+      "official_source_sha256": "1d9d63ac21dd526f47c7bece537cb5e8d0308fda88a6468f6cb41969463a477d",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "WarehouseWithInvalidProducts",
+      "path": "/v1/warehouse/warehouses-with-invalid-products",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "e765b0f54fbd8498e4358c94a1bba03ea42a06ebf7d76d515f89b5ff04fdd8ec",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "WarehouseOZONList",
+      "path": "/v1/warehouse/ozon/list",
+      "before_sha256": "fc13d925b69349dd68f571c3159e0a7365749e59ea166d73527069f971fbc9d1",
+      "after_sha256": "e12ed185c4ed4ee28f00fcdbb482705066e2a80a2d3297607fde16264fbd9944",
+      "official_source_sha256": "aaa83f5999381d408ec4c2b870ba7b08b870c2d206e32381fd26f773271a06d6",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingFboList",
+      "path": "/v3/posting/fbo/list",
+      "before_sha256": "ac414dfc7597d44c4cff2a669d0e4aeb6fa847022547424950e58cc096bd899b",
+      "after_sha256": "c47cb9d48e20725b96296796401a112cf6aa1ef0763163b6f87ca092a63be9a7",
+      "official_source_sha256": "e44e3f486f42364c08061965f00d918c722f3cd61c9c8899d47a5abc8eda2c89",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingAPI_GetFboPosting",
+      "path": "/v2/posting/fbo/get",
+      "before_sha256": "f916bba6fbc0466a0e776c7fc497a551f20034a65f855e24526526397174c254",
+      "after_sha256": "048a9fc0f34e50732a8c870507d711b0b517b5b4b10e02acd2d3424d3c1a0db2",
+      "official_source_sha256": "3cb2db332d0183354272272cc8726630c005c8fedb5bdcbd8fb26a443d2bc3a5",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingAPI_GetPostingFboCancelReasonList",
+      "path": "/v1/posting/fbo/cancel-reason/list",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "b1e3f30fede586d75104e2645123bea5e3c6b9d2d576af16e5de53fee05e3347",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SupplyOrderAPI_SupplyOrderStatusCounter",
+      "path": "/v1/supply-order/status/counter",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "566a6275535f376868e456acffdd8071227ce00c1953e329a925113622104e6b",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SupplyOrderList",
+      "path": "/v3/supply-order/list",
+      "before_sha256": "79febf4433a8c95d059b397ee53570fa36f38590d4903aa29a95c97711aa9121",
+      "after_sha256": "5c5069539f9882e976057c005ebd8fe6bb84c72b75cee265ec2ef4ea93b98547",
+      "official_source_sha256": "1366b3ba3d20c96705fbca5cddbd2aa4fec3aa76953911d73e4951ce8e86af64",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SupplyOrderGet",
+      "path": "/v3/supply-order/get",
+      "before_sha256": "34a785476e2f7b82dc2dcdcea9904d12b5ca5b83bd60b088015591c5a0f90a52",
+      "after_sha256": "fb80a55ee99cc6fd5ca4ac82953def5fa3b93680a219a473bc45254a4a74ac84",
+      "official_source_sha256": "5e440d125dcf3c7b477a7c7e93ae6f26f9fdab92ed457dbee85c2669c4c5a926",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SupplyOrderTimeslotList",
+      "path": "/v2/supply-order/timeslot/list",
+      "before_sha256": "8423cdf2a2cfccd3319f37b1c0e4e55fab32a17dfd1baa78054940390bd26830",
+      "after_sha256": "a81505e108bfcb28e9162c5252b04b590ce5e9c2ba7bd9246cce14c0d770cc35",
+      "official_source_sha256": "3f378c9b445de230c4d738c904b5dedaa0023de6d44301395c0aafe3ca5b3531",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SupplyOrderAPI_GetSupplyOrderTimeslotStatus",
+      "path": "/v1/supply-order/timeslot/status",
+      "before_sha256": "2e98c83527a40d67d86bdd76c5e4d71db6de95fc5d3a24411b313a279265bf72",
+      "after_sha256": "b006ab519a37a2f66e5c3be176abb5710433e3dce2f453851899b2c1603841ca",
+      "official_source_sha256": "ada378983f28d4353c3183602f653b19b8385f4cdbe657d21cc258033406d0b4",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SupplyOrderAPI_SupplyOrderPassStatus",
+      "path": "/v1/supply-order/pass/status",
+      "before_sha256": "2e98c83527a40d67d86bdd76c5e4d71db6de95fc5d3a24411b313a279265bf72",
+      "after_sha256": "b006ab519a37a2f66e5c3be176abb5710433e3dce2f453851899b2c1603841ca",
+      "official_source_sha256": "230211f4fae01cc4cabdeddc2bd492f9f20f78163fc37df05f748211316dae37",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SupplyOrderAPI_SupplyOrderDetails",
+      "path": "/v1/supply-order/details",
+      "before_sha256": "8423cdf2a2cfccd3319f37b1c0e4e55fab32a17dfd1baa78054940390bd26830",
+      "after_sha256": "a81505e108bfcb28e9162c5252b04b590ce5e9c2ba7bd9246cce14c0d770cc35",
+      "official_source_sha256": "8d6538b15004c01b20f4280d09a90f9439247d511acf1dcef2fa0a3c29a20ff1",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SupplierAPI_SupplierAvailableWarehouses",
+      "path": "/v1/supplier/available_warehouses",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "35c1940aa407447085ee1944dfe55d2b66666191630de5a39bb175ff1f5a49b0",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SupplyDraftAPI_DraftClusterList",
+      "path": "/v1/cluster/list",
+      "before_sha256": "6d75cb3b7a296abb6d6b92311826bf74b2ba741cf1296fa585a97a12858c1650",
+      "after_sha256": "a2b401fbc465ba450502e2414313a582595d78f69266206ce8c16eeb4b06349c",
+      "official_source_sha256": "5a40cc1d14e576a1665ff33650da2df9b4e083f25356911b61892c67c85e2b4f",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "DraftClusterList",
+      "path": "/v2/cluster/list",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "3ad8a6cfd717b8664129465e0ba0567a9d0f734c2af095b3180bb1006199dd81",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SupplyDraftAPI_DraftGetWarehouseFboList",
+      "path": "/v1/warehouse/fbo/list",
+      "before_sha256": "37d7faec7c8f17614bd33436698df4709017e612ec4978cf5cb93c29139e4d1e",
+      "after_sha256": "c87ca32738a8496bd0c179afd20f6548553d21e1c19f6487c8a5f442839e5547",
+      "official_source_sha256": "c934f21f2bf0f5539636340e57f2395e28e3104ae04f387e6d06316978322911",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "DraftCreateInfo",
+      "path": "/v2/draft/create/info",
+      "before_sha256": "fae91ac923302e646a78acc9fe9680b4c1417e957aa510ae5f1fccb0cccd4aa8",
+      "after_sha256": "ce525a54abcf5f22e2d07c5ced8de9376ec626c027b5833dd6a71842e3884d1f",
+      "official_source_sha256": "2ef660afd7f045f143cd3de8efbfca859ab3da1a862ea421dd6317df2c348ee5",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "DraftTimeslotInfo",
+      "path": "/v2/draft/timeslot/info",
+      "before_sha256": "32fbfddae222d5270156d3f662616adfcf4ba1d07a47a8357288ce074b290e02",
+      "after_sha256": "d2ced603efca95de1e0c40508b3d1d6559d92a6297cb4739770ccfe0386db8ef",
+      "official_source_sha256": "014a8de0cca9d9e18c7b0abe16e15ba9a6965903b290ce8b5364d98241200cb1",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CargoesCreateInfoV2",
+      "path": "/v2/cargoes/create/info",
+      "before_sha256": "2e98c83527a40d67d86bdd76c5e4d71db6de95fc5d3a24411b313a279265bf72",
+      "after_sha256": "b006ab519a37a2f66e5c3be176abb5710433e3dce2f453851899b2c1603841ca",
+      "official_source_sha256": "09876e113c5a94e49cc9dd54c96cfee0e502adc3e33103b3cbe01d54421e4df1",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CargoesGet",
+      "path": "/v1/cargoes/get",
+      "before_sha256": "ddf3d8a978ab4057fd87135a2bf0de5f1638b75cadcdf4d82f0fef75dcedb505",
+      "after_sha256": "e0186bd84a9983025257396b059d5bed84c2c98b0b0aa2224ea20c4469fc771c",
+      "official_source_sha256": "f66a6db41f4370bc78b5020a32cd8874347cdead66ec0987ff5c664f0167d392",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CargoesAPI_CargoesDeleteStatus",
+      "path": "/v1/cargoes/delete/status",
+      "before_sha256": "2e98c83527a40d67d86bdd76c5e4d71db6de95fc5d3a24411b313a279265bf72",
+      "after_sha256": "b006ab519a37a2f66e5c3be176abb5710433e3dce2f453851899b2c1603841ca",
+      "official_source_sha256": "df82533c4a89e24ee90db629497021f19e96a6841714b1f41af3e9c624ac4db8",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CargoesAPI_CargoesRulesGet",
+      "path": "/v1/cargoes/rules/get",
+      "before_sha256": "02a44ff8630dfa87544679dd07340a9b5f8fdb503cf8ad494bfc9b7cd122582a",
+      "after_sha256": "707480740f65461a9de9902a7e35a2bf41bfdd4f370ef8e7bb07f2f2b2ecb157",
+      "official_source_sha256": "9e74702fa66428b2b05cddfbae7f47d58fc76ab810e65adae1d48cfcbf92a038",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CargoesAPI_CargoesLabelGet",
+      "path": "/v1/cargoes-label/get",
+      "before_sha256": "2e98c83527a40d67d86bdd76c5e4d71db6de95fc5d3a24411b313a279265bf72",
+      "after_sha256": "b006ab519a37a2f66e5c3be176abb5710433e3dce2f453851899b2c1603841ca",
+      "official_source_sha256": "c23373ffc32f448b0fd7c71a0584e5baa1de6e6c78247697560bdf421b03e6ee",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SupplyOrderAPI_SupplyOrderCancelStatus",
+      "path": "/v1/supply-order/cancel/status",
+      "before_sha256": "2e98c83527a40d67d86bdd76c5e4d71db6de95fc5d3a24411b313a279265bf72",
+      "after_sha256": "fd481c3144332ba4c77d7c62fb3220d2f67260ffa994e2b96a0e1c204eee6f83",
+      "official_source_sha256": "2fb65994c8314a3a48f1a65a426aba6413590156b64aaa26ae553eab76abc533",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SupplyOrderAPI_SupplyOrderContentUpdateStatus",
+      "path": "/v1/supply-order/content/update/status",
+      "before_sha256": "2e98c83527a40d67d86bdd76c5e4d71db6de95fc5d3a24411b313a279265bf72",
+      "after_sha256": "b006ab519a37a2f66e5c3be176abb5710433e3dce2f453851899b2c1603841ca",
+      "official_source_sha256": "521d7a3699eb6c9e7e8cfde138ee9d867be700a49bebd268e38e335c37345b69",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SupplyOrderContentUpdateValidation",
+      "path": "/v1/supply-order/content/update/validation",
+      "before_sha256": "dc296a929a69ca71ec344419329883968593416143a775b49868b2c9cd9d356b",
+      "after_sha256": "6f3777d86671a7eb9c477e23593e5957d2cfef7fd6a9d996f99e47f276ff4ef1",
+      "official_source_sha256": "fe0ce97aff149230ef300460117398dad59fc1c43609cbce7fe74c9f2d0ffc26",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "DraftSupplyCreateStatus",
+      "path": "/v2/draft/supply/create/status",
+      "before_sha256": "a02811d998ec4d0bf06c9e1951c5bcd170299d28cabce68e6646ac498081bd9e",
+      "after_sha256": "55ad93d4e7e5fed513856f12920c14042dc3e47f35b80d237d8714e0acd45eea",
+      "official_source_sha256": "50314bae8aad35852ace55a324ce09b0db047ea735fddb70e0b4144a4a166ed5",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "WarehouseFboSellerList",
+      "path": "/v1/warehouse/fbo/seller/list",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "3005753c693c58bed5402726aaf288ca0298a56203066e7bbdbb587be4adf9b9",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingAPI_FbsPostingProductExemplarCreateOrGetV6",
+      "path": "/v6/fbs/posting/product/exemplar/create-or-get",
+      "before_sha256": "09949da4d2d24a95c48ef2f84ae263a44f5a70beca0f584c3bcd8d0be3d93b34",
+      "after_sha256": "c943654bd18b4931d75dca6563176b676a8b364c77434d2933d2890a54416f9b",
+      "official_source_sha256": "def42769b7c57b556953e2bcbfc7ea98c7a399da5897505456e70cbb89c830ce",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingAPI_FbsPostingProductExemplarStatusV5",
+      "path": "/v5/fbs/posting/product/exemplar/status",
+      "before_sha256": "09949da4d2d24a95c48ef2f84ae263a44f5a70beca0f584c3bcd8d0be3d93b34",
+      "after_sha256": "c943654bd18b4931d75dca6563176b676a8b364c77434d2933d2890a54416f9b",
+      "official_source_sha256": "e47b2f88035a281f60d8eaa357b4bf5241cbc1b511305dca78dd7ebb7795855d",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CarriageAPI_CarriageDeliveryListV2",
+      "path": "/v2/carriage/delivery/list",
+      "before_sha256": "5a6cf24e322104269edd9a19ddab4fd3c770c417ec1928f45a0e9fba2226e501",
+      "after_sha256": "a82229e082fc85b6dcd3a5b582cf7aa7f5b75944e0b0b25bfd4d50ec0c49442e",
+      "official_source_sha256": "ed92b612a7884eab04baf5286a565accce17dcd1ad6dda07c99147c6ae540e46",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CarriageGet",
+      "path": "/v1/carriage/get",
+      "before_sha256": "ad138b07731afd55179ddffc549a19eb24e9d1a7a77753fd1f873c0bcde400d2",
+      "after_sha256": "b00009f0e94eb936c877d1baefe7082749bcb08518a6375af9e8d1286c17c96d",
+      "official_source_sha256": "484a974454811f4fbdb6ac6c635845585fe30ac98d7aadfd31bbeafa0dee3475",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CarriageCourierContactGet",
+      "path": "/v1/carriage/courier-contact/get",
+      "before_sha256": "ad138b07731afd55179ddffc549a19eb24e9d1a7a77753fd1f873c0bcde400d2",
+      "after_sha256": "b00009f0e94eb936c877d1baefe7082749bcb08518a6375af9e8d1286c17c96d",
+      "official_source_sha256": "ff9616ec65f12373397a66bc9ce614aaa4460cb5285bead458360c015e8752e1",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingAPI_ActPostingList",
+      "path": "/v2/posting/fbs/act/get-postings",
+      "before_sha256": "c01c0ca94f74f59f7ba88d17bd6ac8a73298c9173a7caf25ea551b1caf57c9da",
+      "after_sha256": "488570991a8cbfc12f1863448328010a9a48e207a33607884b49ff84f2c0337a",
+      "official_source_sha256": "7a08fbf550ec1e48695193c3bdca0f3fecdadb65672ff5177925bfb8f5f8d647",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingAPI_PostingFBSActGetContainerLabels",
+      "path": "/v2/posting/fbs/act/get-container-labels",
+      "before_sha256": "790d3a455fe992adb2d0925146ec31348f924525f26df5a16ce596987b7d1496",
+      "after_sha256": "995bd216bc5c150c01b709f8a7854dd77495fab79faee1c2b6f8c2b2ec17bb4e",
+      "official_source_sha256": "be80504109ae84a7a77fc057a509511fe2bc45ecb114e28d1c15a8cab3f382dc",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingAPI_PostingFBSGetAct",
+      "path": "/v2/posting/fbs/act/get-pdf",
+      "before_sha256": "790d3a455fe992adb2d0925146ec31348f924525f26df5a16ce596987b7d1496",
+      "after_sha256": "39fcf66796f080b2ab1195060ee85716c1061f2df891299e76e37624773e1a4e",
+      "official_source_sha256": "28b13144f34f2c90db517e15bd764442eaad5904e620cd36951f15f41de6a285",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CarriageActDiscrepancyPDF",
+      "path": "/v1/carriage/act-discrepancy/pdf",
+      "before_sha256": "ad138b07731afd55179ddffc549a19eb24e9d1a7a77753fd1f873c0bcde400d2",
+      "after_sha256": "69303f620235a566d50ff92d9a1c6563d0951328bcbb4b4e9d8351c14e6331ca",
+      "official_source_sha256": "bb02e48a1ee6dd1facfcb19c4f5871f796c35dc6b05ca6b93780498609f089e0",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingAPI_FbsActList",
+      "path": "/v2/posting/fbs/act/list",
+      "before_sha256": "e379e1d95154f0044549a5af2479b2aec7d3bb109373bc145762c84a07ad6c8d",
+      "after_sha256": "d1ddfb4ab484fa5d53dc34b6b04a893a67380f2ad0e73d6b62953f731057f257",
+      "official_source_sha256": "0ac4513e743c586c4654fc8690fc27f4397698b556dfe2dd896aac49beb107a2",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingAPI_PostingFBSActCheckStatus",
+      "path": "/v2/posting/fbs/act/check-status",
+      "before_sha256": "790d3a455fe992adb2d0925146ec31348f924525f26df5a16ce596987b7d1496",
+      "after_sha256": "3085c10fb277a5aba17f5f780aba24b9d2d8ea74e355036367f131f3a88d3486",
+      "official_source_sha256": "93d137df6a52707e129015548bb0a3ed9477f6bc84f1dccbb82944cdb58e5d99",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingFbsProductTraceableAttribute",
+      "path": "/v1/posting/fbs/product/traceable/attribute",
+      "before_sha256": "09949da4d2d24a95c48ef2f84ae263a44f5a70beca0f584c3bcd8d0be3d93b34",
+      "after_sha256": "c943654bd18b4931d75dca6563176b676a8b364c77434d2933d2890a54416f9b",
+      "official_source_sha256": "9fca8f64738533e52680090a8bdbc09d1540bbacdf6026ef0ad954af22c1ecc8",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CarriageEttnStatus",
+      "path": "/v1/carriage/ettn/status",
+      "before_sha256": "ad138b07731afd55179ddffc549a19eb24e9d1a7a77753fd1f873c0bcde400d2",
+      "after_sha256": "b00009f0e94eb936c877d1baefe7082749bcb08518a6375af9e8d1286c17c96d",
+      "official_source_sha256": "3482d8d1e04e7d01bd72ce08a5a552f5acd44323e8677753d974b8b695a2e9ee",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "AssemblyCarriagePostingList",
+      "path": "/v1/assembly/carriage/posting/list",
+      "before_sha256": "7f3be061c62f821c969002e789b78c934fb8d5b60f3e2c372561448f14300b71",
+      "after_sha256": "47924e2d828420dc2dcde2522260181500d2e46211c60b7dafcc2ae89014a63d",
+      "official_source_sha256": "9cf1fb61a5afb9b5f8eb7b935ddd082e5752fe1103c24fd5063b9d7743f9ddca",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "AssemblyCarriageProductList",
+      "path": "/v1/assembly/carriage/product/list",
+      "before_sha256": "6516f38ba05a9fcf1b44f8e271382c7f19ef4db1cacfa2bfd3ffeaa0d0e8f5a4",
+      "after_sha256": "522a70e3be3caf7c1e0d52c9a662dba1151e674e10c52e2d35f2a2d9be4da860",
+      "official_source_sha256": "f26ccdf0f37e733906fea5f3fcd8335ad3a07fb6f8ff427cb568898d121c5fb2",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "AssemblyFbsPostingList",
+      "path": "/v1/assembly/fbs/posting/list",
+      "before_sha256": "46a69b46bf9aa2c4098f03a41a39150a21c7a9c249e06c21dcdba9bc09d4ede2",
+      "after_sha256": "0e89c7b01bb46e6abd081907630d9114d1d217f12a9a7534c54de088d83b24dd",
+      "official_source_sha256": "24b1c6f9066353fcb9b86fbfa3eb82673f7b10958e7afa304c979b2742ee7a07",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "AssemblyFbsProductList",
+      "path": "/v1/assembly/fbs/product/list",
+      "before_sha256": "67165eef4b1c95177625c8402d0d5912dbe75c5a0219d8ff6d43ddd5e13d7f0f",
+      "after_sha256": "fea0e72d3c5f694b0d05069ba7e0bf750a6a88207dd37a599ade8ef0059bdf31",
+      "official_source_sha256": "c5b1d6b9438ab2a4897a746a21295bcf9d4347f206bd7975c009d17352296f1d",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingFbsUnfulfilledList",
+      "path": "/v4/posting/fbs/unfulfilled/list",
+      "before_sha256": "37d76bc61d279f954ea6cc9758103ca85645aae3ea784607d8b625dafa576258",
+      "after_sha256": "b937c08e7470524e4f7b460dbd416e876b82e5c800a23c2eac598bdf92a6f8de",
+      "official_source_sha256": "d0d20c3588ffc735c2cdddaea2f645a1284353a20b58e29acd440a242111d3f8",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingFbsList",
+      "path": "/v4/posting/fbs/list",
+      "before_sha256": "53e5d5b75782e1e7532adea11ac2fa3008672f1eb01a11335418d2d3897d4090",
+      "after_sha256": "8aac5b94b71b5e68bdc3934d73a924ae1b7eec63bf1e2e7ee1308f607855d67a",
+      "official_source_sha256": "69c9095631178537cd9b1786a0bfde29a29118cded2c8fd1056498c663628afb",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingAPI_GetFbsPostingV3",
+      "path": "/v3/posting/fbs/get",
+      "before_sha256": "f1d8801cf2a90e1e19061dcb9ee55126c3bc8c97abd4842f9ccde6c0560e85b1",
+      "after_sha256": "6019719ee664eba038bf66740d8e5ccc3932902a6e4f57e68cffd0b08ed5bcaf",
+      "official_source_sha256": "5136eb78858af6dc8c2359ba6f3fc01024f0fd74e64862bd17ddbd3bb7d7e041",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingAPI_ListCountryProductFbsPostingV2",
+      "path": "/v2/posting/fbs/product/country/list",
+      "before_sha256": "4ea4b6049af8a576b52fb6cfdf0a7b4cbd1a323481336c5d1629be4187d1140a",
+      "after_sha256": "34531c398d8456fe97ed0be1f1fc8ab012131e2c3f14722897b880c5cb37d286",
+      "official_source_sha256": "bc79f84bd9ebea0eb971fb492189cb67edb26b1a15e824b87ea4c7e8f4f5978d",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingAPI_GetRestrictions",
+      "path": "/v1/posting/fbs/restrictions",
+      "before_sha256": "09949da4d2d24a95c48ef2f84ae263a44f5a70beca0f584c3bcd8d0be3d93b34",
+      "after_sha256": "452ddd31af1375f1bf036da8e4a928a1fe70ba6ed90b28351c11496cf1c6dca2",
+      "official_source_sha256": "caec22c254d17b0259ee9bd6ee3a7fb7bdd8d9e2f4edcaa609fa45b4d1a24591",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingAPI_GetLabelBatch",
+      "path": "/v1/posting/fbs/package-label/get",
+      "before_sha256": "96f9f06139f00a2f5ec914c12fe17ec93a245d89c0db1c91d229a84d1e34cd83",
+      "after_sha256": "d99e82d60ea87b58a2ff90473f7197de86382b7c4a0b8f69fad2e3faca64de94",
+      "official_source_sha256": "5626d841e70eb28cd7522edbb92d5325a4a65dc7c6f79781f0a94efc667e8dc9",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingAPI_GetPostingFbsCancelReasonList",
+      "path": "/v2/posting/fbs/cancel-reason/list",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "26420b67b9bf5a9e860439136eaee8832a86a6f2d4f5ec8d0a2b1426fc531347",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingAPI_PostingFBSPickupCodeVerify",
+      "path": "/v1/posting/fbs/pick-up-code/verify",
+      "before_sha256": "56310cc74ed4174ac6c72095e8f4ccb94ba061b1307083dfdadaf72e9dd41688",
+      "after_sha256": "f9139494952516ea0daf9df0872ea6ce7467aabb091df967306411e68fa05d08",
+      "official_source_sha256": "40a9307b32970d97b95333c3d466fb1fc925873fdbf0297e46e643a9fc5449f0",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingAPI_UnpaidLegalProductList",
+      "path": "/v1/posting/unpaid-legal/product/list",
+      "before_sha256": "b0ab7658bd339d0d6ad50e587581900a6b644e100090fe6994f826a6d65684ae",
+      "after_sha256": "3398d5548f464223eecea9cc63f99b384d0d64f6e7de3d9ac08fde32ef1b9630",
+      "official_source_sha256": "4d96b62af6ccfd697fb2dc8b209a52afac4a719bb3fea44bb5e7970322569d3b",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "GetProductInfoStocksByWarehouseFbo",
+      "path": "/v1/product/info/stocks-by-warehouse/fbo",
+      "before_sha256": "c6eb1b5d9def50a6f58361bc85967ba3e7e822d28c8a5debc76bbf65b53528af",
+      "after_sha256": "cd53d5957144e67164c6861e1a22ee2559ff8f75fbd907a96b2a9c1a035b93b0",
+      "official_source_sha256": "5241e916aeae0fbe2482370e0727343ae68136bc46727ca703485c7788b790ee",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "RFBSReturnsAPI_ReturnsRfbsListV2",
+      "path": "/v2/returns/rfbs/list",
+      "before_sha256": "89987c403f4d451852ec529d87e48f0dcdc212fa9993fefd2a34a79ac6a31362",
+      "after_sha256": "3b6a7f519040da810f6bca91f4c50188287d0eb494891e2e94d4948739855101",
+      "official_source_sha256": "36088153407e2854bf9773a387315829b0946795faaca71aec97aa5e01ae3178",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "RFBSReturnsAPI_ReturnsRfbsGetV2",
+      "path": "/v2/returns/rfbs/get",
+      "before_sha256": "c0f28e0e19e734d7dcb0826d5a14028d7ff49f9e53c163295bb92a593f2b52a9",
+      "after_sha256": "dec87d7715846567751aae65debc5db9207807aef4e1e1f939f41e7443f2318a",
+      "official_source_sha256": "67204247a2434455a691aee55145aa2fe82b31bb796f1de09afa962795cff985",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CancellationAPI_GetConditionalCancellationListV2",
+      "path": "/v2/conditional-cancellation/list",
+      "before_sha256": "ef80a8dacbeb3f3f6fb0a1e8444a0ec843c24b59c6d32494df0d9744390e3482",
+      "after_sha256": "2ba2d0d579e887b360d91f891e8fd27fd5eb5acaae2ca3a6a4aedd12a69823cb",
+      "official_source_sha256": "eadacd8848ce92152a27d5366fe043a20661357591c550dc94d548dd97d6929c",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "returnsList",
+      "path": "/v1/returns/list",
+      "before_sha256": "4807e0a8cc76455e6631bfc87c0b7d8e54151ff182404b28e6f575d78943659d",
+      "after_sha256": "bbdd5e3acae72223f8b198fa3dbbaefd38f9541782978c611a72ab6fc206ff2a",
+      "official_source_sha256": "35ae3e2a50cb9151607bae4414ce698d9621b3c79cd947c4e27b9bbee114c9d6",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "returnsCompanyFBSInfo",
+      "path": "/v1/returns/company/fbs/info",
+      "before_sha256": "350778a85faf7b5d1e31657dd02c43fad5ec041149ae50b93a68aaff1db21699",
+      "after_sha256": "5cb6d52023285619af3a5d9e57db0976c16819f5cf86b86a3bb7221c257b637f",
+      "official_source_sha256": "aa5c72180515492dea0d2cdf59c2bd8ebe694108b8ce2915ab37b0f29b548191",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "UtilizationHistory",
+      "path": "/v1/returns/settings/utilization/history",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "2ae0afffcc4cd14998cc5316c1f7bb80c17d871619dce05a06e96e5564b0e192",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "UtilizationInfo",
+      "path": "/v1/returns/settings/utilization/info",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "0961a2cd76be94e6ae3fe7f7a30792e02910454655c0f5243198dc50eec18c81",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReturnAPI_GiveoutIsEnabled",
+      "path": "/v1/return/giveout/is-enabled",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "64dace4fa4ecb485c32d22b2aa339bfd83c836146afa97f6bc035c37c1f55a32",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReturnAPI_GiveoutList",
+      "path": "/v1/return/giveout/list",
+      "before_sha256": "7158e286f47520b2fa2b0f17e37c24c792a3ad2378ea35fd253bce580fd21072",
+      "after_sha256": "4cdc8532252633fd17ab234b4f68d353bfa8cb904f4fabb0e8e9eb0e6e3f22f4",
+      "official_source_sha256": "c5addf6fce4d04542e5ab1ba072c3ec0fd194ba8b2c55070c59883a8237330e4",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReturnAPI_GiveoutInfo",
+      "path": "/v1/return/giveout/info",
+      "before_sha256": "614383321abf95aca34c46931dfcada2121aadde75e8652970ce2a747cba8550",
+      "after_sha256": "6157ee21c2cf2656473f7e8cb3f7135fbc160586be4f20387ed4161ff8880a23",
+      "official_source_sha256": "f9980ba39cedd9a03f02c1224c7ded3693eff503a1e4bc4df264ed3cb3cef892",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReturnAPI_GiveoutGetPDF",
+      "path": "/v1/return/giveout/get-pdf",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "7c73c58e3a45bb472c281aece3c2651ba39b478d56f1205e3495197d0fb9d4de",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReturnAPI_GiveoutGetPNG",
+      "path": "/v1/return/giveout/get-png",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "d871c94a98995e60db4f9704ff362c042cd2087f345817099831889246f7032a",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ChatAPI_ChatListV3",
+      "path": "/v3/chat/list",
+      "before_sha256": "619c07e6d11db2c1f15582c7b564bc79dc369925a8af4cd19fa256a89fb15698",
+      "after_sha256": "f112644a4212049dbc5efbf3aea93362035272a62176c1060caf640ec451c539",
+      "official_source_sha256": "3c9a243f1331cbade885a0345a6d3140ea7d822c42871f83bd15f0d269006a1d",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ChatAPI_ChatHistoryV3",
+      "path": "/v3/chat/history",
+      "before_sha256": "f08bbdc1ae2d69c14ac9a5467b5877ebb3cc8cf4ff48653d292cd721b497e15e",
+      "after_sha256": "9fa2b82a93cb3e411daaf6799b9d2690679507211793874482684dff33148397",
+      "official_source_sha256": "8c7b73dd8a173e9fbf680e65d82e0070d477170d2f4feda4b34c6220094f3e9e",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "invoice_getV2",
+      "path": "/v2/invoice/get",
+      "before_sha256": "09949da4d2d24a95c48ef2f84ae263a44f5a70beca0f584c3bcd8d0be3d93b34",
+      "after_sha256": "c943654bd18b4931d75dca6563176b676a8b364c77434d2933d2890a54416f9b",
+      "official_source_sha256": "a21b8e1839bc75de6e3d98d1ea674a33ae87056f63b91081f51431d7203fe048",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReportAPI_ReportInfo",
+      "path": "/v1/report/info",
+      "before_sha256": "d56a922d35cc4c325d2aabde90cac5df5c8a034cfa799b390ad9b20580d7617a",
+      "after_sha256": "7386f27b9f7f43d11c15ab4c5d4cae7ae6ed83b72480b76d0c9dc284f609ccb9",
+      "official_source_sha256": "dddd354b3a7365df4b524115dfda59c5615fbba7a5902c865bbae929c4d443eb",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReportAPI_ReportList",
+      "path": "/v1/report/list",
+      "before_sha256": "e24e866fd7b6ca2d39b7da72da2db78cf94c430b6ccf0d7512f6eb0d2dffef9f",
+      "after_sha256": "4424983e9cf5e8ec344e220589082197b620aafbb5fbaa88acf103c314b5d280",
+      "official_source_sha256": "96db711827b34d913c6e50b69abc31ca8f698764c9f5072f7504517b82268836",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReportAPI_CreateCompanyProductsReport",
+      "path": "/v1/report/products/create",
+      "before_sha256": "df66a5288fcd02ea31019a12f7ec2601dae42f7d3ba1942fddd9eaa9d74aa330",
+      "after_sha256": "bba3108d1bb8f1e219209568c095fb824797f11f0f803d4cdd13b63e9602528a",
+      "official_source_sha256": "6cb08477e6c8daefcb6fa10170661048d223e8cacdcb9a28da5a93e241279f40",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReportAPI_ReportReturnsCreate",
+      "path": "/v2/report/returns/create",
+      "before_sha256": "3113b14233317ef0ef5ada4b13e1500f3ae5cef398e1d26ec34baf999ec6efe7",
+      "after_sha256": "b6e141ffc0889596f418cf45ba56d05dca8e9d77735ff38e7fa4ed80b7752fdc",
+      "official_source_sha256": "f3d29f73aded86aff6c6799304c019538c62b0d00685b291e1e826daf4882f20",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReportAPI_CreateCompanyPostingsReport",
+      "path": "/v1/report/postings/create",
+      "before_sha256": "af064d0a6185c02c24ee22627a0d74c68ad6e6ab87c8ecd562e09b6fee962c40",
+      "after_sha256": "0452aca49545a370ce4f6f36f63990fbd7874037d1bd543b1fb61e681acf3fb3",
+      "official_source_sha256": "ff721671e913b60a54b2a4ca02c16c950097e641e71d061741d33c453ee60c03",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FinanceAPI_FinanceCashFlowStatementList",
+      "path": "/v1/finance/cash-flow-statement/list",
+      "before_sha256": "0d02eb06f2d727dc1acdc46ec946166b41ed829a0c11ba8e8669ce1960ecdafe",
+      "after_sha256": "0a7240f69560c1a777d5756c9216a8c089a15aa1bfae89e19f94604562ae3efc",
+      "official_source_sha256": "3f9250f90469b5c5da0ba1afae54dd85768c4933b94979e9be59e480dec51d9f",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReportAPI_CreateDiscountedReport",
+      "path": "/v1/report/discounted/create",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "4c4213317d7b6f8f761eaa8ca7e365c9791e2c5c13d6afc01210380f998424f1",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReportAPI_CreateStockByWarehouseReport",
+      "path": "/v1/report/warehouse/stock",
+      "before_sha256": "90568b2c6cae72970e27733b44091f4d14f71d89da4e4dfd349f448bb309e5a5",
+      "after_sha256": "1973a3b48973de549aab4408dcd28fcca045a6bffd210dce3fe070d6e1154618",
+      "official_source_sha256": "d2c6b2c988edbe2ea72fb95e38737bb048ae593cff4734dfe9f785506caebdb2",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "AnalyticsAPI_AnalyticsGetStockOnWarehousesV2",
+      "path": "/v2/analytics/stock_on_warehouses",
+      "before_sha256": "f563b62482999652fd1a9f4be25a531b3e086a14039472f5f943dfb34df70b7f",
+      "after_sha256": "a5aa23581f3bd6f02c9bd44fb444314fc30fb36d0f6b22fc922997aff32f35a9",
+      "official_source_sha256": "db31c7bcbd426a5dff3ea7281fe5e38edce2b71da39d3e143e27679810f8fbc1",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "AnalyticsAPI_StocksTurnover",
+      "path": "/v1/analytics/turnover/stocks",
+      "before_sha256": "e21e4f3084c37acd2a4cf8defa0bf4269c27d947731074168b7945a65ac770cc",
+      "after_sha256": "bbff843a7ab7a68d2607f8e8ddd2af29fd0aa080b5f7a6b6efad8e023eb8247c",
+      "official_source_sha256": "a65fc281f2fffa3bb8df92d23653e93f6fb823f2ec52b725bd3fec668717e0ad",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "AnalyticsAPI_AnalyticsStocks",
+      "path": "/v1/analytics/stocks",
+      "before_sha256": "380f6ea4195d1d7ee8746ab541918ef69035745009cb0143490bdc5731bf3e21",
+      "after_sha256": "c4be8a4dd0693497523b188c2655bdaf362cd35ac5171fc418db411dded50d00",
+      "official_source_sha256": "31064bcafc479c1dee4ecad042830d84888f02b226c4770aaa114f7b253bd60d",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FinanceAPI_GetRealizationReportV2",
+      "path": "/v2/finance/realization",
+      "before_sha256": "ce33d16d4316aceeaa77d971309a6daa5bec04151269650a1a254e529dce27bf",
+      "after_sha256": "5f3fa5e8bb338c9b17c2855dc33a9228a13dceb2ef7d59db3a6bd2724ef40dab",
+      "official_source_sha256": "501502e1df824a14b7a63f375954c89b578caa06c2325b65a6018040a9729679",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FinanceAPI_GetRealizationReportV1",
+      "path": "/v1/finance/realization/posting",
+      "before_sha256": "ce33d16d4316aceeaa77d971309a6daa5bec04151269650a1a254e529dce27bf",
+      "after_sha256": "5f3fa5e8bb338c9b17c2855dc33a9228a13dceb2ef7d59db3a6bd2724ef40dab",
+      "official_source_sha256": "311c048501ebc5d3a260e5c21e1487551712cbae029052aa27792967c689d5d1",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReportAPI_CreateDocumentB2BSalesReport",
+      "path": "/v1/finance/document-b2b-sales",
+      "before_sha256": "4906c144dc8f79b61b4f3b7beb843cd14673c1314e79c56ace4752764b46fdc3",
+      "after_sha256": "0514fdd0c71990a0ac4a6167aeb48858054e7734ccd26a6026f94a9ecf0568fd",
+      "official_source_sha256": "cecf8c4ce319cd739629311baaab564441094e06478ba164190c53d83909c35a",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReportAPI_CreateDocumentB2BSalesJSONReport",
+      "path": "/v1/finance/document-b2b-sales/json",
+      "before_sha256": "1a7a753fde94e1e5f5f36f6345942adcf1b9ae2647ca996f8c74979ba8bccd6d",
+      "after_sha256": "35a1dd67d3c7ee855aaf62c23440c5feb6215213a2b8f7ac6507b1c708d9f94d",
+      "official_source_sha256": "53b090c9bf03a6cb35d1baa68be63d3348e498846871996e9b25c03586c68b63",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReportAPI_CreateMutualSettlementReport",
+      "path": "/v1/finance/mutual-settlement",
+      "before_sha256": "4906c144dc8f79b61b4f3b7beb843cd14673c1314e79c56ace4752764b46fdc3",
+      "after_sha256": "0514fdd0c71990a0ac4a6167aeb48858054e7734ccd26a6026f94a9ecf0568fd",
+      "official_source_sha256": "e35a8a0580b6ea0beab208c607e27e941d243800c742850f701743faa2037699",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "GetFinanceProductsBuyout",
+      "path": "/v1/finance/products/buyout",
+      "before_sha256": "254e51f983bfa943ada56148cf28c6b7c78e6bfd2a1e577d1637eade7f722d84",
+      "after_sha256": "b44b010f5ad4df9dd9f4b1c963d1c67942837a08ab909ee6a8e40e6aa9277102",
+      "official_source_sha256": "7f88b542f9b2f951915fd7f8aea09b83f931a4ef31191537d0bb2c342a8e9b2a",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReportAPI_GetCompensationReport",
+      "path": "/v1/finance/compensation",
+      "before_sha256": "4906c144dc8f79b61b4f3b7beb843cd14673c1314e79c56ace4752764b46fdc3",
+      "after_sha256": "bc6d6d86efddef4151d6a2ce82e73bcd5dbb1b3632ea77b238605013727b816a",
+      "official_source_sha256": "24306cb47ca637bffdbf208961fa806fa0198c2190d06933bcc95d0fd529daca",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReportAPI_GetDecompensationReport",
+      "path": "/v1/finance/decompensation",
+      "before_sha256": "4906c144dc8f79b61b4f3b7beb843cd14673c1314e79c56ace4752764b46fdc3",
+      "after_sha256": "bc6d6d86efddef4151d6a2ce82e73bcd5dbb1b3632ea77b238605013727b816a",
+      "official_source_sha256": "7d37457a2fce2f253750e6373585cab40e4c5060bb349278e3156bb9145e25dd",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "GetReceipt",
+      "path": "/v1/receipts/get",
+      "before_sha256": "7c5f6ec69bdf5ab7442cd07e7ebe8aa829ca29386612676f4e193aac28c56330",
+      "after_sha256": "734907c6ad898537da4f51756a51ef4b775ee1990f07a2a354274f7337bfb929",
+      "official_source_sha256": "9c598b6be0763c357059b29f372808217eff56aeaa48b301841225ca6135928c",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReceiptsSellerList",
+      "path": "/v1/receipts/seller/list",
+      "before_sha256": "130ef7c6ff31f4ba9a3c3b8999e7fac0af747038561f5654aea9e3c1dca9625e",
+      "after_sha256": "1938c56e33f9a90f651e022a73fda6e41966548e71627485d0335fec224d4af0",
+      "official_source_sha256": "c91be90d5f3f8a11b6574a48998689bd29e7174590600cb99e43a86cbdb15a9d",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "RatingAPI_RatingSummaryV1",
+      "path": "/v1/rating/summary",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "834eaa35d7106b8836b86fb5eb2ad2f4d4befd04fc4e11564803ee49c8f82fe3",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "RatingAPI_RatingHistoryV1",
+      "path": "/v1/rating/history",
+      "before_sha256": "d4f2f7d67f5465d3268fde747e648072a10597768962b50b0b5330f490b753d9",
+      "after_sha256": "97950ffbf1a2d0777d0de76104978713f6df2f02bfd1a85b68853e304a96e630",
+      "official_source_sha256": "2ad88ef2cbae8495e6e60e026bd745130237e0309f0c9d4013594dd1ed6ef96b",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "RatingAPI_GetFBSRatingIndexInfoV1",
+      "path": "/v1/rating/index/fbs/info",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "31a2f320b09b0cc2c3ccaa7c3a3570a5ef2468ab4ecbeac97717b688ed17f2e7",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "RatingAPI_ListFBSRatingIndexPostingsV1",
+      "path": "/v1/rating/index/fbs/posting/list",
+      "before_sha256": "46b07ca30b8270f44ef727c5fa60906d89ecc848756ba09abdbc951e22de2aba",
+      "after_sha256": "50479171dbadb62b251cf5a6f80e0851a39041d3814d6a904f24c194bcfcb553",
+      "official_source_sha256": "b72e74a89b2455b984ba82f548b983ac780e68e70814d1fd2d7945a45f017798",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReviewAPI_CommentList",
+      "path": "/v1/review/comment/list",
+      "before_sha256": "cd17a865a82afd9205e11a40bc8fdf0913f70a08583ac91c4b61fbcd329347a1",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "6322c599c092d8114684f6ffdfffd04e03fefff3e3e7e7ecf914784922d00996",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReviewAPI_ReviewCount",
+      "path": "/v1/review/count",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "16d1512aea0fec142a412b56fe42b3128c37ee8d95140f6a476f781fd36bde46",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReviewCountV2",
+      "path": "/v2/review/count",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "09a5c12d04669e8625e185ca2b312fa8a6ca3d9425c501209ef25d9ab834a4a5",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReviewAPI_ReviewInfo",
+      "path": "/v1/review/info",
+      "before_sha256": "b877b9a1a0db099580d457fc3edce6460aa7431385aae7a70d34c52c321ef08a",
+      "after_sha256": "e143aa35707d0c58a85def929ba096de23747374e7c01f678c29f11a7581c3d8",
+      "official_source_sha256": "a101cd4f89615ad0d37dfdf626c834785ed966ebdcb661666bba570a05f83531",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReviewInfoV2",
+      "path": "/v2/review/info",
+      "before_sha256": "b877b9a1a0db099580d457fc3edce6460aa7431385aae7a70d34c52c321ef08a",
+      "after_sha256": "e143aa35707d0c58a85def929ba096de23747374e7c01f678c29f11a7581c3d8",
+      "official_source_sha256": "df79cee66526942b88976deae95f2d8a04cca7d3e4342b6f266bc4b8260c4200",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReviewAPI_ReviewList",
+      "path": "/v1/review/list",
+      "before_sha256": "163dfe2f9e98069651b5f5b046cf11feaf02d43bfcc6514a41f1114b565bd9dc",
+      "after_sha256": "189cbdca81b4ee106409f785f8a435a326b6dfbccb7facc4961384fe1ea0fe6c",
+      "official_source_sha256": "dcabdf486b631c640d355754f9248ddb99c7fc795b59a08f8bb353067c70cd38",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ReviewListV2",
+      "path": "/v2/review/list",
+      "before_sha256": "d3669f3ae1691700db31bc3683ab957cfc00ba855a6415c57e20d81a467a3ffd",
+      "after_sha256": "0d801168babf0e03eb87c3bc7f117f8f1365efe923595dd9c71e5f9547510180",
+      "official_source_sha256": "204d565cc202342fe91dac9837799f593a06780460c1e63b297d020db5de2798",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "Question_Count",
+      "path": "/v1/question/count",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "5a952629129d1deb163b85682b6c32783ecffa04712fb47a83c1bbafb50f78bc",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "Question_Info",
+      "path": "/v1/question/info",
+      "before_sha256": "36ef06aefca82f06ab59ef888d9ed923a317bcc7dc89221db693cfb25ccd1e34",
+      "after_sha256": "b2969ba51d318ee7b6ac7e2bd5160d64c5db092f3680fbe25d21c79fd6883a40",
+      "official_source_sha256": "1e98566ac3d2a959e02252a6c92fb12d7f4c8048c62b0279dd6c33f321262ce2",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "Question_List",
+      "path": "/v1/question/list",
+      "before_sha256": "b86e2336e920523062694d552d87f87626647f76abc9cb20c8e58957cdcd7826",
+      "after_sha256": "790aacb4e01ec632e6196d17c28408086b980d455a6492c5441b433401f7e87b",
+      "official_source_sha256": "230a2d4eb4af815c4caf81c12f4edee09a1ec6140608ee9ca419b87e6dea2d30",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "GetSupplyReturnsSummaryReport",
+      "path": "/v1/removal/from-supply/list",
+      "before_sha256": "10f385c3deeda346c654f1736d12e7e81137a6d79193b97ee2e529b7b2ec981e",
+      "after_sha256": "c7a2cf51f13b1656553bae98cc8212934f52aa5beb5ecff704e64a20838b7e14",
+      "official_source_sha256": "20d44345c4ef3d67073c7eb8a9f8ff834fada0bea5ae4bc770e016e34b986224",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "GetSupplierReturnsSummaryReport",
+      "path": "/v1/removal/from-stock/list",
+      "before_sha256": "10f385c3deeda346c654f1736d12e7e81137a6d79193b97ee2e529b7b2ec981e",
+      "after_sha256": "c7a2cf51f13b1656553bae98cc8212934f52aa5beb5ecff704e64a20838b7e14",
+      "official_source_sha256": "3e406df6d509a1b4b6a2aa9f3b1113358e2e957643e34388a9b2ff9f5978d70e",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductAPI_GetProductStairwayDiscountByQuantity",
+      "path": "/v1/product/stairway-discount/by-quantity/get",
+      "before_sha256": "bc3469332c1b4c20fe4e14904b9ec38eb7ab36231502ee01d2b8989de6430feb",
+      "after_sha256": "56dc43ba326daf0ca2191b989951ccc3598b570f439793ab7f8a7e8ac9d7d074",
+      "official_source_sha256": "06a64007653a4f157881ce33e837c885bcb3afd90edc5b997c33881fadd86671",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "GetFinanceBalanceV1",
+      "path": "/v1/finance/balance",
+      "before_sha256": "254e51f983bfa943ada56148cf28c6b7c78e6bfd2a1e577d1637eade7f722d84",
+      "after_sha256": "a5332fcb2fa19652900c45321157f1d7857067d124eac604966c752aa5d80eb1",
+      "official_source_sha256": "5bbce5ef455800a541a72713b3a1a66471c9a868d62a5d6a748f60a4c74d79f5",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "GetDiscountTaskListV2",
+      "path": "/v2/actions/discounts-task/list",
+      "before_sha256": "2fc9ae14da1562bd98e86f41c0164233211d87ae12ea445c15cd52ce0f411614",
+      "after_sha256": "743d1954df4c6ecc7620a32cfb21a30e9d331aef5e8f50d3416fe0b5b7be3e8c",
+      "official_source_sha256": "9bbc9d1e04680bf363de8e729fbac3ac608baa130e5b6b8f1e8be8dad69be06b",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingDigitalList",
+      "path": "/v2/posting/digital/list",
+      "before_sha256": "1035ba9393430f3b82423af6e26b6e3fa66ae3b828eb07658b583b263f0190bc",
+      "after_sha256": "fc428f3109af98a540cf441e1761ee2540e67348d323ede6756f7ddb6189ca16",
+      "official_source_sha256": "6245139d1d868a5ab8ab412d35bfd0e6b593bbe832b8d384fdf854e044e79690",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "GetFinanceAccrualTypes",
+      "path": "/v1/finance/accrual/types",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "c8214b23d2a800f92be0b8a955c5048d41e9b07be54ef107514cffd582ccb664",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "GetFinanceAccrualByDay",
+      "path": "/v1/finance/accrual/by-day",
+      "before_sha256": "6ee3c329bdfcb33d5b1dc738354f2e0a1f790b26bcf276ec974560fde9570749",
+      "after_sha256": "b3e201ab4eda55a90fa618f6bd8c5fe45d7e522a7fa72e2b75e0ccf23d4589ac",
+      "official_source_sha256": "f1bc486f29a4cbb18c8d6bdf3cb285708760d4b3ed19a86d62ea4db7bfc5c390",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductVisibilityInfo",
+      "path": "/v1/product/visibility/info",
+      "before_sha256": "2dc569e2b0a403dcc9dd7d8034ef1fba4dcf6a9fa6b4a52712f574a1c9e58f91",
+      "after_sha256": "e83633840a9023b4494b497932a807182cfcdfff849dfd9b1e5ce2e986e125db",
+      "official_source_sha256": "54eb8abf38e14b41d7fdd000d03076626e3c1c6ab5800051f4d0902b72816f9b",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "GetFbpPosting",
+      "path": "/v1/posting/fbp/get",
+      "before_sha256": "09949da4d2d24a95c48ef2f84ae263a44f5a70beca0f584c3bcd8d0be3d93b34",
+      "after_sha256": "33cccfcd3d897a8201d895162c4e85a7e9349d9f41e3a468ad6ff980a427ef01",
+      "official_source_sha256": "43a45e590f9a1b24fc611e2da4f87712f3585fd0b21d782b4ca5ef94a7b929c2",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SupplyOrderActSummaryGet",
+      "path": "/v1/supply-order/act/summary/get",
+      "before_sha256": "8423cdf2a2cfccd3319f37b1c0e4e55fab32a17dfd1baa78054940390bd26830",
+      "after_sha256": "0cd982b33b909d105d2556289eaf87da2cc6b5188e158b4927e59623aa9838dd",
+      "official_source_sha256": "9c0c65bfcf6c089897f696929e1a18c7d123952f4d63f1a4d35c6855ddb2755c",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SupplyOrderActProductGet",
+      "path": "/v1/supply-order/act/product/get",
+      "before_sha256": "f2306f3b719ea0787877bd83016a6c6cef866e92387b9488f6b1df7efcef3435",
+      "after_sha256": "5197b478c487b54f381e8c1f994807e2389c4cb472f5aa464a4936a683d614c2",
+      "official_source_sha256": "5dd86f4a2725fdb076c254ccf65516f0a453b704113aabce06613ad9a82329c8",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SupplyOrderActAcceptStatus",
+      "path": "/v1/supply-order/act/accept/status",
+      "before_sha256": "2e98c83527a40d67d86bdd76c5e4d71db6de95fc5d3a24411b313a279265bf72",
+      "after_sha256": "f362eb4c8ade92a51708304832be1abaa507c652177ed22fdd76955998e78bdc",
+      "official_source_sha256": "f96ef3fdead4507489d054b1548b38de8f716fcdf99e0c09e1b518194833b2a1",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "WarehouseAPI_ListDropOffPointsForCreateFBSWarehouse",
+      "path": "/v1/warehouse/fbs/create/drop-off/list",
+      "before_sha256": "95143e54f170a7f0a64bc1bf1911aa2058239336e8f754a5e0704b55994a5a6a",
+      "after_sha256": "6abe6c50f80c30ab876bd6a0202475bfe9d60aafe1afbcb180705df40b40f365",
+      "official_source_sha256": "82a94751af8bae9f8e72d24d43a1d0499c93782bc7c7d93105fbebbf5b2867e9",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "WarehouseAPI_ListDropOffPointsForUpdateFBSWarehouse",
+      "path": "/v1/warehouse/fbs/update/drop-off/list",
+      "before_sha256": "fa7b3c91ca8dbde9bf236370b86b2ca35be863cc605fd4bed7cf9299fdb0a045",
+      "after_sha256": "37573c4ce940a768f51957c16d9841e3c4e48805dcd54629c1824b3a49287126",
+      "official_source_sha256": "02a55f30234d70987952953813f4e943eaf819ecaee9572e3899d83d786e9bc6",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "WarehouseFbsCreateDropOffTimeslotList",
+      "path": "/v1/warehouse/fbs/create/drop-off/timeslot/list",
+      "before_sha256": "8711e6cc0492a6bb2920a0cf35a8d6325b9cc4257df4f2a79ee35d186218f8f3",
+      "after_sha256": "20a1bb38bce6864ef243b46313e9fa496d996f32512c2f80e4e96bc7caa3e0a8",
+      "official_source_sha256": "1fd7eae2fea2d6cc4f8bc719fe03c46aba614ce1d6bf32cefbc563d63a467d68",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "WarehouseFbsUpdateDropOffTimeslotList",
+      "path": "/v1/warehouse/fbs/update/drop-off/timeslot/list",
+      "before_sha256": "bb81a269016a7a6f9abd168f5d5e86dbc759e1ea96fab1e26d391fe530c0557b",
+      "after_sha256": "4b898a98cb69a378a063bc3ce6a18001c7878d79bf4bc37cd0a2bffd6c2c6f4e",
+      "official_source_sha256": "b3fb05d1445f8a882bdf25612a01e0a6b9c94d1a95f01582dfab8826e33be55b",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "WarehouseFbsCreatePickUpTimeslotList",
+      "path": "/v1/warehouse/fbs/create/pick-up/timeslot/list",
+      "before_sha256": "172e3c2651c953a0d7958c2e96fcf2dfe0c1cb16d172cf939e394a22338ff84c",
+      "after_sha256": "ac4c57402a6db862a2ccb0b6249dc56cb34b41f4f0f855121b1bf66894f2f139",
+      "official_source_sha256": "047e1b5d186e3b4e671f07bb268584ab3ad465bc0517ff315612e416c09ee3c5",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "WarehouseFbsUpdatePickUpTimeslotList",
+      "path": "/v1/warehouse/fbs/update/pick-up/timeslot/list",
+      "before_sha256": "175e567793e90c4a0382fd77d693ecfe938c20bf7a14751c9801e64f2d7ef6b5",
+      "after_sha256": "c101620d4d3b06d799e407f8b88db821a3dfc94715cf0293630cbbbbc301a23f",
+      "official_source_sha256": "0caab8f104edd4d82dd0ee37b5002a0262c7fc15492e2a8f5922ccfd6f332668",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "WarehouseFBSCreateReturnPointList",
+      "path": "/v1/warehouse/fbs/create/return-point/list",
+      "before_sha256": "fb91e82d10415a7022c4b4828393e15edae9345658284e322b489fd7d02af8bd",
+      "after_sha256": "7c47212fe93bf52810085e0db99769161fd7b11d9de42b7e3df703ae37978a43",
+      "official_source_sha256": "b661595cd5a16538bcfb7920493b1c48507ed349de4f57227c6da0ff3aa11053",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "WarehouseFBSUpdateReturnPointList",
+      "path": "/v1/warehouse/fbs/update/return-point/list",
+      "before_sha256": "0d6853673f000c635ae30070018ac55d1ad0aacd06e5dea9b1d38165f1dac1bb",
+      "after_sha256": "c1af1cab760f86cdc47c68f792a126ccec2eb3671fae28cdf4a337c0f0fbf708",
+      "official_source_sha256": "3ec3b9bcabd889487c9434d37fdd3340ce27348a97504612807e30420a7dc765",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "WarehouseFBSReturnMileInfo",
+      "path": "/v1/warehouse/fbs/return-mile/info",
+      "before_sha256": "75d9edc2c0f37bb6a4fd9b02611bd1a19e2a2614e338f07667901e666a8e9448",
+      "after_sha256": "6f5ccab88c3093fee751f2be19368bde81eed778a75c772664c2f0aa0b7788ce",
+      "official_source_sha256": "7797ee321a3c14b7c131329c057606613da742202298c9603c8dcce6e1f5fbdf",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "WarehouseFbsReturnMileCheck",
+      "path": "/v1/warehouse/fbs/return-mile/check",
+      "before_sha256": "d9699cd28961f171656fc38ea42e93a79af02a4011180e07f90efe153fd84808",
+      "after_sha256": "754bd0be568e28483bff817166a9b44911be817a5dad351e828abb33bb5736d5",
+      "official_source_sha256": "1df0370b3f02710234feef8892747009220328e92681853707007042a8d315cb",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "WarehouseFbsPickUpHistoryList",
+      "path": "/v1/warehouse/fbs/pickup/history/list",
+      "before_sha256": "6e9c0b2b718ef248371acd45b7787c17aecb4eaf985b215e757cc7d3a1aad16e",
+      "after_sha256": "21c890ee4461fd41bd4bcd65b805bca9f3a74ffa39533c02d7eaa955d680f7ff",
+      "official_source_sha256": "dba68f683594bd568dc420c9171cdf8bb1ac0babcad75af73be6c2901659a4be",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "WarehouseFbsPickUpPlanningList",
+      "path": "/v1/warehouse/fbs/pickup/planning/list",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "c59224f72126da8dbecd634cf77b67ad3eb641a96e7b2f7f36ae4abf3d79fba2",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PolygonList",
+      "path": "/v1/polygon/list",
+      "before_sha256": "8cb3df771e64e3896f9c6eda65d371d4e5912c11d57541b37811c8513db5f347",
+      "after_sha256": "cbdb84335cc11f2b4a509edc88b6fa668319b063bd2daf277b71be5d88cbfe89",
+      "official_source_sha256": "b0d2663e210c7145d3627df482f9e75b19c0f9afd40d1249abaff6407aa42468",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SellerActionsProductsCandidates",
+      "path": "/v1/seller-actions/products/candidates",
+      "before_sha256": "9eb76dea459753b69c8eb7fd6124add9e3e79e6c4e542d831901aae4e7ca7115",
+      "after_sha256": "52a7aaa3905a177823417b9d7fd5b0b3427608258ad6f4dc82c8f12c4b8ad18d",
+      "official_source_sha256": "110efad2f9e3ef8dff381b5bdc8ca8c6058bad983ac84572870aa118c1bcfe48",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SellerActionsProductsList",
+      "path": "/v1/seller-actions/products/list",
+      "before_sha256": "9eb76dea459753b69c8eb7fd6124add9e3e79e6c4e542d831901aae4e7ca7115",
+      "after_sha256": "52a7aaa3905a177823417b9d7fd5b0b3427608258ad6f4dc82c8f12c4b8ad18d",
+      "official_source_sha256": "e4b41b22db374c067e20faa00e1816169d2d8879271fe92a555b64202b5e712b",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SellerActionsList",
+      "path": "/v1/seller-actions/list",
+      "before_sha256": "76cde60fa5cba007cdbb931c7c1dd59fc7be083a26b9a9a755d112365da0517a",
+      "after_sha256": "392c9abb037d693aceec2b8e655bcd9d78f47f255460139f24e2310f408c08d9",
+      "official_source_sha256": "08514bdfade3a3c0d673ae4b20dc4710d1418d47fe6b2d266b1664946b1fe088",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SellerActionsVoucherGet",
+      "path": "/v1/seller-actions/voucher/get",
+      "before_sha256": "f2be10f31b0269777a154f7a4c7a620d4be95232ac6b180a521311f3d2db4a32",
+      "after_sha256": "257d90012198b305eaa4bd610cb4b502b2292414521927f8b52ffe61db3db663",
+      "official_source_sha256": "d35b2550859389afb9b3ccb158bda569544057e3f487480c68e6526756108ed7",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ActionsAutoAddProductsList",
+      "path": "/v1/actions/auto-add/products/list",
+      "before_sha256": "4977654e14fb2ba178656e56e9efa5e1706a1c4ca0219fcb0d24b43777892b04",
+      "after_sha256": "445780e68532cbb27e344ccfab83688b216c848a140e0483e042feb353e77e3b",
+      "official_source_sha256": "fab189dbc55b99cb1af94aaec35a73965b9f7092dadabcc4ec32bde2b230445c",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CheckNotification",
+      "path": "/v1/notification/check",
+      "before_sha256": "425b26350f17df529b2794a5bf6be5e5ecd4fcd2982bae3492923164c9ac15d0",
+      "after_sha256": "8be806c99c79949edc0e091fd4bd97b0a99fa5f69c552e5f86b62c6d40cddded",
+      "official_source_sha256": "7b239b2bb42881b45e96b214702c37e0e4a14e0852b9e1e47f8f179121b701b4",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "NotificationList",
+      "path": "/v1/notification/list",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "2da4c08b6a3419e8c2453b679f83f13bef9844c248d572ef7842fe3046f52e2f",
+      "official_source_sha256": "3ea2c49e800ba6beaa4d080945ef97dbbe6b08e0b4bcb137e6bdfd96f3c9bf3d",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "GetNotificationPushTypeList",
+      "path": "/v1/notification/push-type/list",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "661d59b26165013f0c30f0d8498b7f09a26d0ad9991aacd075b21015ae7dae56",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CargoesGetV2",
+      "path": "/v2/cargoes/get",
+      "before_sha256": "46a99acfc7828c46c85d7d7695eef8ec86d0cdd0e97d327ed47541b9d9800acc",
+      "after_sha256": "b290bb238630e3c7e20255b2c69e2ee97a5c4003b3366aa434d2fa5cf0155314",
+      "official_source_sha256": "37558da46f8e04fa6b528f4302a216eeee62517607f947d2dfe8e86678b64bd3",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CargoesDeleteStatusV2",
+      "path": "/v2/cargoes/delete/status",
+      "before_sha256": "2e98c83527a40d67d86bdd76c5e4d71db6de95fc5d3a24411b313a279265bf72",
+      "after_sha256": "a9c6e3fabed042ab0e17034b218dcbebd3cf90530ec72388e3dfb15131f466e0",
+      "official_source_sha256": "a58cfa17fff0c5affef40d41ba548c97609c2ffae2465732b484357f445afd8d",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CargoesTransportActivateStatus",
+      "path": "/v1/cargoes/transport/activate/status",
+      "before_sha256": "2e98c83527a40d67d86bdd76c5e4d71db6de95fc5d3a24411b313a279265bf72",
+      "after_sha256": "ff50b00d0c32ffaa32f06d1a451079fd02f6d921a6c200825b9f265d0cbdc61e",
+      "official_source_sha256": "867d3d05d0697d3eb7d94b861e53b65a364a578ad24f8f09ea9be315b8fdc420",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CargoesTransportCreateStatus",
+      "path": "/v1/cargoes/transport/create/status",
+      "before_sha256": "370f31c95ab71cfa9873f0119cb9659daa892649a43541009879b5473442ce1b",
+      "after_sha256": "b5bb0d5570321230e4c28178eb02281a29bcc7e6cf4d1d161335fdeefb1ea8bf",
+      "official_source_sha256": "40f16ffc70a0c93d0da5cd76ca81a9196b354c1e7a1ab238182f3204b56d2f62",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CargoesTransportBindStatus",
+      "path": "/v1/cargoes/transport/bind/status",
+      "before_sha256": "2e98c83527a40d67d86bdd76c5e4d71db6de95fc5d3a24411b313a279265bf72",
+      "after_sha256": "940151b2fabc43bd198ade302cbde8d2182067afd443f21e0f0bc67cd7eb5905",
+      "official_source_sha256": "5e9ae5aeaa6a35bf7e5ac319c96cd590dd936884d1bda569430fefb1e7d24b92",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CargoesSuppliesGet",
+      "path": "/v1/cargoes/supplies/get",
+      "before_sha256": "815c0da5e2d6cd80f52607a3248e0a9e70c2dbe14eec1f75ff47284f517e181f",
+      "after_sha256": "474d297af0378198a200c7e936c0959b7e85de52d9139101f22f2861bfed3987",
+      "official_source_sha256": "99cdbb90b5f7a3834b3e917d8f0e1d6525cf41f09b0f5d599e052194ba95619b",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CargoesLabelTransportByOrderStatus",
+      "path": "/v1/cargoes/label/transport-by-order/status",
+      "before_sha256": "2e98c83527a40d67d86bdd76c5e4d71db6de95fc5d3a24411b313a279265bf72",
+      "after_sha256": "2520e137c108ab4ac6069983cc5964ca9f465d6b0acdd72422daab8de04c1604",
+      "official_source_sha256": "2416506ca217fcc89c7755c4c65b1366d28a227fb5b5d84d14154103d1285d41",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CargoesLabelTransportStatus",
+      "path": "/v1/cargoes/label/transport/status",
+      "before_sha256": "01b5a5990ad6a76f3a1369e3bad4c46be848aca756624a76f6c5db3aacc4b107",
+      "after_sha256": "4eb36b4e4b76d10d8726f5aa73bc58a1c7d65f91abdbd8a978f0f16cbafae7b8",
+      "official_source_sha256": "9f081754c9bad31f2cc8b8d9b489ad03f735c48e0e7f9ec86fe48e2dd302b2f8",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FbpDraftDirectGetTimeslot",
+      "path": "/v1/fbp/draft/direct/timeslot/get",
+      "before_sha256": "61a089e110091a4337dd65958d319b1dba22168e5c4e178c2116f7f8670126f8",
+      "after_sha256": "ea096d27da9ced5d2f982ecfe875ee91467b205e5488c98ce12c3bdf10675d77",
+      "official_source_sha256": "d1819fb0e1dc02b7dd4fd15254b3516c52a839baaa3d01d46cfd792d89ecbfdc",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FbpDraftDirectProductValidate",
+      "path": "/v1/fbp/draft/direct/product/validate",
+      "before_sha256": "10501696c7539da3e3fb4a66a33d1d268442ceb4b692cc1ff521cff34374babc",
+      "after_sha256": "7778b7e9a187851aeed820af58eb73cb3faaccb75cf9fac2f39602712f076595",
+      "official_source_sha256": "982846c644d8b513c30bff84fea36a007825c514b0560a132ea79fb78a1ad362",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FbpDraftDropOffProvinceList",
+      "path": "/v1/fbp/draft/drop-off/province/list",
+      "before_sha256": "175e567793e90c4a0382fd77d693ecfe938c20bf7a14751c9801e64f2d7ef6b5",
+      "after_sha256": "c101620d4d3b06d799e407f8b88db821a3dfc94715cf0293630cbbbbc301a23f",
+      "official_source_sha256": "835117831bb0a58cdf8fac43fb2e259328c9f9ea171f876ecede272f35e62b6a",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FbpDraftDropOffPointList",
+      "path": "/v1/fbp/draft/drop-off/point/list",
+      "before_sha256": "7420cc41b23bf9442767a3a8da65ae0cbbc31dea92868f64879e7ddefe62774f",
+      "after_sha256": "41e66aa0fd86e45a54707d8003df7f868e8acfdb4be86064e11c891d6cc486c2",
+      "official_source_sha256": "1446403eead84e4d720dd1a3cac4e7ae13df33296f19691ad24910f036fc45e8",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FbpDraftDropOffPointTimetable",
+      "path": "/v1/fbp/draft/drop-off/point/timetable",
+      "before_sha256": "63e32b66b1762868221949409e55542ea4ed951005cb73a92956e49f81e1314c",
+      "after_sha256": "d08fc64ee3a7827f27b72349d6c631ab9e770136b9ab0f9d86ca1b962c0e4ae4",
+      "official_source_sha256": "84b3cceeaf9dde132e8ccf2597388d66f897900870d3f7bfe615229975c7cddc",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FbpAPI_FbpAvailableTimeslotList",
+      "path": "/v1/fbp/order/direct/timeslot/list",
+      "before_sha256": "14c8d52214027dbc7dd27f2a73544104981d8a1bcd0ecf3840352a14122e7f68",
+      "after_sha256": "5b5b757af249020bb08ce03819540c4d393d201366b394d6517a5b01143f7216",
+      "official_source_sha256": "6979c488bd2f00f65bdd48a7db0536b9fe8b954effa851bf453dfaae53ae19ee",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FbpAPI_FbpCheckActState",
+      "path": "/v1/fbp/act-from/get",
+      "before_sha256": "bfcf2ab939601702f0ed16db41488be8e164202fabd193127b3c9df418f04ad3",
+      "after_sha256": "8b64cd611bcbd4008317c15a6f204b8ae03e993d834f4649d86e95e135772a38",
+      "official_source_sha256": "3e6a8c8d834ed9d87441c6c539fcc552cbb85e5625df3f616aa1bf7aa73e5623",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FbpAPI_FbpCheckConsignmentNoteState",
+      "path": "/v1/fbp/act-to/get",
+      "before_sha256": "c483d8f2379a51bd5f9cdcb681583326bbfca73a8a0ba624e816f4c7e1a10b53",
+      "after_sha256": "cd52d496ef5a14a2cf3f5a12403d07c51f6591ef9095e2dc82c7a17045a01f81",
+      "official_source_sha256": "99e3607dec809efdbe96bbe8f515e1a8c3056bf83c9c941e6f2b1c15f99c6737",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FbpAPI_FbpArchiveGet",
+      "path": "/v1/fbp/archive/get",
+      "before_sha256": "fe5b98a5ec34efdb560ca1b3603c5449d2be5d046a83e95febe05b8f01c8cc9c",
+      "after_sha256": "fb38d49843781d8e08659e9a291db8c1b7e536ada1c94359eb2d3c7c5122b5e6",
+      "official_source_sha256": "f032b1995eb15bf7fb528c173235e1c9c0d8d95486c25a048be4822ed1d86778",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FbpAPI_FbpArchiveList",
+      "path": "/v1/fbp/archive/list",
+      "before_sha256": "4260a90cff6a9ddd3a8859e81f48937cf8ccf88b785b5fdb71136668a083efc1",
+      "after_sha256": "0afd801a4b0a1848c77ba2e4b3b309450fcb1897045d19d5d92dc1ce4cd700d7",
+      "official_source_sha256": "66619f902715c8e595d748731e856b83100d91e0b7aa792da6a4a99c45fa6db0",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FbpAPI_FbpGetLabel",
+      "path": "/v1/fbp/label/get",
+      "before_sha256": "c483d8f2379a51bd5f9cdcb681583326bbfca73a8a0ba624e816f4c7e1a10b53",
+      "after_sha256": "8e82be7fc3306d5c146a794a04060e7d06f847ddcb64bf51868fdda586135248",
+      "official_source_sha256": "ffe97b49883d7820e84846c20e26ba2d44f4772490228d836340b93c023dff12",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FbpWarehouseList",
+      "path": "/v1/fbp/warehouse/list",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "ef67d53c2e4130822cbd55e65c33a3296c3e92bd87afcdf66b3006970ce35077",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FbpAPI_FbpDraftGet",
+      "path": "/v1/fbp/draft/get",
+      "before_sha256": "fe5b98a5ec34efdb560ca1b3603c5449d2be5d046a83e95febe05b8f01c8cc9c",
+      "after_sha256": "fb38d49843781d8e08659e9a291db8c1b7e536ada1c94359eb2d3c7c5122b5e6",
+      "official_source_sha256": "756a094b28b004be7eea5f2f320e8bc646a97c29ef4872380e7b1f6815f1032c",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FbpAPI_FbpDraftList",
+      "path": "/v1/fbp/draft/list",
+      "before_sha256": "2f5372bd56943836c1234edb2f7da2c979c82b8f70b889ad2a1e8db7169aeaa9",
+      "after_sha256": "e08a61613e62eebae7c246154586455c787b898914afbf65139429a06898dc9f",
+      "official_source_sha256": "247e719438066ff92da0c8a2921eed4afb74e9bea9eeb5d14e86492602eb8161",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FbpAPI_FbpOrderDropOffTimetable",
+      "path": "/v1/fbp/order/drop-off/timetable",
+      "before_sha256": "63e32b66b1762868221949409e55542ea4ed951005cb73a92956e49f81e1314c",
+      "after_sha256": "d08fc64ee3a7827f27b72349d6c631ab9e770136b9ab0f9d86ca1b962c0e4ae4",
+      "official_source_sha256": "898fe3517f1680bb21741bc5973badf25f01f3be4e27d7886b59d1c70441d63b",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FbpAPI_FbpOrderGet",
+      "path": "/v1/fbp/order/get",
+      "before_sha256": "fe5b98a5ec34efdb560ca1b3603c5449d2be5d046a83e95febe05b8f01c8cc9c",
+      "after_sha256": "fb38d49843781d8e08659e9a291db8c1b7e536ada1c94359eb2d3c7c5122b5e6",
+      "official_source_sha256": "8f4972d3b48b74a486b50cf93d701a7919c2fb6af30146ff18659d3af0b2912b",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FbpAPI_FbpOrderList",
+      "path": "/v1/fbp/order/list",
+      "before_sha256": "2f5372bd56943836c1234edb2f7da2c979c82b8f70b889ad2a1e8db7169aeaa9",
+      "after_sha256": "37d70a2452ee8127fa71b425805aca9c702493e2456b1358d53242accb9a18b3",
+      "official_source_sha256": "15e460a2bb270f075b6143c44c83dc699e56a7ce0b7dcdb0c985066815be2037",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingFbpList",
+      "path": "/v1/posting/fbp/list",
+      "before_sha256": "ae8601a705b7b15b7fb16fbfa972ee1880fa243ba850b50ae212a2f3916a7b27",
+      "after_sha256": "0eab92d769b7eb9d62b9a6f2a9e71da96ff6367f9abe00e27ab867d374e32c4d",
+      "official_source_sha256": "47ca04f866e9eebd537dd993c5629f315b74ee379d0d0bd0c25f9fd89415535c",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CarriageContainerList",
+      "path": "/v1/carriage/container/list",
+      "before_sha256": "2bcb2eabb90f4b16cc908f1037cc87e47a88a49554be1654ae4dbd69bda4a391",
+      "after_sha256": "18974232b91e22f7aca621e34e18e3cb744a175605df4d3d9f423c160e4c6d67",
+      "official_source_sha256": "c56f7edd7a384bacc0aabef0c996d16575175d835ec28b1ea2c98d81909d9edd",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CarriageContainerGet",
+      "path": "/v1/carriage/container/get",
+      "before_sha256": "380b06eb19945ab629f593cd1b25192d13fc429996d1e551abefef5176120c41",
+      "after_sha256": "68a558d2fe727b2a8ef0a1f90398cc2ade2c949b19e9022796aa36ced9234ba5",
+      "official_source_sha256": "6019150e36c967360e11a33ac81ded03de3d77724ccb6c9f745de26c8c299452",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CarriageContainerStatusGet",
+      "path": "/v1/carriage/container/status/get",
+      "before_sha256": "9d93c0567c4417f1d48d4c71bf0e814359812be6db880f16902285b3acbe97b7",
+      "after_sha256": "8840f9dd500029906edcfcba5d93a741c8293e73290c0dee784cd901984190be",
+      "official_source_sha256": "c1bcfb5845a90514256a504ede2468f1e1aa2ac8a5d1dabbb9ca6bf5c0bfaa91",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CarriageContainerTaskInfo",
+      "path": "/v1/carriage/container/task/info",
+      "before_sha256": "7303fc3d20a7e002ac12bea742722a51490c620143c41a31b1f0b9083e231e3b",
+      "after_sha256": "a99774d92cc5d655a26e1d151cbf62ff0bd77c3ba7588c68a8cf0713d19dc468",
+      "official_source_sha256": "0bc4c70a88b7c314c84e11c3e4029c40697cb7229224449569e1412b2825d92a",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CarriageContainerDocumentGet",
+      "path": "/v1/carriage/container/document/get",
+      "before_sha256": "f02bb238c7f7ceb3a98bd99ecec2c14fb87c9e14263606638099a0fe1b60ae76",
+      "after_sha256": "4b6962ae0a2fdcc3e5aebf64a17a23f20f5b56cc4aac7f318d2db1307fd83368",
+      "official_source_sha256": "adcdfd891da36d9a13cb964acc8081c6fcd626d8b3ac5a29c483707d1fb18a7e",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CarriageContainerLabelGet",
+      "path": "/v1/carriage/container/label/get",
+      "before_sha256": "9a7f87f33aa7b6a3423e8d8e9eded580b7a8c8aa0216673f07440e7085149b9f",
+      "after_sha256": "ce3cb840546c6cea3f32cb4032eee173c117177073fe64ce96c4c9bcaf30a8d5",
+      "official_source_sha256": "df7aed41e4331a95ed0621a4ef2d349e2c5ac0a50dad486c61b2520fa7686295",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "AnalyticsAPI_AnalyticsGetData",
+      "path": "/v1/analytics/data",
+      "before_sha256": "0c4837ea72111c32fed11550fa573b422e2b791f6e41c9d226ce306694b6ed74",
+      "after_sha256": "cf86de171866ef6dd056b53b1d324b9f3a5590d5765a768fa55edc1ab9f279f3",
+      "official_source_sha256": "3311078717e858f24e8995ed05aa756a26b7ab203ce972b7376e09bb06e7f396",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "AnalyticsAPI_AnalyticsProductQueries",
+      "path": "/v1/analytics/product-queries",
+      "before_sha256": "dc156ee7613b38ca82b101c749dfefea1370aca071b5a6868c5965b644a879d4",
+      "after_sha256": "0e9a1d1359c136e9983b6cbbc2e5054c94fa2afd391efb20374376f0d219eb1b",
+      "official_source_sha256": "6342a9151a78dd3d4816f895556f112423e8fc1e4d8632ce139aab3596d491cc",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "AnalyticsAPI_AnalyticsProductQueriesDetails",
+      "path": "/v1/analytics/product-queries/details",
+      "before_sha256": "53c5f2fbcac37d7b8b68f9b48a1a93671d12afb99d241155951a57cb50ef220b",
+      "after_sha256": "b37bb29a4144725eee9c2ed42179d323674048ce70e043e7ae01e1894f6cfa36",
+      "official_source_sha256": "f5e2e2ec431241437ea95bc149485087dc71230be91f71d18f38298f9bd99b8e",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "FinanceAPI_GetRealizationByDayReportV1",
+      "path": "/v1/finance/realization/by-day",
+      "before_sha256": "42b8fa4bb6bd94f18e055286caf1cadf78fd79fbe51e32650c4bcbc61a95aa22",
+      "after_sha256": "7cad130ad2c830596c5b281c978f891707b0052b480cc17673135de74440cd4a",
+      "official_source_sha256": "19d0088e667113302cc63d77b41a9a239e82c55568f9a3621ddf500193bb6d03",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SearchQueriesAPI_SearchQueriesText",
+      "path": "/v1/search-queries/text",
+      "before_sha256": "7bca404b2ee73c40be9455d99143dad5b7901ef3e96f31fbbfffc8c155b52a93",
+      "after_sha256": "e62c6bae0328d3ebbdb54bd1296ebf6607bd51504284bbe62582492373369108",
+      "official_source_sha256": "65216cccc4a58e7c42ed9418ae97f6629b4a408a86e0a4fc24ce6be8dbd05c05",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SearchQueriesAPI_SearchQueriesTop",
+      "path": "/v1/search-queries/top",
+      "before_sha256": "0a2521cbb1806759fce163de658d12f39ab887d1cc04246551569ff7e269addf",
+      "after_sha256": "c6c2ea7a33b5ee7ceb37f7d39e55d1778cc6008326e2369326b262d1ffded7e2",
+      "official_source_sha256": "1c236e9f78129ecf38945772502648f499c2e62bee37e9bc212080bd1db52d69",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductPricesDetails",
+      "path": "/v1/product/prices/details",
+      "before_sha256": "6c0c55dd3c73d499dfcb69b64ae12b4e0dff714604894e2928c9448c7d6401c4",
+      "after_sha256": "474be25111f610a2334ccff671fd418d92002c546e69b12adcd7b2b9c6398e7a",
+      "official_source_sha256": "aec2508ea6bdfa5d424e4d3849dd59c6075f96fc52dff80572f691325c164e2e",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "CancelReasonList",
+      "path": "/v1/cancel-reason/list",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "63dec245cb17ea2a608a6e7519267c445f17d14c06ceb98b75b804763a8d9199",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "DeliveryCheck",
+      "path": "/v1/delivery/check",
+      "before_sha256": "b7d99f3d3977a49fe804be4b6556d146fc3fae30b4103a44d7601e26e0e4d665",
+      "after_sha256": "f9d7836a9b3a2b75e88b4a1129905d88bcd5b3e3ea76a0956c32ac73fe629483",
+      "official_source_sha256": "d668ff43aef32230cdb1b5714dd7d3b90f4cce751299c6dcd93c414bf8bf4a36",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "DeliveryCheckout",
+      "path": "/v2/delivery/checkout",
+      "before_sha256": "d7a83c4afa9bc85ca7f8460db0556c3d3aa4c4ab5ccf015a825712f9b17cb661",
+      "after_sha256": "712cefe15d04c6febd97c1723ced4df2953c55125a68d0d4377a7a67971994ea",
+      "official_source_sha256": "7fea063e9566d30af75aa61c5bbd5a10c08835a63a8570931c3468c3344d8943",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "DeliveryPointInfo",
+      "path": "/v1/delivery/point/info",
+      "before_sha256": "ad5cec317fd03f58c78c46eec9bcab2fef517b7fd9c88d95552e09a648c17188",
+      "after_sha256": "3acb14aa0918f31d8da8c6b16dd374c025cdb2af7c828e9b0beeb42732205ddf",
+      "official_source_sha256": "943175a1b0ac8f8f156a8410584705174d8aae4a6b7b5af849759fca7a914346",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "DeliveryAPI_DeliveryPointList",
+      "path": "/v1/delivery/point/list",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "6276aed87ea39d39053456bd417129192522562573dd4d48808a3a8bdaff0b5f",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "OrderAPI_OrderCancelCheck",
+      "path": "/v1/order/cancel/check",
+      "before_sha256": "bbf544d2360841c8cce6351dee9fb266f7f3a9c425764cb3f5bc84720882c9e1",
+      "after_sha256": "e7842d4b8c1b1ff60d4da34b51ad676eb18f0cc7563f01cbbbe40f3ea181bd6e",
+      "official_source_sha256": "e2bb7435cf11946c092f2770135d183a1b2a26509f47c6d92853edc48732e79c",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "OrderAPI_OrderCancelStatus",
+      "path": "/v1/order/cancel/status",
+      "before_sha256": "bbf544d2360841c8cce6351dee9fb266f7f3a9c425764cb3f5bc84720882c9e1",
+      "after_sha256": "e7842d4b8c1b1ff60d4da34b51ad676eb18f0cc7563f01cbbbe40f3ea181bd6e",
+      "official_source_sha256": "d929bb388cac62c226799f83e5f583ee48119e8343883ad35020537415af0f78",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingAPI_PostingCancelStatus",
+      "path": "/v1/posting/cancel/status",
+      "before_sha256": "6ed2ff5361c318b3cbe3a14ad2e0b6c72a3bea66aa9041d1e1d8c8f47a720c9f",
+      "after_sha256": "a4c5a6ad329ebe82bf11f761ab0c3cc13ed1863982c81b54a6d11c2e0bd62652",
+      "official_source_sha256": "bca233e84ddf2cc382df068ef312cec6f429eae7e05b889e8e4607c87f92dca7",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ListCampaigns",
+      "path": "/api/client/campaign",
+      "before_sha256": "799df78ac33a0dab7b2f26dcfdd836ef2d622ab47c6383f82135b142a8f34393",
+      "after_sha256": "3355d1a22f24172938226bf3277384e46a69d0ba2672c65fa9e2c27fd39937bb",
+      "official_source_sha256": "91d1262264d36206741b09405c461c8c1772a67530c947e3ce06d9acd0ef4881",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ListCampaignObjects",
+      "path": "/api/client/campaign/{campaignId}/objects",
+      "before_sha256": "74315bbeb69f9563d2a74d9d7eb0da0bf16df480ba2fa5fa256e3ea6ac0b3686",
+      "after_sha256": "ae62e259c0b64c773e883ee8999a53e94a2e9ec3ce749d7cbde14c0ad34a881a",
+      "official_source_sha256": "ae845c98a6ea1c5ffe8a978cba8acf54fefa40d2279310fc4ff156d6cf981e56",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "GetLimitsList",
+      "path": "/api/client/limits/list",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "f74901efa376cd33cb141220144ee883597b6ea72f19736466a755195771d84e",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ExternalCampaign_ListProductsWithBonuses2",
+      "path": "/api/client/products_with_bonuses",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "9284f72895b68d5da186e57484e6016aaea4ebb94234017590759919bde51cc4",
+      "official_source_sha256": "bfb14265db3802cd9033586d2bce9555fc8ac19a086b421a3b0d1095b4a360f9",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SubmitRequest",
+      "path": "/api/client/statistics",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "dfad3c9a74f24c0bfc904cfc303a5fce6e6199a09b8a2dbf0ff5968b5c71ad08",
+      "official_source_sha256": "e834df466f0f6e7cedaaf3a0c915903aa000467a93a2375fac4405c74aad75f8",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "VideoCampaignsSubmitRequest",
+      "path": "/api/client/statistics/video",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "23effdcfebe19b3b57f82f6ee4e5b6e7d5b313a658c1baa2907636b3ba1c7c77",
+      "official_source_sha256": "1e044649520031d67fddb42603fe15a3748b794b10a7d3f7bba50e4ec87aeb8e",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "AttributionSubmitRequest",
+      "path": "/api/client/statistics/attribution",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "dfad3c9a74f24c0bfc904cfc303a5fce6e6199a09b8a2dbf0ff5968b5c71ad08",
+      "official_source_sha256": "06b077c74ab2e60c3eed25b8af73154817aa3077969bf087332703836b78e222",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "StatisticsCheck",
+      "path": "/api/client/statistics/{UUID}",
+      "before_sha256": "dd4776aec1a8416b357006ca27bc3a72811110f6c4aa71055ccc58915c7631c5",
+      "after_sha256": "69a68430466b4a9cdd64796d7e2bc8c4767b66f860959843b1b10df525240ace",
+      "official_source_sha256": "126848094398d041878101cfc3125715fcd4bf648baa396441e7dc4774479ce6",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ListReports",
+      "path": "/api/client/statistics/list",
+      "before_sha256": "751d9c36f8e95fd32e0abee0892e2d1a2f24f10d4b24e086acd9b8981b7d41c3",
+      "after_sha256": "5900ed03d00789bd4395bd28ec7cbf227d8a0c503fe3f3c25491ca3080971006",
+      "official_source_sha256": "5a85c7500488bc50ae108746bda8ab93a3b5f308f44f7af8b1cd9b58a3176637",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ListReportsExternal",
+      "path": "/api/client/statistics/externallist",
+      "before_sha256": "751d9c36f8e95fd32e0abee0892e2d1a2f24f10d4b24e086acd9b8981b7d41c3",
+      "after_sha256": "5900ed03d00789bd4395bd28ec7cbf227d8a0c503fe3f3c25491ca3080971006",
+      "official_source_sha256": "70b0a20c11a9b8e26d3554503bd9628de83e5b646f7ddb8890f1fad68b2fa60c",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "DownloadStatistics",
+      "path": "/api/client/statistics/report",
+      "before_sha256": "1d1764e0ef613052980b67c941c561d1da625ac2bea6815f15b5b934dd0714ab",
+      "after_sha256": "b36347b9a783390fd9aab28b13f8fda87ebfddbe7b3996bc049c96fe220767c0",
+      "official_source_sha256": "ddc171aa819f2b9e1b5037560d04a9c5cde994567979ff5b2581c5a3b1599d71",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "MediaCampaignList",
+      "path": "/api/client/statistics/campaign/media",
+      "before_sha256": "ee7b6856749283a08b2826627b7c5867d3d9d236689cc61cb3bd7cfdbd895f33",
+      "after_sha256": "2f89c7e702e04c5e802e359e965878c65c70788b54dae1190f649a5ebce74c43",
+      "official_source_sha256": "1ebc317249676999b31209295ba54250e6572c6a13997a3fec7262801a9ee385",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ProductCampaignList",
+      "path": "/api/client/statistics/campaign/product",
+      "before_sha256": "ee7b6856749283a08b2826627b7c5867d3d9d236689cc61cb3bd7cfdbd895f33",
+      "after_sha256": "2f89c7e702e04c5e802e359e965878c65c70788b54dae1190f649a5ebce74c43",
+      "official_source_sha256": "f415771a24bfbd2f978c824bf80e0c9c9c4073a9790aa683d9f4e986960f2b7e",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "GetCampaignExpense",
+      "path": "/api/client/statistics/expense",
+      "before_sha256": "b28d71bcfe682e756e8909bbdd309a6e3b3ba8267f3396bbbbde050c7b76d4fd",
+      "after_sha256": "59666be10ccdf89f7e6590bc32f867417607ad913852e425e34f94fc28dfee2b",
+      "official_source_sha256": "e879dff5f7484fa4053bd20939fd2938cb01f9f5ba3bb546851c0444b5cbb348",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "GetCampaignDailyStats",
+      "path": "/api/client/statistics/daily",
+      "before_sha256": "b28d71bcfe682e756e8909bbdd309a6e3b3ba8267f3396bbbbde050c7b76d4fd",
+      "after_sha256": "59666be10ccdf89f7e6590bc32f867417607ad913852e425e34f94fc28dfee2b",
+      "official_source_sha256": "a7d2d64404c6e43e4159c5741f2f6728e01c0f8e1d4c8b86b634a292f0da1fb0",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SearchPromoOrdersReportSubmitRequest",
+      "path": "/api/client/statistic/orders/generate",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "0b221b2589661bd047165021921fea1af50ab372310eb43e49a66166f2034dfe",
+      "official_source_sha256": "f1178574ae3620b94cf968e29d3a1908e73ec3517ab9007f7226ccb2c8151771",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SearchPromoProductsReportSubmitRequest",
+      "path": "/api/client/statistic/products/generate",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "0b221b2589661bd047165021921fea1af50ab372310eb43e49a66166f2034dfe",
+      "official_source_sha256": "f4246662ec3e983c3cbed283f99a99bdc6465e0213e52c405cfce40c34c2cad4",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "GenerateAllSkuPromoOrdersReport",
+      "path": "/api/client/statistics/all_sku_promo/orders/generate",
+      "before_sha256": "6ad2b0de4144035eb09789a0745479393671e6f9d1be60af0c264c51296db6f6",
+      "after_sha256": "d7fe32b81e6b986f1a55cd7918ec8e8e90389d36d630e2230021f51306069576",
+      "official_source_sha256": "cb5b1f6eec086f8ec88b6c02e18e61949aceb2315e2f1c4b3b1ebe2cf986e5ce",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "GenerateAllSkuPromoProductsReport",
+      "path": "/api/client/statistics/all_sku_promo/products/generate",
+      "before_sha256": "6ad2b0de4144035eb09789a0745479393671e6f9d1be60af0c264c51296db6f6",
+      "after_sha256": "d7fe32b81e6b986f1a55cd7918ec8e8e90389d36d630e2230021f51306069576",
+      "official_source_sha256": "140d5e2ba474f966464436d25bcc81e1b55344183b3ffd92d210c20813265673",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ExternalStatistics_StatisticsPhrasesSubmitRequest2",
+      "path": "/api/client/statistics/phrases",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "b60f298eceb752eccead1ea024682aebbd51f72b3e6682a8309d2a648faebe37",
+      "official_source_sha256": "6004c5bd6a03e21b8314276841ebf57186a3523f356770374d5d203346169a7f",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "SearchPromoProductsSKUStatistics2",
+      "path": "/api/client/statistics/products/sku",
+      "before_sha256": "b28d71bcfe682e756e8909bbdd309a6e3b3ba8267f3396bbbbde050c7b76d4fd",
+      "after_sha256": "2aea2922a25857b53521349222d718903a55c6a95d2e39c93278910ed8ff76a5",
+      "official_source_sha256": "0497680bb0db3df99b86113574dc19ae7a31c306905a531f18cb160a87b1d65f",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "GetProductsV2",
+      "path": "/api/client/campaign/{campaignId}/v2/products",
+      "before_sha256": "3288c831896e7699036b3bbf01b5519e19897c47eab7d397dfb2867665f56560",
+      "after_sha256": "17767b920997f7d3bdbec4e2bbdac1cd6949019ca65ced7bf7555995c7cbdaba",
+      "official_source_sha256": "48e06cd12a0ffaabe48eaa55986ec4488f99561571051b98ff21a22fb36c94ef",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ExternalCampaign_ListSearchPromoProductsV2",
+      "path": "/api/client/campaign/search_promo/v2/products",
+      "before_sha256": "751d9c36f8e95fd32e0abee0892e2d1a2f24f10d4b24e086acd9b8981b7d41c3",
+      "after_sha256": "ad43da71230b5b481999513a73ce27d4da7fe26090b899cdd6363655a48f8e80",
+      "official_source_sha256": "7c8fd1892343a748f3eab93307c10df8a96e7040d6e76537b66a9bdaf37ec1c3",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ExternalCampaign_GetCPOMinBids",
+      "path": "/api/client/search_promo/get_cpo_min_bids",
+      "before_sha256": "8050acc5952f2bef12ca6b05aa27d91be39c8819b5c7d4e93ca1e0b6b66c56b5",
+      "after_sha256": "f8e2e951ab596f0a29158a4e9de1edee7beb0e0ebe513fdf419ecac685f2b423",
+      "official_source_sha256": "3568186ce29700c8fd79d41bada515f4355c4212ee249686432085b9891100f6",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "VendorStatisticsSubmitRequest",
+      "path": "/api/client/vendors/statistics",
+      "before_sha256": "fdca8d9bd184204ba64c1fc764daac2f6f3024639325dd78169fd703c270775a",
+      "after_sha256": "c0e9622ee98b63f176910af46a364994b2ff41dced12d40d844371526cdf58aa",
+      "official_source_sha256": "aa4f0a5814551d9d38d5bbe5d2f4314eefbba0f7c622d372a202717007013301",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "VendorStatisticsListReports",
+      "path": "/api/client/vendors/statistics/list",
+      "before_sha256": "751d9c36f8e95fd32e0abee0892e2d1a2f24f10d4b24e086acd9b8981b7d41c3",
+      "after_sha256": "5900ed03d00789bd4395bd28ec7cbf227d8a0c503fe3f3c25491ca3080971006",
+      "official_source_sha256": "5dca09a2582ae178ab4397cf0000827364d925fe38d0ff1fbb04651f1c380016",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "VendorStatisticsCheck",
+      "path": "/api/client/vendors/statistics/{UUID}",
+      "before_sha256": "b603d74ce6dfd2a3b02247cc58422c8f767e79d8e2671a9f886af2217178ceb0",
+      "after_sha256": "ffede4d14f974c2c1440beda2b81da116efe72d69c1b54126f7ccbe361e80dfa",
+      "official_source_sha256": "81b2f22b0dfc8900a38d707db3432f376120448bf44229e9a9c7d94e340af8d7",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ActionsCandidates",
+      "path": "/v2/actions/candidates",
+      "before_sha256": "ce497768d583b8360596fbab2adb539ea2988707dcac5408a1a01a0913ebbbf1",
+      "after_sha256": "241337c65ed4d534dae9a76934fe28feba3fa005d4265993c79a4a2de8fdadd0",
+      "official_source_sha256": "612331dd7638a1ac5a84c1001149848e1758752d8bccc8b77c56eba2a33c752b",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ActionsProducts",
+      "path": "/v2/actions/products",
+      "before_sha256": "16df792db5f299ab7e6973ab52a00086464ba8a0e520720b400d601ec703a37a",
+      "after_sha256": "306ef3bc2fd97775828b42ce40e3d1880b8fd99f9c3d1bc65310d8db4b5b871a",
+      "official_source_sha256": "7edb33a5a3bd0138e32b3299cdead734cd8cd71e2bf2e732e79e39c0c77dcc87",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ActionsAutoAddProductsListV2",
+      "path": "/v2/actions/auto-add/products/list",
+      "before_sha256": "4977654e14fb2ba178656e56e9efa5e1706a1c4ca0219fcb0d24b43777892b04",
+      "after_sha256": "445780e68532cbb27e344ccfab83688b216c848a140e0483e042feb353e77e3b",
+      "official_source_sha256": "faa0ab40af6b42811721fa38a021de3603e2276830c6d2f891a116992cc38f44",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "ActionsAutoAddProductsCandidatesV2",
+      "path": "/v2/actions/auto-add/products/candidates",
+      "before_sha256": "4977654e14fb2ba178656e56e9efa5e1706a1c4ca0219fcb0d24b43777892b04",
+      "after_sha256": "445780e68532cbb27e344ccfab83688b216c848a140e0483e042feb353e77e3b",
+      "official_source_sha256": "eb074ddd21c380def9bbad338e98a59735889886e94dccb0700bfb80111537d4",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingFbsPackageLabelCreate",
+      "path": "/v3/posting/fbs/package-label/create",
+      "before_sha256": "ee1479139eeaef6a2dad1769df11d0fb9a2831aa7b1f5bf0255458aaceb3006b",
+      "after_sha256": "78a6447f5259926fcee9818f02ee6263d94076eaa1c84393c4ed40e725a47e10",
+      "official_source_sha256": "caeab128958d5f0936272afdf325bc4c627e92cf6840c2c76cd369ddbe53f178",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "PostingFbsPackageLabelGet",
+      "path": "/v2/posting/fbs/package-label/get",
+      "before_sha256": "96f9f06139f00a2f5ec914c12fe17ec93a245d89c0db1c91d229a84d1e34cd83",
+      "after_sha256": "606ac37c8a21595dd8c7f2ae1d9f2a56ae9f8d35b35573a90e932358e3c25b93",
+      "official_source_sha256": "7ddc92c7272d17abc1adace167f5bef803a58dda6563b1c5a8cf10d18b7428dd",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "AnalyticsDecommissionedGoods",
+      "path": "/v1/analytics/decommissioned-goods",
+      "before_sha256": "cf6fffffe0d141b9079159b689b33e22344b756a54e7b6c2ca71164d337134ae",
+      "after_sha256": "86f81b3d585bad132fee2bf1e6c21c2c8ec821378d47271cd43e4dd1ebeeccdf",
+      "official_source_sha256": "e4f0ef44e1388a4b70c4544ec3bb15d49adbc8cb65b767edd06512385b730b38",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "AnalyticsCategoryComparison",
+      "path": "/v1/analytics/category/comparison",
+      "before_sha256": "457b350b7f14564e31dc271d8ee5947eb9b94bf1081611e62f4a7d8a08bd6be8",
+      "after_sha256": "870faf41269341b910d44f9fb4ce70d06871dd6b539c68e86bea0206576d1aba",
+      "official_source_sha256": "7c2ea5e5fc3ebb984883bf13cba8633efdc92e9e560ba4885bee9ac6666e0be3",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "DescriptionCategoryDependentAttributes",
+      "path": "/v1/description-category/dependent-attributes",
+      "before_sha256": "52815493693f35eb55ebd70494b0e51c2e448a0cf69c7a66a45719f9acae05d3",
+      "after_sha256": "172632bc15965beecf1f06d6d18d791201fbd7cae75804991b9360af753e8e07",
+      "official_source_sha256": "c523239286ba36de6e2bb45bc4f9d98d1d1c4fdc00f046c4a44e163de1a4295a",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "DescriptionCategoryDependentAttributesValues",
+      "path": "/v1/description-category/dependent-attributes/values",
+      "before_sha256": "a3fcfd969375fdaa7be6be631239ca4c4cee2fd50626e712c23a49be550cd91e",
+      "after_sha256": "5bf59be044d04f3ab993ba2d20c58fc6fd4e0ee39b1da21a27a408031176e559",
+      "official_source_sha256": "d766a7eec578c8b7653cd0261cff045a90d4d2eba8cd6724dd0a8763794edebe",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "AnalyticsLocalSaleTotal",
+      "path": "/v1/analytics/local-sale/total",
+      "before_sha256": "ffde4a365d8adabff39239a7483b4d4e1cf465c7fbdaa03aa9426cae92b786f6",
+      "after_sha256": "4111713149af0e478f115443722338b1180521f6f7f25fca49138a9790c6c15c",
+      "official_source_sha256": "767c6cda3754a49feca5e30e14f8ba5facee18ad6e2f3c68caff8def4f22996e",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "AnalyticsLocalSaleClustersItemsInfo",
+      "path": "/v1/analytics/local-sale/clusters-items/info",
+      "before_sha256": "d1da12275140915c309b89eddf7493b61d526cd838b8510e087ee6b926cca05b",
+      "after_sha256": "e741a983910bfb7878ea3feeb6288dab0934490d1ce66b93c35150360eadcda8",
+      "official_source_sha256": "dd32673d93556682f8f8fb699a2b6744a093c203306059851bb45f19c01fd94c",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "AnalyticsLocalSaleItemsClustersInfo",
+      "path": "/v1/analytics/local-sale/items-clusters/info",
+      "before_sha256": "d1da12275140915c309b89eddf7493b61d526cd838b8510e087ee6b926cca05b",
+      "after_sha256": "ca30a6b85cbf429241e686454739c886dc01910c8125b80bb88ed6df61f89d9c",
+      "official_source_sha256": "9ec806941077722fd862e215557f216aa10ef5bc08853846507af80ef3954779",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    },
+    {
+      "method_id": "WarehouseRfbsReturnPointList",
+      "path": "/v1/warehouse/rfbs/return-point/list",
+      "before_sha256": "060b6c98cca2fe316a5248d8a34640a92016ac0791171cebf2513ebd96e4273d",
+      "after_sha256": "fe67de6aac8b64924115ffcdc3bea4dc4c31092148f9926b15b06dd05c5fd259",
+      "official_source_sha256": "a21e6969e911173df8d5316e12336a93cfef4e4884c784897d600593a1d4c40a",
+      "resolution": "current recursive official request schema plus explicitly reviewed local finance continuation overrides"
+    }
+  ],
+  "newly_retired_denied": [
+    "AnalyticsAPI_ManageStocks",
+    "CalculateDynamicBudget",
+    "CargoesAPI_CargoesLabelFile",
+    "CarriageAPI_CarriageDeliveryList",
+    "ListPostingCodes",
+    "PostingAPI_GetFbsPostingListV3",
+    "PostingAPI_GetFbsPostingUnfulfilledList",
+    "ProductAPI_ProductStocksByWarehouseFbs",
+    "ProductAPI_V1ProductCertificationList"
+  ],
+  "unresolved": []
+}

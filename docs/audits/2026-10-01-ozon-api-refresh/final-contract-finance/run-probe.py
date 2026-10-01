@@ -3,7 +3,7 @@ assert len(sys.argv[2])==40 and all(c in '0123456789abcdef' for c in sys.argv[2]
 stage=pathlib.Path('/opt/marketplace-mcp/release-closure-20261001/final-contract-finance')/sys.argv[2][:12]
 identity=json.loads((stage/'candidate-identity.json').read_text())
 probe=sys.argv[1]
-assert probe in ['finance-live','smoke-live','mos-payload']
+assert probe in ['finance-live','smoke-live','mos-payload','types-read','security-live']
 prod=json.loads(subprocess.check_output(['docker','inspect','marketplace-mcp-router-1'],text=True))[0]
 assert prod['Image']=='sha256:df5059c568ae3566f14c21e96268792d02496b90ae29646c059b318459cd6c7d'
 cmd=prod['Config']['Cmd'][0].replace('node dist/index.js --http','node --import /gate/readonly-preload.mjs /gate/'+probe+'.mjs')

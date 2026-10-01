@@ -1,0 +1,17 @@
+{
+  "started_at_utc": "2026-10-01T09:51:16.878Z",
+  "write_requests_sent": 0,
+  "target": "isolated candidate",
+  "date": "2026-09-30",
+  "runtime_identity": {
+    "version": "1.1.0-rc.3",
+    "commit": "be66b91bd7a3fd6469dd6c4371c5b3be296e84a2",
+    "manifest_sha256": "1a9d6ea41e6eeeaec43d94693cf71893d9abcaf20a997801a383036424c46eb1",
+    "mode": "READ_ONLY",
+    "write_runtime_enabled": false
+  },
+  "write_tools_visible": 0,
+  "local_deny_responses": 516,
+  "scope": "real candidate MCP execute/file/report local denials; immutable source transport-spy proves denial before upstream",
+  "status": "PASS"
+}

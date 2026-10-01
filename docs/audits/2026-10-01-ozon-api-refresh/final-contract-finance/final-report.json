@@ -1,0 +1,527 @@
+{
+  "STATUS": "PASS",
+  "NEW_RUNTIME_COMMIT": "927a00427b67b3bfe1887070b2f0623ca2f74863",
+  "NEW_EVIDENCE_COMMIT": "recorded by the enclosing evidence commit; see git history (no self-referential commit hash)",
+  "VERSION": "1.1.0",
+  "TAG": "v1.1.0",
+  "IMAGE_ID": "sha256:2f7eae2881107ee3b3bd98d7c3c8808c3f0610ff53435f04b7bcf7fe3dcd8008",
+  "IMAGE_DIGEST": [
+    "marketplace-mcp/ozon-isolated@sha256:2f7eae2881107ee3b3bd98d7c3c8808c3f0610ff53435f04b7bcf7fe3dcd8008",
+    "marketplace-mcp/router-upstream@sha256:2f7eae2881107ee3b3bd98d7c3c8808c3f0610ff53435f04b7bcf7fe3dcd8008"
+  ],
+  "DIGEST_SCOPE": "Docker engine-local RepoDigest/image content digest; no registry publication claimed",
+  "CONTAINER_ID": "c14bfa53e187d4bf889280eb34c3b8010747375d32487919ae61bef6a044d7d9",
+  "MANIFEST_SHA256": "9e51f9ee49db2121c1b77015e2143ce3a46cda60352af28443a453b955f5793d",
+  "OFFICIAL_OPERATION_COVERAGE": {
+    "seller_unique": 481,
+    "seller_expected": 481,
+    "performance": 48,
+    "performance_expected": 48,
+    "total": 529,
+    "expected": 529,
+    "missing": [],
+    "extra": [],
+    "unknown_classification": 0,
+    "seller_DOM_nodes": 482,
+    "identical_duplicate_nodes": 1,
+    "historical_inventory": 511,
+    "historical_matched": 509,
+    "added": 20,
+    "absent_denied_tombstones": 2
+  },
+  "READ_ALLOWLIST_COUNT": 277,
+  "FINANCE_BY_DAY": {
+    "status": "PASS",
+    "upstream_pages": 1,
+    "local_chunks": 7,
+    "records": 986,
+    "unique_accrual_ids": 986,
+    "posting_linked": 277,
+    "non_posting": 709,
+    "money_totals": {
+      "RUB": "545218.4"
+    },
+    "max_mcp_bytes": 253434
+  },
+  "FINANCE_POSTINGS": {
+    "status": "PASS",
+    "local_chunks": 4,
+    "posting_numbers": 233,
+    "batches": 3,
+    "records": 233
+  },
+  "SINGLE_POSTING": "PASS",
+  "FINANCE_RECONCILIATION": {
+    "status": "PASS",
+    "candidate_reconstructed_totals": {
+      "RUB": "545218.4"
+    },
+    "direct_control_totals": {
+      "RUB": "545218.4"
+    },
+    "difference": {
+      "RUB": "0"
+    },
+    "exact_records": true,
+    "exact_ids": true,
+    "exact_cursor_traversal": true,
+    "exact_postings": true,
+    "cross_endpoint": {
+      "status": "PASS",
+      "posting_numbers": 233,
+      "matched_posting_components": 233,
+      "by_day_arithmetic_matched": 233,
+      "common_postings_fee_records": 811,
+      "posting_date_records": 1094,
+      "other_date_history_records": 27,
+      "other_postings_fee_types": [
+        {
+          "type_id": 3,
+          "name": "BrandCommission",
+          "records": 228,
+          "money_totals": {
+            "RUB": "-8949.42"
+          }
+        },
+        {
+          "type_id": 94,
+          "name": "DefectFineShipmentDelayRate",
+          "records": 55,
+          "money_totals": {
+            "RUB": "-4138.64"
+          }
+        }
+      ],
+      "difference_count": 0,
+      "differences": [],
+      "unknown_type_ids": [],
+      "semantic_scope": "By-day POSTING total includes sale_amount, commission and delivery. Compare SaleCommission and explicitly typed delivery services by posting/date/type/currency. Postings fees outside these components are reported separately by official accrual type; all-date history is excluded. Whole endpoint totals are not asserted equal."
+    }
+  },
+  "MOS_COMPATIBILITY": {
+    "status": "PASS",
+    "capabilities": [
+      {
+        "capability": "catalog.prices",
+        "result": "PASS",
+        "records": 1,
+        "next_cursor_present": true
+      },
+      {
+        "capability": "inventory.stock_totals",
+        "result": "PASS",
+        "records": 1,
+        "next_cursor_present": true
+      },
+      {
+        "capability": "commerce.fbs_postings",
+        "result": "PASS",
+        "records": 1,
+        "next_cursor_present": true
+      },
+      {
+        "capability": "commerce.fbo_postings",
+        "result": "PASS",
+        "records": 1,
+        "next_cursor_present": true
+      },
+      {
+        "capability": "commerce.fbs_unfulfilled",
+        "result": "PASS",
+        "records": 1,
+        "next_cursor_present": true
+      }
+    ],
+    "mos_mutations": 0,
+    "finance_consumer": "NONE_DISCOVERED in actual production Ozon API modules; no fabricated finance integration check",
+    "runtime_container_id": "ffa09b45511bbe1c4e63b5fd1b0bc383c7af34b35056097e1f72ebdcf57cc3cf",
+    "runtime_image_id": "sha256:153730e08fdf4f1e7648e9a381103e105ea6e3e115d904292fac92b2879082c3"
+  },
+  "SECURITY": {
+    "WRITE_TOOLS_VISIBLE": 0,
+    "WRITE_REQUESTS_SENT": 0,
+    "real_local_denials": 516,
+    "synthetic_transport_spy": "PASS; 516 denied execute/file/report requests; HTTP_REQUESTS_SENT=0"
+  },
+  "ROLLBACK": {
+    "status": "READY",
+    "image_id": "sha256:df5059c568ae3566f14c21e96268792d02496b90ae29646c059b318459cd6c7d",
+    "archive": "/opt/marketplace-mcp/release-closure-20261001/rollback/router-ffc7ef2.tar",
+    "archive_sha256": "a27c133b01ed6bb354283c686502dd3a4eab6c66dc8ce9e7630626ab5f491bf1",
+    "image_preserved": true
+  },
+  "DEPLOYMENT": "DEPLOYED",
+  "POST_DEPLOY_SMOKE": "PASS",
+  "SECURE_TUNNEL": {
+    "at_utc": "2026-10-01T10:01:09.539Z",
+    "first": {
+      "success": true,
+      "source": "official_api",
+      "records": 1
+    },
+    "second": {
+      "success": true,
+      "source": "official_api",
+      "records": 1
+    },
+    "transport": "OpenAI Secure Tunnel installed production connector"
+  },
+  "ALL_METHODS_CURRENT": "YES",
+  "METHOD_CHANGES": {
+    "added": [
+      {
+        "family": "seller",
+        "method_id": "ActionsAutoAddProductsCandidatesV2",
+        "http_method": "POST",
+        "path": "/v2/actions/auto-add/products/candidates",
+        "source_url": "https://docs.ozon.ru/api/seller/#operation/ActionsAutoAddProductsCandidatesV2",
+        "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+        "source_sha256": "eb074ddd21c380def9bbad338e98a59735889886e94dccb0700bfb80111537d4",
+        "request_closed_schema_nodes": 0,
+        "closed_schema_nodes": 0
+      },
+      {
+        "family": "seller",
+        "method_id": "ActionsAutoAddProductsDeleteV2",
+        "http_method": "POST",
+        "path": "/v2/actions/auto-add/products/delete",
+        "source_url": "https://docs.ozon.ru/api/seller/#operation/ActionsAutoAddProductsDeleteV2",
+        "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+        "source_sha256": "6dd65e176232316a99aacb6029303ce07d7b72429456b05258a197c8ccc24ad1",
+        "request_closed_schema_nodes": 0,
+        "closed_schema_nodes": 0
+      },
+      {
+        "family": "seller",
+        "method_id": "ActionsAutoAddProductsListV2",
+        "http_method": "POST",
+        "path": "/v2/actions/auto-add/products/list",
+        "source_url": "https://docs.ozon.ru/api/seller/#operation/ActionsAutoAddProductsListV2",
+        "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+        "source_sha256": "faa0ab40af6b42811721fa38a021de3603e2276830c6d2f891a116992cc38f44",
+        "request_closed_schema_nodes": 0,
+        "closed_schema_nodes": 0
+      },
+      {
+        "family": "seller",
+        "method_id": "ActionsAutoAddProductsUpdateV2",
+        "http_method": "POST",
+        "path": "/v2/actions/auto-add/products/update",
+        "source_url": "https://docs.ozon.ru/api/seller/#operation/ActionsAutoAddProductsUpdateV2",
+        "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+        "source_sha256": "056047adecc67b79b90d804b7ed7e590933ee469da9ee16f59d25ed88ee859ae",
+        "request_closed_schema_nodes": 0,
+        "closed_schema_nodes": 0
+      },
+      {
+        "family": "seller",
+        "method_id": "ActionsCandidates",
+        "http_method": "POST",
+        "path": "/v2/actions/candidates",
+        "source_url": "https://docs.ozon.ru/api/seller/#operation/ActionsCandidates",
+        "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+        "source_sha256": "612331dd7638a1ac5a84c1001149848e1758752d8bccc8b77c56eba2a33c752b",
+        "request_closed_schema_nodes": 0,
+        "closed_schema_nodes": 0
+      },
+      {
+        "family": "seller",
+        "method_id": "ActionsProductsDeactivate",
+        "http_method": "POST",
+        "path": "/v2/actions/products/deactivate",
+        "source_url": "https://docs.ozon.ru/api/seller/#operation/ActionsProductsDeactivate",
+        "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+        "source_sha256": "943ae8da5b2fa672c0d53329595b4ced887cdf6dfd3b87307a15d23c53b414e9",
+        "request_closed_schema_nodes": 0,
+        "closed_schema_nodes": 0
+      },
+      {
+        "family": "seller",
+        "method_id": "ActionsProductsUpdate",
+        "http_method": "POST",
+        "path": "/v1/actions/products/update",
+        "source_url": "https://docs.ozon.ru/api/seller/#operation/ActionsProductsUpdate",
+        "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+        "source_sha256": "e2638417d119eb5295186deda9e8d0ee2a6f45219ebae35f3ef98c6b8a712162",
+        "request_closed_schema_nodes": 0,
+        "closed_schema_nodes": 0
+      },
+      {
+        "family": "seller",
+        "method_id": "ActionsProducts",
+        "http_method": "POST",
+        "path": "/v2/actions/products",
+        "source_url": "https://docs.ozon.ru/api/seller/#operation/ActionsProducts",
+        "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+        "source_sha256": "7edb33a5a3bd0138e32b3299cdead734cd8cd71e2bf2e732e79e39c0c77dcc87",
+        "request_closed_schema_nodes": 0,
+        "closed_schema_nodes": 0
+      },
+      {
+        "family": "seller",
+        "method_id": "AnalyticsCategoryComparison",
+        "http_method": "POST",
+        "path": "/v1/analytics/category/comparison",
+        "source_url": "https://docs.ozon.ru/api/seller/#operation/AnalyticsCategoryComparison",
+        "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+        "source_sha256": "7c2ea5e5fc3ebb984883bf13cba8633efdc92e9e560ba4885bee9ac6666e0be3",
+        "request_closed_schema_nodes": 0,
+        "closed_schema_nodes": 0
+      },
+      {
+        "family": "seller",
+        "method_id": "AnalyticsDecommissionedGoods",
+        "http_method": "POST",
+        "path": "/v1/analytics/decommissioned-goods",
+        "source_url": "https://docs.ozon.ru/api/seller/#operation/AnalyticsDecommissionedGoods",
+        "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+        "source_sha256": "e4f0ef44e1388a4b70c4544ec3bb15d49adbc8cb65b767edd06512385b730b38",
+        "request_closed_schema_nodes": 0,
+        "closed_schema_nodes": 0
+      },
+      {
+        "family": "seller",
+        "method_id": "AnalyticsLocalSaleClustersItemsInfo",
+        "http_method": "POST",
+        "path": "/v1/analytics/local-sale/clusters-items/info",
+        "source_url": "https://docs.ozon.ru/api/seller/#operation/AnalyticsLocalSaleClustersItemsInfo",
+        "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+        "source_sha256": "dd32673d93556682f8f8fb699a2b6744a093c203306059851bb45f19c01fd94c",
+        "request_closed_schema_nodes": 0,
+        "closed_schema_nodes": 0
+      },
+      {
+        "family": "seller",
+        "method_id": "AnalyticsLocalSaleItemsClustersInfo",
+        "http_method": "POST",
+        "path": "/v1/analytics/local-sale/items-clusters/info",
+        "source_url": "https://docs.ozon.ru/api/seller/#operation/AnalyticsLocalSaleItemsClustersInfo",
+        "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+        "source_sha256": "9ec806941077722fd862e215557f216aa10ef5bc08853846507af80ef3954779",
+        "request_closed_schema_nodes": 0,
+        "closed_schema_nodes": 0
+      },
+      {
+        "family": "seller",
+        "method_id": "AnalyticsLocalSaleTotal",
+        "http_method": "POST",
+        "path": "/v1/analytics/local-sale/total",
+        "source_url": "https://docs.ozon.ru/api/seller/#operation/AnalyticsLocalSaleTotal",
+        "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+        "source_sha256": "767c6cda3754a49feca5e30e14f8ba5facee18ad6e2f3c68caff8def4f22996e",
+        "request_closed_schema_nodes": 0,
+        "closed_schema_nodes": 0
+      },
+      {
+        "family": "seller",
+        "method_id": "DescriptionCategoryDependentAttributesValues",
+        "http_method": "POST",
+        "path": "/v1/description-category/dependent-attributes/values",
+        "source_url": "https://docs.ozon.ru/api/seller/#operation/DescriptionCategoryDependentAttributesValues",
+        "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+        "source_sha256": "d766a7eec578c8b7653cd0261cff045a90d4d2eba8cd6724dd0a8763794edebe",
+        "request_closed_schema_nodes": 0,
+        "closed_schema_nodes": 0
+      },
+      {
+        "family": "seller",
+        "method_id": "DescriptionCategoryDependentAttributes",
+        "http_method": "POST",
+        "path": "/v1/description-category/dependent-attributes",
+        "source_url": "https://docs.ozon.ru/api/seller/#operation/DescriptionCategoryDependentAttributes",
+        "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+        "source_sha256": "c523239286ba36de6e2bb45bc4f9d98d1d1c4fdc00f046c4a44e163de1a4295a",
+        "request_closed_schema_nodes": 0,
+        "closed_schema_nodes": 0
+      },
+      {
+        "family": "seller",
+        "method_id": "FbpOrderDirectTplDlvEdit",
+        "http_method": "POST",
+        "path": "/v1/fbp/order/direct/tpl-dlv/edit",
+        "source_url": "https://docs.ozon.ru/api/seller/#operation/FbpOrderDirectTplDlvEdit",
+        "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+        "source_sha256": "66c61da0311a9642350ac5dd988eb7ffb7624348c5f97686dc66494e239e327a",
+        "request_closed_schema_nodes": 0,
+        "closed_schema_nodes": 0
+      },
+      {
+        "family": "seller",
+        "method_id": "PostingFbsPackageLabelCreate",
+        "http_method": "POST",
+        "path": "/v3/posting/fbs/package-label/create",
+        "source_url": "https://docs.ozon.ru/api/seller/#operation/PostingFbsPackageLabelCreate",
+        "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+        "source_sha256": "caeab128958d5f0936272afdf325bc4c627e92cf6840c2c76cd369ddbe53f178",
+        "request_closed_schema_nodes": 0,
+        "closed_schema_nodes": 0
+      },
+      {
+        "family": "seller",
+        "method_id": "PostingFbsPackageLabelGet",
+        "http_method": "POST",
+        "path": "/v2/posting/fbs/package-label/get",
+        "source_url": "https://docs.ozon.ru/api/seller/#operation/PostingFbsPackageLabelGet",
+        "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+        "source_sha256": "7ddc92c7272d17abc1adace167f5bef803a58dda6563b1c5a8cf10d18b7428dd",
+        "request_closed_schema_nodes": 0,
+        "closed_schema_nodes": 0
+      },
+      {
+        "family": "seller",
+        "method_id": "ProductImportPicturesV2",
+        "http_method": "POST",
+        "path": "/v2/product/pictures/import",
+        "source_url": "https://docs.ozon.ru/api/seller/#operation/ProductImportPicturesV2",
+        "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+        "source_sha256": "7a88755a4024ac1cc6fb458197b872a9317b71ce72c8ec949e770ce63e48ca1f",
+        "request_closed_schema_nodes": 0,
+        "closed_schema_nodes": 0
+      },
+      {
+        "family": "seller",
+        "method_id": "WarehouseRfbsReturnPointList",
+        "http_method": "POST",
+        "path": "/v1/warehouse/rfbs/return-point/list",
+        "source_url": "https://docs.ozon.ru/api/seller/#operation/WarehouseRfbsReturnPointList",
+        "retrieved_at_utc": "2026-10-01T09:10:36.217Z",
+        "source_sha256": "a21e6969e911173df8d5316e12336a93cfef4e4884c784897d600593a1d4c40a",
+        "request_closed_schema_nodes": 0,
+        "closed_schema_nodes": 0
+      }
+    ],
+    "absent": [
+      {
+        "method_id": "QuantGetInfo",
+        "domain": "quants",
+        "path": "/v1/product/quant/info",
+        "http_method": "POST",
+        "classification": "READ",
+        "safety": "read",
+        "reason": "Explicitly classified data retrieval",
+        "permission": "catalog.read",
+        "endpoint_group": "quants",
+        "pagination": "none",
+        "file_download": false,
+        "report_job": false,
+        "sensitive_data": false,
+        "summary": "Информация об эконом-товаре",
+        "description": "Вы можете оставить обратную связь по этому методу в комментариях к [обсуждению](https://dev.ozon.ru/community/1084-Metody-po-tarifu-Ekonom) в сообществе разработчиков Ozon for dev.",
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "quant_code": {
+              "minItems": 1,
+              "maxItems": 1000,
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "quant_code"
+          ],
+          "additionalProperties": false
+        },
+        "source_version": "2.1;ozon-seller-openapi.json",
+        "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+      },
+      {
+        "method_id": "QuantProductList",
+        "domain": "quants",
+        "path": "/v1/product/quant/list",
+        "http_method": "POST",
+        "classification": "READ",
+        "safety": "read",
+        "reason": "Explicitly classified data retrieval",
+        "permission": "catalog.read",
+        "endpoint_group": "quants",
+        "pagination": "bounded",
+        "file_download": false,
+        "report_job": false,
+        "sensitive_data": false,
+        "summary": "Список эконом-товаров",
+        "description": "Вы можете оставить обратную связь по этому методу в комментариях к [обсуждению](https://dev.ozon.ru/community/1084-Metody-po-tarifu-Ekonom) в сообществе разработчиков Ozon for dev.",
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "cursor": {
+              "type": "string"
+            },
+            "limit": {
+              "type": "integer"
+            },
+            "visibility": {
+              "type": "string",
+              "enum": [
+                "ALL",
+                "VISIBLE",
+                "INVISIBLE",
+                "EMPTY_STOCK",
+                "NOT_MODERATED",
+                "MODERATED",
+                "DISABLED",
+                "STATE_FAILED",
+                "READY_TO_SUPPLY",
+                "VALIDATION_STATE_PENDING",
+                "VALIDATION_STATE_FAIL",
+                "VALIDATION_STATE_SUCCESS",
+                "TO_SUPPLY",
+                "IN_SALE",
+                "REMOVED_FROM_SALE",
+                "OVERPRICED",
+                "CRITICALLY_OVERPRICED",
+                "EMPTY_BARCODE",
+                "BARCODE_EXISTS",
+                "QUARANTINE",
+                "ARCHIVED",
+                "OVERPRICED_WITH_STOCK",
+                "PARTIAL_APPROVED"
+              ]
+            }
+          },
+          "required": [
+            "limit"
+          ],
+          "additionalProperties": false
+        },
+        "source_version": "2.1;ozon-seller-openapi.json",
+        "source_hash": "700bc1f76610160aca2c5ba59d1fff84b9362c99a8b4a2c6bbf638186e858ade"
+      }
+    ],
+    "changed_existing_admitted_schemas": 275,
+    "newly_retired_denied": [
+      "AnalyticsAPI_ManageStocks",
+      "CalculateDynamicBudget",
+      "CargoesAPI_CargoesLabelFile",
+      "CarriageAPI_CarriageDeliveryList",
+      "ListPostingCodes",
+      "PostingAPI_GetFbsPostingListV3",
+      "PostingAPI_GetFbsPostingUnfulfilledList",
+      "ProductAPI_ProductStocksByWarehouseFbs",
+      "ProductAPI_V1ProductCertificationList"
+    ],
+    "full_diff": "read-contract-diff.json; exact-set-diff-current.json; official-current-normalized.json"
+  },
+  "REMAINING_GAPS": [
+    "Performance live: NOT_APPLICABLE_NO_CREDENTIALS; all 48 operations have official source, classification and separate credential-family validation",
+    "No actual MOS Ozon-finance consumer discovered; verified five actual production parsers only",
+    "One upstream by-day page returned for the specified real date; seven local chunks verified; upstream last_id transition covered by deterministic tests",
+    "Registry distribution digest not independently published; reported RepoDigests are verified local Docker engine identities"
+  ],
+  "at_utc": "2026-10-01T10:02:31.327579+00:00",
+  "evidence_sha256": {
+    "candidate-identity.json": "8793cfe34e5f4c40d19a176a703af2f8988d61b6f8119fc888e7a6dd8b773b31",
+    "deployment-result.json": "bbc3baebfbf6f4fc72666a90226e3a9444b0c656870095dddfcf1facad95684d",
+    "final-runtime-attestation.json": "5acb3f04ad43e1ec871ccb91ef15b713ce0c413a22d9efd1bfeb258df29e7100",
+    "finance-separate-control.json": "6abdbe61b30dc7ce469243e5bcb7b40b3653f3d70be8d9922635d2cab58c0fd3",
+    "mos-candidate-live-parser.json": "6554139026cac5d4f6db35105a42309c6e06ec4b471b748161a0cd5ae003202a",
+    "post-finance-live.json": "4244d60ae64062621c38119e301e77a31bc827127a5f1afc61f0831903596b76",
+    "post-security-live.json": "4d138702bbb28a878bd96d03e431d2f6841272720681ca248c7792e4dac15d00",
+    "post-smoke-live.json": "1d9f85a1e0d3fcb94821869a2d1c6e85f8040022d527774d8f8670768c8ef303",
+    "secure-tunnel-smoke.json": "e21d4648bf5e5a222ffd84708b78a952b82a9069e442ca42a1cb1ff64d016199",
+    "security-live.json": "3a02a25fdab817ba3ea553c0f549402a95063c113e7404fea4286af3087ed732",
+    "smoke-live.json": "7e16d4a6cc66342f36864ff753d2552a0c49d58a0e7011a60c340d65df6c2839",
+    "temporary-container-closure.json": "cacf8ad29aaaa0d06c6274f7626f8744a88a5b8dde647c5012adbfa61ba7aea2"
+  }
+}

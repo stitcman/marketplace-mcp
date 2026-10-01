@@ -1,0 +1,35 @@
+{
+  "started_at_utc": "2026-10-01T09:59:43.024938+00:00",
+  "runtime_commit": "927a00427b67b3bfe1887070b2f0623ca2f74863",
+  "image_id": "sha256:2f7eae2881107ee3b3bd98d7c3c8808c3f0610ff53435f04b7bcf7fe3dcd8008",
+  "image_tag": "marketplace-mcp/router-upstream:v1.1.0-927a004",
+  "rollback_image_id": "sha256:df5059c568ae3566f14c21e96268792d02496b90ae29646c059b318459cd6c7d",
+  "rollback_archive": "/opt/marketplace-mcp/release-closure-20261001/rollback/router-ffc7ef2.tar",
+  "rollback_ready": true,
+  "status": "PASS",
+  "deployment": "DEPLOYED",
+  "post_deploy_smoke": "PASS",
+  "container_id": "c14bfa53e187d4bf889280eb34c3b8010747375d32487919ae61bef6a044d7d9",
+  "RepoTags": [
+    "marketplace-mcp/ozon-isolated:927a00427b67",
+    "marketplace-mcp/router-upstream:v1.1.0-927a004"
+  ],
+  "RepoDigests": [
+    "marketplace-mcp/ozon-isolated@sha256:2f7eae2881107ee3b3bd98d7c3c8808c3f0610ff53435f04b7bcf7fe3dcd8008",
+    "marketplace-mcp/router-upstream@sha256:2f7eae2881107ee3b3bd98d7c3c8808c3f0610ff53435f04b7bcf7fe3dcd8008"
+  ],
+  "health": "healthy",
+  "manifest_sha256": "9e51f9ee49db2121c1b77015e2143ce3a46cda60352af28443a453b955f5793d",
+  "compose_project": "marketplace-mcp",
+  "compose_config_path": "/opt/marketplace-mcp/deployment/compose.yaml",
+  "compose_sha256": "a7f3c6cd0b611799c910154cd61550f0b3c564f95437fd78b85a39abce6cace6",
+  "logs_sha256": "0d6745d22d6a66e00f9e4566e6336eec01d11edface4a47301d63e76b08942be",
+  "log_error_classes": [],
+  "protected_container_ids": {
+    "mos-pilot-b-api-1": "ffa09b45511bbe1c4e63b5fd1b0bc383c7af34b35056097e1f72ebdcf57cc3cf",
+    "marketplace-mcp-postgres-1": "385f173ec8afc9687f5f511a93a0a014379dfa38dd69498b7e24c14dbc608408"
+  },
+  "WRITE_TOOLS_VISIBLE": 0,
+  "WRITE_REQUESTS_SENT": 0,
+  "completed_at_utc": "2026-10-01T10:00:34.631795+00:00"
+}
