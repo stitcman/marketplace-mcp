@@ -173,21 +173,22 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
         "available to order and reserved. Read-only. Fulfillment models are never merged.",
       inputSchema: {
         ...connectionArg,
-        fulfillment_model: z.enum(["FBO", "FBS", "all"]).default("all").describe("FBO — Ozon warehouses, FBS — seller warehouses"),
+        fulfillment_model: z.enum(["FBO", "FBS", "rFBS", "FBP", "UNKNOWN", "all"]).default("all").describe("Keep fulfillment schemes separate; rFBS/FBP/UNKNOWN require contract_version=v2"),
+        contract_version: z.enum(["v1", "v2"]).default("v1").describe("v1 preserves the shared FBO/FBS contract; v2 preserves all Ozon schemes and missing quantities"),
         seller_sku: z.string().optional().describe("Filter by seller article (offer_id)"),
         limit: z.number().int().min(1).max(1000).default(100),
         cursor: z.string().optional(),
       },
-      outputSchema: listEnvelopeSchema(StockSchema).shape,
+      outputSchema: listEnvelopeSchema(z.union([StockSchema, OzonStockV2Schema])).shape,
     },
     audited(store, "ozon_stocks_get", async (args, setCtx) => {
       const conn = await resolveConnection(store, "ozon", args.connection_id);
       setCtx({ marketplace: "ozon", connectionId: conn.connection_id });
       requirePermission(conn, "stocks.read");
-      const model: "FBO" | "FBS" | "all" = args.fulfillment_model ?? "all";
+      const model = args.fulfillment_model ?? "all";
       const limit = args.limit ?? 100;
 
-      const applyFilters = (items: Stock[]) =>
+      const applyFilters = (items: (Stock | OzonStockV2)[]) =>
         items
           .filter((s) => model === "all" || s.fulfillment_model === model)
           .filter((s) => !args.seller_sku || s.seller_sku === args.seller_sku);
@@ -209,13 +210,18 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
 
       // One Ozon row = a product with stock entries per type. We expand it so FBO and
       // FBS become separate rows and cannot be accidentally summed together.
-      const items: Stock[] = [];
+      const items: (Stock | OzonStockV2)[] = [];
       for (const r of rows) {
         for (const s of r.stocks ?? []) {
           const type = String(s.type ?? "").toLowerCase();
-          const fulfillment: "FBO" | "FBS" = type === "fbs" ? "FBS" : "FBO";
-          items.push({
-            marketplace: "ozon",
+          const fulfillment = ({fbo: 'FBO', fbs: 'FBS', rfbs: 'rFBS', fbp: 'FBP'} as const)[type as 'fbo'] ?? 'UNKNOWN';
+          if (model !== 'all' && fulfillment !== model) continue;
+          if (args.seller_sku && r.offer_id !== args.seller_sku) continue;
+          if (args.contract_version !== 'v2' && (fulfillment !== 'FBO' && fulfillment !== 'FBS' || s.present == null || s.reserved == null)) {
+            throw new MpError('FEATURE_NOT_SUPPORTED', 'Ozon stock page cannot be represented by v1; use contract_version=v2 or the generic READ executor');
+          }
+          const normalized = {
+            marketplace: "ozon" as const,
             marketplace_product_id: String(r.product_id ?? ""),
             size_id: null,
             seller_sku: r.offer_id ?? null,
@@ -223,11 +229,14 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
             warehouse_id: s.warehouse_id != null ? String(s.warehouse_id) : null,
             region: null,
             fulfillment_model: fulfillment,
-            available: s.present ?? 0,
-            reserved: s.reserved ?? 0,
+            available: s.present ?? null,
+            reserved: s.reserved ?? null,
             in_transit_to_customer: 0, // Ozon does not expose in-transit data in this method
             in_transit_from_customer: 0,
-          });
+          };
+          items.push(args.contract_version === 'v2'
+            ? {...normalized, source_type: String(s.type ?? ''), source_sku: s.sku == null ? null : String(s.sku)}
+            : normalized as Stock);
         }
       }
 
@@ -287,6 +296,7 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
           price: { amount: String(p.old_price ?? p.price ?? "0"), currency },
           discount_percent: discount,
           price_after_discount: { amount: String(p.price ?? "0"), currency },
+          ...(p.declared_price === undefined ? {} : {declared_price: p.declared_price === null ? null : {amount: String(p.declared_price), currency}}),
         };
       });
 
