@@ -1,0 +1,13 @@
+import fs from 'node:fs';import crypto from 'node:crypto';import assert from 'node:assert/strict';
+const dir=import.meta.dirname,inventory=JSON.parse(fs.readFileSync(new URL('../../../../inventory/ozon-operations.json',import.meta.url),'utf8'));
+const read=name=>fs.readFileSync(`${dir}/${name}-dom.tsv`,'utf8').trim().split(/\r?\n/).map(l=>{const[method_id,http_method,path]=l.split('|');assert(method_id&&http_method&&path);return{method_id,http_method,path,family:name==='seller'?'seller':'performance'}});
+const seller=read('seller'),perf=read('performance');assert.equal(seller.length,482);assert.equal(perf.length,48);
+const key=r=>`${r.family}|${r.method_id}|${r.http_method}|${r.path}`;
+const old=inventory.map(r=>({...r,family:r.endpoint_group==='performance'?'performance':'seller'}));
+const current=[...seller,...perf];const oldMap=new Map(old.map(r=>[key(r),r])),nowMap=new Map(current.map(r=>[key(r),r]));
+const pick=r=>({method_id:r.method_id,http_method:r.http_method,path:r.path,family:r.family});
+const added=[...nowMap].filter(([k])=>!oldMap.has(k)).map(([,r])=>pick(r));
+const absent=[...oldMap].filter(([k])=>!nowMap.has(k)).map(([,r])=>pick(r));
+const dup=current.filter((r,i)=>current.findIndex(x=>key(x)===key(r))!==i).map(pick);
+const report={source:'Official rendered DOM, method_id + verb + exact path; manually persisted from tool extraction',seller_nodes:482,seller_unique:new Set(seller.map(key)).size,performance_nodes:48,performance_unique:new Set(perf.map(key)).size,historical_records:old.length,historical_unique:oldMap.size,current_unique:nowMap.size,duplicates:dup,added,absent,matched:[...nowMap.keys()].filter(k=>oldMap.has(k)).length,ALL_METHODS_CURRENT:false,reason:'Membership diff is complete; schemas/safety/lifecycle of new operations and existing full contracts remain unverified',input_hashes:Object.fromEntries(['seller','performance'].map(n=>[n,crypto.createHash('sha256').update(fs.readFileSync(`${dir}/${n}-dom.tsv`)).digest('hex')]))};
+fs.writeFileSync(`${dir}/exact-set-diff.json`,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));

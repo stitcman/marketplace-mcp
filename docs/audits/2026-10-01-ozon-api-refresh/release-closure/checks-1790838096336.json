@@ -1,0 +1,40 @@
+{
+  "candidate": "4e29543d05fbd9c0b322b756d87226c94edbb463",
+  "head_at_verification": "e71eaa828998276fe81dc9aa8c7212d03d448e1c",
+  "source_fingerprint": "d071b2dec189de9ee36df726400c3224de79a4c1cc806e621b6275b35b1227f6",
+  "completed_at_utc": "2026-10-01T07:01:36.336Z",
+  "checks": [
+    {
+      "command": "npm run build",
+      "started_at_utc": "2026-10-01T07:01:19.701Z",
+      "completed_at_utc": "2026-10-01T07:01:22.441Z",
+      "exit_code": 0,
+      "stdout_sha256": "ee7fef06db21fdfc4c93ee30f7eff31cd7700f0a6e60334b03a8592b00fcdf70",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "npm test",
+      "started_at_utc": "2026-10-01T07:01:22.441Z",
+      "completed_at_utc": "2026-10-01T07:01:34.646Z",
+      "exit_code": 0,
+      "stdout_sha256": "5298e719583dbf8343203293041d3efdc498bc499b1863cab7d7d4951a23235c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "npm run policies:check",
+      "started_at_utc": "2026-10-01T07:01:34.646Z",
+      "completed_at_utc": "2026-10-01T07:01:35.356Z",
+      "exit_code": 0,
+      "stdout_sha256": "0dfd27aa3461d4ec66de03c46cb5369aceba81e835921515f77d4c5dc2b0a074",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "npm run baseline:check",
+      "started_at_utc": "2026-10-01T07:01:35.356Z",
+      "completed_at_utc": "2026-10-01T07:01:36.136Z",
+      "exit_code": 0,
+      "stdout_sha256": "4fc3285a480dd01d4b4d65054eb97176e79774e59175cf2b4197024f361ef39f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

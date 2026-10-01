@@ -1,0 +1,69 @@
+{
+  "as_of_utc": "2026-10-01T06:59:52.811Z",
+  "candidate": "4e29543d05fbd9c0b322b756d87226c94edbb463",
+  "mos_commit": "b400cd3809aad94acd516c83db8403ac3ce5b30f",
+  "source_hashes": [
+    {
+      "file": "C:\\MOS-worktrees\\integration\\modules\\integration\\src\\official-ozon-request-contracts.ts",
+      "sha256": "d8308f499a9f30d31ba3229ebf97931612e5d35a3f5fa97aa81d54f24e5b387e"
+    },
+    {
+      "file": "C:\\MOS-worktrees\\integration\\modules\\integration\\src\\ozon-seller-http-transport.ts",
+      "sha256": "9963f926c4b09988d4d5b0d2f10743156aee58a583fd54f5add26d2ace0e7299"
+    },
+    {
+      "file": "C:\\MOS-worktrees\\integration\\modules\\integration\\src\\ozon-control-sync.ts",
+      "sha256": "c4da051654850cdace439690f037a915703a52038a5f598ebef85e68ebd24487"
+    },
+    {
+      "file": "C:\\MOS-worktrees\\integration\\modules\\integration\\src\\ozon-control-sync-acceptance.ts",
+      "sha256": "491173b30c2b0d8cafc51015400834c2cfb808d4fc457affad3f77b1ef981d2a"
+    }
+  ],
+  "actual_mcp_consumer_files": [],
+  "checked_source_uses": "Own Seller SourceContract transport; no MCP consumer discovered",
+  "offline_boundary": "PASS",
+  "mos_compatibility": "BLOCKED_RUNTIME_BINDING_UNVERIFIED",
+  "production_runtime_inspected": false,
+  "results": [
+    {
+      "method_id": "ProductAPI_GetProductInfoPrices",
+      "capability": "catalog.prices",
+      "result": "PASS_SYNTHETIC_RAW_AND_PARSER_COMPARISON",
+      "records": 1,
+      "next_cursor_preserved": true
+    },
+    {
+      "method_id": "ProductAPI_GetProductInfoStocks",
+      "capability": "inventory.stock_totals",
+      "result": "PASS_SYNTHETIC_RAW_AND_PARSER_COMPARISON",
+      "records": 1,
+      "next_cursor_preserved": true
+    },
+    {
+      "method_id": "PostingFbsList",
+      "capability": "commerce.fbs_postings",
+      "result": "PASS_SYNTHETIC_RAW_AND_PARSER_COMPARISON",
+      "records": 1,
+      "next_cursor_preserved": true
+    },
+    {
+      "method_id": "PostingFboList",
+      "capability": "commerce.fbo_postings",
+      "result": "PASS_SYNTHETIC_RAW_AND_PARSER_COMPARISON",
+      "records": 1,
+      "next_cursor_preserved": true
+    },
+    {
+      "method_id": "PostingFbsUnfulfilledList",
+      "capability": "commerce.fbs_unfulfilled",
+      "result": "PASS_SYNTHETIC_RAW_AND_PARSER_COMPARISON",
+      "records": 1,
+      "next_cursor_preserved": true
+    }
+  ],
+  "network_requests": 0,
+  "mos_mutations": 0,
+  "finance_and_reports": "No active request builder; finance explicitly blocked in MOS acceptance limitations",
+  "comparison_scope": "OLD/NEW policy records through the current generic executor and the actual MOS pure parser; not a comparison of two running server binaries"
+}

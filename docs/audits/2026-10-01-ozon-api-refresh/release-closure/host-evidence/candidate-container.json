@@ -1,0 +1,16 @@
+{
+  "container_id": "39adaef2ca65f5f54c9fe198bb3e511e22b68585eedfad5ff6bf79de1110a536",
+  "image_id": "sha256:baedfa5d50dcc2c036e79af97c984e1ddddd181bf33211fd213786e123a27047",
+  "RepoTags": [
+    "marketplace-mcp/ozon-isolated:4e29543"
+  ],
+  "RepoDigests": [
+    "marketplace-mcp/ozon-isolated@sha256:baedfa5d50dcc2c036e79af97c984e1ddddd181bf33211fd213786e123a27047"
+  ],
+  "port": "127.0.0.1:19272",
+  "source_commit": "4e29543d05fbd9c0b322b756d87226c94edbb463",
+  "database_mode": "default_transaction_read_only=on; verified SHOW before startup",
+  "audit_sink": "memory; no production audit INSERT",
+  "secret_mount": "same production read-only mount; no plaintext exported",
+  "overlay": "readonly-preload.mjs; unmodified candidate dist/manifest"
+}

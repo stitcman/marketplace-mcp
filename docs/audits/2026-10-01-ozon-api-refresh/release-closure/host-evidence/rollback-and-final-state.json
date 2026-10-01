@@ -1,0 +1,29 @@
+{
+  "rollback_ready": true,
+  "image_load_verified": true,
+  "load_output": "Loaded image: marketplace-mcp/router-upstream:ffc7ef2",
+  "loaded_image_id": "sha256:df5059c568ae3566f14c21e96268792d02496b90ae29646c059b318459cd6c7d",
+  "loaded_RepoDigests": [
+    "marketplace-mcp/router-upstream@sha256:df5059c568ae3566f14c21e96268792d02496b90ae29646c059b318459cd6c7d"
+  ],
+  "image_id": "sha256:df5059c568ae3566f14c21e96268792d02496b90ae29646c059b318459cd6c7d",
+  "image_digest": "marketplace-mcp/router-upstream@sha256:df5059c568ae3566f14c21e96268792d02496b90ae29646c059b318459cd6c7d",
+  "archive": "/opt/marketplace-mcp/release-closure-20261001/rollback/router-ffc7ef2.tar",
+  "archive_sha256": "a27c133b01ed6bb354283c686502dd3a4eab6c66dc8ce9e7630626ab5f491bf1",
+  "compose_snapshot": "/opt/marketplace-mcp/release-closure-20261001/rollback/compose-baseline.yaml",
+  "compose_snapshot_sha256": "3f4a740316dc4e5b1d7fa22f296225004b19a3e1697e795f529c0dac0d79b94d",
+  "compose_dry_run": "DRY-RUN MODE -  Container marketplace-mcp-router-1  Running",
+  "restore_command": "CREDENTIALS_DIRECTORY=/run/credentials/marketplace-mcp.service docker compose -p marketplace-mcp -f /opt/marketplace-mcp/release-closure-20261001/rollback/compose-baseline.yaml up -d --no-deps --pull never router",
+  "load_command": "docker image load -i /opt/marketplace-mcp/release-closure-20261001/rollback/router-ffc7ef2.tar",
+  "restore_scope": "router only; no down, no volumes, no PostgreSQL/MOS recreation",
+  "baseline_unchanged": true,
+  "production_health": "healthy",
+  "candidate_state": "exited",
+  "candidate_logs": {
+    "lines": 1,
+    "error_lines": 0,
+    "sha256": "d291518b43cce10a2c8eb9f1e3be68f28cda8f370df1d0ca7752aa763863e11a"
+  },
+  "deployment": "BLOCKED",
+  "post_deploy_smoke": "NOT_RUN"
+}

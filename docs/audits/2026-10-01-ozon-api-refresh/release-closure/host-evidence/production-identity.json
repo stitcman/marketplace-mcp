@@ -1,0 +1,44 @@
+{
+  "hostname": "msk-1-vm-66nr",
+  "container_id": "c4c5d9d769cd093753105e3073b3a2e4bade29d5767414368f701b0f2cd777b5",
+  "image_id": "sha256:df5059c568ae3566f14c21e96268792d02496b90ae29646c059b318459cd6c7d",
+  "RepoTags": [
+    "marketplace-mcp/router-upstream:ffc7ef2"
+  ],
+  "RepoDigests": [
+    "marketplace-mcp/router-upstream@sha256:df5059c568ae3566f14c21e96268792d02496b90ae29646c059b318459cd6c7d"
+  ],
+  "compose_project": "marketplace-mcp",
+  "compose_path": "/opt/marketplace-mcp/deployment/compose.yaml",
+  "compose_sha256": "3f4a740316dc4e5b1d7fa22f296225004b19a3e1697e795f529c0dac0d79b94d",
+  "environment_keys": [
+    "PATH",
+    "NODE_VERSION",
+    "YARN_VERSION",
+    "NODE_ENV",
+    "MARKETPLACE_RUNTIME_ENV",
+    "GIT_COMMIT"
+  ],
+  "networks": [
+    "marketplace-mcp-egress",
+    "marketplace-mcp-internal"
+  ],
+  "health": "healthy",
+  "embedded_commit": "ffc7ef2465e3df84d6be6fb5aba4015d170b2d61",
+  "version": "0.4.0",
+  "manifest_sha256": "857a3c236f8b4229038fdf0da234942ba094cd14e9208fe43a666ea4f9d3e859",
+  "rollback": {
+    "archive": "/opt/marketplace-mcp/release-closure-20261001/rollback/router-ffc7ef2.tar",
+    "bytes": 61079040,
+    "archive_sha256": "a27c133b01ed6bb354283c686502dd3a4eab6c66dc8ce9e7630626ab5f491bf1",
+    "image_id": "sha256:df5059c568ae3566f14c21e96268792d02496b90ae29646c059b318459cd6c7d",
+    "digests": [
+      "marketplace-mcp/router-upstream@sha256:df5059c568ae3566f14c21e96268792d02496b90ae29646c059b318459cd6c7d"
+    ],
+    "image_present": true,
+    "load_command": "docker image load -i /opt/marketplace-mcp/release-closure-20261001/rollback/router-ffc7ef2.tar",
+    "restore_command": "CREDENTIALS_DIRECTORY=/run/credentials/marketplace-mcp.service docker compose -p marketplace-mcp -f /opt/marketplace-mcp/deployment/compose.yaml up -d --no-deps --pull never router",
+    "production_image_reference": "marketplace-mcp/router-upstream:ffc7ef2",
+    "compose_validation": true
+  }
+}

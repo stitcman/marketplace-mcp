@@ -1,0 +1,51 @@
+{
+  "inspection": "docker inspect only; no MOS exec/mutation",
+  "containers": [
+    {
+      "name": "mos-pilot-b-api-1",
+      "container_id": "ffa09b45511bbe1c4e63b5fd1b0bc383c7af34b35056097e1f72ebdcf57cc3cf",
+      "image_id": "sha256:153730e08fdf4f1e7648e9a381103e105ea6e3e115d904292fac92b2879082c3",
+      "health": "healthy",
+      "compose_path": "/opt/mos/runtime/compose.yaml",
+      "source_commit_labels": {
+        "org.opencontainers.image.revision": "88f23b2ecaeffc7d8043cd1e136643e1a8a04cfe"
+      },
+      "source_commit_env": {},
+      "mcp_environment_keys": [],
+      "mount_destinations": [
+        "/run/marketplace-os/secrets/api"
+      ]
+    },
+    {
+      "name": "mos-pilot-b-worker-1",
+      "container_id": "d70b60ae5faf26564a713b6ebb8379c839fcdab26a8ac8481cc6a73abc9429d0",
+      "image_id": "sha256:c97dcbfe8f1b7309ad0d214ea89082e78dff2c71d4587a43e3fe48c29cb22551",
+      "health": "healthy",
+      "compose_path": "/opt/mos/runtime/compose.yaml",
+      "source_commit_labels": {
+        "org.opencontainers.image.revision": "88f23b2ecaeffc7d8043cd1e136643e1a8a04cfe"
+      },
+      "source_commit_env": {},
+      "mcp_environment_keys": [],
+      "mount_destinations": [
+        "/run/marketplace-os/secrets/worker"
+      ]
+    },
+    {
+      "name": "mos-pilot-b-web-1",
+      "container_id": "b4e5c1f3694ea384a42c7fc87b2048a3e6608708039b881eeebd82e503020601",
+      "image_id": "sha256:64d0d2044004429dc254e76c9f7c9267faa49e5559fd1ecc03386e8f3421e0e7",
+      "health": "healthy",
+      "compose_path": "/opt/mos/runtime/compose.yaml",
+      "source_commit_labels": {
+        "org.opencontainers.image.revision": "88f23b2ecaeffc7d8043cd1e136643e1a8a04cfe"
+      },
+      "source_commit_env": {},
+      "mcp_environment_keys": [],
+      "mount_destinations": [
+        "/run/marketplace-os/config/edge-ca.crt"
+      ]
+    }
+  ],
+  "compatibility": "BLOCKED_NO_SOURCE_COMMIT_OR_PROVEN_MCP_CONSUMER_BINDING"
+}

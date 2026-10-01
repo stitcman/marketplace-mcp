@@ -1,0 +1,7 @@
+{
+  "observed_build_exit_code": 0,
+  "raw_log_sha256": "42dbb52d818427ea790e4e4b6f01667f21539e8554b6bd5de46aa91e96205318",
+  "host_raw_log": "/opt/marketplace-mcp/release-closure-20261001/evidence/build.log",
+  "image_id": "sha256:baedfa5d50dcc2c036e79af97c984e1ddddd181bf33211fd213786e123a27047",
+  "commit": "4e29543d05fbd9c0b322b756d87226c94edbb463"
+}

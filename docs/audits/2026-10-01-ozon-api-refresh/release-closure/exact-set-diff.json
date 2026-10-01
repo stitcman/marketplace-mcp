@@ -1,0 +1,161 @@
+{
+  "source": "Official rendered DOM, method_id + verb + exact path; manually persisted from tool extraction",
+  "seller_nodes": 482,
+  "seller_unique": 481,
+  "performance_nodes": 48,
+  "performance_unique": 48,
+  "historical_records": 511,
+  "historical_unique": 511,
+  "current_unique": 529,
+  "duplicates": [
+    {
+      "method_id": "GetProductInfoStocksByWarehouseFbo",
+      "http_method": "POST",
+      "path": "/v1/product/info/stocks-by-warehouse/fbo",
+      "family": "seller"
+    }
+  ],
+  "added": [
+    {
+      "method_id": "ProductImportPicturesV2",
+      "http_method": "POST",
+      "path": "/v2/product/pictures/import",
+      "family": "seller"
+    },
+    {
+      "method_id": "ActionsCandidates",
+      "http_method": "POST",
+      "path": "/v2/actions/candidates",
+      "family": "seller"
+    },
+    {
+      "method_id": "ActionsProducts",
+      "http_method": "POST",
+      "path": "/v2/actions/products",
+      "family": "seller"
+    },
+    {
+      "method_id": "ActionsProductsUpdate",
+      "http_method": "POST",
+      "path": "/v1/actions/products/update",
+      "family": "seller"
+    },
+    {
+      "method_id": "ActionsProductsDeactivate",
+      "http_method": "POST",
+      "path": "/v2/actions/products/deactivate",
+      "family": "seller"
+    },
+    {
+      "method_id": "ActionsAutoAddProductsListV2",
+      "http_method": "POST",
+      "path": "/v2/actions/auto-add/products/list",
+      "family": "seller"
+    },
+    {
+      "method_id": "ActionsAutoAddProductsCandidatesV2",
+      "http_method": "POST",
+      "path": "/v2/actions/auto-add/products/candidates",
+      "family": "seller"
+    },
+    {
+      "method_id": "ActionsAutoAddProductsDeleteV2",
+      "http_method": "POST",
+      "path": "/v2/actions/auto-add/products/delete",
+      "family": "seller"
+    },
+    {
+      "method_id": "ActionsAutoAddProductsUpdateV2",
+      "http_method": "POST",
+      "path": "/v2/actions/auto-add/products/update",
+      "family": "seller"
+    },
+    {
+      "method_id": "PostingFbsPackageLabelCreate",
+      "http_method": "POST",
+      "path": "/v3/posting/fbs/package-label/create",
+      "family": "seller"
+    },
+    {
+      "method_id": "PostingFbsPackageLabelGet",
+      "http_method": "POST",
+      "path": "/v2/posting/fbs/package-label/get",
+      "family": "seller"
+    },
+    {
+      "method_id": "AnalyticsDecommissionedGoods",
+      "http_method": "POST",
+      "path": "/v1/analytics/decommissioned-goods",
+      "family": "seller"
+    },
+    {
+      "method_id": "AnalyticsCategoryComparison",
+      "http_method": "POST",
+      "path": "/v1/analytics/category/comparison",
+      "family": "seller"
+    },
+    {
+      "method_id": "DescriptionCategoryDependentAttributes",
+      "http_method": "POST",
+      "path": "/v1/description-category/dependent-attributes",
+      "family": "seller"
+    },
+    {
+      "method_id": "DescriptionCategoryDependentAttributesValues",
+      "http_method": "POST",
+      "path": "/v1/description-category/dependent-attributes/values",
+      "family": "seller"
+    },
+    {
+      "method_id": "AnalyticsLocalSaleTotal",
+      "http_method": "POST",
+      "path": "/v1/analytics/local-sale/total",
+      "family": "seller"
+    },
+    {
+      "method_id": "AnalyticsLocalSaleClustersItemsInfo",
+      "http_method": "POST",
+      "path": "/v1/analytics/local-sale/clusters-items/info",
+      "family": "seller"
+    },
+    {
+      "method_id": "AnalyticsLocalSaleItemsClustersInfo",
+      "http_method": "POST",
+      "path": "/v1/analytics/local-sale/items-clusters/info",
+      "family": "seller"
+    },
+    {
+      "method_id": "WarehouseRfbsReturnPointList",
+      "http_method": "POST",
+      "path": "/v1/warehouse/rfbs/return-point/list",
+      "family": "seller"
+    },
+    {
+      "method_id": "FbpOrderDirectTplDlvEdit",
+      "http_method": "POST",
+      "path": "/v1/fbp/order/direct/tpl-dlv/edit",
+      "family": "seller"
+    }
+  ],
+  "absent": [
+    {
+      "method_id": "QuantProductList",
+      "http_method": "POST",
+      "path": "/v1/product/quant/list",
+      "family": "seller"
+    },
+    {
+      "method_id": "QuantGetInfo",
+      "http_method": "POST",
+      "path": "/v1/product/quant/info",
+      "family": "seller"
+    }
+  ],
+  "matched": 509,
+  "ALL_METHODS_CURRENT": false,
+  "reason": "Membership diff is complete; schemas/safety/lifecycle of new operations and existing full contracts remain unverified",
+  "input_hashes": {
+    "seller": "fd28f4a49eecc13bd2cd27d69c9fcdbaedd8028cc77779acf540974d244af19a",
+    "performance": "5183450350aca3bc58736890dba1cb30a4ba944873769f9bb24abf24045ba53c"
+  }
+}

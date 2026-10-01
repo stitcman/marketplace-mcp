@@ -1,0 +1,3 @@
+import {initStore} from '/app/dist/core/store.js';
+const store=await initStore();const c=(await store.listConnections()).find(x=>x.marketplace==='ozon'&&!x.mock&&!x.sandbox&&x.status==='active');const creds=await store.getCredentials(c.connection_id);
+console.log(JSON.stringify({seller_present:Boolean(creds.client_id&&creds.api_key),performance_access_token_present:Boolean(creds.performance_access_token),performance_expires_at_present:Boolean(creds.performance_expires_at),performance_bearer_valid:Boolean(creds.performance_access_token&&creds.performance_expires_at&&Date.parse(creds.performance_expires_at)>Date.now()),database_transaction_read_only:(await store.pool.query('SHOW transaction_read_only')).rows[0].transaction_read_only}));await store.pool.end();
