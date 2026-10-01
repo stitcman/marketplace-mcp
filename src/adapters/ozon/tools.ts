@@ -65,6 +65,15 @@ function cursorPage(raw: any, current: string, binding: string) {
   return { has_more, next_cursor: has_more ? encodeCursor({ v: 2, binding, upstream: next }) : null };
 }
 
+function normalizedCursorMeta(cursor: string | null) {
+  return {kind:'cursor' as const,has_more:cursor!==null,request_patch:cursor===null?null:{cursor}};
+}
+
+function ozonListSchema<T extends z.ZodTypeAny>(item:T) {
+  const base=listEnvelopeSchema(item);
+  return base.extend({meta:base.shape.meta.extend({continuation:z.object({kind:z.enum(['cursor','last_id','offset','none']),has_more:z.boolean(),request_patch:z.record(z.unknown()).nullable()}).optional()})});
+}
+
 function lineAmount(value: unknown, quantity: number): string {
   const match = /^(\d+)(?:\.(\d+))?$/.exec(String(value));
   if (!match || !Number.isSafeInteger(quantity) || quantity < 0) throw new MpError('INVALID_ARGUMENT', 'Invalid Ozon price/quantity contract');
@@ -190,7 +199,7 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
         limit: z.number().int().min(1).max(1000).default(100),
         cursor: z.string().optional(),
       },
-      outputSchema: listEnvelopeSchema(z.union([StockSchema, OzonStockV2Schema])).shape,
+      outputSchema: ozonListSchema(z.union([StockSchema, OzonStockV2Schema])).shape,
     },
     audited(store, "ozon_stocks_get", async (args, setCtx) => {
       const conn = await resolveConnection(store, "ozon", args.connection_id);
@@ -217,7 +226,8 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
         cursor: current,
         limit,
       });
-      const rows: any[] = raw?.items ?? raw?.result?.items ?? [];
+      const rows: any[] = raw?.items ?? raw?.result?.items;
+      if(!Array.isArray(rows)) throw new MpError('INVALID_ARGUMENT','Ozon stock response is missing items');
 
       // One Ozon row = a product with stock entries per type. We expand it so FBO and
       // FBS become separate rows and cannot be accidentally summed together.
@@ -254,7 +264,7 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
       const page = cursorPage(raw, current, binding);
       return envelope(
         { items: applyFilters(items), ...page },
-        { marketplace: "ozon", connectionId: conn.connection_id, nextCursor: page.next_cursor },
+        { marketplace: "ozon", connectionId: conn.connection_id, nextCursor: page.next_cursor,continuation:normalizedCursorMeta(page.next_cursor) },
       );
     }),
   );
@@ -271,7 +281,7 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
         limit: z.number().int().min(1).max(1000).default(100),
         cursor: z.string().optional(),
       },
-      outputSchema: listEnvelopeSchema(OzonPriceSchema).shape,
+      outputSchema: ozonListSchema(OzonPriceSchema).shape,
     },
     audited(store, "ozon_prices_get", async (args, setCtx) => {
       const conn = await resolveConnection(store, "ozon", args.connection_id);
@@ -293,7 +303,8 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
         cursor: current,
         limit,
       });
-      const rows: any[] = raw?.items ?? raw?.result?.items ?? [];
+      const rows: any[] = raw?.items ?? raw?.result?.items;
+      if(!Array.isArray(rows)) throw new MpError('INVALID_ARGUMENT','Ozon price response is missing items');
       const items: Price[] = rows.map((r) => {
         const p = r.price ?? {};
         const currency = p.currency_code ?? "RUB";
@@ -314,7 +325,7 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
       const page = cursorPage(raw, current, binding);
       return envelope(
         { items, ...page },
-        { marketplace: "ozon", connectionId: conn.connection_id, nextCursor: page.next_cursor },
+        { marketplace: "ozon", connectionId: conn.connection_id, nextCursor: page.next_cursor,continuation:normalizedCursorMeta(page.next_cursor) },
       );
     }),
   );
@@ -333,7 +344,7 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
         limit: z.number().int().min(1).max(100).default(100),
         cursor: z.string().optional(),
       },
-      outputSchema: listEnvelopeSchema(OzonOrderSchema).shape,
+      outputSchema: ozonListSchema(OzonOrderSchema).shape,
     },
     audited(store, "ozon_orders_list", async (args, setCtx) => {
       const conn = await resolveConnection(store, "ozon", args.connection_id);
@@ -426,7 +437,7 @@ export function registerOzonTools(server: ToolRegistrar, store: Store) {
       const nextCursor = hasMore ? encodeCursor({v: 3, binding, since, to, fbo_cursor: fboCursor, fbs_cursor: fbsCursor, fbo_done: fboDone, fbs_done: fbsDone}) : null;
       return envelope(
         { items: collected, has_more: hasMore, next_cursor: nextCursor },
-        { marketplace: "ozon", connectionId: conn.connection_id, nextCursor },
+        { marketplace: "ozon", connectionId: conn.connection_id, nextCursor,continuation:normalizedCursorMeta(nextCursor) },
       );
     }),
   );

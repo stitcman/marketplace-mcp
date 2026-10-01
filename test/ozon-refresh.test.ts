@@ -36,6 +36,7 @@ try {
       assert.equal('last_id' in calls[0].body, false);
       assert.equal(first.data.has_more, true);
       assert.equal(first.data.next_cursor, first.meta.next_cursor);
+      assert.deepEqual(first.meta.continuation.request_patch, {cursor:first.data.next_cursor});
       reply = () => ({items: [], cursor: 'page-3', total_items: 2});
       const second = await call(name, {cursor: first.data.next_cursor, limit: 7});
       assert.equal(calls[1].body.cursor, 'page-2');
@@ -51,6 +52,10 @@ try {
     const result = await call('ozon_stocks_get', {fulfillment_model: 'FBS'});
     assert.deepEqual(result.data.items, []);
     assert.equal(result.data.has_more, true);
+  });
+  await check('prices and stocks diagnose a missing required items response', async () => {
+    reply=()=>({cursor:'next'});
+    for(const name of ['ozon_prices_get','ozon_stocks_get']) assert.equal((await call(name)).success,false);
   });
   await check('stocks: v2 preserves rFBS, FBP, unknown and missing; v1 refuses incompatible rows', async () => {
     reply = () => ({items: [{product_id: 101, stocks: [{type: 'fbo', present: 0, reserved: 0}, {type: 'fbs', present: 206, reserved: 1}, {type: 'rfbs', present: 6}, {type: 'fbp'}, {type: 'new_type'}]}], cursor: ''});

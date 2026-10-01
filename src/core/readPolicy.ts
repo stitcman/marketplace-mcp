@@ -105,6 +105,7 @@ async function performApprovedRead(input: {
 
   const requestBytes = Buffer.byteLength(JSON.stringify(params), "utf8");
   if (requestBytes > MAX_REQUEST_BYTES) deny(`Input exceeds ${MAX_REQUEST_BYTES} bytes`);
+  if(marketplace==='ozon') rejectTransportOverrides(params);
   const schemaError = validate(params, method.input_schema ?? { type: "object" }, "params");
   if (schemaError) deny(schemaError);
 
@@ -114,6 +115,16 @@ async function performApprovedRead(input: {
 
 function deny(message: string): never {
   throw new MpError("LOCAL_DENY", message);
+}
+
+function rejectTransportOverrides(value: unknown, depth=0): void {
+  if(depth>32) deny('Ozon input nesting exceeds the local limit');
+  if(!value || typeof value!=='object') return;
+  if(Array.isArray(value)) {for(const child of value)rejectTransportOverrides(child,depth+1);return;}
+  for(const [key,child] of Object.entries(value)) {
+    if(/^(authorization|api[-_]?key|client[-_]?id|client[-_]?secret|password|headers|host|url|base[-_]?url|connection[-_]?id)$/i.test(key)) deny('Ozon authorization, account and routing are server-controlled');
+    rejectTransportOverrides(child,depth+1);
+  }
 }
 
 function validate(value: unknown, schema: JsonSchema, at: string): string | null {
