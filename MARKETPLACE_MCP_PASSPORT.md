@@ -3,7 +3,7 @@
 
 ## Release identity
 
-- MCP version: `1.1.0-rc.3`
+- MCP version: `1.1.0`
 - Production repository baseline: `ffc7ef2465e3df84d6be6fb5aba4015d170b2d61` (Observed production runtime baseline; release-closure host evidence; not the candidate deployment)
 - Candidate source baseline: `321478fcd02b2dd779aa0ca2e3fa7bc599026d3b` (Historical source baseline metadata only; not runtime release binding.)
 - Runtime mode: `READ_ONLY`
